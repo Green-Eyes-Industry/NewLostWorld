@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GameAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 0
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 21300000, guid: eecb5944eeb1b294d8d020f92609e95c, type: 3}
+    - {fileID: 21300000, guid: 61fefcca503d0f24c867968b97bcbc40, type: 3}
+    - {fileID: 21300000, guid: 476a449fc35b5834b883f1521dd11e97, type: 3}
+    - {fileID: 21300000, guid: 0270d0514e52a854a997a78867adaf30, type: 3}
+    - {fileID: 21300000, guid: 687f85d752942a14ab57d38a230c516d, type: 3}
+    - {fileID: 21300000, guid: e08c59dfc3eeeda49b681887a54874ff, type: 3}
+    - {fileID: 21300000, guid: daf937aba074eea43a4450f0d112d00e, type: 3}
+    - {fileID: 21300000, guid: d305a00f1be172448a1d5695873185bb, type: 3}
+    - {fileID: 21300000, guid: a68722009762a9f4ab0082c17066f054, type: 3}
+    - {fileID: 21300000, guid: f1abeefb6db487342b3035baf7d44f0d, type: 3}
+    - {fileID: 21300000, guid: d19aceb1039626349b5aa22e97ad50cb, type: 3}
+    - {fileID: 21300000, guid: 3554f38e9f53d5849851b28993b5e361, type: 3}
+    - {fileID: 21300000, guid: c072ec958388b5747bd3a5d5c48e0d74, type: 3}
+    - {fileID: 21300000, guid: efde9b32a17e3a149bcc77cc1d315d0f, type: 3}
+    - {fileID: 21300000, guid: 0f5495840b472244e99f105c300037de, type: 3}
+    - {fileID: 21300000, guid: 507c81459dc31bf45afba8315568a32f, type: 3}
+    - {fileID: 21300000, guid: 8c500d81a1158b34eb7e0aba740d977d, type: 3}
+    - {fileID: 21300000, guid: fa9e7e3849e733244a1b902f27ad7792, type: 3}
+    - {fileID: 21300000, guid: 1e87b6791220ef4429f8045809de7158, type: 3}
+    - {fileID: 21300000, guid: 9c547f2958e084c42bfb76ff6dc1a87e, type: 3}
+    - {fileID: 21300000, guid: 1b09819bdc1e752468deef88b92ef339, type: 3}
+    - {fileID: 21300000, guid: 0a83f9658062f2f4ebb89f243cddcadb, type: 3}
+    totalSpriteSurfaceArea: 3710646
+    bindAsDefault: 1
+    storedHash:
+      serializedVersion: 2
+      Hash: 9db30fac335ff6d90d4232769bb88243
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: a68722009762a9f4ab0082c17066f054, type: 3}
+  - {fileID: 21300000, guid: 0270d0514e52a854a997a78867adaf30, type: 3}
+  - {fileID: 21300000, guid: 8c500d81a1158b34eb7e0aba740d977d, type: 3}
+  - {fileID: 21300000, guid: d19aceb1039626349b5aa22e97ad50cb, type: 3}
+  - {fileID: 21300000, guid: efde9b32a17e3a149bcc77cc1d315d0f, type: 3}
+  - {fileID: 21300000, guid: eecb5944eeb1b294d8d020f92609e95c, type: 3}
+  - {fileID: 21300000, guid: 0f5495840b472244e99f105c300037de, type: 3}
+  - {fileID: 21300000, guid: 507c81459dc31bf45afba8315568a32f, type: 3}
+  - {fileID: 21300000, guid: 0a83f9658062f2f4ebb89f243cddcadb, type: 3}
+  - {fileID: 21300000, guid: c072ec958388b5747bd3a5d5c48e0d74, type: 3}
+  - {fileID: 21300000, guid: 687f85d752942a14ab57d38a230c516d, type: 3}
+  - {fileID: 21300000, guid: fa9e7e3849e733244a1b902f27ad7792, type: 3}
+  - {fileID: 21300000, guid: 9c547f2958e084c42bfb76ff6dc1a87e, type: 3}
+  - {fileID: 21300000, guid: 1e87b6791220ef4429f8045809de7158, type: 3}
+  - {fileID: 21300000, guid: 61fefcca503d0f24c867968b97bcbc40, type: 3}
+  - {fileID: 21300000, guid: 1b09819bdc1e752468deef88b92ef339, type: 3}
+  - {fileID: 21300000, guid: daf937aba074eea43a4450f0d112d00e, type: 3}
+  - {fileID: 21300000, guid: f1abeefb6db487342b3035baf7d44f0d, type: 3}
+  - {fileID: 21300000, guid: 3554f38e9f53d5849851b28993b5e361, type: 3}
+  - {fileID: 21300000, guid: d305a00f1be172448a1d5695873185bb, type: 3}
+  - {fileID: 21300000, guid: 476a449fc35b5834b883f1521dd11e97, type: 3}
+  - {fileID: 21300000, guid: e08c59dfc3eeeda49b681887a54874ff, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - GameUpDeskript
+  - MemoIco
+  - TimerTime
+  - RemoveItemIco
+  - SiderBack
+  - InventoryIco
+  - SiderBase
+  - TimerBack
+  - ButtonsDown
+  - Orb
+  - GameBackground
+  - DescriptBack
+  - ArrowDark
+  - CaseBack
+  - CharacterIco
+  - AchiveOpen
+  - GameHelpButton_1
+  - GameUpSmallDeskript
+  - UseItemIco
+  - GameHelpButton_2
+  - MapIco
+  - GameBaseButton
+  m_Tag: GameAtlas
+  m_IsVariant: 0

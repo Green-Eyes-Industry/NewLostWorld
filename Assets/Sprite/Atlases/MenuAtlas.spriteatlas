@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MenuAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 21300000, guid: 85b8be9810237c74d8be0f6d3d033222, type: 3}
+    - {fileID: 21300000, guid: 21b973e5b9e7faa4d944c8a6848a41f1, type: 3}
+    - {fileID: 21300000, guid: 0bdb3194f3405a8489e8207e9632a2de, type: 3}
+    - {fileID: 21300000, guid: d426a6ccf327c2647ab21f801308859e, type: 3}
+    - {fileID: 21300000, guid: 56412903237c27f4e92de1e7fd346d45, type: 3}
+    - {fileID: 21300000, guid: 5622e36ec9eddaa45a75e8776df7ba5b, type: 3}
+    - {fileID: 21300000, guid: d3d9edf354b38284283d33ad9c1355e9, type: 3}
+    - {fileID: 21300000, guid: 9f0b8aa8e1c9ae649bed962704573932, type: 3}
+    - {fileID: 21300000, guid: d5c12501febb0534694b0944a8ebe197, type: 3}
+    - {fileID: 21300000, guid: a0cb096a5fed9924a8269e6bbe629a99, type: 3}
+    - {fileID: 21300000, guid: 0f3376caefabe574c94d01aaa69b1c75, type: 3}
+    totalSpriteSurfaceArea: 2921648
+    bindAsDefault: 1
+    storedHash:
+      serializedVersion: 2
+      Hash: 4435a587d4681a0bd5b21076b98310e8
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d5c12501febb0534694b0944a8ebe197, type: 3}
+  - {fileID: 21300000, guid: 56412903237c27f4e92de1e7fd346d45, type: 3}
+  - {fileID: 21300000, guid: d3d9edf354b38284283d33ad9c1355e9, type: 3}
+  - {fileID: 21300000, guid: 0bdb3194f3405a8489e8207e9632a2de, type: 3}
+  - {fileID: 21300000, guid: 21b973e5b9e7faa4d944c8a6848a41f1, type: 3}
+  - {fileID: 21300000, guid: 85b8be9810237c74d8be0f6d3d033222, type: 3}
+  - {fileID: 21300000, guid: 9f0b8aa8e1c9ae649bed962704573932, type: 3}
+  - {fileID: 21300000, guid: a0cb096a5fed9924a8269e6bbe629a99, type: 3}
+  - {fileID: 21300000, guid: 0f3376caefabe574c94d01aaa69b1c75, type: 3}
+  - {fileID: 21300000, guid: d426a6ccf327c2647ab21f801308859e, type: 3}
+  - {fileID: 21300000, guid: 5622e36ec9eddaa45a75e8776df7ba5b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - AchiveClose
+  - MenuButton
+  - MenuBackground
+  - EyeBase
+  - EyeCenter
+  - DecoOrb
+  - WorldOrb
+  - Arrow
+  - AchiveOrb
+  - EyeBack
+  - MenuUpPanel
+  m_Tag: MenuAtlas
+  m_IsVariant: 0

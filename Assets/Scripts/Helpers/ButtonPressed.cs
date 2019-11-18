@@ -9,14 +9,10 @@ public class ButtonPressed : MonoBehaviour
     [Tooltip("ID кнопки")] [SerializeField] private int _buttonId;
 
     private MoveController _moveController;
-    private BoxCollider2D _collider;
 
-    private void Start()
+    private void Awake()
     {
         _moveController = GameObject.FindGameObjectWithTag("GameController").GetComponent<MoveController>();
-        _collider = GetComponent<BoxCollider2D>();
-
-        ResizeCollider();
     }
 
     private void OnMouseDown()
@@ -29,16 +25,5 @@ public class ButtonPressed : MonoBehaviour
     {
         if(_itIsMenu) _moveController.MenuButtonUp(_buttonId);
         else _moveController.GameButtonUp(_buttonId);
-    }
-
-    /// <summary>
-    /// Подгонка коллайдера под разрешение экрана
-    /// </summary>
-    private void ResizeCollider()
-    {
-        _collider.size = new Vector2(
-            Screen.width * (_collider.size.x / 720),
-            Screen.height * (_collider.size.y / 1280)
-            );
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -8,7 +9,11 @@ public class TextController : MonoBehaviour
 {
     #region CONNECTED_VAR
 
-    [SerializeField] private Text _menuStartButtonTxt;
+    [SerializeField] private Text _menuButton_1;
+    [SerializeField] private Text _menuButton_2;
+    [SerializeField] private Text _menuButton_3;
+    [SerializeField] private Text _menuButton_4;
+
     [SerializeField] private Text _gameMain_Txt;
     [SerializeField] private Text _gameButton_1_Txt;
     [SerializeField] private Text _gameButton_2_Txt;
@@ -31,12 +36,19 @@ public class TextController : MonoBehaviour
     #region TEXT_CONTROL
 
     /// <summary>
-    /// Замена текста на первой кнопке меню
+    /// Открыть главное меню
     /// </summary>
-    public void MenuStartButton(string newTxt)
-    {
-        _menuStartButtonTxt.text = newTxt;
-    }
+    public void MenuOpenMain() => StartCoroutine(WaitToMenuSwitch(0.2f));
+
+    /// <summary>
+    /// Открыть меню настроек
+    /// </summary>
+    public void MenuOpenSettings() => StartCoroutine(WaitToSettingsSwitch(0.2f));
+
+    /// <summary>
+    /// Открыть меню автора
+    /// </summary>
+    public void MenuOpenAbout() => StartCoroutine(WaitToAboutSwitch(0.2f));
 
     /// <summary>
     /// Замена основного текста в игре
@@ -115,6 +127,45 @@ public class TextController : MonoBehaviour
                 //  _mainPlayer.playerInventory[i].itemIco;
             }
         }
+    }
+
+    #endregion
+
+    #region WAIT_SWITCH
+
+    /// <summary>
+    /// Задержка при переходе  главное меню
+    /// </summary>
+    private IEnumerator WaitToMenuSwitch(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        _menuButton_1.text = "Новая игра";
+        _menuButton_2.text = "Настройки";
+        _menuButton_3.text = "Об Авторах";
+        _menuButton_4.text = "Достижения";
+    }
+
+    /// <summary>
+    /// Задержка при переходе в настройки
+    /// </summary>
+    private IEnumerator WaitToSettingsSwitch(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        _menuButton_1.text = "Звук";
+        _menuButton_2.text = "Вибриция";
+        _menuButton_3.text = "Эффекты";
+        _menuButton_4.text = "Назад";
+    }
+
+    /// <summary>
+    /// Задержка при переходе в меню автора
+    /// </summary>
+    private IEnumerator WaitToAboutSwitch(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        _menuButton_4.text = "Назад";
     }
 
     #endregion

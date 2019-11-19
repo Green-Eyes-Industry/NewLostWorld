@@ -9,6 +9,8 @@ public class TextController : MonoBehaviour
 {
     #region CONNECTED_VAR
 
+    [SerializeField] private RectTransform _eyeCenter;
+
     [SerializeField] private Text _menuButton_1;
     [SerializeField] private Text _menuButton_2;
     [SerializeField] private Text _menuButton_3;
@@ -26,11 +28,52 @@ public class TextController : MonoBehaviour
 
     private Player _mainPlayer;
 
+    private Gyroscope _mainGyro;
+    private bool _gyroEnable;
+    private Vector2 _eyeFixPosition;
+
     #endregion
 
     private void Start()
     {
         _mainPlayer = GetComponent<DataController>().playerData;
+        ConnectGyroscope();
+    }
+
+    private void Update() => EyeWatching();
+
+    /// <summary>
+    /// Подключение гироскопа
+    /// </summary>
+    private void ConnectGyroscope()
+    {
+        if (SystemInfo.supportsGyroscope)
+        {
+            _mainGyro = Input.gyro;
+            _mainGyro.enabled = true;
+            _gyroEnable = true;
+        }
+        else
+        {
+            _eyeCenter.anchoredPosition = new Vector2(0, 40);
+            _gyroEnable = false;
+        }
+    }
+
+    /// <summary>
+    /// Слежение глаза
+    /// </summary>
+    private void EyeWatching()
+    {
+        if (_gyroEnable)
+        {
+            if (_mainGyro.gravity.y > 0) _eyeFixPosition.y = (_mainGyro.gravity.y * 20) * -1;
+            else _eyeFixPosition.y = (_mainGyro.gravity.y * 90) * -1;
+
+            _eyeFixPosition.x = (_mainGyro.gravity.x * 50) * -1;
+
+            _eyeCenter.anchoredPosition = _eyeFixPosition;
+        }
     }
 
     #region TEXT_CONTROL

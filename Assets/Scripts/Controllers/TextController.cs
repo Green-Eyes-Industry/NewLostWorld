@@ -61,7 +61,7 @@ public class TextController : MonoBehaviour
     }
 
     /// <summary>
-    /// Слежение глаза
+    /// Слежение глаза в меню
     /// </summary>
     private void EyeWatching()
     {

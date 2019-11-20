@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// Анимация и переходы
@@ -6,6 +7,9 @@
 public class MoveController : MonoBehaviour
 {
     #region CONNECTIONS
+
+    [SerializeField] private GameObject _menuCanvas;
+    [SerializeField] private GameObject _gameCanvas;
 
     /// <summary>
     /// Первая глава сюжета
@@ -136,22 +140,22 @@ public class MoveController : MonoBehaviour
 
             case 3:
                 // Инвентарь
-
+                _mainAnimator.SetBool("Btb_Inventory", true);
                 break;
 
             case 4:
                 // Карта
-
+                _mainAnimator.SetBool("Btb_Map", true);
                 break;
 
             case 5:
                 // Персонаж
-
+                _mainAnimator.SetBool("Btb_Player", true);
                 break;
 
             case 6:
                 // Заметки
-
+                _mainAnimator.SetBool("Btb_Notes", true);
                 break;
         }
     }
@@ -165,37 +169,39 @@ public class MoveController : MonoBehaviour
         {
             case 0:
                 _mainAnimator.SetBool("GameButton_1", false);
-                if(_startPart.movePart_1 != null) NextPart(_startPart.movePart_1);
+                // if(_startPart.movePart_1 != null) NextPart(_startPart.movePart_1);
                 break;
 
             case 1:
                 _mainAnimator.SetBool("GameButton_2", false);
-                if (_startPart.movePart_2 != null) NextPart(_startPart.movePart_2);
+                // if (_startPart.movePart_2 != null) NextPart(_startPart.movePart_2);
                 break;
 
             case 2:
                 _mainAnimator.SetBool("GameButton_3", false);
-                if (_startPart.movePart_3 != null) NextPart(_startPart.movePart_3);
+                // if (_startPart.movePart_3 != null) NextPart(_startPart.movePart_3);
                 break;
 
             case 3:
                 // Инвентарь
-
+                _mainAnimator.SetBool("Btb_Inventory", false);
+                if (_mainAnimator.GetInteger("GameStady") != 5) _mainAnimator.SetInteger("GameStady", 5);
+                else _mainAnimator.SetInteger("GameStady", 0); // Заменить на последнюю главу
                 break;
 
             case 4:
                 // Карта
-
+                _mainAnimator.SetBool("Btb_Map", false);
                 break;
 
             case 5:
                 // Персонаж
-
+                _mainAnimator.SetBool("Btb_Player", false);
                 break;
 
             case 6:
                 // Заметки
-
+                _mainAnimator.SetBool("Btb_Notes", false);
                 break;
         }
     }
@@ -291,8 +297,13 @@ public class MoveController : MonoBehaviour
                 switch (_mainAnimator.GetInteger("MenuStady"))
                 {
                     case 0:
-                        
+
                         // TODO : Начать игру
+                        _mainAnimator.SetBool("StartGameDescript", true);
+                        _mainAnimator.SetInteger("MenuStady", 9);
+                        _mainAnimator.SetInteger("GameStady", 0); // Переделать под сохраненную главу
+
+                        StartCoroutine(HideStartDescriptMenu());
 
                         break;
 
@@ -493,7 +504,36 @@ public class MoveController : MonoBehaviour
                     _isAchiveDetail = false;
                 }
                 break;
+
+            case 12:
+                // Выход из стартового превью
+                _mainAnimator.SetBool("StartGameDescript", false);
+                break;
         }
+    }
+
+    #endregion
+
+    #region ANIM_HELPERS
+
+    /// <summary>
+    /// Переход в игровое меню
+    /// </summary>
+    public void AnimMenuToGameSwitch()
+    {
+        _menuCanvas.SetActive(false);
+        _gameCanvas.SetActive(true);
+    }
+
+    /// <summary>
+    /// Задержка стартового меню
+    /// </summary>
+    private IEnumerator HideStartDescriptMenu()
+    {
+        yield return new WaitForSeconds(10f);
+
+        _mainAnimator.SetBool("StartGameDescript", false);
+
     }
 
     #endregion

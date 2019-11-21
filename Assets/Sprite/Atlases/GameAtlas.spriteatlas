@@ -44,7 +44,7 @@ SpriteAtlas:
     - {fileID: 21300000, guid: 3554f38e9f53d5849851b28993b5e361, type: 3}
     - {fileID: 21300000, guid: c072ec958388b5747bd3a5d5c48e0d74, type: 3}
     - {fileID: 21300000, guid: efde9b32a17e3a149bcc77cc1d315d0f, type: 3}
-    - {fileID: 21300000, guid: 0f5495840b472244e99f105c300037de, type: 3}
+    - {fileID: 21300000, guid: e145e257edb57ca4ab8f287aa026b023, type: 3}
     - {fileID: 21300000, guid: 507c81459dc31bf45afba8315568a32f, type: 3}
     - {fileID: 21300000, guid: 8c500d81a1158b34eb7e0aba740d977d, type: 3}
     - {fileID: 21300000, guid: fa9e7e3849e733244a1b902f27ad7792, type: 3}
@@ -56,7 +56,7 @@ SpriteAtlas:
     bindAsDefault: 1
     storedHash:
       serializedVersion: 2
-      Hash: 9e94dabcba7a0319a250509edcd90cf8
+      Hash: bb0e670ead66266c1ccaad4c6e1d3b2b
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: a68722009762a9f4ab0082c17066f054, type: 3}
@@ -65,10 +65,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d19aceb1039626349b5aa22e97ad50cb, type: 3}
   - {fileID: 21300000, guid: efde9b32a17e3a149bcc77cc1d315d0f, type: 3}
   - {fileID: 21300000, guid: eecb5944eeb1b294d8d020f92609e95c, type: 3}
-  - {fileID: 21300000, guid: 0f5495840b472244e99f105c300037de, type: 3}
   - {fileID: 21300000, guid: 507c81459dc31bf45afba8315568a32f, type: 3}
   - {fileID: 21300000, guid: 0a83f9658062f2f4ebb89f243cddcadb, type: 3}
   - {fileID: 21300000, guid: c072ec958388b5747bd3a5d5c48e0d74, type: 3}
+  - {fileID: 21300000, guid: e145e257edb57ca4ab8f287aa026b023, type: 3}
   - {fileID: 21300000, guid: 687f85d752942a14ab57d38a230c516d, type: 3}
   - {fileID: 21300000, guid: fa9e7e3849e733244a1b902f27ad7792, type: 3}
   - {fileID: 21300000, guid: 9c547f2958e084c42bfb76ff6dc1a87e, type: 3}
@@ -88,10 +88,10 @@ SpriteAtlas:
   - RemoveItemIco
   - SiderBack
   - InventoryIco
-  - SiderBase
   - TimerBack
   - ButtonsDown
   - Orb
+  - SiderBase
   - GameBackground
   - DescriptBack
   - ArrowDark

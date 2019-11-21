@@ -195,6 +195,7 @@ public class TextController : MonoBehaviour
     private IEnumerator WaitToSettingsSwitch(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+
         _menuButton_1.text = "Звук";
         _menuButton_2.text = "Вибриция";
         _menuButton_3.text = "Эффекты";

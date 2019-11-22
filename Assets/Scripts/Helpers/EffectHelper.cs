@@ -1,11 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// Запуск эффекта
 /// </summary>
 public class EffectHelper : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _particle;
+    [SerializeField] private GameObject _particle;
 
-    private void OnMouseDown() => _particle.Play();
+    private void OnMouseDown()
+    {
+        _particle.SetActive(true);
+        _particle.GetComponent<ParticleSystem>().Play();
+        StartCoroutine(WaitForDisable());
+    }
+
+    /// <summary>
+    /// Задержка отключения эффекта
+    /// </summary>
+    private IEnumerator WaitForDisable()
+    {
+        yield return new WaitForSeconds(_particle.GetComponent<ParticleSystem>().duration * 3);
+        _particle.SetActive(false);
+    }
 }

@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.512
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1360,7 +1360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &189835802
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7041,7 +7041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1001867057}
+  _particle: {fileID: 1001867054}
 --- !u!1 &397153379
 GameObject:
   m_ObjectHideFlags: 0
@@ -7218,7 +7218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1686226905}
+  _particle: {fileID: 1686226902}
 --- !u!1 &477959159
 GameObject:
   m_ObjectHideFlags: 0
@@ -7864,6 +7864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88eacb27f23b0b14eb1960e17d336786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameWaitToSwitch: 0.4
   _eyeCenter: {fileID: 339409854}
   _menuButton_1: {fileID: 2073387544}
   _menuButton_2: {fileID: 983895235}
@@ -8508,7 +8509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &734183037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13907,7 +13908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &824443180
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19158,7 +19159,7 @@ MonoBehaviour:
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.512
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -19920,7 +19921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1001867055
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25429,7 +25430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 189835804}
+  _particle: {fileID: 189835801}
 --- !u!1 &1100976888
 GameObject:
   m_ObjectHideFlags: 0
@@ -25796,7 +25797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1288348645}
+  _particle: {fileID: 1288348642}
 --- !u!1 &1158409312
 GameObject:
   m_ObjectHideFlags: 0
@@ -26449,7 +26450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1288348643
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32225,7 +32226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1475901654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37384,7 +37385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1475901656}
+  _particle: {fileID: 1475901653}
 --- !u!1 &1547728531
 GameObject:
   m_ObjectHideFlags: 0
@@ -38241,7 +38242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1686226903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43115,7 +43116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1715454507
 RectTransform:
   m_ObjectHideFlags: 0
@@ -48528,7 +48529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1715454509}
+  _particle: {fileID: 1715454506}
 --- !u!1 &1904761436
 GameObject:
   m_ObjectHideFlags: 0
@@ -49244,7 +49245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 734183039}
+  _particle: {fileID: 734183036}
 --- !u!1 &2073387542
 GameObject:
   m_ObjectHideFlags: 0
@@ -49479,7 +49480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 824443182}
+  _particle: {fileID: 824443179}
 --- !u!1 &2097428052
 GameObject:
   m_ObjectHideFlags: 0

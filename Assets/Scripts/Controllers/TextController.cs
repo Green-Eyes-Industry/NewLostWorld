@@ -9,6 +9,10 @@ public class TextController : MonoBehaviour
 {
     #region CONNECTED_VAR
 
+    [Header("Параметры")]
+    [SerializeField] private float _gameWaitToSwitch;
+
+    [Header("Связи")]
     [SerializeField] private RectTransform _eyeCenter;
 
     [SerializeField] private Text _menuButton_1;
@@ -96,34 +100,22 @@ public class TextController : MonoBehaviour
     /// <summary>
     /// Замена основного текста в игре
     /// </summary>
-    public void GameMain (string newTxt)
-    {
-        _gameMain_Txt.text = newTxt;
-    }
+    public void GameMain(string newTxt) => StartCoroutine(WaitToMainTextSwitch(_gameWaitToSwitch, newTxt));
 
     /// <summary>
     /// Замена текста на первой игровой кнопке
     /// </summary>
-    public void GameButton_1(string newTxt)
-    {
-        _gameButton_1_Txt.text = newTxt;
-    }
+    public void GameButton_1(string newTxt) => StartCoroutine(WaitToGameButton_1_Switch(_gameWaitToSwitch, newTxt));
 
     /// <summary>
     /// Замена текста на второй игровой кнопке
     /// </summary>
-    public void GameButton_2(string newTxt)
-    {
-        _gameButton_2_Txt.text = newTxt;
-    }
+    public void GameButton_2(string newTxt) => StartCoroutine(WaitToGameButton_2_Switch(_gameWaitToSwitch, newTxt));
 
     /// <summary>
     /// Замена текста на третьей игровой кнопке
     /// </summary>
-    public void GameButton_3(string newTxt)
-    {
-        _gameButton_3_Txt.text = newTxt;
-    }
+    public void GameButton_3(string newTxt) => StartCoroutine(WaitToGameButton_3_Switch(_gameWaitToSwitch, newTxt));
 
     /// <summary>
     /// Текст сообщения инвентаря
@@ -210,6 +202,46 @@ public class TextController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         _menuButton_4.text = "Назад";
+    }
+
+    /// <summary>
+    /// Задержка замена основного текста в игре
+    /// </summary>
+    private IEnumerator WaitToMainTextSwitch(float waitTime, string newTxt)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        _gameMain_Txt.text = newTxt;
+    }
+
+    /// <summary>
+    /// Задержка при замене текста на первой кнопке
+    /// </summary>
+    private IEnumerator WaitToGameButton_1_Switch(float waitTime, string newTxt)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        _gameButton_1_Txt.text = newTxt;
+    }
+
+    /// <summary>
+    /// Задержка при замене текста на второй кнопке
+    /// </summary>
+    private IEnumerator WaitToGameButton_2_Switch(float waitTime, string newTxt)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        _gameButton_2_Txt.text = newTxt;
+    }
+
+    /// <summary>
+    /// Задержка при замене текста на третей кнопке
+    /// </summary>
+    private IEnumerator WaitToGameButton_3_Switch(float waitTime, string newTxt)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        _gameButton_3_Txt.text = newTxt;
     }
 
     #endregion

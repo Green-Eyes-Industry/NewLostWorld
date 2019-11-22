@@ -62,6 +62,7 @@ public class MoveController : MonoBehaviour
     /// </summary>
     private void NextPart(GamePart nextPart)
     {
+        _mainAnimator.SetTrigger("SwitchGameText");
         if (nextPart is TextPart) ShowTextPart((TextPart)nextPart);
         else if (nextPart is ChangePart) ShowChangePart((ChangePart)nextPart);
         else if (nextPart is BattlePart) ShowBattlePart((BattlePart)nextPart);

@@ -439,13 +439,21 @@ public class MoveController : MonoBehaviour
             case 4:
                 // Влево в меню достижений
 
-                if (!_isAchiveDetail) _mainAnimator.SetBool("Achives_Left", false);
+                if (!_isAchiveDetail)
+                {
+                    _mainAnimator.SetBool("Achives_Left", false);
+                    _mainAnimator.SetTrigger("AchiveSlidePage");
+                }
                 break;
 
             case 5:
                 // Вправо в меню достижений
 
-                if (!_isAchiveDetail) _mainAnimator.SetBool("Achives_Right", false);
+                if (!_isAchiveDetail)
+                {
+                    _mainAnimator.SetBool("Achives_Right", false);
+                    _mainAnimator.SetTrigger("AchiveSlidePage");
+                }
                 break;
 
             case 6:

@@ -8,7 +8,12 @@ public class UsableItemGUI_Inspector : Editor
 
     private void OnEnable() => _usableItem = (UsableItem)target;
 
-    public override void OnInspectorGUI()
+    public override void OnInspectorGUI() => ShowUsableItemEditor(_usableItem);
+
+    /// <summary>
+    /// Показать редактор активного предмета
+    /// </summary>
+    public static void ShowUsableItemEditor(UsableItem usableItem)
     {
         GUILayout.Label("Активный предмет");
 
@@ -16,13 +21,13 @@ public class UsableItemGUI_Inspector : Editor
 
         GUILayout.BeginVertical();
 
-        _usableItem.itemName = EditorGUILayout.TextField("Название :", _usableItem.itemName);
+        usableItem.itemName = EditorGUILayout.TextField("Название :", usableItem.itemName);
         GUILayout.Label("Описание :");
-        _usableItem.itemDescript = EditorGUILayout.TextArea(_usableItem.itemDescript, GUILayout.Height(40));
+        usableItem.itemDescript = EditorGUILayout.TextArea(usableItem.itemDescript, GUILayout.Height(40));
 
         GUILayout.EndVertical();
 
-        _usableItem.itemIco = (Sprite)EditorGUILayout.ObjectField(_usableItem.itemIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
+        usableItem.itemIco = (Sprite)EditorGUILayout.ObjectField(usableItem.itemIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
 
         GUILayout.EndHorizontal();
 
@@ -30,11 +35,11 @@ public class UsableItemGUI_Inspector : Editor
 
         GUILayout.BeginVertical("Box");
 
-        _usableItem.healthInf = EditorGUILayout.IntSlider("Здоровье :", _usableItem.healthInf, -100, 100);
-        _usableItem.mindInf = EditorGUILayout.IntSlider("Рассудок :", _usableItem.mindInf, -100, 100);
+        usableItem.healthInf = EditorGUILayout.IntSlider("Здоровье :", usableItem.healthInf, -100, 100);
+        usableItem.mindInf = EditorGUILayout.IntSlider("Рассудок :", usableItem.mindInf, -100, 100);
 
         GUILayout.EndVertical();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _usableItem.SetDirty();
+        if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) usableItem.SetDirty();
     }
 }

@@ -5,7 +5,6 @@ using UnityEditor;
 public class ChangePartGUI_Inspector : Editor
 {
     private ChangePart _changePart;
-    private Vector2 _eventSlider = Vector2.zero;
 
     private void OnEnable() => _changePart = (ChangePart)target;
 
@@ -33,24 +32,8 @@ public class ChangePartGUI_Inspector : Editor
 
         GUILayout.Label("Параметры");
 
-        GUILayout.BeginScrollView(_eventSlider, "Box");
-        if (_changePart.mainEvents.Count > 0)
-        {
-            for (int i = 0; i < _changePart.mainEvents.Count; i++)
-            {
-                GUILayout.BeginHorizontal();
-
-                _changePart.mainEvents[i] = (GameEvent)EditorGUILayout.ObjectField(_changePart.mainEvents[i], typeof(GameEvent), true);
-                if (GUILayout.Button("Удалить", GUILayout.Width(70))) _changePart.mainEvents.RemoveAt(i);
-
-                GUILayout.EndHorizontal();
-            }
-        }
-        else GUILayout.Label("Нет событий");
-
-        GUILayout.EndScrollView();
-
-        if (GUILayout.Button("Добавить событие", GUILayout.Height(30))) _changePart.mainEvents.Add(null);
+        if (_changePart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_changePart.mainEvents);
+        else _changePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
 
         if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _changePart.SetDirty();
     }

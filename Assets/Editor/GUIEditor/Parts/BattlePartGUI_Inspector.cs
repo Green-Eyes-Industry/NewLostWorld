@@ -5,9 +5,8 @@ using UnityEditor;
 public class BattlePartGUI_Inspector : Editor
 {
     private BattlePart _battlePart;
-    private Vector2 _eventSlider = Vector2.zero;
 
-    private void OnEnable() => _battlePart = (BattlePart)target;
+    private void OnEnable() => _battlePart = (BattlePart) target;
 
     public override void OnInspectorGUI()
     {
@@ -39,24 +38,8 @@ public class BattlePartGUI_Inspector : Editor
 
         GUILayout.Label("Параметры");
 
-        GUILayout.BeginScrollView(_eventSlider,"Box");
-        if(_battlePart.mainEvents.Count > 0)
-        {
-            for (int i = 0; i < _battlePart.mainEvents.Count; i++)
-            {
-                GUILayout.BeginHorizontal();
-
-                _battlePart.mainEvents[i] = (GameEvent)EditorGUILayout.ObjectField(_battlePart.mainEvents[i], typeof(GameEvent), true);
-                if (GUILayout.Button("Удалить",GUILayout.Width(70))) _battlePart.mainEvents.RemoveAt(i);
-
-                GUILayout.EndHorizontal();
-            }
-        }
-        else GUILayout.Label("Нет событий");
-
-        GUILayout.EndScrollView();
-
-        if (GUILayout.Button("Добавить событие", GUILayout.Height(30))) _battlePart.mainEvents.Add(null);
+        if (_battlePart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_battlePart.mainEvents);
+        else _battlePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
 
         if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _battlePart.SetDirty();
     }

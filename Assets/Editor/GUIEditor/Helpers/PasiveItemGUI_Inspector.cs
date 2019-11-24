@@ -8,7 +8,12 @@ public class PasiveItemGUI_Inspector : Editor
 
     private void OnEnable() => _pasiveItem = (PasiveItem)target;
 
-    public override void OnInspectorGUI()
+    public override void OnInspectorGUI() => ShowPassiveItemEditor(_pasiveItem);
+
+    /// <summary>
+    /// Показать редактор пассивного предмета
+    /// </summary>
+    public static void ShowPassiveItemEditor(PasiveItem pasiveItem)
     {
         GUILayout.Label("Пассивный предмет");
 
@@ -16,16 +21,16 @@ public class PasiveItemGUI_Inspector : Editor
 
         GUILayout.BeginVertical();
 
-        _pasiveItem.itemName = EditorGUILayout.TextField("Название :", _pasiveItem.itemName);
+        pasiveItem.itemName = EditorGUILayout.TextField("Название :", pasiveItem.itemName);
         GUILayout.Label("Описание :");
-        _pasiveItem.itemDescript = EditorGUILayout.TextArea(_pasiveItem.itemDescript,GUILayout.Height(40));
+        pasiveItem.itemDescript = EditorGUILayout.TextArea(pasiveItem.itemDescript, GUILayout.Height(40));
 
         GUILayout.EndVertical();
 
-        _pasiveItem.itemIco = (Sprite)EditorGUILayout.ObjectField(_pasiveItem.itemIco, typeof(Sprite), true, GUILayout.Height(75),GUILayout.Width(75));
+        pasiveItem.itemIco = (Sprite)EditorGUILayout.ObjectField(pasiveItem.itemIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _pasiveItem.SetDirty();
+        if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) pasiveItem.SetDirty();
     }
 }

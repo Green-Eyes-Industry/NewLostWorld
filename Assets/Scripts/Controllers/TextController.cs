@@ -9,6 +9,8 @@ public class TextController : MonoBehaviour
 {
     #region CONNECTED_VAR
 
+    
+
     [Header("Параметры")]
     [SerializeField] private float _gameWaitToSwitch;
 
@@ -153,6 +155,9 @@ public class TextController : MonoBehaviour
 
     #region UI_CONTROL
 
+    /// <summary>
+    /// Перерисовать инвентарь
+    /// </summary>
     public void RepaintInventory()
     {
         if (_mainPlayer.playerInventory.Count != 0)

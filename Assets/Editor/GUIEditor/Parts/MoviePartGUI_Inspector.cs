@@ -5,7 +5,7 @@ using UnityEditor;
 public class MoviePartGUI_Inspector : Editor
 {
     private MoviePart _moviePart;
-    private Vector2 _sledesSlider;
+    private Vector2 _slidesSlider = Vector2.zero;
 
     private void OnEnable() => _moviePart = (MoviePart)target;
 
@@ -13,7 +13,7 @@ public class MoviePartGUI_Inspector : Editor
     {
         GUILayout.Label("Список слайдов");
 
-        GUILayout.BeginScrollView(_sledesSlider, "Box");
+        GUILayout.BeginScrollView(_slidesSlider, "Box");
 
         if (_moviePart.movieSprites.Count > 0)
         {

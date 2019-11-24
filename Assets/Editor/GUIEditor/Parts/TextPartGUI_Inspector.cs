@@ -5,7 +5,7 @@ using UnityEditor;
 public class TextPartGUI_Inspector : Editor
 {
     private TextPart _textPart;
-    private Vector2 _eventSlider;
+    private Vector2 _eventSlider = Vector2.zero;
 
     private void OnEnable() => _textPart = (TextPart)target;
 

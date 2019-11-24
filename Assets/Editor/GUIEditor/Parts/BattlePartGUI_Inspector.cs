@@ -5,7 +5,7 @@ using UnityEditor;
 public class BattlePartGUI_Inspector : Editor
 {
     private BattlePart _battlePart;
-    private Vector2 _eventSlider;
+    private Vector2 _eventSlider = Vector2.zero;
 
     private void OnEnable() => _battlePart = (BattlePart)target;
 

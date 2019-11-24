@@ -5,7 +5,7 @@ using UnityEditor;
 public class ChangePartGUI_Inspector : Editor
 {
     private ChangePart _changePart;
-    private Vector2 _eventSlider;
+    private Vector2 _eventSlider = Vector2.zero;
 
     private void OnEnable() => _changePart = (ChangePart)target;
 

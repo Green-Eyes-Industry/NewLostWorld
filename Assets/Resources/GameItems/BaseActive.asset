@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b40ccc6eadd1d774086ea8f0935e4de2, type: 3}
-  m_Name: 0000_event
+  m_Script: {fileID: 11500000, guid: 1f075919d49ce534d9bf0ba47c70a0d0, type: 3}
+  m_Name: BaseActive
   m_EditorClassIdentifier: 
-  mainText: 
-  mainEvents: []
-  movePart_1: {fileID: 0}
-  movePart_2: {fileID: 0}
-  movePart_3: {fileID: 0}
-  timeToEvent: 0
-  finalPart: {fileID: 0}
-  failPart: {fileID: 0}
-  eventParts: []
+  itemIco: {fileID: 0}
+  itemName: 
+  itemDescript: 
+  healthInf: 0
+  mindInf: 0

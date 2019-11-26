@@ -39,6 +39,6 @@ public class EventPartGUI_Inspector : Editor
 
         if (GUILayout.Button("Добавить главу", GUILayout.Height(30))) _eventPart.eventParts.Add(null);
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _eventPart.SetDirty();
+        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_eventPart);
     }
 }

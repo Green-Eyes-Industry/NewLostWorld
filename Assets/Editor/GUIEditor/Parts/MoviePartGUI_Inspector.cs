@@ -33,6 +33,6 @@ public class MoviePartGUI_Inspector : Editor
 
         if (GUILayout.Button("Добавить слайд", GUILayout.Height(30))) _moviePart.movieSprites.Add(null);
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _moviePart.SetDirty();
+        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_moviePart);
     }
 }

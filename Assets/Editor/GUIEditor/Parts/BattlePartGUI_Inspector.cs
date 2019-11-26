@@ -41,6 +41,6 @@ public class BattlePartGUI_Inspector : Editor
         if (_battlePart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_battlePart.mainEvents);
         else _battlePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _battlePart.SetDirty();
+        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_battlePart);
     }
 }

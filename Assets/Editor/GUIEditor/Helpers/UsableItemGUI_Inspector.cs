@@ -40,6 +40,6 @@ public class UsableItemGUI_Inspector : Editor
 
         GUILayout.EndVertical();
 
-        if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) usableItem.SetDirty();
+        if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) EditorUtility.SetDirty(usableItem);
     }
 }

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: 011_Items
   m_EditorClassIdentifier: 
   mainText: 
-  mainEvents: []
+  mainEvents:
+  - {fileID: 11400000, guid: 2ef881d7b1597f743bcd6c2509aa4352, type: 2}
   movePart_1: {fileID: 0}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}

@@ -35,6 +35,6 @@ public class ChangePartGUI_Inspector : Editor
         if (_changePart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_changePart.mainEvents);
         else _changePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _changePart.SetDirty();
+        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_changePart);
     }
 }

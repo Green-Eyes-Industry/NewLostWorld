@@ -29,6 +29,6 @@ public class TextPartGUI_Inspector : Editor
         if (_textPart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_textPart.mainEvents);
         else _textPart.mainEvents = new System.Collections.Generic.List<GameEvent>();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _textPart.SetDirty();
+        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_textPart);
     }
 }

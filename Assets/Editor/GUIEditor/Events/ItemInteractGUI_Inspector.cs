@@ -21,7 +21,7 @@ public class ItemInteractGUI_Inspector : Editor
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Сохранить событие", GUILayout.Height(20))) itemInteract.SetDirty();
+        if (GUILayout.Button("Сохранить событие", GUILayout.Height(20))) EditorUtility.SetDirty(itemInteract);
 
         if(itemInteract.gameItem != null)
         {

@@ -25,6 +25,6 @@ public class FinalPartGUI_Inspector : Editor
 
         _finalPart.newAchive = (Achivemants)EditorGUILayout.ObjectField("Получаемое достижение :", _finalPart.newAchive, typeof(Achivemants), true);
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _finalPart.SetDirty();
+        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_finalPart);
     }
 }

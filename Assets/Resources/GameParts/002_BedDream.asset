@@ -22,7 +22,9 @@ MonoBehaviour:
     \u043B\u0435\u0441\u0430... \u0412 \u0433\u043E\u043B\u043E\u0432\u0435 \u0437\u0430\u043A\u0440\u0443\u0436\u0438\u043B\u043E\u0441\u044C
     \u0438 \u0443 \u0432\u0430\u0441 \u043F\u043E\u0442\u0435\u043C\u043D\u0435\u043B\u043E
     \u0432 \u0433\u043B\u0430\u0437\u0430\u0445..."
-  mainEvents: []
+  mainEvents:
+  - {fileID: 11400000, guid: 752720d23b532d641b7740768ec88705, type: 2}
+  - {fileID: 11400000, guid: 2ef881d7b1597f743bcd6c2509aa4352, type: 2}
   movePart_1: {fileID: 0}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}

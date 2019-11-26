@@ -19,6 +19,6 @@ public class LeandPartGUI_Inspector : Editor
 
         GUILayout.EndVertical();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) _leandPart.SetDirty();
+        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_leandPart);
     }
 }

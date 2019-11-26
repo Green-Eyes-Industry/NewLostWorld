@@ -31,6 +31,6 @@ public class PasiveItemGUI_Inspector : Editor
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) pasiveItem.SetDirty();
+        if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) EditorUtility.SetDirty(pasiveItem);
     }
 }

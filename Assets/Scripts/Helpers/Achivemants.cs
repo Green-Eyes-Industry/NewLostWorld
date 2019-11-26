@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New achivemant",menuName = "Игровые обьекты/Новое достижение")]
+[CreateAssetMenu(fileName = "New achivemant",menuName = "Игровые обьекты/Достижение")]
 public class Achivemants : ScriptableObject
 {
     // Описывает игровое достижение

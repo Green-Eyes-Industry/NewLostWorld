@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Группа игровых глав
+/// </summary>
 public class GamePart : ScriptableObject
 {
     public string mainText;

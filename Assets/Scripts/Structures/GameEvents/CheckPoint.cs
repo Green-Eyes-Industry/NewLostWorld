@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Контрольная точка")]
 public class CheckPoint : GameEvent
@@ -12,6 +10,8 @@ public class CheckPoint : GameEvent
     /// </summary>
     public override bool EventStart()
     {
+        // Сохранить текущую главу в памяти и заменить текст при вступлении
+
         return false;
     }
 }

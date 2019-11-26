@@ -12,4 +12,9 @@ public class MapMark : ScriptableObject
     /// Лор и описание локации
     /// </summary>
     public string loreLocation;
+
+    /// <summary>
+    /// Глава для перемещения
+    /// </summary>
+    public GamePart _partLocation;
 }

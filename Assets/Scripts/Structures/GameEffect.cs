@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-
-public class GameEffect : ScriptableObject
-{
-    // Группа еффектов 
-}
+/// <summary>
+/// Группа еффектов
+/// </summary>
+public class GameEffect : ScriptableObject { }

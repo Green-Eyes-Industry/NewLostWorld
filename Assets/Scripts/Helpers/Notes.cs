@@ -12,4 +12,9 @@ public class Notes : ScriptableObject
     /// Текст заметки
     /// </summary>
     public string noteDescription;
+
+    /// <summary>
+    /// Глава воспоминания
+    /// </summary>
+    public GamePart _partNote;
 }

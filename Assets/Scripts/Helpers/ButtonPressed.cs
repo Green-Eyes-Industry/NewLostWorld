@@ -10,10 +10,7 @@ public class ButtonPressed : MonoBehaviour
 
     private MoveController _moveController;
 
-    private void Awake()
-    {
-        _moveController = GameObject.FindGameObjectWithTag("GameController").GetComponent<MoveController>();
-    }
+    private void Awake() => _moveController = GameObject.FindGameObjectWithTag("GameController").GetComponent<MoveController>();
 
     private void OnMouseDown()
     {

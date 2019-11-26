@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Character : ScriptableObject
-{
-    // Группа персонажи
-}
+/// <summary>
+/// Группа персонажи
+/// </summary>
+public class Character : ScriptableObject { }

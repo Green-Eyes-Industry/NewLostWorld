@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Запуск эффекта
+/// Запуск визуального эффекта
 /// </summary>
 public class EffectHelper : MonoBehaviour
 {

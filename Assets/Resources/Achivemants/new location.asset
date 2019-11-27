@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a13fdecf55badd4b8972a413a316794, type: 3}
-  m_Name: Hello
+  m_Script: {fileID: 11500000, guid: 25f4b89763291834fa672c4a2e9de2d3, type: 3}
+  m_Name: new location
   m_EditorClassIdentifier: 
-  mainText: 
-  mainEvents: []
-  movePart_1: {fileID: 0}
-  movePart_2: {fileID: 0}
-  movePart_3: {fileID: 0}
-  movieSprites: []
+  nameLocation: 
+  loreLocation: 
+  _partLocation: {fileID: 0}

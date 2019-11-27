@@ -12,4 +12,9 @@ public class UsableItem : GameItem
     /// Влияние на сознание
     /// </summary>
     public int mindInf;
+
+    /// <summary>
+    /// Накладываемый эффект
+    /// </summary>
+    public GameEffect itemEffect;
 }

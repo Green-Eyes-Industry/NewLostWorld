@@ -26,7 +26,7 @@ public class DataController : MonoBehaviour
         PlayerPrefs.SetString("LastPart", "GameParts/" + gameSettingsData.lastPart);
 
         // Сохранение цвета глаза
-        PlayerPrefs.SetFloat("EyeColor", gameSettingsData.eyeColor);
+        // TODO : Переписать
 
         // Сохранение здоровья игрока
         PlayerPrefs.SetInt("PL_Health", playerData.playerHealth);
@@ -170,7 +170,7 @@ public class DataController : MonoBehaviour
         }
 
         // Загрузка цвета глаза
-        if (PlayerPrefs.HasKey("EyeColor")) gameSettingsData.eyeColor = PlayerPrefs.GetFloat("EyeColor");
+        // TODO : Переписать
     }
 
     /// <summary>

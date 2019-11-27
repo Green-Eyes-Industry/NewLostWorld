@@ -38,6 +38,8 @@ public class UsableItemGUI_Inspector : Editor
         usableItem.healthInf = EditorGUILayout.IntSlider("Здоровье :", usableItem.healthInf, -100, 100);
         usableItem.mindInf = EditorGUILayout.IntSlider("Рассудок :", usableItem.mindInf, -100, 100);
 
+        usableItem.itemEffect = (GameEffect)EditorGUILayout.ObjectField("Накладываемый эффект :",usableItem.itemEffect, typeof(GameEffect), true);
+
         GUILayout.EndVertical();
 
         if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) EditorUtility.SetDirty(usableItem);

@@ -3,5 +3,8 @@
 [CreateAssetMenu(fileName = "New item", menuName = "Игровые обьекты/Новый предмет/Пасивный")]
 public class PasiveItem : GameItem
 {
-    // Нет функций
+    /// <summary>
+    /// Накладываемый эффект пока предмет у персонажа
+    /// </summary>
+    public GameEffect itemEffect;
 }

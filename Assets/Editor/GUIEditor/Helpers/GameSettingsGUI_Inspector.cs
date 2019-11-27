@@ -5,7 +5,6 @@ using UnityEditor;
 public class GameSettingsGUI_Inspector : Editor
 {
     private GameSettings _gameSettings;
-    private Color _eyeColor;
 
     private void OnEnable() => _gameSettings = (GameSettings)target;
 
@@ -15,8 +14,7 @@ public class GameSettingsGUI_Inspector : Editor
 
         GUILayout.BeginVertical("Box");
 
-        _eyeColor = EditorGUILayout.ColorField("Цвет глаза :", _eyeColor);
-        _gameSettings.eyeColor = _eyeColor.b;
+        _gameSettings.eyeColor = EditorGUILayout.ColorField("Цвет глаза :", _gameSettings.eyeColor);
 
         EditorGUILayout.Space();
 
@@ -31,6 +29,6 @@ public class GameSettingsGUI_Inspector : Editor
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Сохранить настройки", GUILayout.Height(30))) EditorUtility.SetDirty(_gameSettings);
+        if (GUILayout.Button("Сохранить настройки", GUILayout.Height(20))) EditorUtility.SetDirty(_gameSettings);
     }
 }

@@ -28,5 +28,5 @@ public class GameSettings : ScriptableObject
     /// <summary>
     /// Цвет глаза
     /// </summary>
-    public float eyeColor;
+    public Color eyeColor;
 }

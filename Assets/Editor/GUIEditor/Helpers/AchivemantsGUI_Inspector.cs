@@ -26,6 +26,6 @@ public class AchivemantsGUI_Inspector : Editor
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_achivemants);
+        if (GUILayout.Button("Сохранить", GUILayout.Height(20))) EditorUtility.SetDirty(_achivemants);
     }
 }

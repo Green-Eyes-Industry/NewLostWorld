@@ -103,7 +103,7 @@ public class PlayerGUI_Inspector : Editor
         
         GUILayout.EndVertical();
 
-        if (GUILayout.Button("Сохранить персонажа игрока", GUILayout.Height(30))) EditorUtility.SetDirty(_player);
+        if (GUILayout.Button("Сохранить персонажа игрока", GUILayout.Height(20))) EditorUtility.SetDirty(_player);
     }
 
     /// <summary>

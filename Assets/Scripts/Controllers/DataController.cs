@@ -7,15 +7,15 @@ public class DataController : MonoBehaviour
 {
     // Методы загрузки и выгрузки данных
 
-    public Player playerData;
-    public GameSettings gameSettingsData;
+    public static Player playerData;
+    public static GameSettings gameSettingsData;
 
     #region SAVE_DATA
 
     /// <summary>
     /// Сохранение общих данных игрока
     /// </summary>
-    public void SaveGamePreferences()
+    public static void SaveGamePreferences()
     {
         // Отношение персонажей к игроку
         // Принятые важные решения
@@ -38,7 +38,7 @@ public class DataController : MonoBehaviour
     /// <summary>
     /// Сохранение инвентаря
     /// </summary>
-    public void SavePlayerInventory()
+    public static void SavePlayerInventory()
     {
         // Сохранение инвентаря
         for (int i = 0; i < playerData.playerInventory.Count; i++)
@@ -57,7 +57,7 @@ public class DataController : MonoBehaviour
     /// <summary>
     /// Сохранение еффектов
     /// </summary>
-    public void SavePlayerEffects()
+    public static void SavePlayerEffects()
     {
         // Сохранение эффектов
         for (int i = 0; i < playerData.playerEffects.Count; i++)
@@ -76,7 +76,7 @@ public class DataController : MonoBehaviour
     /// <summary>
     /// Сохранение глобальных настроек
     /// </summary>
-    public void SaveGlobalPreferences()
+    public static void SaveGlobalPreferences()
     {
         if (gameSettingsData.soundCheck)
         {
@@ -113,7 +113,7 @@ public class DataController : MonoBehaviour
     /// <summary>
     /// Загрузка игровых данных
     /// </summary>
-    public void LoadGamePreferences()
+    public static void LoadGamePreferences()
     {
         // Загрузка последней главы
         if (PlayerPrefs.HasKey("LastPart")) gameSettingsData.lastPart = (GamePart)Resources.Load(PlayerPrefs.GetString("LastPart"));
@@ -129,7 +129,7 @@ public class DataController : MonoBehaviour
     /// <summary>
     /// Загрузка глобальных данных
     /// </summary>
-    public void LoadGlobalPreferences()
+    public static void LoadGlobalPreferences()
     {
         // Загрузка игровых настроек
         int globalData = 111;
@@ -176,7 +176,7 @@ public class DataController : MonoBehaviour
     /// <summary>
     /// Смена настроек игры
     /// </summary>
-    private void SwitchGameSettings(bool soundSwitch, bool vibrationSwitch, bool effectsSwitch)
+    private static void SwitchGameSettings(bool soundSwitch, bool vibrationSwitch, bool effectsSwitch)
     {
         gameSettingsData.soundCheck = soundSwitch;
         gameSettingsData.vibrationCheck = vibrationSwitch;
@@ -188,7 +188,7 @@ public class DataController : MonoBehaviour
     /// <summary>
     /// Удаление данных и выход
     /// </summary>
-    public void DellAllSaves()
+    public static void DellAllSaves()
     {
         PlayerPrefs.DeleteAll();
         Application.Quit();

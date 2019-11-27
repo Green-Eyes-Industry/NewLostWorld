@@ -32,8 +32,6 @@ public class TextController : MonoBehaviour
     [SerializeField] private Text _gameMessageMapTxt;
     [SerializeField] private Text _gameMessageNotesTxt;
 
-    private Player _mainPlayer;
-
     private Gyroscope _mainGyro;
     private bool _gyroEnable;
     private Vector2 _eyeFixPosition;
@@ -42,7 +40,6 @@ public class TextController : MonoBehaviour
 
     private void Start()
     {
-        _mainPlayer = GetComponent<DataController>().playerData;
         ConnectGyroscope();
     }
 
@@ -160,9 +157,9 @@ public class TextController : MonoBehaviour
     /// </summary>
     public void RepaintInventory()
     {
-        if (_mainPlayer.playerInventory.Count != 0)
+        if (DataController.playerData.playerInventory.Count != 0)
         {
-            for (int i = 0; i < _mainPlayer.playerInventory.Count; i++)
+            for (int i = 0; i < DataController.playerData.playerInventory.Count; i++)
             {
                 //  _mainPlayer.playerInventory[i].itemIco;
             }

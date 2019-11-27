@@ -17,3 +17,4 @@ MonoBehaviour:
   itemDescript: 
   healthInf: 0
   mindInf: 0
+  itemEffect: {fileID: 0}

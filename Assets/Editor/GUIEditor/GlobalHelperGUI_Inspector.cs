@@ -51,6 +51,9 @@ public class GlobalHelperGUI_Inspector : Editor
         EditorGUILayout.Space();
     }
 
+    /// <summary>
+    /// Показать список событий
+    /// </summary>
     public static void ShowPartEventList(List<GameEvent> listEvent)
     {
         GUILayout.BeginScrollView(_eventSlider, "Box");
@@ -96,5 +99,14 @@ public class GlobalHelperGUI_Inspector : Editor
         GUILayout.EndScrollView();
 
         if (GUILayout.Button("Добавить событие", GUILayout.Height(30))) listEvent.Add(null);
+    }
+
+    /// <summary>
+    /// Показать эффект
+    /// </summary>
+    public static void ShowEffectFromPart(GameEffect gameEffect)
+    {
+        if (gameEffect is PositiveEffect) PositiveEffectGUI_Inspector.ShowPositiveEffectGUI((PositiveEffect)gameEffect);
+        else if (gameEffect is NegativeEffect) NegativeEffectGUI_Inspector.ShowNegativeEffectGUI((NegativeEffect)gameEffect);
     }
 }

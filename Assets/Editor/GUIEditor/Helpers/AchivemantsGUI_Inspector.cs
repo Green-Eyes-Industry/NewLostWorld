@@ -8,7 +8,12 @@ public class AchivemantsGUI_Inspector : Editor
 
     private void OnEnable() => _achivemants = (Achivemants)target;
 
-    public override void OnInspectorGUI()
+    public override void OnInspectorGUI() => ShowAchiveGUI(_achivemants);
+
+    /// <summary>
+    /// Показать редактор достижения
+    /// </summary>
+    public static void ShowAchiveGUI(Achivemants achivemants)
     {
         GUILayout.Label("Достижение");
 
@@ -16,16 +21,16 @@ public class AchivemantsGUI_Inspector : Editor
 
         GUILayout.BeginVertical();
 
-        _achivemants.achiveName = EditorGUILayout.TextField("Название :", _achivemants.achiveName);
+        achivemants.achiveName = EditorGUILayout.TextField("Название :", achivemants.achiveName);
         GUILayout.Label("Описание :");
-        _achivemants.achiveDescript = EditorGUILayout.TextArea(_achivemants.achiveDescript, GUILayout.Height(40));
+        achivemants.achiveDescript = EditorGUILayout.TextArea(achivemants.achiveDescript, GUILayout.Height(40));
 
         GUILayout.EndVertical();
 
-        _achivemants.achiveIco = (Sprite)EditorGUILayout.ObjectField(_achivemants.achiveIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
+        achivemants.achiveIco = (Sprite)EditorGUILayout.ObjectField(achivemants.achiveIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(20))) EditorUtility.SetDirty(_achivemants);
+        if (GUILayout.Button("Сохранить достижение", GUILayout.Height(20))) EditorUtility.SetDirty(achivemants);
     }
 }

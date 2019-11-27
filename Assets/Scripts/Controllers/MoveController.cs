@@ -30,7 +30,7 @@ public class MoveController : MonoBehaviour
     /// <summary>
     /// Глава запускаемая по нажатию "Начало"
     /// </summary>
-    private GamePart _startPart;
+    [HideInInspector] public static GamePart _startPart;
 
     #endregion
 

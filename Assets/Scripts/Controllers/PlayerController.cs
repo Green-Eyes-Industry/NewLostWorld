@@ -6,10 +6,6 @@ using UnityEngine;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    private DataController gameData;
-
-    private void Start() => gameData = GetComponent<DataController>();
-
     #region PARTS_EVENTS
 
     /// <summary>
@@ -35,8 +31,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void AddItemToInventory(GameItem gItem)
     {
-        gameData.playerData.playerInventory.Add(gItem);
-        gameData.SavePlayerInventory();
+        DataController.playerData.playerInventory.Add(gItem);
+        DataController.SavePlayerInventory();
     }
 
     /// <summary>
@@ -44,8 +40,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void RemoveItemFromInventory(GameItem gItem)
     {
-        gameData.playerData.playerInventory.Remove(gItem);
-        gameData.SavePlayerInventory();
+        DataController.playerData.playerInventory.Remove(gItem);
+        DataController.SavePlayerInventory();
     }
 
     #endregion

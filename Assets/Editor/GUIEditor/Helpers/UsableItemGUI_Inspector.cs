@@ -40,6 +40,8 @@ public class UsableItemGUI_Inspector : Editor
 
         usableItem.itemEffect = (GameEffect)EditorGUILayout.ObjectField("Накладываемый эффект :",usableItem.itemEffect, typeof(GameEffect), true);
 
+        if (usableItem.itemEffect != null) GlobalHelperGUI_Inspector.ShowEffectFromPart(usableItem.itemEffect);
+
         GUILayout.EndVertical();
 
         if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) EditorUtility.SetDirty(usableItem);

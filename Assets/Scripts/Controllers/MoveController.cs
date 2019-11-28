@@ -234,6 +234,161 @@ public class MoveController : MonoBehaviour
 
     #endregion
 
+    #region GAME_HELP_BUTTONS
+
+    /// <summary>
+    /// Взаимодействие с кнопкой в меню инвентаря
+    /// </summary>
+    public void GameHelpInventoryButton(bool btStady, int btType)
+    {
+        switch (btType)
+        {
+            case 0:
+                // Подробнее о предмете
+                if (btStady) _mainAnimator.SetBool("GameInvent_Bt_Info", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Bt_Info", false);
+                }
+                break;
+
+            case 1:
+                // Ячейка инвентаря 1
+                if (btStady) _mainAnimator.SetBool("GameInvent_Case_1", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Case_1", false);
+                }
+                break;
+
+            case 2:
+                // Ячейка инвентаря 2
+                if (btStady) _mainAnimator.SetBool("GameInvent_Case_2", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Case_2", false);
+                }
+                break;
+
+            case 3:
+                // Ячейка инвентаря 3
+                if (btStady) _mainAnimator.SetBool("GameInvent_Case_3", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Case_3", false);
+                }
+                break;
+
+            case 4:
+                // Ячейка инвентаря 4
+                if (btStady) _mainAnimator.SetBool("GameInvent_Case_4", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Case_4", false);
+                }
+                break;
+
+            case 5:
+                // Ячейка инвентаря 5
+                if (btStady) _mainAnimator.SetBool("GameInvent_Case_5", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Case_5", false);
+                }
+                break;
+
+            case 6:
+                // Ячейка инвентаря 6
+                if (btStady) _mainAnimator.SetBool("GameInvent_Case_6", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Case_6", false);
+                }
+                break;
+
+            case 7:
+                // Ячейка инвентаря 7
+                if (btStady) _mainAnimator.SetBool("GameInvent_Case_7", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Case_7", false);
+                }
+                break;
+
+            case 8:
+                // Ячейка инвентаря 8
+                if (btStady) _mainAnimator.SetBool("GameInvent_Case_8", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Case_8", false);
+                }
+                break;
+
+            case 9:
+                // Использовать предмет
+                if (btStady) _mainAnimator.SetBool("GameInvent_Bt_Use", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Bt_Use", false);
+                }
+                break;
+
+            case 10:
+                // Выбросить предмет
+                if (btStady) _mainAnimator.SetBool("GameInvent_Bt_Remove", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Bt_Remove", false);
+                }
+                break;
+
+            case 11:
+                // Страница влево
+                if (btStady) _mainAnimator.SetBool("GameInvent_Bt_Left", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Bt_Left", false);
+                }
+                break;
+
+            case 12:
+                // Страница вправо
+                if (btStady) _mainAnimator.SetBool("GameInvent_Bt_Right", true);
+                else
+                {
+                    _mainAnimator.SetBool("GameInvent_Bt_Right", false);
+                }
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Взаимодействие с кнопкой в меню персонажа
+    /// </summary>
+    public void GameHelpPlayerButton(bool btStady, int btType)
+    {
+
+    }
+
+    /// <summary>
+    /// Взаимодействие с кнопкой в меню карты
+    /// </summary>
+    public void GameHelpMapButton(bool btStady, int btType)
+    {
+
+    }
+
+    /// <summary>
+    /// Взаимодействие с кнопкой в меню заметок
+    /// </summary>
+    public void GameHelpNotesButton(bool btStady, int btType)
+    {
+
+    }
+
+
+    #endregion
+
     #region MENU_BUTTONS
 
     /// <summary>

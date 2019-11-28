@@ -9,8 +9,6 @@ public class TextController : MonoBehaviour
 {
     #region CONNECTED_VAR
 
-    
-
     [Header("Параметры")]
     [SerializeField] private float _gameWaitToSwitch;
 

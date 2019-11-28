@@ -19,8 +19,8 @@ public class GameSettingsGUI_Inspector : Editor
         EditorGUILayout.Space();
 
         _gameSettings.soundCheck = EditorGUILayout.Toggle("Настройка звука : ",_gameSettings.soundCheck);
-        _gameSettings.vibrationCheck = EditorGUILayout.Toggle("Настройка звука : ", _gameSettings.vibrationCheck);
-        _gameSettings.effectCheck = EditorGUILayout.Toggle("Настройка звука : ", _gameSettings.effectCheck);
+        _gameSettings.vibrationCheck = EditorGUILayout.Toggle("Настройка вибрации : ", _gameSettings.vibrationCheck);
+        _gameSettings.effectCheck = EditorGUILayout.Toggle("Настройка еффектов : ", _gameSettings.effectCheck);
 
         EditorGUILayout.Space();
 

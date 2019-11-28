@@ -17,7 +17,7 @@ public class MoveController : MonoBehaviour
     public GamePart firstPart;
 
     private TextController _textController;
-    private Animator _mainAnimator;
+    [HideInInspector] public static Animator _mainAnimator;
     private PlayerController _playerController;
 
     private bool _isAchiveDetail; // Вы в меню описания достижения
@@ -39,6 +39,8 @@ public class MoveController : MonoBehaviour
     /// </summary>
     public void GameStart()
     {
+        DataController.LoadGamePreferences();
+
         if (_startPart == null) _startPart = firstPart;
         NextPart(_startPart);
     }
@@ -354,8 +356,18 @@ public class MoveController : MonoBehaviour
                         break;
 
                     case 1:
-                        if (_mainAnimator.GetBool("Settings_1_St")) _mainAnimator.SetBool("Settings_1_St", false);
-                        else _mainAnimator.SetBool("Settings_1_St", true);
+                        if (_mainAnimator.GetBool("Settings_1_St"))
+                        {
+                            _mainAnimator.SetBool("Settings_1_St", false);
+                            DataController.gameSettingsData.soundCheck = false;
+                            
+                        }
+                        else
+                        {
+                            _mainAnimator.SetBool("Settings_1_St", true);
+                            DataController.gameSettingsData.soundCheck = true;
+                        }
+                        DataController.SaveGlobalPreferences();
                         break;
                 }
 
@@ -375,8 +387,17 @@ public class MoveController : MonoBehaviour
                         break;
 
                     case 1:
-                        if(_mainAnimator.GetBool("Settings_2_St")) _mainAnimator.SetBool("Settings_2_St", false);
-                        else _mainAnimator.SetBool("Settings_2_St", true);
+                        if (_mainAnimator.GetBool("Settings_2_St"))
+                        {
+                            _mainAnimator.SetBool("Settings_2_St", false);
+                            DataController.gameSettingsData.vibrationCheck = false;
+                        }
+                        else
+                        {
+                            _mainAnimator.SetBool("Settings_2_St", true);
+                            DataController.gameSettingsData.vibrationCheck = true;
+                        }
+                        DataController.SaveGlobalPreferences();
                         break;
                 }
 
@@ -396,8 +417,17 @@ public class MoveController : MonoBehaviour
                         break;
 
                     case 1:
-                        if (_mainAnimator.GetBool("Settings_3_St")) _mainAnimator.SetBool("Settings_3_St", false);
-                        else _mainAnimator.SetBool("Settings_3_St", true);
+                        if (_mainAnimator.GetBool("Settings_3_St"))
+                        {
+                            _mainAnimator.SetBool("Settings_3_St", false);
+                            DataController.gameSettingsData.effectCheck = false;
+                        }
+                        else
+                        {
+                            _mainAnimator.SetBool("Settings_3_St", true);
+                            DataController.gameSettingsData.effectCheck = true;
+                        }
+                        DataController.SaveGlobalPreferences();
                         break;
                 }
 

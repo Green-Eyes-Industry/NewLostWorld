@@ -1,27 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Управление игровыми параметрами
 /// </summary>
 public class MainController : MonoBehaviour
 {
-    private DataController _dataController;
     private MoveController _moveController;
+    [SerializeField] private Player _mainPlayer;
+    [SerializeField] private GameSettings _mainGameSettings;
 
     private void Start()
     {
         ConnectControllers();
         ConnectComponents();
+        ConnectLastSavePoint();
     }
 
     /// <summary>
-    /// Подключение контроллеров
+    /// Подключение сохранений
+    /// </summary>
+    private void ConnectLastSavePoint()
+    {
+        DataController.LoadGlobalPreferences();
+        MoveController._mainAnimator.SetBool("Settings_1_St", DataController.gameSettingsData.soundCheck);
+        MoveController._mainAnimator.SetBool("Settings_2_St", DataController.gameSettingsData.vibrationCheck);
+        MoveController._mainAnimator.SetBool("Settings_3_St", DataController.gameSettingsData.effectCheck);
+    }
+
+    /// <summary>
+    /// Подключение контроллеров и заполнение данных
     /// </summary>
     private void ConnectControllers()
     {
         _moveController = GetComponent<MoveController>();
+
+        DataController.gameSettingsData = _mainGameSettings;
+        DataController.playerData = _mainPlayer;
     }
 
     /// <summary>

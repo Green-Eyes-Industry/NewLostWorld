@@ -136,37 +136,15 @@ public class DataController : MonoBehaviour
         if (PlayerPrefs.HasKey("GameData")) globalData = PlayerPrefs.GetInt("GameData");
         switch (globalData)
         {
-            case 112:
-                SwitchGameSettings(true, true, false);
-                break;
+            case 112: SwitchGameSettings(true, true, false); break;
+            case 122: SwitchGameSettings(true, false, false); break;
+            case 222: SwitchGameSettings(false, false, false); break;
+            case 221: SwitchGameSettings(false, false, true); break;
+            case 211: SwitchGameSettings(false, true, true); break;
+            case 212: SwitchGameSettings(false, true, false); break;
+            case 121: SwitchGameSettings(true, false, true); break;
 
-            case 122:
-                SwitchGameSettings(true, false, false);
-                break;
-
-            case 222:
-                SwitchGameSettings(false, false, false);
-                break;
-
-            case 221:
-                SwitchGameSettings(false, false, true);
-                break;
-
-            case 211:
-                SwitchGameSettings(false, true, true);
-                break;
-
-            case 212:
-                SwitchGameSettings(false, true, false);
-                break;
-
-            case 121:
-                SwitchGameSettings(true, false, true);
-                break;
-
-            default:
-                SwitchGameSettings(true, true, true);
-                break;
+            default: SwitchGameSettings(true, true, true); break;
         }
 
         // Загрузка цвета глаза

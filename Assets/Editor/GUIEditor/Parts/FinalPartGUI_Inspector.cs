@@ -1,32 +1,36 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(FinalPart))]
-public class FinalPartGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private FinalPart _finalPart;
 
-    private void OnEnable() => _finalPart = (FinalPart)target;
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(FinalPart))]
+    public class FinalPartGUI_Inspector : Editor
     {
-        GUILayout.Label("Текстовые поля");
+        private FinalPart _finalPart;
 
-        GUILayout.BeginVertical("Box");
+        private void OnEnable() => _finalPart = (FinalPart)target;
 
-        _finalPart.mainText = EditorGUILayout.TextArea(_finalPart.mainText, GUILayout.Height(100));
-        EditorGUILayout.Space();
+        public override void OnInspectorGUI()
+        {
+            GUILayout.Label("Текстовые поля");
 
-        GUILayout.BeginHorizontal();
-        _finalPart.backButtonText = EditorGUILayout.TextArea(_finalPart.backButtonText, GUILayout.Height(40));
-        GUILayout.EndHorizontal();
+            GUILayout.BeginVertical("Box");
 
-        GUILayout.EndVertical();
+            _finalPart.mainText = EditorGUILayout.TextArea(_finalPart.mainText, GUILayout.Height(100));
+            EditorGUILayout.Space();
 
-        _finalPart.newAchive = (Achivemants)EditorGUILayout.ObjectField("Получаемое достижение :", _finalPart.newAchive, typeof(Achivemants), true);
+            GUILayout.BeginHorizontal();
+            _finalPart.backButtonText = EditorGUILayout.TextArea(_finalPart.backButtonText, GUILayout.Height(40));
+            GUILayout.EndHorizontal();
 
-        if (_finalPart.newAchive != null) AchivemantsGUI_Inspector.ShowAchiveGUI(_finalPart.newAchive);
+            GUILayout.EndVertical();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_finalPart);
+            _finalPart.newAchive = (Achivemants)EditorGUILayout.ObjectField("Получаемое достижение :", _finalPart.newAchive, typeof(Achivemants), true);
+
+            if (_finalPart.newAchive != null) AchivemantsGUI_Inspector.ShowAchiveGUI(_finalPart.newAchive);
+
+            if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_finalPart);
+        }
     }
 }

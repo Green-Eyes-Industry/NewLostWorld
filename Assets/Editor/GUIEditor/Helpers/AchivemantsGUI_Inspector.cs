@@ -1,36 +1,40 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Achivemants))]
-public class AchivemantsGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private Achivemants _achivemants;
 
-    private void OnEnable() => _achivemants = (Achivemants)target;
-
-    public override void OnInspectorGUI() => ShowAchiveGUI(_achivemants);
-
-    /// <summary>
-    /// Показать редактор достижения
-    /// </summary>
-    public static void ShowAchiveGUI(Achivemants achivemants)
+    [CustomEditor(typeof(Achivemants))]
+    public class AchivemantsGUI_Inspector : Editor
     {
-        GUILayout.Label("Достижение");
+        private Achivemants _achivemants;
 
-        GUILayout.BeginHorizontal("Box");
+        private void OnEnable() => _achivemants = (Achivemants)target;
 
-        GUILayout.BeginVertical();
+        public override void OnInspectorGUI() => ShowAchiveGUI(_achivemants);
 
-        achivemants.achiveName = EditorGUILayout.TextField("Название :", achivemants.achiveName);
-        GUILayout.Label("Описание :");
-        achivemants.achiveDescript = EditorGUILayout.TextArea(achivemants.achiveDescript, GUILayout.Height(40));
+        /// <summary>
+        /// Показать редактор достижения
+        /// </summary>
+        public static void ShowAchiveGUI(Achivemants achivemants)
+        {
+            GUILayout.Label("Достижение");
 
-        GUILayout.EndVertical();
+            GUILayout.BeginHorizontal("Box");
 
-        achivemants.achiveIco = (Sprite)EditorGUILayout.ObjectField(achivemants.achiveIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
+            GUILayout.BeginVertical();
 
-        GUILayout.EndHorizontal();
+            achivemants.achiveName = EditorGUILayout.TextField("Название :", achivemants.achiveName);
+            GUILayout.Label("Описание :");
+            achivemants.achiveDescript = EditorGUILayout.TextArea(achivemants.achiveDescript, GUILayout.Height(40));
 
-        if (GUILayout.Button("Сохранить достижение", GUILayout.Height(20))) EditorUtility.SetDirty(achivemants);
+            GUILayout.EndVertical();
+
+            achivemants.achiveIco = (Sprite)EditorGUILayout.ObjectField(achivemants.achiveIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
+
+            GUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Сохранить достижение", GUILayout.Height(20))) EditorUtility.SetDirty(achivemants);
+        }
     }
 }

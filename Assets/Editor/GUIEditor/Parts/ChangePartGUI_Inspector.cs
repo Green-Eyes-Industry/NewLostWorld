@@ -1,40 +1,44 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(ChangePart))]
-public class ChangePartGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private ChangePart _changePart;
 
-    private void OnEnable() => _changePart = (ChangePart)target;
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(ChangePart))]
+    public class ChangePartGUI_Inspector : Editor
     {
-        GUILayout.Label("Текстовые поля");
+        private ChangePart _changePart;
 
-        GUILayout.BeginVertical("Box");
+        private void OnEnable() => _changePart = (ChangePart)target;
 
-        _changePart.mainText = EditorGUILayout.TextArea(_changePart.mainText, GUILayout.Height(100));
-        EditorGUILayout.Space();
+        public override void OnInspectorGUI()
+        {
+            GUILayout.Label("Текстовые поля");
 
-        GUILayout.BeginHorizontal();
-        _changePart.buttonText_1 = EditorGUILayout.TextArea(_changePart.buttonText_1, GUILayout.Height(40));
-        _changePart.movePart_1 = (GamePart)EditorGUILayout.ObjectField(_changePart.movePart_1, typeof(GamePart), true, GUILayout.Width(80));
-        GUILayout.EndHorizontal();
-        EditorGUILayout.Space();
+            GUILayout.BeginVertical("Box");
 
-        GUILayout.BeginHorizontal();
-        _changePart.buttonText_2 = EditorGUILayout.TextArea(_changePart.buttonText_2, GUILayout.Height(40));
-        _changePart.movePart_2 = (GamePart)EditorGUILayout.ObjectField(_changePart.movePart_2, typeof(GamePart), true, GUILayout.Width(80));
-        GUILayout.EndHorizontal();
+            _changePart.mainText = EditorGUILayout.TextArea(_changePart.mainText, GUILayout.Height(100));
+            EditorGUILayout.Space();
 
-        GUILayout.EndVertical();
+            GUILayout.BeginHorizontal();
+            _changePart.buttonText_1 = EditorGUILayout.TextArea(_changePart.buttonText_1, GUILayout.Height(40));
+            _changePart.movePart_1 = (GamePart)EditorGUILayout.ObjectField(_changePart.movePart_1, typeof(GamePart), true, GUILayout.Width(80));
+            GUILayout.EndHorizontal();
+            EditorGUILayout.Space();
 
-        GUILayout.Label("Параметры");
+            GUILayout.BeginHorizontal();
+            _changePart.buttonText_2 = EditorGUILayout.TextArea(_changePart.buttonText_2, GUILayout.Height(40));
+            _changePart.movePart_2 = (GamePart)EditorGUILayout.ObjectField(_changePart.movePart_2, typeof(GamePart), true, GUILayout.Width(80));
+            GUILayout.EndHorizontal();
 
-        if (_changePart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_changePart.mainEvents);
-        else _changePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
+            GUILayout.EndVertical();
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_changePart);
+            GUILayout.Label("Параметры");
+
+            if (_changePart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_changePart.mainEvents);
+            else _changePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
+
+            if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_changePart);
+        }
     }
 }

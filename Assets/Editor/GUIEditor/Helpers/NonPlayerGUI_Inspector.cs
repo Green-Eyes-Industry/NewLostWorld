@@ -1,29 +1,33 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(NonPlayer))]
-public class NonPlayerGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private NonPlayer _nonPlayer;
 
-    private void OnEnable() => _nonPlayer = (NonPlayer)target;
-
-    public override void OnInspectorGUI() => ShowNonPlayerGUI(_nonPlayer);
-
-    /// <summary>
-    /// Показать мено редактора не игрового персонажа
-    /// </summary>
-    public static void ShowNonPlayerGUI(NonPlayer nonPlayer)
+    [CustomEditor(typeof(NonPlayer))]
+    public class NonPlayerGUI_Inspector : Editor
     {
-        EditorGUILayout.LabelField("Не игровой персонаж");
+        private NonPlayer _nonPlayer;
 
-        EditorGUILayout.BeginVertical("Box");
+        private void OnEnable() => _nonPlayer = (NonPlayer)target;
 
-        nonPlayer.npName = EditorGUILayout.TextField("Имя персонажа", nonPlayer.npName);
-        nonPlayer.npToPlayerRatio = EditorGUILayout.IntSlider(nonPlayer.npToPlayerRatio, -10, 10);
+        public override void OnInspectorGUI() => ShowNonPlayerGUI(_nonPlayer);
 
-        EditorGUILayout.EndVertical();
+        /// <summary>
+        /// Показать мено редактора не игрового персонажа
+        /// </summary>
+        public static void ShowNonPlayerGUI(NonPlayer nonPlayer)
+        {
+            EditorGUILayout.LabelField("Не игровой персонаж");
 
-        if (GUILayout.Button("Сохранить персонажа", GUILayout.Height(20))) EditorUtility.SetDirty(nonPlayer);
+            EditorGUILayout.BeginVertical("Box");
+
+            nonPlayer.npName = EditorGUILayout.TextField("Имя персонажа", nonPlayer.npName);
+            nonPlayer.npToPlayerRatio = EditorGUILayout.IntSlider(nonPlayer.npToPlayerRatio, -10, 10);
+
+            EditorGUILayout.EndVertical();
+
+            if (GUILayout.Button("Сохранить персонажа", GUILayout.Height(20))) EditorUtility.SetDirty(nonPlayer);
+        }
     }
 }

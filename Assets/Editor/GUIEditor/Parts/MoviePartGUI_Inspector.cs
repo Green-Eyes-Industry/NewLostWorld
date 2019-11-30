@@ -1,38 +1,42 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(MoviePart))]
-public class MoviePartGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private MoviePart _moviePart;
-    private Vector2 _slidesSlider = Vector2.zero;
 
-    private void OnEnable() => _moviePart = (MoviePart)target;
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(MoviePart))]
+    public class MoviePartGUI_Inspector : Editor
     {
-        GUILayout.Label("Список слайдов");
+        private MoviePart _moviePart;
+        private Vector2 _slidesSlider = Vector2.zero;
 
-        GUILayout.BeginScrollView(_slidesSlider, "Box");
+        private void OnEnable() => _moviePart = (MoviePart)target;
 
-        if (_moviePart.movieSprites.Count > 0)
+        public override void OnInspectorGUI()
         {
-            for (int i = 0; i < _moviePart.movieSprites.Count; i++)
+            GUILayout.Label("Список слайдов");
+
+            GUILayout.BeginScrollView(_slidesSlider, "Box");
+
+            if (_moviePart.movieSprites.Count > 0)
             {
-                GUILayout.BeginHorizontal();
+                for (int i = 0; i < _moviePart.movieSprites.Count; i++)
+                {
+                    GUILayout.BeginHorizontal();
 
-                _moviePart.movieSprites[i] = (Sprite)EditorGUILayout.ObjectField(_moviePart.movieSprites[i], typeof(Sprite), true);
-                if (GUILayout.Button("Удалить", GUILayout.Width(70))) _moviePart.movieSprites.RemoveAt(i);
+                    _moviePart.movieSprites[i] = (Sprite)EditorGUILayout.ObjectField(_moviePart.movieSprites[i], typeof(Sprite), true);
+                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _moviePart.movieSprites.RemoveAt(i);
 
-                GUILayout.EndHorizontal();
+                    GUILayout.EndHorizontal();
+                }
             }
+            else GUILayout.Label("Нет слайдов");
+
+            GUILayout.EndScrollView();
+
+            if (GUILayout.Button("Добавить слайд", GUILayout.Height(30))) _moviePart.movieSprites.Add(null);
+
+            if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_moviePart);
         }
-        else GUILayout.Label("Нет слайдов");
-
-        GUILayout.EndScrollView();
-
-        if (GUILayout.Button("Добавить слайд", GUILayout.Height(30))) _moviePart.movieSprites.Add(null);
-
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_moviePart);
     }
 }

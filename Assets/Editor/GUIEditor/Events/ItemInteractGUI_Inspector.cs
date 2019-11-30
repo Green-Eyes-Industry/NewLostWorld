@@ -1,32 +1,36 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(ItemInteract))]
-public class ItemInteractGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private ItemInteract _itemInteract;
 
-    private void OnEnable() => _itemInteract = (ItemInteract)target;
-
-    public override void OnInspectorGUI() => ShowEventEditor(_itemInteract);
-
-    public static void ShowEventEditor(ItemInteract itemInteract)
+    [CustomEditor(typeof(ItemInteract))]
+    public class ItemInteractGUI_Inspector : Editor
     {
-        GUILayout.Label("Событие взаимодействия с предметом");
+        private ItemInteract _itemInteract;
 
-        GUILayout.BeginHorizontal("Box");
+        private void OnEnable() => _itemInteract = (ItemInteract)target;
 
-        itemInteract.addOrLostItem = EditorGUILayout.Toggle("Получить предмет :", itemInteract.addOrLostItem);
-        itemInteract.gameItem = (GameItem)EditorGUILayout.ObjectField(itemInteract.gameItem, typeof(GameItem), true, GUILayout.Width(200));
+        public override void OnInspectorGUI() => ShowEventEditor(_itemInteract);
 
-        GUILayout.EndHorizontal();
-
-        if (GUILayout.Button("Сохранить событие", GUILayout.Height(20))) EditorUtility.SetDirty(itemInteract);
-
-        if(itemInteract.gameItem != null)
+        public static void ShowEventEditor(ItemInteract itemInteract)
         {
-            if (itemInteract.gameItem is PasiveItem) PasiveItemGUI_Inspector.ShowPassiveItemEditor((PasiveItem)itemInteract.gameItem);
-            else if(itemInteract.gameItem is UsableItem) UsableItemGUI_Inspector.ShowUsableItemEditor((UsableItem)itemInteract.gameItem);
+            GUILayout.Label("Событие взаимодействия с предметом");
+
+            GUILayout.BeginHorizontal("Box");
+
+            itemInteract.addOrLostItem = EditorGUILayout.Toggle("Получить предмет :", itemInteract.addOrLostItem);
+            itemInteract.gameItem = (GameItem)EditorGUILayout.ObjectField(itemInteract.gameItem, typeof(GameItem), true, GUILayout.Width(200));
+
+            GUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Сохранить событие", GUILayout.Height(20))) EditorUtility.SetDirty(itemInteract);
+
+            if (itemInteract.gameItem != null)
+            {
+                if (itemInteract.gameItem is PasiveItem) PasiveItemGUI_Inspector.ShowPassiveItemEditor((PasiveItem)itemInteract.gameItem);
+                else if (itemInteract.gameItem is UsableItem) UsableItemGUI_Inspector.ShowUsableItemEditor((UsableItem)itemInteract.gameItem);
+            }
         }
     }
 }

@@ -1,38 +1,42 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(PositiveEffect))]
-public class PositiveEffectGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private PositiveEffect _positiveEffect;
 
-    private void OnEnable() => _positiveEffect = (PositiveEffect)target;
-
-    public override void OnInspectorGUI() => ShowPositiveEffectGUI(_positiveEffect);
-
-    /// <summary>
-    /// Показать редактор позитивного еффекта
-    /// </summary>
-    public static void ShowPositiveEffectGUI(PositiveEffect positiveEffect)
+    [CustomEditor(typeof(PositiveEffect))]
+    public class PositiveEffectGUI_Inspector : Editor
     {
-        EditorGUILayout.LabelField("Позитивный эффект");
+        private PositiveEffect _positiveEffect;
 
-        EditorGUILayout.BeginHorizontal("Box");
+        private void OnEnable() => _positiveEffect = (PositiveEffect)target;
 
-        EditorGUILayout.BeginVertical();
+        public override void OnInspectorGUI() => ShowPositiveEffectGUI(_positiveEffect);
 
-        positiveEffect.durationEffect = EditorGUILayout.IntSlider("Длительность :", positiveEffect.durationEffect, 0, 50);
-        EditorGUILayout.LabelField("Влияние");
-        positiveEffect.healthInfluenceEffect = EditorGUILayout.IntSlider("На здоровье :", positiveEffect.healthInfluenceEffect, 0, 10);
-        positiveEffect.mindInfluenceEffect = EditorGUILayout.IntSlider("На рассудок :", positiveEffect.mindInfluenceEffect, 0, 10);
+        /// <summary>
+        /// Показать редактор позитивного еффекта
+        /// </summary>
+        public static void ShowPositiveEffectGUI(PositiveEffect positiveEffect)
+        {
+            EditorGUILayout.LabelField("Позитивный эффект");
+
+            EditorGUILayout.BeginHorizontal("Box");
+
+            EditorGUILayout.BeginVertical();
+
+            positiveEffect.durationEffect = EditorGUILayout.IntSlider("Длительность :", positiveEffect.durationEffect, 0, 50);
+            EditorGUILayout.LabelField("Влияние");
+            positiveEffect.healthInfluenceEffect = EditorGUILayout.IntSlider("На здоровье :", positiveEffect.healthInfluenceEffect, 0, 10);
+            positiveEffect.mindInfluenceEffect = EditorGUILayout.IntSlider("На рассудок :", positiveEffect.mindInfluenceEffect, 0, 10);
 
 
-        EditorGUILayout.EndVertical();
+            EditorGUILayout.EndVertical();
 
-        positiveEffect.icoEffect = (Sprite)EditorGUILayout.ObjectField(positiveEffect.icoEffect, typeof(Sprite), true, GUILayout.Width(75), GUILayout.Height(75));
+            positiveEffect.icoEffect = (Sprite)EditorGUILayout.ObjectField(positiveEffect.icoEffect, typeof(Sprite), true, GUILayout.Width(75), GUILayout.Height(75));
 
-        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Сохранить эффект", GUILayout.Height(20))) EditorUtility.SetDirty(positiveEffect);
+            if (GUILayout.Button("Сохранить эффект", GUILayout.Height(20))) EditorUtility.SetDirty(positiveEffect);
+        }
     }
 }

@@ -1,24 +1,28 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(LeandPart))]
-public class LeandPartGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private LeandPart _leandPart;
 
-    private void OnEnable() => _leandPart = (LeandPart)target;
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(LeandPart))]
+    public class LeandPartGUI_Inspector : Editor
     {
-        GUILayout.Label("Текстовые поля");
+        private LeandPart _leandPart;
 
-        GUILayout.BeginVertical("Box");
+        private void OnEnable() => _leandPart = (LeandPart)target;
 
-        _leandPart.mainText = EditorGUILayout.TextArea(_leandPart.mainText, GUILayout.Height(100));
-        _leandPart.movePart_1 = (GamePart)EditorGUILayout.ObjectField("Следующая глава: ", _leandPart.movePart_1, typeof(GamePart), true);
+        public override void OnInspectorGUI()
+        {
+            GUILayout.Label("Текстовые поля");
 
-        GUILayout.EndVertical();
+            GUILayout.BeginVertical("Box");
 
-        if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_leandPart);
+            _leandPart.mainText = EditorGUILayout.TextArea(_leandPart.mainText, GUILayout.Height(100));
+            _leandPart.movePart_1 = (GamePart)EditorGUILayout.ObjectField("Следующая глава: ", _leandPart.movePart_1, typeof(GamePart), true);
+
+            GUILayout.EndVertical();
+
+            if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_leandPart);
+        }
     }
 }

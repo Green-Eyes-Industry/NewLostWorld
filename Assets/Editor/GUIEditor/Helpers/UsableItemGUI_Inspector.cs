@@ -1,49 +1,53 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(UsableItem))]
-public class UsableItemGUI_Inspector : Editor
+namespace GUIInspector
 {
-    private UsableItem _usableItem;
 
-    private void OnEnable() => _usableItem = (UsableItem)target;
-
-    public override void OnInspectorGUI() => ShowUsableItemEditor(_usableItem);
-
-    /// <summary>
-    /// Показать редактор активного предмета
-    /// </summary>
-    public static void ShowUsableItemEditor(UsableItem usableItem)
+    [CustomEditor(typeof(UsableItem))]
+    public class UsableItemGUI_Inspector : Editor
     {
-        GUILayout.Label("Активный предмет");
+        private UsableItem _usableItem;
 
-        GUILayout.BeginHorizontal("Box");
+        private void OnEnable() => _usableItem = (UsableItem)target;
 
-        GUILayout.BeginVertical();
+        public override void OnInspectorGUI() => ShowUsableItemEditor(_usableItem);
 
-        usableItem.itemName = EditorGUILayout.TextField("Название :", usableItem.itemName);
-        GUILayout.Label("Описание :");
-        usableItem.itemDescript = EditorGUILayout.TextArea(usableItem.itemDescript, GUILayout.Height(40));
+        /// <summary>
+        /// Показать редактор активного предмета
+        /// </summary>
+        public static void ShowUsableItemEditor(UsableItem usableItem)
+        {
+            GUILayout.Label("Активный предмет");
 
-        GUILayout.EndVertical();
+            GUILayout.BeginHorizontal("Box");
 
-        usableItem.itemIco = (Sprite)EditorGUILayout.ObjectField(usableItem.itemIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
+            GUILayout.BeginVertical();
 
-        GUILayout.EndHorizontal();
+            usableItem.itemName = EditorGUILayout.TextField("Название :", usableItem.itemName);
+            GUILayout.Label("Описание :");
+            usableItem.itemDescript = EditorGUILayout.TextArea(usableItem.itemDescript, GUILayout.Height(40));
 
-        GUILayout.Label("Влияние");
+            GUILayout.EndVertical();
 
-        GUILayout.BeginVertical("Box");
+            usableItem.itemIco = (Sprite)EditorGUILayout.ObjectField(usableItem.itemIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
 
-        usableItem.healthInf = EditorGUILayout.IntSlider("Здоровье :", usableItem.healthInf, -100, 100);
-        usableItem.mindInf = EditorGUILayout.IntSlider("Рассудок :", usableItem.mindInf, -100, 100);
+            GUILayout.EndHorizontal();
 
-        usableItem.itemEffect = (GameEffect)EditorGUILayout.ObjectField("Накладываемый эффект :",usableItem.itemEffect, typeof(GameEffect), true);
+            GUILayout.Label("Влияние");
 
-        if (usableItem.itemEffect != null) GlobalHelperGUI_Inspector.ShowEffectFromPart(usableItem.itemEffect);
+            GUILayout.BeginVertical("Box");
 
-        GUILayout.EndVertical();
+            usableItem.healthInf = EditorGUILayout.IntSlider("Здоровье :", usableItem.healthInf, -100, 100);
+            usableItem.mindInf = EditorGUILayout.IntSlider("Рассудок :", usableItem.mindInf, -100, 100);
 
-        if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) EditorUtility.SetDirty(usableItem);
+            usableItem.itemEffect = (GameEffect)EditorGUILayout.ObjectField("Накладываемый эффект :", usableItem.itemEffect, typeof(GameEffect), true);
+
+            if (usableItem.itemEffect != null) GlobalHelperGUI_Inspector.ShowEffectFromPart(usableItem.itemEffect);
+
+            GUILayout.EndVertical();
+
+            if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) EditorUtility.SetDirty(usableItem);
+        }
     }
 }

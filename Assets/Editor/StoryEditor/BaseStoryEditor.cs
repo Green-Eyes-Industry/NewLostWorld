@@ -171,9 +171,7 @@ namespace GUIInspector.StoryEditor
             BaseStoryEditor storyEditor = GetWindow<BaseStoryEditor>();
             storyEditor.title = "Story Editor";
 
-            StoryNodeEditor.SizeParts = new Vector2(50, 100);
             storyEditor.ReloadLoadObjects();
-
         }
 
         private void OnGUI()
@@ -210,19 +208,60 @@ namespace GUIInspector.StoryEditor
             }
             else
             {
-                GUI.backgroundColor = _accentColor;
-                StoryMenu();
+                _storyMenuScroll = EditorGUILayout.BeginScrollView(_storyMenuScroll);
+
+                GUILayout.Label("Всего создано : [ " + GlobalCount() + " ] Компонентов");
+                EditorGUILayout.Space();
+
+                ShowFinalStory(_storyParts.Count, "Глав");
+                ShowFinalStory(_eventsParts.Count, "Событий");
+                ShowFinalStory(_items.Count, "Предметов");
+                ShowFinalStory(_characters.Count, "Персонажей");
+                ShowFinalStory(_achivemants.Count, "Достижений");
+                ShowFinalStory(_effects.Count, "Еффектов");
+                ShowFinalStory(_locations.Count, "Локаций");
+                ShowFinalStory(_notes.Count, "Заметок");
+
+                EditorGUILayout.EndScrollView();
             }
 
             EditorGUILayout.EndVertical();
         }
-
 
         #endregion
 
         #region HELP_EDITOR
 
         #region SHOW_HELP_MENU
+
+        /// <summary>
+        /// Отобразить компонент
+        /// </summary>
+        private void ShowFinalStory(int countProp, string nameProp)
+        {
+            EditorGUILayout.BeginHorizontal();
+
+            GUILayout.Label("[ " + countProp + " ] " + nameProp, GUILayout.Width(150));
+            EditorGUILayout.IntSlider(countProp, 0, GlobalCount());
+
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space();
+        }
+
+        /// <summary>
+        /// Всего компонентов
+        /// </summary>
+        private int GlobalCount()
+        {
+            return _storyParts.Count +
+                _eventsParts.Count +
+                _items.Count +
+                _characters.Count +
+                _achivemants.Count +
+                _effects.Count +
+                _locations.Count +
+                _notes.Count;
+        }
 
         /// <summary>
         /// Меню "Главы"
@@ -751,7 +790,7 @@ namespace GUIInspector.StoryEditor
 
                 case 1:
                     AssetDatabase.CreateAsset(CreateInstance(typeof(NonPlayer)),
-                        "Assets/Resources/Players/" +
+                        "Assets/Resources/Players/NonPlayers/" +
                         _characters.Count +
                         "_" +
                         nameCharacter +
@@ -837,22 +876,6 @@ namespace GUIInspector.StoryEditor
         }
 
         #endregion
-
-        #endregion
-
-        #region STORY_EDITOR
-
-        /// <summary>
-        /// Меню "Сюжет"
-        /// </summary>
-        private void StoryMenu()
-        {
-            _storyMenuScroll = EditorGUILayout.BeginScrollView(_storyMenuScroll);
-
-            StoryNodeEditor.ShowStoryEditor(_storyParts);
-
-            EditorGUILayout.EndScrollView();
-        }
 
         #endregion
 

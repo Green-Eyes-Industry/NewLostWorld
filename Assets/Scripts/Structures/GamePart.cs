@@ -29,7 +29,7 @@ public class GamePart : ScriptableObject
     /// <summary>
     /// Позиция главы в редакторе
     /// </summary>
-    public Vector2 partPosition;
+    public Rect partPosition;
 
 #endif
 }

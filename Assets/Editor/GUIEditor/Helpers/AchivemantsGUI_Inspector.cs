@@ -33,8 +33,6 @@ namespace GUIInspector
             achivemants.achiveIco = (Sprite)EditorGUILayout.ObjectField(achivemants.achiveIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
 
             GUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Сохранить достижение", GUILayout.Height(20))) EditorUtility.SetDirty(achivemants);
         }
     }
 }

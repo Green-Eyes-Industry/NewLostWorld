@@ -26,8 +26,6 @@ namespace GUIInspector
             nonPlayer.npToPlayerRatio = EditorGUILayout.IntSlider(nonPlayer.npToPlayerRatio, -10, 10);
 
             EditorGUILayout.EndVertical();
-
-            if (GUILayout.Button("Сохранить персонажа", GUILayout.Height(20))) EditorUtility.SetDirty(nonPlayer);
         }
     }
 }

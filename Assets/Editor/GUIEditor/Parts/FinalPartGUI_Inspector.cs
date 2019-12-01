@@ -29,8 +29,6 @@ namespace GUIInspector
             _finalPart.newAchive = (Achivemants)EditorGUILayout.ObjectField("Получаемое достижение :", _finalPart.newAchive, typeof(Achivemants), true);
 
             if (_finalPart.newAchive != null) AchivemantsGUI_Inspector.ShowAchiveGUI(_finalPart.newAchive);
-
-            if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_finalPart);
         }
     }
 }

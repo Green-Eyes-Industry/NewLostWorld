@@ -24,8 +24,6 @@ namespace GUIInspector
 
             GUILayout.EndHorizontal();
 
-            if (GUILayout.Button("Сохранить событие", GUILayout.Height(20))) EditorUtility.SetDirty(itemInteract);
-
             if (itemInteract.gameItem != null)
             {
                 if (itemInteract.gameItem is PasiveItem) PasiveItemGUI_Inspector.ShowPassiveItemEditor((PasiveItem)itemInteract.gameItem);

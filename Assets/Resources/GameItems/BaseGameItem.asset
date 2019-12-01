@@ -15,3 +15,4 @@ MonoBehaviour:
   itemIco: {fileID: 21300000, guid: 0f3376caefabe574c94d01aaa69b1c75, type: 3}
   itemName: "\u041F\u0440\u0435\u0434\u043C\u0435\u0442"
   itemDescript: "\u041F\u0440\u043E\u0441\u0442\u043E\u0439 \u043F\u0440\u0435\u0434\u043C\u0435\u0442"
+  itemEffect: {fileID: 0}

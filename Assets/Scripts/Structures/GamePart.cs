@@ -23,4 +23,13 @@ public class GamePart : ScriptableObject
     /// Следующая глава третей кнопки
     /// </summary>
     public GamePart movePart_3;
+
+#if UNITY_EDITOR
+
+    /// <summary>
+    /// Позиция главы в редакторе
+    /// </summary>
+    public Vector2 partPosition;
+
+#endif
 }

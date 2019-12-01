@@ -41,8 +41,6 @@ namespace GUIInspector
             GUILayout.EndScrollView();
 
             if (GUILayout.Button("Добавить главу", GUILayout.Height(30))) _eventPart.eventParts.Add(null);
-
-            if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_eventPart);
         }
     }
 }

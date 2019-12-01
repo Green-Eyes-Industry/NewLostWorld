@@ -46,8 +46,6 @@ namespace GUIInspector
             if (usableItem.itemEffect != null) GlobalHelperGUI_Inspector.ShowEffectFromPart(usableItem.itemEffect);
 
             GUILayout.EndVertical();
-
-            if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) EditorUtility.SetDirty(usableItem);
         }
     }
 }

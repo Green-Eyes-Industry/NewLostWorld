@@ -24,8 +24,6 @@ namespace GUIInspector
             _mapMark._partLocation = (GamePart)EditorGUILayout.ObjectField("Глава локации :", _mapMark._partLocation, typeof(GamePart), true);
 
             GUILayout.EndVertical();
-
-            if (GUILayout.Button("Сохранить", GUILayout.Height(20))) EditorUtility.SetDirty(_mapMark);
         }
     }
 }

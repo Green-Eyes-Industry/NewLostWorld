@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7d4e4b1ad0a6f4ba3a69feab2c22a5, type: 3}
   m_Name: ItemInteract_Event
   m_EditorClassIdentifier: 
-  editorEventFoldout: 1
+  editorEventFoldout: 0
   addOrLostItem: 1
   gameItem: {fileID: 11400000, guid: 3f1151a0aa1d0bb48a8256fdf89eaacf, type: 2}

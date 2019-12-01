@@ -24,8 +24,6 @@ namespace GUIInspector
             _notes._partNote = (GamePart)EditorGUILayout.ObjectField("Глава воспоминания :", _notes._partNote, typeof(GamePart), true);
 
             GUILayout.EndVertical();
-
-            if (GUILayout.Button("Сохранить", GUILayout.Height(20))) EditorUtility.SetDirty(_notes);
         }
     }
 }

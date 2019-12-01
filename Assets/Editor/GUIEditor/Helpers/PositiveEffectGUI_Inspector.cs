@@ -35,8 +35,6 @@ namespace GUIInspector
             positiveEffect.icoEffect = (Sprite)EditorGUILayout.ObjectField(positiveEffect.icoEffect, typeof(Sprite), true, GUILayout.Width(75), GUILayout.Height(75));
 
             EditorGUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Сохранить эффект", GUILayout.Height(20))) EditorUtility.SetDirty(positiveEffect);
         }
     }
 }

@@ -21,5 +21,6 @@ MonoBehaviour:
   movePart_1: {fileID: 11400000, guid: 04d81ee820a04824cb9edbae14b64a2e, type: 2}
   movePart_2: {fileID: 11400000, guid: 0ff64cdf00ba43e4a9f89b8efd85c163, type: 2}
   movePart_3: {fileID: 0}
+  partPosition: {x: 0, y: 0}
   buttonText_1: "\u041E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043A\u0432\u0430\u0440\u0442\u0438\u0440\u0443"
   buttonText_2: "\u0412\u0441\u0442\u0430\u0432\u0430\u0442\u044C"

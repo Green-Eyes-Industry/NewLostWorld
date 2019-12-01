@@ -21,8 +21,6 @@ namespace GUIInspector
             _leandPart.movePart_1 = (GamePart)EditorGUILayout.ObjectField("Следующая глава: ", _leandPart.movePart_1, typeof(GamePart), true);
 
             GUILayout.EndVertical();
-
-            if (GUILayout.Button("Сохранить", GUILayout.Height(30))) EditorUtility.SetDirty(_leandPart);
         }
     }
 }

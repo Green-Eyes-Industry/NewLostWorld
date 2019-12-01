@@ -105,8 +105,6 @@ namespace GUIInspector
             }
 
             GUILayout.EndVertical();
-
-            if (GUILayout.Button("Сохранить персонажа игрока", GUILayout.Height(20))) EditorUtility.SetDirty(_player);
         }
 
         /// <summary>

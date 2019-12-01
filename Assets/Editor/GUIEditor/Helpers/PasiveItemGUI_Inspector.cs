@@ -33,8 +33,6 @@ namespace GUIInspector
             pasiveItem.itemIco = (Sprite)EditorGUILayout.ObjectField(pasiveItem.itemIco, typeof(Sprite), true, GUILayout.Height(75), GUILayout.Width(75));
 
             GUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Сохранить предмет", GUILayout.Height(20))) EditorUtility.SetDirty(pasiveItem);
         }
     }
 }

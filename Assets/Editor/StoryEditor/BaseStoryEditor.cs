@@ -277,6 +277,9 @@ namespace GUIInspector.StoryEditor
             {
                 for (int i = 0; i < _storyParts.Count; i++)
                 {
+                    if (_storyParts[i].Equals(MoveController._startPart)) GUI.backgroundColor = Color.red;
+                    else GUI.backgroundColor = _baseColor;
+
                     EditorGUILayout.BeginHorizontal();
 
                     _storyParts[i] = (GamePart)EditorGUILayout.ObjectField(_storyParts[i], typeof(GamePart), true);

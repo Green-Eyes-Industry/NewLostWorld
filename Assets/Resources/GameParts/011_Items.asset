@@ -18,6 +18,11 @@ MonoBehaviour:
   movePart_1: {fileID: 0}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
-  partPosition: {x: 0, y: 0}
+  partPosition:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   buttonText_1: 
   buttonText_2: 

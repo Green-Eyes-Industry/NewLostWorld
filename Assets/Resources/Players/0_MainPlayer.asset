@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e7d4e4b1ad0a6f4ba3a69feab2c22a5, type: 3}
-  m_Name: ItemInteract_Double
+  m_Script: {fileID: 11500000, guid: 3c992ea2880fe8f41928304affb45370, type: 3}
+  m_Name: 0_MainPlayer
   m_EditorClassIdentifier: 
-  editorEventFoldout: 1
-  addOrLostItem: 1
-  gameItem: {fileID: 0}
+  playerHealth: 100
+  playerMind: 100
+  playerEffects: []
+  playerInventory: []
+  playerNotes: []
+  playerMap: []

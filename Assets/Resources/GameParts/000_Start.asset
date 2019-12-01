@@ -18,9 +18,14 @@ MonoBehaviour:
     \u0437\u0432\u043E\u043D\u0438\u0442 \u0432\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D!"
   mainEvents: []
   movePart_1: {fileID: 11400000, guid: 17f717a3c5b6ba24f949c28c50e9c81e, type: 2}
-  movePart_2: {fileID: 0}
+  movePart_2: {fileID: 11400000, guid: 1f0664909263e314f91d6f318598cd5e, type: 2}
   movePart_3: {fileID: 0}
-  partPosition: {x: 0, y: 0}
+  partPosition:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   buttonText_1: "\u0412\u0441\u043F\u043E\u043C\u043D\u0438\u0442\u044C \u0441\u043E\u043D"
   buttonText_2: "\u041E\u0442\u0432\u0435\u0442\u0438\u0442\u044C \u043D\u0430 \u0437\u0432\u043E\u043D\u043E\u043A
     [\u0414\u043E\u0440\u0430\u0431\u043E\u0442\u043A\u0430]"

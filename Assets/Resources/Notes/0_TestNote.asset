@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e7d4e4b1ad0a6f4ba3a69feab2c22a5, type: 3}
-  m_Name: ItemInteract_Double
+  m_Script: {fileID: 11500000, guid: 4fd1c761401b7864e9ed9a677322a709, type: 3}
+  m_Name: 0_TestNote
   m_EditorClassIdentifier: 
-  editorEventFoldout: 1
-  addOrLostItem: 1
-  gameItem: {fileID: 0}
+  noteName: 
+  noteDescription: 
+  _partNote: {fileID: 0}

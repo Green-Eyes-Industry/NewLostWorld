@@ -23,7 +23,12 @@ MonoBehaviour:
   movePart_1: {fileID: 0}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
-  partPosition: {x: 0, y: 0}
+  partPosition:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   buttonText_1: "\u0418\u0434\u0442\u0438 \u043D\u0430\u043F\u0440\u043E\u043B\u043E\u043C"
   buttonText_2: "\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043D\u0430
     \u043F\u043E\u043B\u044F\u043D\u0443"

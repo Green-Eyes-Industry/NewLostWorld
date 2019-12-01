@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorEventFoldout: 0
   addOrLostItem: 1
-  gameItem: {fileID: 11400000, guid: 3f1151a0aa1d0bb48a8256fdf89eaacf, type: 2}
+  gameItem: {fileID: 0}

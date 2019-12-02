@@ -40,18 +40,18 @@ public class DataController : MonoBehaviour
     /// </summary>
     public static void SavePlayerInventory()
     {
-        // Сохранение инвентаря
-        for (int i = 0; i < playerData.playerInventory.Count; i++)
-        {
-            PlayerPrefs.SetString("PL_Invent_" + i, "GameItems/" + playerData.playerInventory[i].name);
-        }
-
-        // Очистка остального инвентаря
-        for (int i = playerData.playerInventory.Count; i < 100; i++)
-        {
-            if (PlayerPrefs.HasKey("PL_Invent_" + i)) PlayerPrefs.DeleteKey("PL_Invent_" + i);
-            else break;
-        }
+        // // Сохранение инвентаря
+        // for (int i = 0; i < playerData.playerInventory.Count; i++)
+        // {
+        //     PlayerPrefs.SetString("PL_Invent_" + i, "GameItems/" + playerData.playerInventory[i].name);
+        // }
+        // 
+        // // Очистка остального инвентаря
+        // for (int i = playerData.playerInventory.Count; i < 100; i++)
+        // {
+        //     if (PlayerPrefs.HasKey("PL_Invent_" + i)) PlayerPrefs.DeleteKey("PL_Invent_" + i);
+        //     else break;
+        // }
     }
 
     /// <summary>

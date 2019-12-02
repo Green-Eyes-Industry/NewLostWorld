@@ -21,9 +21,9 @@ namespace GUIInspector
 
             EditorGUILayout.Space();
 
-            _gameSettings.soundCheck = EditorGUILayout.Toggle("Настройка звука : ", _gameSettings.soundCheck);
-            _gameSettings.vibrationCheck = EditorGUILayout.Toggle("Настройка вибрации : ", _gameSettings.vibrationCheck);
-            _gameSettings.effectCheck = EditorGUILayout.Toggle("Настройка еффектов : ", _gameSettings.effectCheck);
+            _gameSettings.soundCheck = EditorGUILayout.Toggle("Звука : ", _gameSettings.soundCheck);
+            _gameSettings.vibrationCheck = EditorGUILayout.Toggle("Вибрация : ", _gameSettings.vibrationCheck);
+            _gameSettings.effectCheck = EditorGUILayout.Toggle("Эффекты : ", _gameSettings.effectCheck);
 
             EditorGUILayout.Space();
 

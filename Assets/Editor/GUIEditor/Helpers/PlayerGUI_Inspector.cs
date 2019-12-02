@@ -9,14 +9,15 @@ namespace GUIInspector
     {
         private Player _player;
 
-        /// <summary>
-        /// Открытие вкладок
-        /// </summary>
-        private bool
-            _playerEffects,
-            _playerInventory,
-            _playerNotes,
-            _playerMap;
+        private int _menuNum;
+
+        private readonly string[] _menuNames = new string[]
+        {
+            "Инвентарь",
+            "Эффекты",
+            "Карта",
+            "Заметки"
+        };
 
         /// <summary>
         /// Прокрутки
@@ -42,66 +43,16 @@ namespace GUIInspector
 
             EditorGUILayout.LabelField("Дополнительные параметры");
 
+            _menuNum = GUILayout.SelectionGrid(_menuNum, _menuNames, _menuNames.Length);
+
             GUILayout.BeginVertical("Box");
 
-            GUILayout.BeginHorizontal();
-            EditorGUILayout.Space();
-            _playerEffects = EditorGUILayout.BeginFoldoutHeaderGroup(_playerEffects, "Эффекты персонажа");
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-            GUILayout.EndHorizontal();
-            EditorGUILayout.Space();
-
-            if (_playerEffects)
+            switch (_menuNum)
             {
-                GUILayout.BeginVertical("Button");
-                PlayerEffects();
-                GUILayout.EndVertical();
-            }
-
-            GUILayout.BeginHorizontal();
-            EditorGUILayout.Space();
-            _playerInventory = EditorGUILayout.BeginFoldoutHeaderGroup(_playerInventory, "Инвентарь персонажа");
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-            GUILayout.EndHorizontal();
-            EditorGUILayout.Space();
-
-            if (_playerInventory)
-            {
-                GUILayout.BeginVertical("Button");
-                PlayerInventory();
-                GUILayout.EndVertical();
-            }
-
-            GUILayout.BeginHorizontal();
-            EditorGUILayout.Space();
-            _playerNotes = EditorGUILayout.BeginFoldoutHeaderGroup(_playerNotes, "Заметки персонажа");
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-            GUILayout.EndHorizontal();
-            EditorGUILayout.Space();
-
-            if (_playerNotes)
-            {
-                GUILayout.BeginVertical("Button");
-                PlayerNotes();
-                GUILayout.EndVertical();
-            }
-
-            GUILayout.BeginHorizontal();
-            EditorGUILayout.Space();
-            _playerMap = EditorGUILayout.BeginFoldoutHeaderGroup(_playerMap, "Карта персонажа");
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-            GUILayout.EndHorizontal();
-            EditorGUILayout.Space();
-
-            if (_playerMap)
-            {
-                GUILayout.BeginVertical("Button");
-                PlayerMap();
-                GUILayout.EndVertical();
+                case 0: PlayerInventory(); break;
+                case 1: PlayerEffects(); break;
+                case 2: PlayerMap(); break;
+                case 3: PlayerNotes(); break;
             }
 
             GUILayout.EndVertical();
@@ -124,7 +75,6 @@ namespace GUIInspector
                     if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerEffects.RemoveAt(i);
 
                     GUILayout.EndHorizontal();
-                    EditorGUILayout.Space();
                 }
             }
 
@@ -150,7 +100,6 @@ namespace GUIInspector
                     if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerInventory.RemoveAt(i);
 
                     GUILayout.EndHorizontal();
-                    EditorGUILayout.Space();
                 }
             }
 
@@ -176,7 +125,6 @@ namespace GUIInspector
                     if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerNotes.RemoveAt(i);
 
                     GUILayout.EndHorizontal();
-                    EditorGUILayout.Space();
                 }
             }
 
@@ -202,7 +150,6 @@ namespace GUIInspector
                     if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerMap.RemoveAt(i);
 
                     GUILayout.EndHorizontal();
-                    EditorGUILayout.Space();
                 }
             }
 

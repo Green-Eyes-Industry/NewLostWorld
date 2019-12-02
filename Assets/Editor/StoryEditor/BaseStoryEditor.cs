@@ -10,6 +10,8 @@ namespace GUIInspector.StoryEditor
 
         #region DATA
 
+        private GamePart _selectedPart; // Текущая глава
+
         private List<GamePart> _storyParts = new List<GamePart>();
         private List<GameEvent> _eventsParts = new List<GameEvent>();
         private List<GameItem> _items = new List<GameItem>();
@@ -22,6 +24,9 @@ namespace GUIInspector.StoryEditor
         private Color _accentColor = new Color(0.75f, 0.75f, 0.75f);
         private Color _baseColor = Color.white;
 
+        private bool _isCheckStop = false;
+        private bool _isConnectPartEnable = false;
+
         #endregion
 
         #region GLOBAL
@@ -32,7 +37,7 @@ namespace GUIInspector.StoryEditor
         private readonly string[] _mainMenuNames = new string[]
         {
             "Компоненты",
-            "Сценарий"
+            "Статистика"
         };
 
         private int _selectorMenu;
@@ -275,10 +280,14 @@ namespace GUIInspector.StoryEditor
 
             if (_storyParts.Count > 0)
             {
+                if (EditorApplication.isPlaying)
+                {
+                    if(MoveController._startPart != null) _selectedPart = MoveController._startPart;
+                }
+
                 for (int i = 0; i < _storyParts.Count; i++)
                 {
-                    if (_storyParts[i].Equals(MoveController._startPart)) GUI.backgroundColor = Color.red;
-                    else GUI.backgroundColor = _baseColor;
+                    CheckGamePart(_storyParts[i]);
 
                     EditorGUILayout.BeginHorizontal();
 
@@ -305,6 +314,58 @@ namespace GUIInspector.StoryEditor
             if(GUILayout.Button("Создать", GUILayout.Width(100))) CreateNewPart(_nameNewPart, _partType);
 
             EditorGUILayout.EndHorizontal();
+        }
+
+        /// <summary>
+        /// Проверить текущую главу во время игры
+        /// </summary>
+        private void CheckGamePart(GamePart part)
+        {
+            _isCheckStop = false;
+            _isConnectPartEnable = false;
+
+            if (EditorApplication.isPlaying && _selectedPart != null)
+            {
+                if (_selectedPart.movePart_1 != null && !_isCheckStop)
+                {
+                    if (part.Equals(_selectedPart.movePart_1))
+                    {
+                        GUI.backgroundColor = Color.yellow;
+                        _isCheckStop = true;
+                    }
+                    else _isConnectPartEnable = true;
+                }
+
+                if (_selectedPart.movePart_2 != null && !_isCheckStop)
+                {
+                    if (part.Equals(_selectedPart.movePart_2))
+                    {
+                        GUI.backgroundColor = Color.yellow;
+                        _isCheckStop = true;
+                    }
+                    else _isConnectPartEnable = true;
+                }
+
+                if (_selectedPart.movePart_3 != null && !_isCheckStop)
+                {
+                    if (part.Equals(_selectedPart.movePart_3))
+                    {
+                        GUI.backgroundColor = Color.yellow;
+                        _isCheckStop = true;
+                    }
+                    else _isConnectPartEnable = true;
+                }
+
+                if (part.Equals(_selectedPart))
+                {
+                    if(!_isConnectPartEnable) GUI.backgroundColor = Color.red;
+                    else GUI.backgroundColor = Color.blue;
+                    _isCheckStop = true;
+                }
+
+                if (!_isCheckStop) GUI.backgroundColor = _baseColor;
+            }
+            else GUI.backgroundColor = _baseColor;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New game settings", menuName = "Игровые обьекты/Игровые параметры")]
 public class GameSettings : ScriptableObject
@@ -29,4 +30,9 @@ public class GameSettings : ScriptableObject
     /// Цвет глаза
     /// </summary>
     public Color eyeColor;
+
+    /// <summary>
+    /// Полученные достижения
+    /// </summary>
+    public List<Achivemants> gameAchivemants;
 }

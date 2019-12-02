@@ -10,6 +10,7 @@ namespace GUIInspector.StoryEditor
 
         #region DATA
 
+        private GameSettings _mainSettings;
         private GamePart _selectedPart; // Текущая глава
 
         private List<GamePart> _storyParts = new List<GamePart>();
@@ -184,7 +185,12 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.BeginHorizontal();
             
             _selectorMainMenu = GUILayout.SelectionGrid(_selectorMainMenu, _mainMenuNames, _mainMenuNames.Length);
-            if (GUILayout.Button("Сохранить",GUILayout.Width(150))) SaveAllDataFiles();
+            if (_mainSettings == null) _mainSettings = (GameSettings)Resources.Load("BaseParameters");
+            else
+            {
+                if (GUILayout.Button("Данные", GUILayout.Width(100))) Selection.activeObject = _mainSettings;
+            }
+            if (GUILayout.Button("Сохранить", GUILayout.Width(100))) SaveAllDataFiles();
 
             EditorGUILayout.EndHorizontal();
 

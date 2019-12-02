@@ -16,7 +16,8 @@ namespace GUIInspector
             "Инвентарь",
             "Эффекты",
             "Карта",
-            "Заметки"
+            "Заметки",
+            "Решения"
         };
 
         /// <summary>
@@ -26,7 +27,8 @@ namespace GUIInspector
             _playerEffectsScroll,
             _playerInventoryScroll,
             _playerNotesScroll,
-            _playerMapScroll;
+            _playerMapScroll,
+            _playerDecisionScroll;
 
         private void OnEnable() => _player = (Player)target;
 
@@ -43,9 +45,9 @@ namespace GUIInspector
 
             EditorGUILayout.LabelField("Дополнительные параметры");
 
-            _menuNum = GUILayout.SelectionGrid(_menuNum, _menuNames, _menuNames.Length);
-
             GUILayout.BeginVertical("Box");
+
+            _menuNum = GUILayout.SelectionGrid(_menuNum, _menuNames, _menuNames.Length);
 
             switch (_menuNum)
             {
@@ -53,6 +55,7 @@ namespace GUIInspector
                 case 1: PlayerEffects(); break;
                 case 2: PlayerMap(); break;
                 case 3: PlayerNotes(); break;
+                case 4: PlayerDecisions(); break;
             }
 
             GUILayout.EndVertical();
@@ -154,6 +157,31 @@ namespace GUIInspector
             }
 
             if (GUILayout.Button("Добавить локацию", GUILayout.Height(20))) _player.playerMap.Add(null);
+
+            EditorGUILayout.EndScrollView();
+        }
+
+        /// <summary>
+        /// Отображение списка принятых решений
+        /// </summary>
+        private void PlayerDecisions()
+        {
+            _playerDecisionScroll = EditorGUILayout.BeginScrollView(_playerDecisionScroll);
+
+            if (_player.playerDecisions.Count > 0)
+            {
+                for (int i = 0; i < _player.playerDecisions.Count; i++)
+                {
+                    GUILayout.BeginHorizontal();
+
+                    _player.playerDecisions[i] = (Decision)EditorGUILayout.ObjectField(_player.playerDecisions[i], typeof(Decision), true);
+                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerDecisions.RemoveAt(i);
+
+                    GUILayout.EndHorizontal();
+                }
+            }
+
+            if (GUILayout.Button("Добавить решение", GUILayout.Height(20))) _player.playerDecisions.Add(null);
 
             EditorGUILayout.EndScrollView();
         }

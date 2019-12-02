@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199829bf18e949743aa71e45590ed96f, type: 3}
   m_Name: 004_LongDream
   m_EditorClassIdentifier: 
-  mainText: 
+  mainText: "\u041F\u0440\u0438\u0432\u0435\u0442 \u043C\u0438\u0440, \u044D\u0442\u043E
+    \u0442\u0435\u0441\u0442\u043E\u0432\u0430\u044F \u0433\u043B\u0430\u0432\u0430"
   mainEvents: []
-  movePart_1: {fileID: 0}
-  movePart_2: {fileID: 0}
+  movePart_1: {fileID: 11400000, guid: 553440a24ecae944ab70c9b4b8aafc3a, type: 2}
+  movePart_2: {fileID: 11400000, guid: ec273d2fead7ea246b6db0aaac7bdbcd, type: 2}
   movePart_3: {fileID: 0}
   partPosition:
     serializedVersion: 2
@@ -23,5 +24,5 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  buttonText_1: 
-  buttonText_2: 
+  buttonText_1: "\u041F\u0435\u0440\u0432\u0430\u044F \u043A\u043D\u043E\u043F\u043A\u0430"
+  buttonText_2: "\u0412\u0442\u043E\u0440\u0430\u044F \u043A\u043D\u043E\u043F\u043A\u0430"

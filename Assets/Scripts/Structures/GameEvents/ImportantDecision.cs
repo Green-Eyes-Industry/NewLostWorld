@@ -12,6 +12,6 @@ public class ImportantDecision : GameEvent
     /// </summary>
     public override bool EventStart()
     {
-        return false;
+        return true;
     }
 }

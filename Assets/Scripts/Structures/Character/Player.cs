@@ -35,4 +35,9 @@ public class Player : Character
     /// Открытиые локации
     /// </summary>
     public List<MapMark> playerMap;
+
+    /// <summary>
+    /// Важные решения
+    /// </summary>
+    public List<Decision> playerDecisions;
 }

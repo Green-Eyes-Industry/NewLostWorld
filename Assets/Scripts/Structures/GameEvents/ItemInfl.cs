@@ -10,7 +10,7 @@ public class ItemInfl : GameEvent
     /// </summary>
     public override bool EventStart()
     {
-        bool finded = false;
+        bool finded = true;
 
         if (DataController.playerData.playerInventory.Count != 0)
         {
@@ -20,7 +20,7 @@ public class ItemInfl : GameEvent
                 {
                     if(DataController.playerData.playerInventory[i].Equals(useItem))
                     {
-                        finded = true;
+                        finded = false;
                         UseThisItem();
                         DataController.playerData.playerInventory.RemoveAt(i);
                         break;

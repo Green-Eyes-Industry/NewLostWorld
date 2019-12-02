@@ -4,20 +4,13 @@
 public class CheckPoint : GameEvent
 {
     /// <summary>
-    /// Новый текст превью
-    /// </summary>
-    public string _newPreviewText;
-
-    /// <summary>
-    /// Старт события
+    /// Перезаписывает сохраненные данные
     /// </summary>
     public override bool EventStart()
     {
-        // TODO : Замена текста при вступлении
-
         DataController.gameSettingsData.lastPart = MoveController._startPart;
         DataController.SaveGamePreferences();
 
-        return false;
+        return true;
     }
 }

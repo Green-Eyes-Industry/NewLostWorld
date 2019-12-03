@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d562ba768f5e464ab58262676848bf5, type: 3}
-  m_Name: BaseParameters
+  m_Script: {fileID: 11500000, guid: 77596d61f2df5ea418d1a669dd47504e, type: 3}
+  m_Name: FirstData
   m_EditorClassIdentifier: 
-  lastPart: {fileID: 0}
-  soundCheck: 1
-  vibrationCheck: 1
-  effectCheck: 0
-  eyeColor: {r: 0, g: 0, b: 0, a: 0}
-  gameAchivemants: []
+  storyDescript: "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0439"
+  nodesData:
+  - {fileID: 11400000, guid: d2436e58343c5184abdb663c7601aa26, type: 2}

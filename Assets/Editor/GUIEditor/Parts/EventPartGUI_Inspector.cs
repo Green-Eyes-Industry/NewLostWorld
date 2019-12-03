@@ -24,6 +24,7 @@ namespace GUIInspector
             EditorGUILayout.Space();
 
             GUILayout.BeginScrollView(_partsSlider, "Box");
+
             if (_eventPart.eventParts.Count > 0)
             {
                 for (int i = 0; i < _eventPart.eventParts.Count; i++)

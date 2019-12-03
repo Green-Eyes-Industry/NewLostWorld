@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Текстовая глава", order = 0)]
 public class TextPart : GamePart

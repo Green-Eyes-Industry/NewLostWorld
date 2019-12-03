@@ -7903,7 +7903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _menuCanvas: {fileID: 2076524694}
   _gameCanvas: {fileID: 109032134}
-  firstPart: {fileID: 11400000, guid: 553440a24ecae944ab70c9b4b8aafc3a, type: 2}
+  firstPart: {fileID: 11400000, guid: d2436e58343c5184abdb663c7601aa26, type: 2}
 --- !u!114 &638641259
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ namespace GUIInspector.StoryEditor
 
         private GameSettings _mainSettings;
         private GamePart _selectedPart; // Текущая глава
-
+        
         private List<GamePart> _storyParts = new List<GamePart>();
         private List<GameEvent> _eventsParts = new List<GameEvent>();
         private List<GameItem> _items = new List<GameItem>();
@@ -169,13 +169,13 @@ namespace GUIInspector.StoryEditor
 
         #region INIT
 
-        [MenuItem("Story Editor/Editor")]
+        [MenuItem("Story/Data Editor")]
         [System.Obsolete]
         static void ShowEditor()
         {
             // Создание окна редактора
             BaseStoryEditor storyEditor = GetWindow<BaseStoryEditor>();
-            storyEditor.title = "Story Editor";
+            storyEditor.title = "Data Editor";
 
             storyEditor.ReloadLoadObjects();
         }
@@ -191,6 +191,10 @@ namespace GUIInspector.StoryEditor
                 if (GUILayout.Button("Данные", GUILayout.Width(100))) Selection.activeObject = _mainSettings;
             }
             if (GUILayout.Button("Сохранить", GUILayout.Width(100))) SaveAllDataFiles();
+
+            GUI.backgroundColor = Color.green;
+            if (GUILayout.Button("U", GUILayout.Width(18), GUILayout.Height(18))) ReloadLoadObjects();
+            GUI.backgroundColor = Color.white;
 
             EditorGUILayout.EndHorizontal();
 

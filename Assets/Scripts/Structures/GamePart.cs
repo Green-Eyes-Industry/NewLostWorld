@@ -26,10 +26,61 @@ public class GamePart : ScriptableObject
 
 #if UNITY_EDITOR
 
+    public Rect windowRect;
+    public string windowTitle;
+    public GamePart part;
+
+    public int workStady;
+    public int[] workStadyNum = new int[] { 0, 1, 2};
+    public string[] workStadyNames = new string[] { "Пусто", "Разработка", "Готово" };
+
+    public void DrawWindow()
+    {
+        workStady = UnityEditor.EditorGUILayout.IntPopup(workStady, workStadyNames, workStadyNum, GUILayout.Width(110f));
+    }
+
     /// <summary>
-    /// Позиция главы в редакторе
+    /// Отрисовка связей
     /// </summary>
-    public Rect partPosition;
+    public void DrawCurve(List<GamePart> partList)
+    {
+        if (movePart_1 != null)
+        {
+            if (partList.Contains(movePart_1) && movePart_1 != this) CreateCurve(windowRect, movePart_1.windowRect, true);
+        }
+        if (movePart_2 != null)
+        {
+            if (partList.Contains(movePart_2) && movePart_1 != this) CreateCurve(windowRect, movePart_2.windowRect, true);
+        }
+
+        if (movePart_3 != null)
+        {
+            if (partList.Contains(movePart_2) && movePart_1 != this) CreateCurve(windowRect, movePart_3.windowRect, true);
+        }
+    }
+
+    /// <summary>
+    /// Связь
+    /// </summary>
+    private void CreateCurve(Rect start, Rect end, bool left)
+    {
+        Vector3 startPos = new Vector3(
+            (left) ? start.x + start.width : start.x,
+            start.y + (start.height * .5f),
+            0);
+
+        Vector3 endPos = new Vector3(
+            end.x,
+            end.y + (end.height * .5f),
+            0);
+
+        Vector3 startTan = startPos + Vector3.right * 50;
+        Vector3 endTan = endPos + Vector3.left * 50;
+
+        Color shadow = new Color(0, 0, 0, 0.6f);
+
+        UnityEditor.Handles.DrawBezier(startPos, endPos, startTan, endTan, shadow, null, 2f);
+    }
 
 #endif
 }

@@ -40,7 +40,7 @@ namespace GUIInspector.NodeEditor
         {
             BehaviorEditor editor = GetWindow<BehaviorEditor>();
             editor.title = "Node Editor";
-            editor._gridColor = new Color(0.4f, 0.4f, 0.4f);
+            editor._gridColor = Color.gray;
             trBehaviorEditor = editor;
         }
 

@@ -77,9 +77,9 @@ public class GamePart : ScriptableObject
         Vector3 startTan = startPos + Vector3.right * 50;
         Vector3 endTan = endPos + Vector3.left * 50;
 
-        Color shadow = new Color(0, 0, 0, 0.6f);
+        Color shadow = new Color(0, 0, 0, 0.75f);
 
-        UnityEditor.Handles.DrawBezier(startPos, endPos, startTan, endTan, shadow, null, 2f);
+        UnityEditor.Handles.DrawBezier(startPos, endPos, startTan, endTan, shadow, null, 3f);
     }
 
 #endif

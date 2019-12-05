@@ -2,17 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Замена текста на кнопках и контроль UI
-/// </summary>
+/// <summary> Замена текста на кнопках и контроль UI </summary>
 public class TextController : MonoBehaviour
 {
     #region CONNECTED_VAR
 
-    [Header("Параметры")]
     [SerializeField] private float _gameWaitToSwitch;
 
-    [Header("Связи")]
     [SerializeField] private RectTransform _eyeCenter;
 
     [SerializeField] private Text _menuButton_1;
@@ -31,42 +27,35 @@ public class TextController : MonoBehaviour
     [SerializeField] private Text _gameMessageNotesTxt;
 
     private Gyroscope _mainGyro;
-    private bool _gyroEnable;
+    private bool _isGyroEnable;
     private Vector2 _eyeFixPosition;
 
     #endregion
 
-    private void Start()
-    {
-        ConnectGyroscope();
-    }
+    private void Start() => ConnectGyroscope();
 
     private void Update() => EyeWatching();
 
-    /// <summary>
-    /// Подключение гироскопа
-    /// </summary>
+    /// <summary> Подключение гироскопа </summary>
     private void ConnectGyroscope()
     {
         if (SystemInfo.supportsGyroscope)
         {
             _mainGyro = Input.gyro;
             _mainGyro.enabled = true;
-            _gyroEnable = true;
+            _isGyroEnable = true;
         }
         else
         {
             _eyeCenter.anchoredPosition = new Vector2(0, 40);
-            _gyroEnable = false;
+            _isGyroEnable = false;
         }
     }
 
-    /// <summary>
-    /// Слежение глаза в меню
-    /// </summary>
+    /// <summary> Слежение глаза в меню </summary>
     private void EyeWatching()
     {
-        if (_gyroEnable)
+        if (_isGyroEnable)
         {
             if (_mainGyro.gravity.y > 0) _eyeFixPosition.y = (_mainGyro.gravity.y * 20) * -1;
             else _eyeFixPosition.y = (_mainGyro.gravity.y * 90) * -1;
@@ -79,80 +68,44 @@ public class TextController : MonoBehaviour
 
     #region TEXT_CONTROL
 
-    /// <summary>
-    /// Открыть главное меню
-    /// </summary>
+    /// <summary> Открыть главное меню </summary>
     public void MenuOpenMain() => StartCoroutine(WaitToMenuSwitch(0.2f));
 
-    /// <summary>
-    /// Открыть меню настроек
-    /// </summary>
+    /// <summary> Открыть меню настроек </summary>
     public void MenuOpenSettings() => StartCoroutine(WaitToSettingsSwitch(0.2f));
 
-    /// <summary>
-    /// Открыть меню автора
-    /// </summary>
+    /// <summary> Открыть меню автора </summary>
     public void MenuOpenAbout() => StartCoroutine(WaitToAboutSwitch(0.2f));
 
-    /// <summary>
-    /// Замена основного текста в игре
-    /// </summary>
+    /// <summary> Замена основного текста в игре </summary>
     public void GameMain(string newTxt) => StartCoroutine(WaitToMainTextSwitch(_gameWaitToSwitch, newTxt));
 
-    /// <summary>
-    /// Замена текста на первой игровой кнопке
-    /// </summary>
+    /// <summary> Замена текста на первой игровой кнопке </summary>
     public void GameButton_1(string newTxt) => StartCoroutine(WaitToGameButton_1_Switch(_gameWaitToSwitch, newTxt));
 
-    /// <summary>
-    /// Замена текста на второй игровой кнопке
-    /// </summary>
+    /// <summary> Замена текста на второй игровой кнопке </summary>
     public void GameButton_2(string newTxt) => StartCoroutine(WaitToGameButton_2_Switch(_gameWaitToSwitch, newTxt));
 
-    /// <summary>
-    /// Замена текста на третьей игровой кнопке
-    /// </summary>
+    /// <summary> Замена текста на третьей игровой кнопке </summary>
     public void GameButton_3(string newTxt) => StartCoroutine(WaitToGameButton_3_Switch(_gameWaitToSwitch, newTxt));
 
-    /// <summary>
-    /// Текст сообщения инвентаря
-    /// </summary>
-    public void GameMessageInventory(string newTxt)
-    {
-        _gameMessageInventoryTxt.text = newTxt;
-    }
+    /// <summary> Текст сообщения инвентаря </summary>
+    public void GameMessageInventory(string newTxt) => _gameMessageInventoryTxt.text = newTxt;
 
-    /// <summary>
-    /// Текст сообщения персонажа
-    /// </summary>
-    public void GameMessageCharacter(string newTxt)
-    {
-        _gameMessageCharacterTxt.text = newTxt;
-    }
+    /// <summary> Текст сообщения персонажа </summary>
+    public void GameMessageCharacter(string newTxt) => _gameMessageCharacterTxt.text = newTxt;
 
-    /// <summary>
-    /// Текст сообщения карты
-    /// </summary>
-    public void GameMessageMap(string newTxt)
-    {
-        _gameMessageMapTxt.text = newTxt;
-    }
+    /// <summary> Текст сообщения карты </summary>
+    public void GameMessageMap(string newTxt) => _gameMessageMapTxt.text = newTxt;
 
-    /// <summary>
-    /// Текст сообщения заметок
-    /// </summary>
-    public void GameMessageNotes(string newTxt)
-    {
-        _gameMessageNotesTxt.text = newTxt;
-    }
+    /// <summary> Текст сообщения заметок </summary>
+    public void GameMessageNotes(string newTxt) => _gameMessageNotesTxt.text = newTxt;
 
     #endregion
 
     #region UI_CONTROL
 
-    /// <summary>
-    /// Перерисовать инвентарь
-    /// </summary>
+    /// <summary> Перерисовать инвентарь </summary>
     public void RepaintInventory()
     {
         if (DataController.playerData.playerInventory.Count != 0)
@@ -168,9 +121,7 @@ public class TextController : MonoBehaviour
 
     #region WAIT_SWITCH
 
-    /// <summary>
-    /// Задержка при переходе  главное меню
-    /// </summary>
+    /// <summary> Задержка при переходе  главное меню </summary>
     private IEnumerator WaitToMenuSwitch(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -181,9 +132,7 @@ public class TextController : MonoBehaviour
         _menuButton_4.text = "Достижения";
     }
 
-    /// <summary>
-    /// Задержка при переходе в настройки
-    /// </summary>
+    /// <summary> Задержка при переходе в настройки </summary>
     private IEnumerator WaitToSettingsSwitch(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -194,9 +143,7 @@ public class TextController : MonoBehaviour
         _menuButton_4.text = "Назад";
     }
 
-    /// <summary>
-    /// Задержка при переходе в меню автора
-    /// </summary>
+    /// <summary> Задержка при переходе в меню автора </summary>
     private IEnumerator WaitToAboutSwitch(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -204,9 +151,7 @@ public class TextController : MonoBehaviour
         _menuButton_4.text = "Назад";
     }
 
-    /// <summary>
-    /// Задержка замена основного текста в игре
-    /// </summary>
+    /// <summary> Задержка замена основного текста в игре </summary>
     private IEnumerator WaitToMainTextSwitch(float waitTime, string newTxt)
     {
         yield return new WaitForSeconds(waitTime);
@@ -214,9 +159,7 @@ public class TextController : MonoBehaviour
         _gameMain_Txt.text = newTxt;
     }
 
-    /// <summary>
-    /// Задержка при замене текста на первой кнопке
-    /// </summary>
+    /// <summary> Задержка при замене текста на первой кнопке </summary>
     private IEnumerator WaitToGameButton_1_Switch(float waitTime, string newTxt)
     {
         yield return new WaitForSeconds(waitTime);
@@ -224,9 +167,7 @@ public class TextController : MonoBehaviour
         _gameButton_1_Txt.text = newTxt;
     }
 
-    /// <summary>
-    /// Задержка при замене текста на второй кнопке
-    /// </summary>
+    /// <summary> Задержка при замене текста на второй кнопке </summary>
     private IEnumerator WaitToGameButton_2_Switch(float waitTime, string newTxt)
     {
         yield return new WaitForSeconds(waitTime);
@@ -234,9 +175,7 @@ public class TextController : MonoBehaviour
         _gameButton_2_Txt.text = newTxt;
     }
 
-    /// <summary>
-    /// Задержка при замене текста на третей кнопке
-    /// </summary>
+    /// <summary> Задержка при замене текста на третей кнопке </summary>
     private IEnumerator WaitToGameButton_3_Switch(float waitTime, string newTxt)
     {
         yield return new WaitForSeconds(waitTime);

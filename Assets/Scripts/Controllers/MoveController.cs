@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// Анимация и переходы
-/// </summary>
+/// <summary> Анимация и переходы </summary>
 public class MoveController : MonoBehaviour
 {
     #region CONNECTIONS
@@ -11,9 +9,7 @@ public class MoveController : MonoBehaviour
     [SerializeField] private GameObject _menuCanvas;
     [SerializeField] private GameObject _gameCanvas;
 
-    /// <summary>
-    /// Первая глава сюжета
-    /// </summary>
+    /// <summary> Первая глава сюжета </summary>
     public GamePart firstPart;
 
     private TextController _textController;
@@ -27,16 +23,12 @@ public class MoveController : MonoBehaviour
 
     #region VARIABLES
 
-    /// <summary>
-    /// Глава запускаемая по нажатию "Начало"
-    /// </summary>
+    /// <summary> Глава запускаемая по нажатию "Начало" </summary>
     [HideInInspector] public static GamePart _startPart;
 
     #endregion
 
-    /// <summary>
-    /// Начало игры
-    /// </summary>
+    /// <summary> Начало игры </summary>
     public void GameStart()
     {
         DataController.LoadGamePreferences();
@@ -45,9 +37,7 @@ public class MoveController : MonoBehaviour
         NextPart(_startPart);
     }
 
-    /// <summary>
-    /// Привязка компонентов
-    /// </summary>
+    /// <summary> Привязка компонентов </summary>
     public void Init()
     {
         _mainAnimator = GetComponent<Animator>();
@@ -59,9 +49,7 @@ public class MoveController : MonoBehaviour
 
     #region PART_START
 
-    /// <summary>
-    /// Запуск следующей главы
-    /// </summary>
+    /// <summary> Запуск следующей главы </summary>
     private void NextPart(GamePart nextPart)
     {
         _mainAnimator.SetTrigger("SwitchGameText");
@@ -75,9 +63,7 @@ public class MoveController : MonoBehaviour
         _startPart = nextPart;
     }
 
-    /// <summary>
-    /// Запуск текстовой главы
-    /// </summary>
+    /// <summary> Запуск текстовой главы </summary>
     private void ShowTextPart(TextPart textPart)
     {
         _mainAnimator.SetInteger("GameStady", 0);
@@ -85,9 +71,7 @@ public class MoveController : MonoBehaviour
         _textController.GameButton_1(textPart.buttonText_1);
     }
 
-    /// <summary>
-    /// Запуск главы выбора
-    /// </summary>
+    /// <summary> Запуск главы выбора </summary>
     private void ShowChangePart(ChangePart changePart)
     {
         // Код
@@ -97,9 +81,7 @@ public class MoveController : MonoBehaviour
         _textController.GameButton_2(changePart.buttonText_2);
     }
 
-    /// <summary>
-    /// Запуск главы боя
-    /// </summary>
+    /// <summary> Запуск главы боя </summary>
     private void ShowBattlePart(BattlePart battlePart)
     {
         // Код
@@ -110,9 +92,7 @@ public class MoveController : MonoBehaviour
         _textController.GameButton_3(battlePart.buttonText_3);
     }
 
-    /// <summary>
-    /// Запуск финальной главы
-    /// </summary>
+    /// <summary> Запуск финальной главы </summary>
     private void ShowFinalPart(FinalPart finalPart)
     {
         // Код
@@ -123,9 +103,7 @@ public class MoveController : MonoBehaviour
 
     #region GAME_BUTTONS
 
-    /// <summary>
-    /// Нажатие на кнопку в игре
-    /// </summary>
+    /// <summary> Нажатие на кнопку в игре </summary>
     public void GameButtonDown(int buttonID)
     {
         switch (buttonID)
@@ -164,9 +142,7 @@ public class MoveController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Отпускание кнопки в игре
-    /// </summary>
+    /// <summary> Отпускание кнопки в игре </summary>
     public void GameButtonUp(int buttonID)
     {
         switch (buttonID)
@@ -236,9 +212,7 @@ public class MoveController : MonoBehaviour
 
     #region GAME_HELP_BUTTONS
 
-    /// <summary>
-    /// Взаимодействие с кнопкой в меню инвентаря
-    /// </summary>
+    /// <summary> Взаимодействие с кнопкой в меню инвентаря </summary>
     public void GameHelpInventoryButton(bool btStady, int btType)
     {
         switch (btType)
@@ -362,25 +336,19 @@ public class MoveController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Взаимодействие с кнопкой в меню персонажа
-    /// </summary>
+    /// <summary> Взаимодействие с кнопкой в меню персонажа </summary>
     public void GameHelpPlayerButton(bool btStady, int btType)
     {
 
     }
 
-    /// <summary>
-    /// Взаимодействие с кнопкой в меню карты
-    /// </summary>
+    /// <summary> Взаимодействие с кнопкой в меню карты </summary>
     public void GameHelpMapButton(bool btStady, int btType)
     {
 
     }
 
-    /// <summary>
-    /// Взаимодействие с кнопкой в меню заметок
-    /// </summary>
+    /// <summary> Взаимодействие с кнопкой в меню заметок </summary>
     public void GameHelpNotesButton(bool btStady, int btType)
     {
 
@@ -391,9 +359,7 @@ public class MoveController : MonoBehaviour
 
     #region MENU_BUTTONS
 
-    /// <summary>
-    /// Нажатие на кнопку в меню
-    /// </summary>
+    /// <summary> Нажатие на кнопку в меню </summary>
     public void MenuButtonDown(int buttonID)
     {
         switch (buttonID)
@@ -478,9 +444,7 @@ public class MoveController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Отпускание кнопки в меню
-    /// </summary>
+    /// <summary> Отпускание кнопки в меню </summary>
     public void MenuButtonUp (int buttonID)
     {
         switch (buttonID)
@@ -514,13 +478,13 @@ public class MoveController : MonoBehaviour
                         if (_mainAnimator.GetBool("Settings_1_St"))
                         {
                             _mainAnimator.SetBool("Settings_1_St", false);
-                            DataController.gameSettingsData.soundCheck = false;
+                            DataController.gameSettingsData.isSoundCheck = false;
                             
                         }
                         else
                         {
                             _mainAnimator.SetBool("Settings_1_St", true);
-                            DataController.gameSettingsData.soundCheck = true;
+                            DataController.gameSettingsData.isSoundCheck = true;
                         }
                         DataController.SaveGlobalPreferences();
                         break;
@@ -545,12 +509,12 @@ public class MoveController : MonoBehaviour
                         if (_mainAnimator.GetBool("Settings_2_St"))
                         {
                             _mainAnimator.SetBool("Settings_2_St", false);
-                            DataController.gameSettingsData.vibrationCheck = false;
+                            DataController.gameSettingsData.isVibrationCheck = false;
                         }
                         else
                         {
                             _mainAnimator.SetBool("Settings_2_St", true);
-                            DataController.gameSettingsData.vibrationCheck = true;
+                            DataController.gameSettingsData.isVibrationCheck = true;
                         }
                         DataController.SaveGlobalPreferences();
                         break;
@@ -575,12 +539,12 @@ public class MoveController : MonoBehaviour
                         if (_mainAnimator.GetBool("Settings_3_St"))
                         {
                             _mainAnimator.SetBool("Settings_3_St", false);
-                            DataController.gameSettingsData.effectCheck = false;
+                            DataController.gameSettingsData.isEffectCheck = false;
                         }
                         else
                         {
                             _mainAnimator.SetBool("Settings_3_St", true);
-                            DataController.gameSettingsData.effectCheck = true;
+                            DataController.gameSettingsData.isEffectCheck = true;
                         }
                         DataController.SaveGlobalPreferences();
                         break;
@@ -766,18 +730,14 @@ public class MoveController : MonoBehaviour
 
     #region ANIMATIONS_HELPERS
 
-    /// <summary>
-    /// Переход в игровое меню
-    /// </summary>
+    /// <summary> Переход в игровое меню </summary>
     public void AnimMenuToGameSwitch()
     {
         _menuCanvas.SetActive(false);
         _gameCanvas.SetActive(true);
     }
 
-    /// <summary>
-    /// Задержка стартового меню
-    /// </summary>
+    /// <summary> Задержка стартового меню </summary>
     private IEnumerator HideStartDescriptMenu()
     {
         yield return new WaitForSeconds(10f);

@@ -3,20 +3,12 @@
 [CreateAssetMenu(fileName = "New achivemant",menuName = "Игровые обьекты/Достижение")]
 public class Achivemants : ScriptableObject
 {
-    // Описывает игровое достижение
-
-    /// <summary>
-    /// Значек достижения
-    /// </summary>
+    /// <summary> Значек достижения </summary>
     public Sprite achiveIco;
 
-    /// <summary>
-    /// Название достижения
-    /// </summary>
+    /// <summary> Название достижения </summary>
     public string achiveName;
 
-    /// <summary>
-    /// Описание достижения
-    /// </summary>
+    /// <summary> Описание достижения </summary>
     public string achiveDescript;
 }

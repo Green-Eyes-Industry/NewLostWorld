@@ -13,9 +13,7 @@ namespace GUIInspector
 
         public override void OnInspectorGUI() => ShowAchiveGUI(_achivemants);
 
-        /// <summary>
-        /// Показать редактор достижения
-        /// </summary>
+        /// <summary> Показать редактор достижения </summary>
         public static void ShowAchiveGUI(Achivemants achivemants)
         {
             GUILayout.Label("Достижение");

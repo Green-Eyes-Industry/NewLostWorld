@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Группа персонажи
-/// </summary>
+/// <summary> Группа персонажи </summary>
 public class Character : ScriptableObject { }

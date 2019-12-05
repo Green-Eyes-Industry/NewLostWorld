@@ -40,7 +40,7 @@ namespace GUIInspector.NodeEditor
         {
             BehaviorEditor editor = GetWindow<BehaviorEditor>();
             editor.title = "Node Editor";
-            editor._gridColor = Color.gray;
+            editor._gridColor = new Color(0.6f, 0.6f, 0.6f);
             trBehaviorEditor = editor;
         }
 
@@ -86,9 +86,7 @@ namespace GUIInspector.NodeEditor
             
         }
 
-        /// <summary>
-        /// Отрисовка всех нод
-        /// </summary>
+        /// <summary> Отрисовка всех нод </summary>
         private void DrawWindows()
         {
             _drag = Vector2.zero;
@@ -134,18 +132,14 @@ namespace GUIInspector.NodeEditor
             EndWindows();
         }
 
-        /// <summary>
-        /// Отрисовка отдельной ноды
-        /// </summary>
+        /// <summary> Отрисовка отдельной ноды </summary>
         private void DrawNodeWindow(int id)
         {
             _storyData.nodesData[id].DrawWindow();
             GUI.DragWindow();
         }
 
-        /// <summary>
-        /// Действия пользователя
-        /// </summary>
+        /// <summary> Действия пользователя </summary>
         private void UserInput(Event e)
         {
             if (e.button == 1)
@@ -173,9 +167,7 @@ namespace GUIInspector.NodeEditor
             }
         }
 
-        /// <summary>
-        /// Правый клик мыши
-        /// </summary>
+        /// <summary> Правый клик мыши </summary>
         private void RightMouseClick(Event e)
         {
             _selectedNode = null;
@@ -197,9 +189,7 @@ namespace GUIInspector.NodeEditor
             if (!_isClickOnWindow) AddNewNode(e);
         }
 
-        /// <summary>
-        /// Левый клик мыши
-        /// </summary>
+        /// <summary> Левый клик мыши </summary>
         private void LeftMouseClick(Event e)
         {
             for (int i = 0; i < _storyData.nodesData.Count; i++)
@@ -216,9 +206,7 @@ namespace GUIInspector.NodeEditor
             }
         }
 
-        /// <summary>
-        /// Панорамирование поля
-        /// </summary>
+        /// <summary> Панорамирование поля </summary>
         private void OnDrag(Vector2 delta)
         {
             _drag = delta;
@@ -235,9 +223,7 @@ namespace GUIInspector.NodeEditor
             GUI.changed = true;
         }
 
-        /// <summary>
-        /// Нажатие на Delete
-        /// </summary>
+        /// <summary> Нажатие на Delete </summary>
         private void DeleteKeyDown()
         {
             if(_selectedNode != null)
@@ -250,9 +236,7 @@ namespace GUIInspector.NodeEditor
             }
         }
 
-        /// <summary>
-        /// Проверка действия
-        /// </summary>
+        /// <summary> Проверка действия </summary>
         private void ContexCallBack(object o)
         {
             Object[] loadedObj = Resources.LoadAll("GameParts",typeof(GamePart));
@@ -399,9 +383,7 @@ namespace GUIInspector.NodeEditor
 
         #region HELPERS
 
-        /// <summary>
-        /// Создать новую ноду
-        /// </summary>
+        /// <summary> Создать новую ноду </summary>
         private void AddNewNode(Event e)
         {
             GenericMenu menu = new GenericMenu();
@@ -417,9 +399,7 @@ namespace GUIInspector.NodeEditor
             e.Use();
         }
 
-        /// <summary>
-        /// Сохранить данные
-        /// </summary>
+        /// <summary> Сохранить данные </summary>
         private void SaveData()
         {
             for (int i = 0; i < _storyData.nodesData.Count; i++)
@@ -440,9 +420,7 @@ namespace GUIInspector.NodeEditor
             EditorUtility.SetDirty(_storyData);
         }
 
-        /// <summary>
-        /// Отрисовка сетки
-        /// </summary>
+        /// <summary> Отрисовка сетки </summary>
         private void DrawGrid(float gridSpacing, float gridOpacity, Color gridColor)
         {
             int widthDivs = Mathf.CeilToInt(position.width / gridSpacing);

@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Игровое событие
-/// </summary>
+/// <summary> Игровое событие </summary>
 public class GameEvent : ScriptableObject
 {
     public virtual bool EventStart() { return false; }

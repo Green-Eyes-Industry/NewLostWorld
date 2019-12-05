@@ -22,9 +22,7 @@ public class GameHelpButtonPressed : MonoBehaviour
 
     private void OnMouseUp() => PressedMenu(false);
 
-    /// <summary>
-    /// Запуск меню по типу
-    /// </summary>
+    /// <summary> Запуск меню по типу </summary>
     private void PressedMenu(bool pressedType)
     {
         switch (thisMenuType)

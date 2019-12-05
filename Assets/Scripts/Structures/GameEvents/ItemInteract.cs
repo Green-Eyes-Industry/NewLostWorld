@@ -7,19 +7,13 @@ public class ItemInteract : GameEvent
 
     private PlayerController plController;
 
-    /// <summary>
-    /// Получение или потеря
-    /// </summary>
+    /// <summary> Получение или потеря </summary>
     public bool addOrLostItem;
 
-    /// <summary>
-    /// Получаемый предмет
-    /// </summary>
+    /// <summary> Получаемый предмет </summary>
     public GameItem gameItem;
 
-    /// <summary>
-    /// Старт события
-    /// </summary>
+    /// <summary> Старт события </summary>
     public override bool EventStart()
     {
         plController = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerController>();

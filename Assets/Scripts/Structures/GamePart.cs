@@ -1,27 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Группа игровых глав
-/// </summary>
+/// <summary> Группа игровых глав </summary>
 public class GamePart : ScriptableObject
 {
     public string mainText;
     public List<GameEvent> mainEvents;
 
-    /// <summary>
-    /// Следующая глава первой кнопки
-    /// </summary>
+    /// <summary> Следующая глава первой кнопки </summary>
     public GamePart movePart_1;
 
-    /// <summary>
-    /// Следующая глава второй кнопки
-    /// </summary>
+    /// <summary> Следующая глава второй кнопки </summary>
     public GamePart movePart_2;
 
-    /// <summary>
-    /// Следующая глава третей кнопки
-    /// </summary>
+    /// <summary> Следующая глава третей кнопки </summary>
     public GamePart movePart_3;
 
 #if UNITY_EDITOR
@@ -39,9 +31,7 @@ public class GamePart : ScriptableObject
         workStady = UnityEditor.EditorGUILayout.IntPopup(workStady, workStadyNames, workStadyNum, GUILayout.Width(110f));
     }
 
-    /// <summary>
-    /// Отрисовка связей
-    /// </summary>
+    /// <summary> Отрисовка связей </summary>
     public void DrawCurve(List<GamePart> partList)
     {
         if (movePart_1 != null)
@@ -59,9 +49,7 @@ public class GamePart : ScriptableObject
         }
     }
 
-    /// <summary>
-    /// Связь
-    /// </summary>
+    /// <summary> Связь </summary>
     private void CreateCurve(Rect start, Rect end, bool left)
     {
         Vector3 startPos = new Vector3(

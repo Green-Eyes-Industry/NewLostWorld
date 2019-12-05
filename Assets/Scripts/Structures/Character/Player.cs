@@ -4,40 +4,24 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New player", menuName = "Игровые обьекты/Новый персонаж/Игрок", order = 0)]
 public class Player : Character
 {
-    // Описывает игрока
-
-    /// <summary>
-    /// Здоровье игрока
-    /// </summary>
+    /// <summary> Здоровье игрока </summary>
     public int playerHealth;
 
-    /// <summary>
-    /// Рассудок игрока
-    /// </summary>
+    /// <summary> Рассудок игрока </summary>
     public int playerMind;
 
-    /// <summary>
-    /// Список эффектов на игрроке
-    /// </summary>
+    /// <summary> Список эффектов на игроке </summary>
     public List<GameEffect> playerEffects;
 
-    /// <summary>
-    /// Инвентарь игрока
-    /// </summary>
+    /// <summary> Инвентарь игрока </summary>
     public List<GameItem> playerInventory;
 
-    /// <summary>
-    /// Заметки игрока
-    /// </summary>
+    /// <summary> Заметки игрока </summary>
     public List<Notes> playerNotes;
 
-    /// <summary>
-    /// Открытиые локации
-    /// </summary>
+    /// <summary> Открытиые локации </summary>
     public List<MapMark> playerMap;
 
-    /// <summary>
-    /// Важные решения
-    /// </summary>
+    /// <summary> Важные решения </summary>
     public List<Decision> playerDecisions;
 }

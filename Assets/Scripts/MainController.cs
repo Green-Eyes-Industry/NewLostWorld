@@ -22,9 +22,9 @@ public class MainController : MonoBehaviour
     private void ConnectLastSavePoint()
     {
         DataController.LoadGlobalPreferences();
-        MoveController._mainAnimator.SetBool("Settings_1_St", DataController.gameSettingsData.soundCheck);
-        MoveController._mainAnimator.SetBool("Settings_2_St", DataController.gameSettingsData.vibrationCheck);
-        MoveController._mainAnimator.SetBool("Settings_3_St", DataController.gameSettingsData.effectCheck);
+        MoveController._mainAnimator.SetBool("Settings_1_St", DataController.gameSettingsData.isSoundCheck);
+        MoveController._mainAnimator.SetBool("Settings_2_St", DataController.gameSettingsData.isVibrationCheck);
+        MoveController._mainAnimator.SetBool("Settings_3_St", DataController.gameSettingsData.isEffectCheck);
     }
 
     /// <summary>

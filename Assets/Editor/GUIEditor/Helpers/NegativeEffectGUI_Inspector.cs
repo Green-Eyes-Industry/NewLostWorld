@@ -13,9 +13,7 @@ namespace GUIInspector
 
         public override void OnInspectorGUI() => ShowNegativeEffectGUI(_negativeEffect);
 
-        /// <summary>
-        /// Показать редактор негативного еффекта
-        /// </summary>
+        /// <summary> Показать редактор негативного еффекта </summary>
         public static void ShowNegativeEffectGUI(NegativeEffect negativeEffect)
         {
             EditorGUILayout.LabelField("Негативный эффект");

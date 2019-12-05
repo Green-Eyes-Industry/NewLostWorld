@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Загрузка и сохранение данных
-/// </summary>
+/// <summary> Загрузка и сохранение данных </summary>
 public class DataController : MonoBehaviour
 {
     // Методы загрузки и выгрузки данных
@@ -12,9 +10,7 @@ public class DataController : MonoBehaviour
 
     #region SAVE_DATA
 
-    /// <summary>
-    /// Сохранение общих данных игрока
-    /// </summary>
+    /// <summary> Сохранение общих данных игрока </summary>
     public static void SaveGamePreferences()
     {
         // Отношение персонажей к игроку
@@ -35,9 +31,7 @@ public class DataController : MonoBehaviour
         PlayerPrefs.SetInt("PL_Mind", playerData.playerHealth);
     }
 
-    /// <summary>
-    /// Сохранение инвентаря
-    /// </summary>
+    /// <summary> Сохранение инвентаря </summary>
     public static void SavePlayerInventory()
     {
         // // Сохранение инвентаря
@@ -54,9 +48,7 @@ public class DataController : MonoBehaviour
         // }
     }
 
-    /// <summary>
-    /// Сохранение еффектов
-    /// </summary>
+    /// <summary> Сохранение еффектов </summary>
     public static void SavePlayerEffects()
     {
         // Сохранение эффектов
@@ -73,34 +65,32 @@ public class DataController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Сохранение глобальных настроек
-    /// </summary>
+    /// <summary> Сохранение глобальных настроек </summary>
     public static void SaveGlobalPreferences()
     {
-        if (gameSettingsData.soundCheck)
+        if (gameSettingsData.isSoundCheck)
         {
-            if (gameSettingsData.vibrationCheck)
+            if (gameSettingsData.isVibrationCheck)
             {
-                if (gameSettingsData.effectCheck) PlayerPrefs.SetInt("GameData", 111); 
+                if (gameSettingsData.isEffectCheck) PlayerPrefs.SetInt("GameData", 111); 
                 else PlayerPrefs.SetInt("GameData", 112);
             }
             else
             {
-                if (gameSettingsData.effectCheck)PlayerPrefs.SetInt("GameData", 121);
+                if (gameSettingsData.isEffectCheck)PlayerPrefs.SetInt("GameData", 121);
                 else PlayerPrefs.SetInt("GameData", 122);
             }
         }
         else
         {
-            if (gameSettingsData.vibrationCheck)
+            if (gameSettingsData.isVibrationCheck)
             {
-                if (gameSettingsData.effectCheck) PlayerPrefs.SetInt("GameData", 211);
+                if (gameSettingsData.isEffectCheck) PlayerPrefs.SetInt("GameData", 211);
                 else PlayerPrefs.SetInt("GameData", 212);
             }
             else
             {
-                if (gameSettingsData.effectCheck) PlayerPrefs.SetInt("GameData", 221);
+                if (gameSettingsData.isEffectCheck) PlayerPrefs.SetInt("GameData", 221);
                 else PlayerPrefs.SetInt("GameData", 222);
             }
         }
@@ -110,9 +100,7 @@ public class DataController : MonoBehaviour
 
     #region LOAD_DATA
 
-    /// <summary>
-    /// Загрузка игровых данных
-    /// </summary>
+    /// <summary> Загрузка игровых данных </summary>
     public static void LoadGamePreferences()
     {
         // Загрузка последней главы
@@ -126,9 +114,7 @@ public class DataController : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Загрузка глобальных данных
-    /// </summary>
+    /// <summary> Загрузка глобальных данных </summary>
     public static void LoadGlobalPreferences()
     {
         // Загрузка игровых настроек
@@ -151,21 +137,17 @@ public class DataController : MonoBehaviour
         // TODO : Переписать
     }
 
-    /// <summary>
-    /// Смена настроек игры
-    /// </summary>
+    /// <summary> Смена настроек игры </summary>
     private static void SwitchGameSettings(bool soundSwitch, bool vibrationSwitch, bool effectsSwitch)
     {
-        gameSettingsData.soundCheck = soundSwitch;
-        gameSettingsData.vibrationCheck = vibrationSwitch;
-        gameSettingsData.effectCheck = effectsSwitch;
+        gameSettingsData.isSoundCheck = soundSwitch;
+        gameSettingsData.isVibrationCheck = vibrationSwitch;
+        gameSettingsData.isEffectCheck = effectsSwitch;
     }
 
     #endregion
 
-    /// <summary>
-    /// Удаление данных и выход
-    /// </summary>
+    /// <summary> Удаление данных и выход </summary>
     public static void DellAllSaves()
     {
         PlayerPrefs.DeleteAll();

@@ -9,9 +9,7 @@ namespace GUIInspector
     {
         private static Vector2 _eventSlider = Vector2.zero;
 
-        /// <summary>
-        /// Включает дополнительный редактор главы
-        /// </summary>
+        /// <summary> Включает дополнительный редактор главы </summary>
         public static void ShowEventEdit(GameEvent gameEvent)
         {
             EditorGUILayout.Space();
@@ -53,9 +51,7 @@ namespace GUIInspector
             EditorGUILayout.Space();
         }
 
-        /// <summary>
-        /// Показать список событий
-        /// </summary>
+        /// <summary> Показать список событий </summary>
         public static void ShowPartEventList(List<GameEvent> listEvent)
         {
             GUILayout.BeginScrollView(_eventSlider, "Box");
@@ -103,9 +99,7 @@ namespace GUIInspector
             if (GUILayout.Button("Добавить событие", GUILayout.Height(30))) listEvent.Add(null);
         }
 
-        /// <summary>
-        /// Показать эффект
-        /// </summary>
+        /// <summary> Показать эффект </summary>
         public static void ShowEffectFromPart(GameEffect gameEffect)
         {
             if (gameEffect is PositiveEffect) PositiveEffectGUI_Inspector.ShowPositiveEffectGUI((PositiveEffect)gameEffect);

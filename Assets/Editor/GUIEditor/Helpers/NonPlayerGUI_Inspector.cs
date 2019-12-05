@@ -13,9 +13,7 @@ namespace GUIInspector
 
         public override void OnInspectorGUI() => ShowNonPlayerGUI(_nonPlayer);
 
-        /// <summary>
-        /// Показать мено редактора не игрового персонажа
-        /// </summary>
+        /// <summary> Показать мено редактора не игрового персонажа </summary>
         public static void ShowNonPlayerGUI(NonPlayer nonPlayer)
         {
             EditorGUILayout.LabelField("Не игровой персонаж");

@@ -33,9 +33,9 @@ namespace GUIInspector
 
             EditorGUILayout.Space();
 
-            _gameSettings.soundCheck = EditorGUILayout.Toggle("Звук : ", _gameSettings.soundCheck);
-            _gameSettings.vibrationCheck = EditorGUILayout.Toggle("Вибрация : ", _gameSettings.vibrationCheck);
-            _gameSettings.effectCheck = EditorGUILayout.Toggle("Эффекты : ", _gameSettings.effectCheck);
+            _gameSettings.isSoundCheck = EditorGUILayout.Toggle("Звук : ", _gameSettings.isSoundCheck);
+            _gameSettings.isVibrationCheck = EditorGUILayout.Toggle("Вибрация : ", _gameSettings.isVibrationCheck);
+            _gameSettings.isEffectCheck = EditorGUILayout.Toggle("Эффекты : ", _gameSettings.isEffectCheck);
 
             EditorGUILayout.Space();
 
@@ -82,9 +82,7 @@ namespace GUIInspector
             if (GUILayout.Button("Сохранить настройки", GUILayout.Height(20))) EditorUtility.SetDirty(_gameSettings);
         }
 
-        /// <summary>
-        /// Перезагрузить список достижений
-        /// </summary>
+        /// <summary> Перезагрузить список достижений </summary>
         private void ReloadAchives()
         {
             Object[] obj = Resources.LoadAll("Achivemants", typeof(Achivemants));

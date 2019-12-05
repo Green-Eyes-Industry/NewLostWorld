@@ -20,9 +20,7 @@ namespace GUIInspector
             "Решения"
         };
 
-        /// <summary>
-        /// Прокрутки
-        /// </summary>
+        /// <summary> Прокрутки </summary>
         private Vector2
             _playerEffectsScroll,
             _playerInventoryScroll,
@@ -61,9 +59,7 @@ namespace GUIInspector
             GUILayout.EndVertical();
         }
 
-        /// <summary>
-        /// Отображение списка действующих еффектов
-        /// </summary>
+        /// <summary> Отображение списка действующих еффектов </summary>
         private void PlayerEffects()
         {
             _playerEffectsScroll = EditorGUILayout.BeginScrollView(_playerEffectsScroll);
@@ -86,9 +82,7 @@ namespace GUIInspector
             EditorGUILayout.EndScrollView();
         }
 
-        /// <summary>
-        /// Отображение списка предметов
-        /// </summary>
+        /// <summary> Отображение списка предметов </summary>
         private void PlayerInventory()
         {
             _playerInventoryScroll = EditorGUILayout.BeginScrollView(_playerInventoryScroll);
@@ -111,9 +105,7 @@ namespace GUIInspector
             EditorGUILayout.EndScrollView();
         }
 
-        /// <summary>
-        /// Отображение списка доступных заметок
-        /// </summary>
+        /// <summary> Отображение списка доступных заметок </summary>
         private void PlayerNotes()
         {
             _playerNotesScroll = EditorGUILayout.BeginScrollView(_playerNotesScroll);
@@ -136,9 +128,7 @@ namespace GUIInspector
             EditorGUILayout.EndScrollView();
         }
 
-        /// <summary>
-        /// Отображение списка доступных локаций на карте
-        /// </summary>
+        /// <summary> Отображение списка доступных локаций на карте </summary>
         private void PlayerMap()
         {
             _playerMapScroll = EditorGUILayout.BeginScrollView(_playerMapScroll);
@@ -161,9 +151,7 @@ namespace GUIInspector
             EditorGUILayout.EndScrollView();
         }
 
-        /// <summary>
-        /// Отображение списка принятых решений
-        /// </summary>
+        /// <summary> Отображение списка принятых решений </summary>
         private void PlayerDecisions()
         {
             _playerDecisionScroll = EditorGUILayout.BeginScrollView(_playerDecisionScroll);

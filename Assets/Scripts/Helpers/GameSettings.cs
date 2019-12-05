@@ -4,35 +4,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New game settings", menuName = "Игровые обьекты/Игровые параметры")]
 public class GameSettings : ScriptableObject
 {
-    // Хранит данные о текущих игровых настройках
-
-    /// <summary>
-    /// Последняя глава
-    /// </summary>
+    /// <summary> Последняя глава </summary>
     public GamePart lastPart;
 
-    /// <summary>
-    /// Настройка звука
-    /// </summary>
-    public bool soundCheck;
+    /// <summary> Настройка звука </summary>
+    public bool isSoundCheck;
 
-    /// <summary>
-    /// Настройка вибрации
-    /// </summary>
-    public bool vibrationCheck;
+    /// <summary> Настройка вибрации </summary>
+    public bool isVibrationCheck;
 
-    /// <summary>
-    /// Настройка еффектов
-    /// </summary>
-    public bool effectCheck;
+    /// <summary> Настройка еффектов </summary>
+    public bool isEffectCheck;
 
-    /// <summary>
-    /// Цвет глаза
-    /// </summary>
+    /// <summary> Цвет глаза </summary>
     public Color eyeColor;
 
-    /// <summary>
-    /// Полученные достижения
-    /// </summary>
+    /// <summary> Полученные достижения </summary>
     public List<Achivemants> gameAchivemants;
 }

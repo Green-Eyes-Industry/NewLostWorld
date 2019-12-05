@@ -249,9 +249,7 @@ namespace GUIInspector.StoryEditor
 
         #region SHOW_HELP_MENU
 
-        /// <summary>
-        /// Отобразить компонент
-        /// </summary>
+        /// <summary> Отобразить компонент </summary>
         private void ShowFinalStory(int countProp, string nameProp)
         {
             EditorGUILayout.BeginHorizontal();
@@ -263,9 +261,7 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.Space();
         }
 
-        /// <summary>
-        /// Всего компонентов
-        /// </summary>
+        /// <summary> Всего компонентов </summary>
         private int GlobalCount()
         {
             return _storyParts.Count +
@@ -278,9 +274,7 @@ namespace GUIInspector.StoryEditor
                 _notes.Count;
         }
 
-        /// <summary>
-        /// Меню "Главы"
-        /// </summary>
+        /// <summary> Меню "Главы" </summary>
         private void PartMenu()
         {
             GUILayout.Label("Сейчас создано [ " + _storyParts.Count + " ] Глав");
@@ -326,9 +320,7 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        /// <summary>
-        /// Проверить текущую главу во время игры
-        /// </summary>
+        /// <summary> Проверить текущую главу во время игры </summary>
         private void CheckGamePart(GamePart part)
         {
             _isCheckStop = false;
@@ -378,9 +370,7 @@ namespace GUIInspector.StoryEditor
             else GUI.backgroundColor = _baseColor;
         }
 
-        /// <summary>
-        /// Меню "События"
-        /// </summary>
+        /// <summary> Меню "События" </summary>
         private void EventsMenu()
         {
             GUILayout.Label("Сейчас создано [ " + _eventsParts.Count + " ] Событий");
@@ -417,9 +407,7 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        /// <summary>
-        /// Меню "Предметы"
-        /// </summary>
+        /// <summary> Меню "Предметы" </summary>
         private void ItemsMenu()
         {
             GUILayout.Label("Сейчас создано [ " + _items.Count + " ] Предметов");
@@ -456,9 +444,7 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        /// <summary>
-        /// Меню "Персонажи"
-        /// </summary>
+        /// <summary> Меню "Персонажи" </summary>
         private void CharactersMenu()
         {
             GUILayout.Label("Сейчас создано [ " + _characters.Count + " ] Персонажей");
@@ -495,9 +481,7 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        /// <summary>
-        /// Меню "Достижения"
-        /// </summary>
+        /// <summary> Меню "Достижения" </summary>
         private void AchivemantsMenu()
         {
             GUILayout.Label("Сейчас создано [ " + _achivemants.Count + " ] Достижений");
@@ -533,9 +517,7 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        /// <summary>
-        /// Меню "Эффекты"
-        /// </summary>
+        /// <summary> Меню "Эффекты" </summary>
         private void EffectsMenu()
         {
             GUILayout.Label("Сейчас создано [ " + _effects.Count + " ] Еффектов");
@@ -572,9 +554,7 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        /// <summary>
-        /// Меню "Локации"
-        /// </summary>
+        /// <summary> Меню "Локации" </summary>
         private void LocationsMenu()
         {
             GUILayout.Label("Сейчас создано [ " + _locations.Count + " ] Локаций");
@@ -610,9 +590,7 @@ namespace GUIInspector.StoryEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        /// <summary>
-        /// Меню "Заметки"
-        /// </summary>
+        /// <summary> Меню "Заметки" </summary>
         private void NotesMenu()
         {
             GUILayout.Label("Сейчас создано [ " + _notes.Count + " ] Заметок");
@@ -652,9 +630,7 @@ namespace GUIInspector.StoryEditor
 
         #region CREATE_OBJECTS
 
-        /// <summary>
-        /// Создать главу
-        /// </summary>
+        /// <summary> Создать главу </summary>
         private void CreateNewPart(string namePart, int partType)
         {
             switch (partType)
@@ -734,9 +710,7 @@ namespace GUIInspector.StoryEditor
             ReloadLoadObjects(LoadDataType.GAME_PART);
         }
 
-        /// <summary>
-        /// Создать новый эвент
-        /// </summary>
+        /// <summary> Создать новый эвент </summary>
         private void CreateNewEvent(string nameEvent, int typeEvent)
         {
             switch (typeEvent)
@@ -817,9 +791,7 @@ namespace GUIInspector.StoryEditor
             ReloadLoadObjects(LoadDataType.EVENT_PART);
         }
 
-        /// <summary>
-        /// Создать новый предмет
-        /// </summary>
+        /// <summary> Создать новый предмет </summary>
         private void CreateNewItem(string nameItem, int typeItem)
         {
             switch (typeItem)
@@ -846,9 +818,7 @@ namespace GUIInspector.StoryEditor
             ReloadLoadObjects(LoadDataType.ITEM);
         }
 
-        /// <summary>
-        /// Создать нового персонажа
-        /// </summary>
+        /// <summary> Создать нового персонажа </summary>
         private void CreateNewCharacter(string nameCharacter, int typeCharacter)
         {
             switch (typeCharacter)
@@ -875,9 +845,7 @@ namespace GUIInspector.StoryEditor
             ReloadLoadObjects(LoadDataType.CHARACTER);
         }
 
-        /// <summary>
-        /// Создать новое достижение
-        /// </summary>
+        /// <summary> Создать новое достижение </summary>
         private void CreateNewAchive(string nameAchive)
         {
             AssetDatabase.CreateAsset(CreateInstance(typeof(Achivemants)),
@@ -890,9 +858,7 @@ namespace GUIInspector.StoryEditor
             ReloadLoadObjects(LoadDataType.ACHIVE);
         }
 
-        /// <summary>
-        /// Создать новый эффект
-        /// </summary>
+        /// <summary> Создать новый эффект </summary>
         private void CreateNewEffect(string nameEffect, int typeEffect)
         {
             switch (typeEffect)
@@ -919,9 +885,7 @@ namespace GUIInspector.StoryEditor
             ReloadLoadObjects(LoadDataType.EFFECT);
         }
 
-        /// <summary>
-        /// Создать новую локацию
-        /// </summary>
+        /// <summary> Создать новую локацию </summary>
         private void CreateNewLocation(string nameLocation)
         {
             AssetDatabase.CreateAsset(CreateInstance(typeof(MapMark)),
@@ -934,9 +898,7 @@ namespace GUIInspector.StoryEditor
             ReloadLoadObjects(LoadDataType.LOCATION);
         }
 
-        /// <summary>
-        /// Создать новую заметку
-        /// </summary>
+        /// <summary> Создать новую заметку </summary>
         private void CreateNewNote(string nameNote)
         {
             AssetDatabase.CreateAsset(CreateInstance(typeof(Notes)),
@@ -955,9 +917,7 @@ namespace GUIInspector.StoryEditor
 
         #region HELP_METHODS
 
-        /// <summary>
-        /// Перезагрузить файлы по выбранному типу
-        /// </summary>
+        /// <summary> Перезагрузить файлы по выбранному типу </summary>
         public void ReloadLoadObjects(LoadDataType typeData)
         {
             string resPath = ""; // Путь в директории Resources
@@ -982,7 +942,7 @@ namespace GUIInspector.StoryEditor
             switch (typeData)
             {
                 case LoadDataType.GAME_PART:
-
+                    
                     _storyParts.Clear();
 
                     for (int i = 0; i < loadedObj.Length; i++)
@@ -1071,9 +1031,7 @@ namespace GUIInspector.StoryEditor
             }
         }
 
-        /// <summary>
-        /// Перегрузить все файлы
-        /// </summary>
+        /// <summary> Перегрузить все файлы </summary>
         public void ReloadLoadObjects()
         {
             ReloadLoadObjects(LoadDataType.GAME_PART);
@@ -1086,9 +1044,7 @@ namespace GUIInspector.StoryEditor
             ReloadLoadObjects(LoadDataType.NOTE);
         }
 
-        /// <summary>
-        /// Сохранить все данные
-        /// </summary>
+        /// <summary> Сохранить все данные </summary>
         public void SaveAllDataFiles()
         {
             for (int i = 0; i < _storyParts.Count; i++) { EditorUtility.SetDirty(_storyParts[i]); }

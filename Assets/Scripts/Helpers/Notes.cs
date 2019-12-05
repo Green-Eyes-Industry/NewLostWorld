@@ -3,18 +3,12 @@
 [CreateAssetMenu(fileName = "new note", menuName = "Игровые обьекты/Заметка")]
 public class Notes : ScriptableObject
 {
-    /// <summary>
-    /// Название заметки
-    /// </summary>
+    /// <summary> Название заметки </summary>
     public string noteName;
 
-    /// <summary>
-    /// Текст заметки
-    /// </summary>
+    /// <summary> Текст заметки </summary>
     public string noteDescription;
 
-    /// <summary>
-    /// Глава воспоминания
-    /// </summary>
+    /// <summary> Глава воспоминания </summary>
     public GamePart _partNote;
 }

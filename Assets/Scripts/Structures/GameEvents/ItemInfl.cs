@@ -5,9 +5,7 @@ public class ItemInfl : GameEvent
 {
     public UsableItem useItem;
 
-    /// <summary>
-    /// Старт события
-    /// </summary>
+    /// <summary> Старт события </summary>
     public override bool EventStart()
     {
         bool finded = true;
@@ -32,9 +30,7 @@ public class ItemInfl : GameEvent
         return finded;
     }
 
-    /// <summary>
-    /// Использовать найденый предмет
-    /// </summary>
+    /// <summary> Использовать найденый предмет </summary>
     private void UseThisItem()
     {
         DataController.playerData.playerHealth += useItem.healthInf;

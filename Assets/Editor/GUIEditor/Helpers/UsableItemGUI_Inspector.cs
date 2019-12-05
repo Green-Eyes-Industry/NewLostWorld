@@ -13,9 +13,7 @@ namespace GUIInspector
 
         public override void OnInspectorGUI() => ShowUsableItemEditor(_usableItem);
 
-        /// <summary>
-        /// Показать редактор активного предмета
-        /// </summary>
+        /// <summary> Показать редактор активного предмета </summary>
         public static void ShowUsableItemEditor(UsableItem usableItem)
         {
             GUILayout.Label("Активный предмет");

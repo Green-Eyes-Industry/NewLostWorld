@@ -13,9 +13,7 @@ namespace GUIInspector
 
         public override void OnInspectorGUI() => ShowPositiveEffectGUI(_positiveEffect);
 
-        /// <summary>
-        /// Показать редактор позитивного еффекта
-        /// </summary>
+        /// <summary> Показать редактор позитивного еффекта </summary>
         public static void ShowPositiveEffectGUI(PositiveEffect positiveEffect)
         {
             EditorGUILayout.LabelField("Позитивный эффект");

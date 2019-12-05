@@ -13,9 +13,7 @@ namespace GUIInspector
 
         public override void OnInspectorGUI() => ShowPassiveItemEditor(_pasiveItem);
 
-        /// <summary>
-        /// Показать редактор пассивного предмета
-        /// </summary>
+        /// <summary> Показать редактор пассивного предмета </summary>
         public static void ShowPassiveItemEditor(PasiveItem pasiveItem)
         {
             GUILayout.Label("Пассивный предмет");

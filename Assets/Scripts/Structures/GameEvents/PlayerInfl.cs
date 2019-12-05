@@ -7,9 +7,7 @@ public class PlayerInfl : GameEvent
 {
     // Влияние главы на состояние игрока
 
-    /// <summary>
-    /// Старт события
-    /// </summary>
+    /// <summary> Старт события </summary>
     public override bool EventStart()
     {
         return false;

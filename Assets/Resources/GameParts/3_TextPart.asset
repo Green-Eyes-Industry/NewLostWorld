@@ -19,11 +19,11 @@ MonoBehaviour:
   movePart_3: {fileID: 0}
   windowRect:
     serializedVersion: 2
-    x: 481
-    y: 288
-    width: 120
-    height: 40
-  windowTitle: 3_TextPart
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  windowTitle: 
   part: {fileID: 0}
   workStady: 0
   workStadyNum: 000000000100000002000000

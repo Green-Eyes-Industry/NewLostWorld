@@ -1,6 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+
+using UnityEditor;
+
+#endif
+
 /// <summary> Группа игровых глав </summary>
 public class GamePart : ScriptableObject
 {
@@ -36,16 +42,16 @@ public class GamePart : ScriptableObject
     {
         if (movePart_1 != null)
         {
-            if (partList.Contains(movePart_1) && movePart_1 != this) CreateCurve(windowRect, movePart_1.windowRect, true);
+            if (partList.Contains(movePart_1) && movePart_1 != this) CreateCurve(ConnectPosition(0), movePart_1.windowRect, true);
         }
         if (movePart_2 != null)
         {
-            if (partList.Contains(movePart_2) && movePart_1 != this) CreateCurve(windowRect, movePart_2.windowRect, true);
+            if (partList.Contains(movePart_2) && movePart_1 != this) CreateCurve(ConnectPosition(1), movePart_2.windowRect, true);
         }
 
         if (movePart_3 != null)
         {
-            if (partList.Contains(movePart_2) && movePart_1 != this) CreateCurve(windowRect, movePart_3.windowRect, true);
+            if (partList.Contains(movePart_2) && movePart_1 != this) CreateCurve(ConnectPosition(2), movePart_3.windowRect, true);
         }
     }
 
@@ -68,6 +74,41 @@ public class GamePart : ScriptableObject
         Color shadow = new Color(0, 0, 0, 0.75f);
 
         UnityEditor.Handles.DrawBezier(startPos, endPos, startTan, endTan, shadow, null, 3f);
+    }
+
+    /// <summary> Позиция подключения следующей главы </summary>
+    public Rect ConnectPosition(int id)
+    {
+        Rect nodeConnectPosition;
+
+        switch (id)
+        {
+            case 1:
+                nodeConnectPosition = new Rect(
+                windowRect.x + windowRect.width + 3,
+                windowRect.y + 12,
+                8,
+                8);
+                break;
+
+            case 2:
+                nodeConnectPosition = new Rect(
+                windowRect.x + windowRect.width + 3,
+                windowRect.y + 24,
+                8,
+                8);
+                break;
+
+            default:
+                nodeConnectPosition = new Rect(
+                windowRect.x + windowRect.width + 3,
+                windowRect.y,
+                8,
+                8);
+                break;
+        }
+
+        return nodeConnectPosition;
     }
 
 #endif

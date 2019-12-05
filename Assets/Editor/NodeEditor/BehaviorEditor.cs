@@ -7,15 +7,20 @@ namespace GUIInspector.NodeEditor
     {
         #region VARIABLES
 
-        private Color _gridColor;
-        private Vector2 _offset;
-        private Vector2 _drag;
-        private GameSettings _mainSettings;
-        public static BehaviorEditor trBehaviorEditor;
-        private StoryData _storyData;
-        private Vector3 _mousePosition;
-        private bool _isClickOnWindow;
-        private GamePart _selectedNode;
+        private Color _gridColor; // Цвет сетки
+        private Vector2 _offset; // Отступ поля
+        private Vector2 _drag; // Отступ нод
+
+        private GameSettings _mainSettings; // Настройки поля
+        public static BehaviorEditor trBehaviorEditor; // ссылка на себя
+        private StoryData _storyData; // Данные сюжета
+        private Vector3 _mousePosition; // Позиция мыши
+        private bool _isClickOnWindow; // Нажал на окно или нет
+        private GamePart _selectedNode; // Выбранная нода
+
+        private Texture _connectTexture; // Текстура подключения
+        private GamePart _sellectedToConnect; // Нода в памяти при подключении полключения
+        private int _sellectionId; // Идентификатор типа подключения
 
         public enum UserActions
         {
@@ -42,6 +47,8 @@ namespace GUIInspector.NodeEditor
             editor.title = "Node Editor";
             editor._gridColor = new Color(0.6f, 0.6f, 0.6f);
             trBehaviorEditor = editor;
+
+            editor._connectTexture = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/Connect.png", typeof(Texture));
         }
 
         #endregion
@@ -95,7 +102,11 @@ namespace GUIInspector.NodeEditor
 
             foreach (GamePart bn in _storyData.nodesData)
             {
-                if(bn != null) bn.DrawCurve(_storyData.nodesData);
+                if (bn != null)
+                {
+                    bn.DrawCurve(_storyData.nodesData);
+                    DrawConnectPoint(bn);
+                }
             }
 
             for (int i = 0; i < _storyData.nodesData.Count; i++)
@@ -119,6 +130,11 @@ namespace GUIInspector.NodeEditor
                             case 1: GUI.backgroundColor = Color.yellow; break;
                             case 2: GUI.backgroundColor = Color.green; break;
                         }
+
+                        if(_sellectedToConnect != null)
+                        {
+                            if(_sellectedToConnect.Equals(_storyData.nodesData[i])) GUI.backgroundColor = Color.red;
+                        }
                     }
 
                     _storyData.nodesData[i].windowRect = GUI.Window(
@@ -131,6 +147,37 @@ namespace GUIInspector.NodeEditor
 
             EndWindows();
         }
+
+        #region CONNECTORS_WORK
+
+        /// <summary> Отрисовка подключений и логика их работы </summary>
+        private void DrawConnectPoint(GamePart bn)
+        {
+            if (bn is TextPart)
+            {
+                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0,bn);
+            }
+            else if (bn is ChangePart)
+            {
+                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0,bn);
+                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1,bn);
+            }
+            else if (bn is BattlePart)
+            {
+                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0,bn);
+                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1,bn);
+                if (GUI.Button(bn.ConnectPosition(2), _connectTexture)) ConnectorClick(2,bn);
+            }
+        }
+
+        /// <summary> Нажатие на коннектор </summary>
+        private void ConnectorClick(int id, GamePart part)
+        {
+            _sellectedToConnect = part;
+            _sellectionId = id;
+        }
+
+        #endregion
 
         /// <summary> Отрисовка отдельной ноды </summary>
         private void DrawNodeWindow(int id)
@@ -149,7 +196,7 @@ namespace GUIInspector.NodeEditor
 
             if (e.button == 0)
             {
-                if (e.type == EventType.MouseDown) LeftMouseClick(e);
+                if (e.type == EventType.MouseDown) LeftMouseClick();
             }
 
             if(e.isKey)
@@ -190,7 +237,7 @@ namespace GUIInspector.NodeEditor
         }
 
         /// <summary> Левый клик мыши </summary>
-        private void LeftMouseClick(Event e)
+        private void LeftMouseClick()
         {
             for (int i = 0; i < _storyData.nodesData.Count; i++)
             {
@@ -198,8 +245,31 @@ namespace GUIInspector.NodeEditor
                 {
                     if (_storyData.nodesData[i].windowRect.Contains(_mousePosition))
                     {
-                        _selectedNode = _storyData.nodesData[i];
-                        Selection.activeObject = _storyData.nodesData[i];
+                        if(_sellectedToConnect != null)
+                        {
+                            switch (_sellectionId)
+                            {
+                                case 0:
+                                    _sellectedToConnect.movePart_1 = _storyData.nodesData[i];
+                                    _sellectedToConnect = null;
+                                    break;
+
+                                case 1:
+                                    _sellectedToConnect.movePart_2 = _storyData.nodesData[i];
+                                    _sellectedToConnect = null;
+                                    break;
+
+                                case 2:
+                                    _sellectedToConnect.movePart_3 = _storyData.nodesData[i];
+                                    _sellectedToConnect = null;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            _selectedNode = _storyData.nodesData[i];
+                            Selection.activeObject = _storyData.nodesData[i];
+                        }
                         break;
                     }
                 }

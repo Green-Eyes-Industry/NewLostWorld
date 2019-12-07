@@ -152,6 +152,8 @@ public class GamePart : ScriptableObject
         else if (crEvent is ItemInteract) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInteract.png";
         else if (crEvent is NonPlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/NonPlayerInfl.png";
         else if (crEvent is PlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/PlayerInfl.png";
+        else if (crEvent is LocationFind) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/LocationFind.png";
+        else if (crEvent is MemberTime) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/MemberTime.png";
         else return null;
 
         eventIco = (Texture)UnityEditor.AssetDatabase.LoadAssetAtPath(pathToIco, typeof(Texture));

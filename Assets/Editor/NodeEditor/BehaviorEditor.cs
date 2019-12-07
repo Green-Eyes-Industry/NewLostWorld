@@ -36,6 +36,21 @@ namespace GUIInspector.NodeEditor
             ADD_TRANSIT
         }
 
+        public enum AddEventActions
+        {
+            CHECK_DECISION,
+            CHECK_PLAYER_INFL,
+            CHECK_POINT,
+            EFFECT_INTERACT,
+            IMPORTANT_DECISION,
+            ITEM_INFL,
+            ITEM_INTERACT,
+            LOCATION_FIND,
+            MEMBER_TIME,
+            NON_PLAYER_INFL,
+            PLAYER_INFL
+        }
+
         #endregion
 
         #region INIT
@@ -68,7 +83,7 @@ namespace GUIInspector.NodeEditor
 
         private void OnGUI()
         {
-            if(_storyData != null)
+            if (_storyData != null)
             {
                 DrawGrid(10, 0.2f, _gridColor);
                 DrawGrid(50, 0.4f, _gridColor);
@@ -81,7 +96,7 @@ namespace GUIInspector.NodeEditor
 
                 EditorGUILayout.SelectableLabel("Текущие : ", GUILayout.Height(22));
 
-                if(GUILayout.Button("Данные сценария", GUILayout.Width(200))) Selection.activeObject = _storyData;
+                if (GUILayout.Button("Данные сценария", GUILayout.Width(200))) Selection.activeObject = _storyData;
 
                 if (_mainSettings == null) _mainSettings = (GameSettings)Resources.Load("BaseParameters");
                 else
@@ -101,7 +116,7 @@ namespace GUIInspector.NodeEditor
                 EditorGUILayout.Space();
                 _storyData = (StoryData)EditorGUILayout.ObjectField("Файл данных", _storyData, typeof(StoryData), false);
             }
-            
+
         }
 
         /// <summary> Отрисовка всех нод </summary>
@@ -125,7 +140,7 @@ namespace GUIInspector.NodeEditor
             {
                 if (_storyData.nodesData[i] != null)
                 {
-                    GUI.backgroundColor = new Color(0.75f,0.75f,0.75f);
+                    GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
 
                     if (EditorApplication.isPlaying)
                     {
@@ -143,9 +158,9 @@ namespace GUIInspector.NodeEditor
                             case 2: GUI.backgroundColor = Color.green; break;
                         }
 
-                        if(_sellectedToConnect != null)
+                        if (_sellectedToConnect != null)
                         {
-                            if(_sellectedToConnect.Equals(_storyData.nodesData[i])) GUI.backgroundColor = Color.red;
+                            if (_sellectedToConnect.Equals(_storyData.nodesData[i])) GUI.backgroundColor = Color.red;
                         }
                     }
 
@@ -167,18 +182,18 @@ namespace GUIInspector.NodeEditor
         {
             if (bn is TextPart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0,bn);
+                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
             }
             else if (bn is ChangePart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0,bn);
-                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1,bn);
+                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
+                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1, bn);
             }
             else if (bn is BattlePart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0,bn);
-                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1,bn);
-                if (GUI.Button(bn.ConnectPosition(2), _connectTexture)) ConnectorClick(2,bn);
+                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
+                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1, bn);
+                if (GUI.Button(bn.ConnectPosition(2), _connectTexture)) ConnectorClick(2, bn);
             }
         }
 
@@ -211,7 +226,7 @@ namespace GUIInspector.NodeEditor
                 if (e.type == EventType.MouseDown) LeftMouseClick();
             }
 
-            if(e.type == EventType.KeyDown)
+            if (e.type == EventType.KeyDown)
             {
                 if (e.keyCode == KeyCode.Delete) DeleteKeyDown();
             }
@@ -233,18 +248,20 @@ namespace GUIInspector.NodeEditor
 
             for (int i = 0; i < _storyData.nodesData.Count; i++)
             {
-                if(_storyData.nodesData[i] != null)
+                if (_storyData.nodesData[i] != null)
                 {
                     if (_storyData.nodesData[i].windowRect.Contains(_mousePosition))
                     {
                         _isClickOnWindow = true;
                         _selectedNode = _storyData.nodesData[i];
+                        Selection.activeObject = _storyData.nodesData[i];
                         break;
                     }
                 }
             }
 
             if (!_isClickOnWindow) AddNewNode(e);
+            else AddEventToPart(e);
         }
 
         /// <summary> Левый клик мыши </summary>
@@ -307,7 +324,7 @@ namespace GUIInspector.NodeEditor
         /// <summary> Нажатие на Delete </summary>
         private void DeleteKeyDown()
         {
-            if(_selectedNode != null)
+            if (_selectedNode != null)
             {
                 _storyData.nodesData.Remove(_selectedNode);
                 AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNode));
@@ -320,7 +337,7 @@ namespace GUIInspector.NodeEditor
         /// <summary> Проверка действия </summary>
         private void ContexCallBack(object o)
         {
-            Object[] loadedObj = Resources.LoadAll("GameParts",typeof(GamePart));
+            Object[] loadedObj = Resources.LoadAll("GameParts", typeof(GamePart));
 
             UserActions a = (UserActions)o;
 
@@ -332,7 +349,7 @@ namespace GUIInspector.NodeEditor
                     string pathTextPartAsset = "Assets/Resources/GameParts/" + nameTextPart + ".asset";
 
                     AssetDatabase.CreateAsset(CreateInstance(typeof(TextPart)), pathTextPartAsset);
-                    TextPart textPart = (TextPart)AssetDatabase.LoadAssetAtPath(pathTextPartAsset,typeof(TextPart));
+                    TextPart textPart = (TextPart)AssetDatabase.LoadAssetAtPath(pathTextPartAsset, typeof(TextPart));
 
                     textPart.windowTitle = nameTextPart;
                     textPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
@@ -457,7 +474,69 @@ namespace GUIInspector.NodeEditor
                 case UserActions.ADD_TRANSIT:
 
                     break;
-            }   
+            }
+        }
+
+        /// <summary> Проверка действия добавления евента </summary>
+        private void AddEventMethod(object o)
+        {
+            AddEventActions a = (AddEventActions)o;
+
+            string path = "Assets/Resources/GameEvents/";
+            string nameEvent;
+
+            switch (a)
+            {
+                case AddEventActions.CHECK_DECISION:
+
+                    nameEvent = _selectedNode.mainEvents.Count + "_CheckDecision.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckDecision)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((CheckDecision)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(CheckDecision)));
+
+                    break;
+
+                case AddEventActions.CHECK_PLAYER_INFL:
+
+                    break;
+
+                case AddEventActions.CHECK_POINT:
+
+                    break;
+
+                case AddEventActions.EFFECT_INTERACT:
+
+                    break;
+
+                case AddEventActions.IMPORTANT_DECISION:
+
+                    break;
+
+                case AddEventActions.ITEM_INFL:
+
+                    break;
+
+                case AddEventActions.ITEM_INTERACT:
+
+                    break;
+
+                case AddEventActions.LOCATION_FIND:
+
+                    break;
+
+                case AddEventActions.MEMBER_TIME:
+
+                    break;
+
+                case AddEventActions.NON_PLAYER_INFL:
+
+                    break;
+
+                case AddEventActions.PLAYER_INFL:
+
+                    break;
+            }
+
+            
         }
 
         #endregion
@@ -468,14 +547,33 @@ namespace GUIInspector.NodeEditor
         private void AddNewNode(Event e)
         {
             GenericMenu menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Текстовая"), false, ContexCallBack, UserActions.ADD_TEXT_PART);
-            menu.AddItem(new GUIContent("Выбора"), false, ContexCallBack, UserActions.ADD_CHANGE_PART);
-            menu.AddItem(new GUIContent("Боя"), false, ContexCallBack, UserActions.ADD_BATTLE_PART);
-            menu.AddItem(new GUIContent("Загадка"), false, ContexCallBack, UserActions.ADD_MAZE_PART);
-            menu.AddItem(new GUIContent("Эвент"), false, ContexCallBack, UserActions.ADD_EVENT_PART);
-            menu.AddItem(new GUIContent("Финальная"), false, ContexCallBack, UserActions.ADD_FINAL_PART);
-            menu.AddItem(new GUIContent("Вставка"), false, ContexCallBack, UserActions.ADD_LABEL_PART);
-            menu.AddItem(new GUIContent("Слайдшоу"), false, ContexCallBack, UserActions.ADD_SLIDESHOW_PART);
+            menu.AddItem(new GUIContent("Создать главу/Текстовая"), false, ContexCallBack, UserActions.ADD_TEXT_PART);
+            menu.AddItem(new GUIContent("Создать главу/Выбора"), false, ContexCallBack, UserActions.ADD_CHANGE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Боя"), false, ContexCallBack, UserActions.ADD_BATTLE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Загадка"), false, ContexCallBack, UserActions.ADD_MAZE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Эвент"), false, ContexCallBack, UserActions.ADD_EVENT_PART);
+            menu.AddItem(new GUIContent("Создать главу/Финальная"), false, ContexCallBack, UserActions.ADD_FINAL_PART);
+            menu.AddItem(new GUIContent("Создать главу/Вставка"), false, ContexCallBack, UserActions.ADD_LABEL_PART);
+            menu.AddItem(new GUIContent("Создать главу/Слайдшоу"), false, ContexCallBack, UserActions.ADD_SLIDESHOW_PART);
+            menu.ShowAsContext();
+            e.Use();
+        }
+
+        /// <summary> Добавить событие к главе </summary>
+        private void AddEventToPart(Event e)
+        {
+            GenericMenu menu = new GenericMenu();
+            menu.AddItem(new GUIContent("Добавить событие/Контрольная точка"), false, AddEventMethod, AddEventActions.CHECK_POINT);
+            menu.AddItem(new GUIContent("Добавить событие/Важное решение"), false, AddEventMethod, AddEventActions.IMPORTANT_DECISION);
+            menu.AddItem(new GUIContent("Добавить событие/Проверка решения"), false, AddEventMethod, AddEventActions.CHECK_DECISION);
+            menu.AddItem(new GUIContent("Добавить событие/Влияние на игрока"), false, AddEventMethod, AddEventActions.PLAYER_INFL);
+            menu.AddItem(new GUIContent("Добавить событие/Влияние на НПС"), false, AddEventMethod, AddEventActions.NON_PLAYER_INFL);
+            menu.AddItem(new GUIContent("Добавить событие/Проверка влияния персонажа"), false, AddEventMethod, AddEventActions.CHECK_PLAYER_INFL);
+            menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с эффектом"), false, AddEventMethod, AddEventActions.EFFECT_INTERACT);
+            menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с предметом"), false, AddEventMethod, AddEventActions.ITEM_INTERACT);
+            menu.AddItem(new GUIContent("Добавить событие/Использование предмета"), false, AddEventMethod, AddEventActions.ITEM_INFL);
+            menu.AddItem(new GUIContent("Добавить событие/Найдена локация"), false, AddEventMethod, AddEventActions.LOCATION_FIND);
+            menu.AddItem(new GUIContent("Добавить событие/Воспоминание"), false, AddEventMethod, AddEventActions.MEMBER_TIME);
             menu.ShowAsContext();
             e.Use();
         }

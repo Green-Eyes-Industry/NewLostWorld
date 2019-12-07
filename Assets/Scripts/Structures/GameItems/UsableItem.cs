@@ -11,4 +11,16 @@ public class UsableItem : GameItem
 
     /// <summary> Накладываемый эффект </summary>
     public GameEffect itemEffect;
+
+    /// <summary> Использовать </summary>
+    public void UseThisItem()
+    {
+        DataController.playerData.playerHealth += healthInf;
+        DataController.playerData.playerMind += mindInf;
+
+        if (!DataController.playerData.playerEffects.Contains(itemEffect))
+        {
+            DataController.playerData.playerEffects.Add(itemEffect);
+        }
+    }
 }

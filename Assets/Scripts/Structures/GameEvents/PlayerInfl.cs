@@ -1,15 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Влияние на игрока")]
 public class PlayerInfl : GameEvent
 {
-    // Влияние главы на состояние игрока
+    /// <summary> Влияние на здоровье </summary>
+    public int _healthInfl;
 
-    /// <summary> Старт события </summary>
+    /// <summary> Влияние на рассудок </summary>
+    public int _mindInfl;
+
+    /// <summary> Влияние </summary>
     public override bool EventStart()
     {
-        return false;
+        DataController.playerData.playerHealth += _healthInfl;
+        DataController.playerData.playerMind += _mindInfl;
+        return true;
     }
 }

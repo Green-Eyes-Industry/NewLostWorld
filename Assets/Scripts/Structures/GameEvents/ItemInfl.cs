@@ -1,39 +1,26 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Влияние предмета")]
+[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Использование предмета")]
 public class ItemInfl : GameEvent
 {
+    /// <summary> Уничтожить в процессе </summary>
+    public bool isRemove;
+
+    /// <summary> Предмет </summary>
     public UsableItem useItem;
 
-    /// <summary> Старт события </summary>
+    /// <summary> Глава при провале </summary>
+    public GamePart failPart;
+
+    /// <summary> Влияние </summary>
     public override bool EventStart()
     {
-        bool finded = true;
-
-        if (DataController.playerData.playerInventory.Count != 0)
+        if (DataController.playerData.playerInventory.Contains(useItem))
         {
-            for (int i = 0; i < DataController.playerData.playerInventory.Count; i++)
-            {
-                if(DataController.playerData.playerInventory[i] is UsableItem)
-                {
-                    if(DataController.playerData.playerInventory[i].Equals(useItem))
-                    {
-                        finded = false;
-                        UseThisItem();
-                        DataController.playerData.playerInventory.RemoveAt(i);
-                        break;
-                    }
-                }
-            }
+            useItem.UseThisItem();
+            if (isRemove) DataController.playerData.playerInventory.Remove(useItem);
+            return true;
         }
-
-        return finded;
-    }
-
-    /// <summary> Использовать найденый предмет </summary>
-    private void UseThisItem()
-    {
-        DataController.playerData.playerHealth += useItem.healthInf;
-        DataController.playerData.playerMind += useItem.healthInf;
+        else return false;
     }
 }

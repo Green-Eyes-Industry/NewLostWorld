@@ -1,13 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Важное решение")]
 public class ImportantDecision : GameEvent
 {
-    /// <summary> Старт события </summary>
+    /// <summary> Решение </summary>
+    public Decision decision;
+
+    /// <summary> Принять решение </summary>
     public override bool EventStart()
     {
+        if (DataController.playerData.playerDecisions.Contains(decision))
+        {
+            DataController.playerData.playerDecisions.Add(decision);
+        }
         return true;
     }
 }

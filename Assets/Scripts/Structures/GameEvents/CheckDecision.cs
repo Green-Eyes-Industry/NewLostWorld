@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Проверка решения")]
 public class CheckDecision : GameEvent

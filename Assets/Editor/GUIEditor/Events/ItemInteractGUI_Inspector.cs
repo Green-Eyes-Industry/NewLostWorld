@@ -3,7 +3,6 @@ using UnityEditor;
 
 namespace GUIInspector
 {
-
     [CustomEditor(typeof(ItemInteract))]
     public class ItemInteractGUI_Inspector : Editor
     {
@@ -19,10 +18,23 @@ namespace GUIInspector
 
             GUILayout.BeginHorizontal("Box");
 
-            itemInteract.addOrLostItem = EditorGUILayout.Toggle("Получить предмет :", itemInteract.addOrLostItem);
+            itemInteract.isAddOrLostItem = EditorGUILayout.Toggle("Получить предмет :", itemInteract.isAddOrLostItem);
             itemInteract.gameItem = (GameItem)EditorGUILayout.ObjectField(itemInteract.gameItem, typeof(GameItem), true, GUILayout.Width(200));
 
             GUILayout.EndHorizontal();
+
+            if (!itemInteract.isAddOrLostItem)
+            {
+                GUILayout.BeginHorizontal("Box");
+
+                itemInteract.failPart = (GamePart)EditorGUILayout.ObjectField(
+                    "Отсутствие :",
+                    itemInteract.failPart,
+                    typeof(GamePart),
+                    true);
+
+                GUILayout.EndHorizontal();
+            }
 
             if (itemInteract.gameItem != null)
             {

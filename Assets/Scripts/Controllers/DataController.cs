@@ -148,9 +148,21 @@ public class DataController : MonoBehaviour
     #endregion
 
     /// <summary> Удаление данных и выход </summary>
-    public static void DellAllSaves()
+    public static void DellAllData()
     {
         PlayerPrefs.DeleteAll();
         Application.Quit();
+    }
+
+    /// <summary> Сохранить все данные </summary>
+    public static void SaveGameData()
+    {
+
+    }
+
+    /// <summary> Загрузить все данные </summary>
+    public static void LoadGameData()
+    {
+
     }
 }

@@ -169,9 +169,12 @@ namespace GUIInspector.StoryEditor
 
         #region INIT
 
+        private void OnFocus() => ReloadLoadObjects();
+
+
         [MenuItem("Story/Data Editor")]
         [System.Obsolete]
-        static void ShowEditor()
+        public static void ShowEditor()
         {
             // Создание окна редактора
             BaseStoryEditor storyEditor = GetWindow<BaseStoryEditor>();

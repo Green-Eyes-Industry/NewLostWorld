@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 0_BaseEffect
   m_EditorClassIdentifier: 
   icoEffect: {fileID: 0}
-  durationEffect: 0
+  durationEffect: 17
   healthInfluenceEffect: 0
   mindInfluenceEffect: 0

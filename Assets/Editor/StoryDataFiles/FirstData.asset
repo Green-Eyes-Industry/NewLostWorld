@@ -12,12 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77596d61f2df5ea418d1a669dd47504e, type: 3}
   m_Name: FirstData
   m_EditorClassIdentifier: 
-  storyDescript: "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0439"
+  storyDescript: "\u0422\u0435\u0441\u0442\u043E\u0432\u0430\u044F \u0441\u0446\u0435\u043D\u0430"
   nodesData:
   - {fileID: 11400000, guid: d2436e58343c5184abdb663c7601aa26, type: 2}
-  - {fileID: 11400000, guid: 635b1853442c18348804f1880fbfc6a0, type: 2}
-  - {fileID: 11400000, guid: 0c1d0bfb0130f8542aa52b68d7f5ae81, type: 2}
-  - {fileID: 11400000, guid: 42dc362b4ed62d74185b0db1ee8f5d3a, type: 2}
-  - {fileID: 11400000, guid: 71378934568847b45bae09b963ce917f, type: 2}
-  - {fileID: 11400000, guid: baf7ed145e5faf143bce17a3836c31f5, type: 2}
-  - {fileID: 11400000, guid: 5ebb698b8810c144485bd79fd5519186, type: 2}
+  - {fileID: 11400000, guid: 023efb63ebbd4c74bab79a5db01a08c5, type: 2}

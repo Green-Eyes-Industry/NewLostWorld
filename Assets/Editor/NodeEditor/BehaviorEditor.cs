@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEditor;
 
 namespace GUIInspector.NodeEditor
@@ -41,11 +42,11 @@ namespace GUIInspector.NodeEditor
 
         [MenuItem("Story/Node Editor")]
         [System.Obsolete]
-        static void ShowEditor()
+        public static void ShowEditor()
         {
             BehaviorEditor editor = GetWindow<BehaviorEditor>();
             editor.title = "Node Editor";
-            editor._gridColor = new Color(0.6f, 0.6f, 0.6f);
+            editor._gridColor = new Color(0.55f, 0.55f, 0.55f);
             trBehaviorEditor = editor;
 
             editor._connectTexture = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/Connect.png", typeof(Texture));
@@ -54,6 +55,16 @@ namespace GUIInspector.NodeEditor
         #endregion
 
         #region GUI_METHODS
+
+        private void OnFocus()
+        {
+            if (EditorApplication.isPlaying) EditorApplication.isPaused = true;
+        }
+
+        private void OnLostFocus()
+        {
+            if (EditorApplication.isPaused) EditorApplication.isPaused = false;
+        }
 
         private void OnGUI()
         {
@@ -86,7 +97,7 @@ namespace GUIInspector.NodeEditor
             }
             else
             {
-                EditorGUILayout.LabelField("Нед данных сюжета");
+                EditorGUILayout.LabelField("Нет данных сюжета");
                 EditorGUILayout.Space();
                 _storyData = (StoryData)EditorGUILayout.ObjectField("Файл данных", _storyData, typeof(StoryData), false);
             }
@@ -106,6 +117,7 @@ namespace GUIInspector.NodeEditor
                 {
                     bn.DrawCurve(_storyData.nodesData);
                     DrawConnectPoint(bn);
+                    bn.DrawEvents();
                 }
             }
 
@@ -199,11 +211,10 @@ namespace GUIInspector.NodeEditor
                 if (e.type == EventType.MouseDown) LeftMouseClick();
             }
 
-            if(e.isKey)
+            if(e.type == EventType.KeyDown)
             {
                 if (e.keyCode == KeyCode.Delete) DeleteKeyDown();
             }
-
 
             if (e.type == EventType.MouseDrag)
             {
@@ -245,7 +256,7 @@ namespace GUIInspector.NodeEditor
                 {
                     if (_storyData.nodesData[i].windowRect.Contains(_mousePosition))
                     {
-                        if(_sellectedToConnect != null)
+                        if (_sellectedToConnect != null)
                         {
                             switch (_sellectionId)
                             {

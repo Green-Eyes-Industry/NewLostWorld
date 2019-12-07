@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 9
 --- !u!58 &4549316
 CircleCollider2D:
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 2
 --- !u!61 &39958577
 BoxCollider2D:
@@ -6345,7 +6345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 3
 --- !u!58 &234379733
 CircleCollider2D:
@@ -6524,7 +6524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 10
 --- !u!58 &304808485
 CircleCollider2D:
@@ -7397,7 +7397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 0
   _buttonId: 6
 --- !u!1 &485606386
 GameObject:
@@ -7487,7 +7487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 0
+  _isMenu: 0
   _buttonId: 6
 --- !u!61 &485606391
 BoxCollider2D:
@@ -8203,7 +8203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 11
 --- !u!58 &700746505
 CircleCollider2D:
@@ -8415,7 +8415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 8
 --- !u!58 &710575191
 CircleCollider2D:
@@ -18891,7 +18891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 0
+  _isMenu: 0
   _buttonId: 1
 --- !u!1 &882523810
 GameObject:
@@ -19210,7 +19210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 12
 --- !u!1 &912912229
 GameObject:
@@ -19559,7 +19559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 5
 --- !u!1 &954210360
 GameObject:
@@ -25073,7 +25073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 4
 --- !u!1 &1030727286
 GameObject:
@@ -25259,7 +25259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 0
+  _isMenu: 0
   _buttonId: 5
 --- !u!61 &1034815142
 BoxCollider2D:
@@ -26238,7 +26238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 3
 --- !u!61 &1168452279
 BoxCollider2D:
@@ -26380,7 +26380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 0
+  _isMenu: 0
   _buttonId: 0
 --- !u!1 &1217046289
 GameObject:
@@ -26697,7 +26697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 0
+  _isMenu: 0
   _buttonId: 2
 --- !u!1 &1288348642
 GameObject:
@@ -31619,7 +31619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 1
 --- !u!61 &1313680621
 BoxCollider2D:
@@ -38005,7 +38005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 7
 --- !u!58 &1564409095
 CircleCollider2D:
@@ -38289,7 +38289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 0
+  _isMenu: 0
   _buttonId: 4
 --- !u!61 &1602858836
 BoxCollider2D:
@@ -43433,7 +43433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 0
+  _isMenu: 0
   _buttonId: 3
 --- !u!61 &1690769871
 BoxCollider2D:
@@ -50260,7 +50260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itIsMenu: 1
+  _isMenu: 1
   _buttonId: 0
 --- !u!61 &2137433014
 BoxCollider2D:

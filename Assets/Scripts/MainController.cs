@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Управление игровыми параметрами
-/// </summary>
+/// <summary> Управление игровыми параметрами </summary>
 public class MainController : MonoBehaviour
 {
     private MoveController _moveController;
@@ -16,20 +14,15 @@ public class MainController : MonoBehaviour
         ConnectLastSavePoint();
     }
 
-    /// <summary>
-    /// Подключение сохранений
-    /// </summary>
+    /// <summary> Подключение сохранений </summary>
     private void ConnectLastSavePoint()
     {
-        DataController.LoadGlobalPreferences();
         MoveController._mainAnimator.SetBool("Settings_1_St", DataController.gameSettingsData.isSoundCheck);
         MoveController._mainAnimator.SetBool("Settings_2_St", DataController.gameSettingsData.isVibrationCheck);
         MoveController._mainAnimator.SetBool("Settings_3_St", DataController.gameSettingsData.isEffectCheck);
     }
 
-    /// <summary>
-    /// Подключение контроллеров и заполнение данных
-    /// </summary>
+    /// <summary> Подключение контроллеров и заполнение данных </summary>
     private void ConnectControllers()
     {
         _moveController = GetComponent<MoveController>();
@@ -38,9 +31,7 @@ public class MainController : MonoBehaviour
         DataController.playerData = _mainPlayer;
     }
 
-    /// <summary>
-    /// Подключение компонентов
-    /// </summary>
+    /// <summary> Подключение компонентов </summary>
     private void ConnectComponents()
     {
         _moveController.Init();

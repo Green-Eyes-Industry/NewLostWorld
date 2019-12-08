@@ -497,46 +497,84 @@ namespace GUIInspector.NodeEditor
 
                 case AddEventActions.CHECK_PLAYER_INFL:
 
+                    nameEvent = _selectedNode.mainEvents.Count + "_CheckPlayerInfl.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckPlayerInfl)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((CheckPlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(CheckPlayerInfl)));
+
                     break;
 
                 case AddEventActions.CHECK_POINT:
+
+                    nameEvent = _selectedNode.mainEvents.Count + "_CheckPoint.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckPoint)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((CheckPoint)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(CheckPoint)));
 
                     break;
 
                 case AddEventActions.EFFECT_INTERACT:
 
+                    nameEvent = _selectedNode.mainEvents.Count + "_EffectInteract.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(EffectInteract)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((EffectInteract)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(EffectInteract)));
+
                     break;
 
                 case AddEventActions.IMPORTANT_DECISION:
+                    
+                    nameEvent = _selectedNode.mainEvents.Count + "_ImportantDecision.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(ImportantDecision)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((ImportantDecision)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ImportantDecision)));
 
                     break;
 
                 case AddEventActions.ITEM_INFL:
+                    
+                    nameEvent = _selectedNode.mainEvents.Count + "_ItemInfl.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(ItemInfl)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((ItemInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ItemInfl)));
 
                     break;
 
                 case AddEventActions.ITEM_INTERACT:
+                    
+                    nameEvent = _selectedNode.mainEvents.Count + "_ItemInteract.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(ItemInteract)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((ItemInteract)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ItemInteract)));
 
                     break;
 
                 case AddEventActions.LOCATION_FIND:
+                    
+                    nameEvent = _selectedNode.mainEvents.Count + "_LocationFind.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(LocationFind)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((LocationFind)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(LocationFind)));
 
                     break;
 
                 case AddEventActions.MEMBER_TIME:
+                    
+                    nameEvent = _selectedNode.mainEvents.Count + "_MemberTime.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(MemberTime)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((MemberTime)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(MemberTime)));
 
                     break;
 
                 case AddEventActions.NON_PLAYER_INFL:
+                    
+                    nameEvent = _selectedNode.mainEvents.Count + "_NonPlayerInfl.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(NonPlayerInfl)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((NonPlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(NonPlayerInfl)));
 
                     break;
 
                 case AddEventActions.PLAYER_INFL:
+                    
+                    nameEvent = _selectedNode.mainEvents.Count + "_PlayerInfl.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(PlayerInfl)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((PlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(PlayerInfl)));
 
                     break;
             }
-
-            
         }
 
         #endregion

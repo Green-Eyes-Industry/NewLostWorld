@@ -31,8 +31,6 @@ public class MoveController : MonoBehaviour
     /// <summary> Начало игры </summary>
     public void GameStart()
     {
-        DataController.LoadGamePreferences();
-
         if (_startPart == null) _startPart = firstPart;
         NextPart(_startPart);
     }
@@ -103,46 +101,22 @@ public class MoveController : MonoBehaviour
 
     #region GAME_BUTTONS
 
-    /// <summary> Нажатие на кнопку в игре </summary>
+    /// <summary> Нажатие на кнопки в игре </summary>
     public void GameButtonDown(int buttonID)
     {
         switch (buttonID)
         {
-            case 0:
-                _mainAnimator.SetBool("GameButton_1", true);
-                break;
-
-            case 1:
-                _mainAnimator.SetBool("GameButton_2", true);
-                break;
-
-            case 2:
-                _mainAnimator.SetBool("GameButton_3", true);
-                break;
-
-            case 3:
-                // Инвентарь
-                _mainAnimator.SetBool("Btb_Inventory", true);
-                break;
-
-            case 4:
-                // Карта
-                _mainAnimator.SetBool("Btb_Map", true);
-                break;
-
-            case 5:
-                // Персонаж
-                _mainAnimator.SetBool("Btb_Player", true);
-                break;
-
-            case 6:
-                // Заметки
-                _mainAnimator.SetBool("Btb_Notes", true);
-                break;
+            case 0: _mainAnimator.SetBool("GameButton_1", true); break;     // Кнопка 1 в игре
+            case 1: _mainAnimator.SetBool("GameButton_2", true); break;     // Кнопка 2 в игре
+            case 2: _mainAnimator.SetBool("GameButton_3", true); break;     // Кнопка 3 в игре
+            case 3: _mainAnimator.SetBool("Btb_Inventory", true); break;    // Вход в инвентарь
+            case 4: _mainAnimator.SetBool("Btb_Map", true); break;          // Открыть карту
+            case 5: _mainAnimator.SetBool("Btb_Player", true); break;       // Открыть меню персонажа
+            case 6: _mainAnimator.SetBool("Btb_Notes", true); break;        // Открыть меню заметок
         }
     }
 
-    /// <summary> Отпускание кнопки в игре </summary>
+    /// <summary> Отпускание кнопок в игре </summary>
     public void GameButtonUp(int buttonID)
     {
         switch (buttonID)
@@ -359,92 +333,40 @@ public class MoveController : MonoBehaviour
 
     #region MENU_BUTTONS
 
-    /// <summary> Нажатие на кнопку в меню </summary>
+    /// <summary> Нажатие на кнопок в меню </summary>
     public void MenuButtonDown(int buttonID)
     {
         switch (buttonID)
         {
-            case 0:
-                // Начать игру
-
-                _mainAnimator.SetBool("Menu_1_Button", true);
-                break;
-
-            case 1:
-                // Настройки
-
-                _mainAnimator.SetBool("Menu_2_Button", true);
-                break;
-
-            case 2:
-                // Об авторе
-
-                _mainAnimator.SetBool("Menu_3_Button", true);
-                break;
+            case 0: _mainAnimator.SetBool("Menu_1_Button", true); break;    // Меню 1 кнопка
+            case 1: _mainAnimator.SetBool("Menu_2_Button", true); break;    // Меню 2 кнопка
+            case 2: _mainAnimator.SetBool("Menu_3_Button", true); break;    // Меню 3 кнопка
 
             case 3:
-                // Достижения
+                // Меню 4 кнопка
 
                 switch (_mainAnimator.GetInteger("MenuStady"))
                 {
                     case 0:
                     case 1:
-                    case 2:
-                        _mainAnimator.SetBool("Menu_4_Button", true);
-                        break;
-
-                    default:
-                        _mainAnimator.SetBool("Achives_Back", true);
-                        break;
+                    case 2: _mainAnimator.SetBool("Menu_4_Button", true); break;
+                    default: _mainAnimator.SetBool("Achives_Back", true); break;
                 }
 
                 break;
 
-            case 4:
-                // Влево в меню достижений
+            case 4: if (!_isAchiveDetail) _mainAnimator.SetBool("Achives_Left", true); break; // Влево в меню достижений
+            case 5: if (!_isAchiveDetail) _mainAnimator.SetBool("Achives_Right", true); break; // Вправо в меню достижений
 
-                if (!_isAchiveDetail) _mainAnimator.SetBool("Achives_Left", true);
-                break;
-
-            case 5:
-                // Вправо в меню достижений
-
-                if (!_isAchiveDetail) _mainAnimator.SetBool("Achives_Right", true);
-                break;
-
-            case 7:
-                // Ячейка достижения 1
-
-                if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_1", true);
-                break;
-
-            case 8:
-                // Ячейка достижения 2
-
-                if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_2", true);
-                break;
-
-            case 9:
-                // Ячейка достижения 3
-
-                if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_3", true);
-                break;
-
-            case 10:
-                // Ячейка достижения 4
-
-                if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_4", true);
-                break;
-
-            case 11:
-                // Ячейка достижения 5
-
-                if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_5", true);
-                break;
+            case 7: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_1", true); break; // Ячейка достижения 1
+            case 8: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_2", true); break; // Ячейка достижения 2
+            case 9: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_3", true); break; // Ячейка достижения 3
+            case 10: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_4", true); break; // Ячейка достижения 4
+            case 11: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_5", true); break; // Ячейка достижения 5
         }
     }
 
-    /// <summary> Отпускание кнопки в меню </summary>
+    /// <summary> Отпускание кнопок в меню </summary>
     public void MenuButtonUp (int buttonID)
     {
         switch (buttonID)
@@ -475,18 +397,9 @@ public class MoveController : MonoBehaviour
                         break;
 
                     case 1:
-                        if (_mainAnimator.GetBool("Settings_1_St"))
-                        {
-                            _mainAnimator.SetBool("Settings_1_St", false);
-                            DataController.gameSettingsData.isSoundCheck = false;
-                            
-                        }
-                        else
-                        {
-                            _mainAnimator.SetBool("Settings_1_St", true);
-                            DataController.gameSettingsData.isSoundCheck = true;
-                        }
-                        DataController.SaveGlobalPreferences();
+                        _mainAnimator.SetBool("Settings_1_St", !_mainAnimator.GetBool("Settings_1_St"));
+                        DataController.gameSettingsData.isSoundCheck = _mainAnimator.GetBool("Settings_1_St");
+                        DataController.SaveSettingsData();
                         break;
                 }
 
@@ -506,17 +419,9 @@ public class MoveController : MonoBehaviour
                         break;
 
                     case 1:
-                        if (_mainAnimator.GetBool("Settings_2_St"))
-                        {
-                            _mainAnimator.SetBool("Settings_2_St", false);
-                            DataController.gameSettingsData.isVibrationCheck = false;
-                        }
-                        else
-                        {
-                            _mainAnimator.SetBool("Settings_2_St", true);
-                            DataController.gameSettingsData.isVibrationCheck = true;
-                        }
-                        DataController.SaveGlobalPreferences();
+                        _mainAnimator.SetBool("Settings_2_St", !_mainAnimator.GetBool("Settings_2_St"));
+                        DataController.gameSettingsData.isVibrationCheck = _mainAnimator.GetBool("Settings_2_St");
+                        DataController.SaveSettingsData();
                         break;
                 }
 
@@ -536,17 +441,9 @@ public class MoveController : MonoBehaviour
                         break;
 
                     case 1:
-                        if (_mainAnimator.GetBool("Settings_3_St"))
-                        {
-                            _mainAnimator.SetBool("Settings_3_St", false);
-                            DataController.gameSettingsData.isEffectCheck = false;
-                        }
-                        else
-                        {
-                            _mainAnimator.SetBool("Settings_3_St", true);
-                            DataController.gameSettingsData.isEffectCheck = true;
-                        }
-                        DataController.SaveGlobalPreferences();
+                        _mainAnimator.SetBool("Settings_3_St", !_mainAnimator.GetBool("Settings_3_St"));
+                        DataController.gameSettingsData.isEffectCheck = _mainAnimator.GetBool("Settings_3_St");
+                        DataController.SaveSettingsData();
                         break;
                 }
 

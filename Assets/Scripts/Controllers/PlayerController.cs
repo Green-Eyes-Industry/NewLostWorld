@@ -22,19 +22,5 @@ public class PlayerController : MonoBehaviour
 
     #region INVENTORY_CONTROLLER
 
-    /// <summary> Добавление предмета в инвентарь </summary>
-    public void AddItemToInventory(GameItem gItem)
-    {
-        DataController.playerData.playerInventory.Add(gItem);
-        DataController.SavePlayerInventory();
-    }
-
-    /// <summary> Удаление предмета из инвентаря </summary>
-    public void RemoveItemFromInventory(GameItem gItem)
-    {
-        DataController.playerData.playerInventory.Remove(gItem);
-        DataController.SavePlayerInventory();
-    }
-
     #endregion
 }

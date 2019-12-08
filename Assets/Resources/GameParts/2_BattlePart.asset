@@ -19,8 +19,8 @@ MonoBehaviour:
   movePart_3: {fileID: 0}
   windowRect:
     serializedVersion: 2
-    x: 355
-    y: 220
+    x: 337
+    y: 316
     width: 120
     height: 40
   windowTitle: 2_BattlePart

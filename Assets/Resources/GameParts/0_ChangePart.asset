@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainText: 
   mainEvents: []
-  movePart_1: {fileID: 0}
+  movePart_1: {fileID: 11400000, guid: 06712ac3adf79f54b8f43c758e6ac6e8, type: 2}
   movePart_2: {fileID: 11400000, guid: 023efb63ebbd4c74bab79a5db01a08c5, type: 2}
   movePart_3: {fileID: 0}
   windowRect:
     serializedVersion: 2
-    x: 86
-    y: 156
+    x: 89
+    y: 216
     width: 120
     height: 40
   windowTitle: 0_ChangePart

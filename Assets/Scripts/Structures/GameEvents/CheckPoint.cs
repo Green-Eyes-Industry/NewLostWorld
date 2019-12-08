@@ -7,7 +7,7 @@ public class CheckPoint : GameEvent
     public override bool EventStart()
     {
         DataController.gameSettingsData.lastPart = MoveController._startPart;
-        DataController.SaveGamePreferences();
+        DataController.SaveGameData();
 
         return true;
     }

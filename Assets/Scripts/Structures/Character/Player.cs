@@ -21,7 +21,7 @@ public class Player : Character
     public List<GameItem> playerInventory;
 
     /// <summary> Заметки игрока </summary>
-    public List<Notes> playerNotes;
+    public List<Note> playerNotes;
 
     /// <summary> Открытиые локации </summary>
     public List<MapMark> playerMap;
@@ -147,7 +147,7 @@ namespace GUIInspector
                 {
                     GUILayout.BeginHorizontal();
 
-                    _player.playerNotes[i] = (Notes)EditorGUILayout.ObjectField(_player.playerNotes[i], typeof(Notes), true);
+                    _player.playerNotes[i] = (Note)EditorGUILayout.ObjectField(_player.playerNotes[i], typeof(Note), true);
                     if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerNotes.RemoveAt(i);
 
                     GUILayout.EndHorizontal();

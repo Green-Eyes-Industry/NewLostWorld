@@ -19,10 +19,11 @@ MonoBehaviour:
   movePart_3: {fileID: 11400000, guid: 487d78ff72e74e94e83ec6d1ccf54f03, type: 2}
   windowRect:
     serializedVersion: 2
-    x: 399
-    y: 491
+    x: 775
+    y: 570
     width: 120
     height: 40
+  openedHeight: 80
   windowTitle: 6_BattlePart
   part: {fileID: 0}
   workStady: 0
@@ -31,6 +32,8 @@ MonoBehaviour:
   - "\u041F\u0443\u0441\u0442\u043E"
   - "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430"
   - "\u0413\u043E\u0442\u043E\u0432\u043E"
+  comment: 
+  isShowComment: 0
   buttonText_1: 
   buttonText_2: 
   buttonText_3: 

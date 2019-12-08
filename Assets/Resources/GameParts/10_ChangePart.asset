@@ -19,10 +19,11 @@ MonoBehaviour:
   movePart_3: {fileID: 0}
   windowRect:
     serializedVersion: 2
-    x: 642
-    y: 486
+    x: 1079
+    y: 569
     width: 120
     height: 40
+  openedHeight: 80
   windowTitle: 10_ChangePart
   part: {fileID: 0}
   workStady: 0
@@ -31,5 +32,7 @@ MonoBehaviour:
   - "\u041F\u0443\u0441\u0442\u043E"
   - "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430"
   - "\u0413\u043E\u0442\u043E\u0432\u043E"
+  comment: 
+  isShowComment: 0
   buttonText_1: 
   buttonText_2: 

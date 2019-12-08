@@ -5,7 +5,7 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu(fileName = "new note", menuName = "Игровые обьекты/Заметка")]
-public class Notes : ScriptableObject
+public class Note : ScriptableObject
 {
     /// <summary> Название заметки </summary>
     public string noteName;
@@ -14,19 +14,19 @@ public class Notes : ScriptableObject
     public string noteDescription;
 
     /// <summary> Глава воспоминания </summary>
-    public GamePart _partNote;
+    public GamePart partNote;
 }
 
 #if UNITY_EDITOR
 
 namespace GUIInspector
 {
-    [CustomEditor(typeof(Notes))]
+    [CustomEditor(typeof(Note))]
     public class NotesGUI_Inspector : Editor
     {
-        private Notes _notes;
+        private Note _notes;
 
-        private void OnEnable() => _notes = (Notes)target;
+        private void OnEnable() => _notes = (Note)target;
 
         public override void OnInspectorGUI()
         {
@@ -38,7 +38,7 @@ namespace GUIInspector
             EditorGUILayout.LabelField("Текст заметки");
             _notes.noteDescription = EditorGUILayout.TextArea(_notes.noteDescription, GUILayout.Height(40));
             EditorGUILayout.Space();
-            _notes._partNote = (GamePart)EditorGUILayout.ObjectField("Глава воспоминания :", _notes._partNote, typeof(GamePart), true);
+            _notes.partNote = (GamePart)EditorGUILayout.ObjectField("Глава воспоминания :", _notes.partNote, typeof(GamePart), true);
 
             GUILayout.EndVertical();
         }

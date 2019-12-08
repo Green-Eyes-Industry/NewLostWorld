@@ -20,7 +20,7 @@ namespace GUIInspector.StoryEditor
         private List<Achivemants> _achivemants = new List<Achivemants>();
         private List<GameEffect> _effects = new List<GameEffect>();
         private List<MapMark> _locations = new List<MapMark>();
-        private List<Notes> _notes = new List<Notes>();
+        private List<Note> _notes = new List<Note>();
 
         private Color _accentColor = new Color(0.75f, 0.75f, 0.75f);
         private Color _baseColor = Color.white;
@@ -289,7 +289,7 @@ namespace GUIInspector.StoryEditor
             {
                 if (EditorApplication.isPlaying)
                 {
-                    if(MoveController._startPart != null) _selectedPart = MoveController._startPart;
+                    if(MoveController.thisPart != null) _selectedPart = MoveController.thisPart;
                 }
 
                 for (int i = 0; i < _storyParts.Count; i++)
@@ -607,7 +607,7 @@ namespace GUIInspector.StoryEditor
                 {
                     EditorGUILayout.BeginHorizontal();
 
-                    _notes[i] = (Notes)EditorGUILayout.ObjectField(_notes[i], typeof(Notes), true);
+                    _notes[i] = (Note)EditorGUILayout.ObjectField(_notes[i], typeof(Note), true);
                     if (GUILayout.Button("Удалить", GUILayout.Width(80)))
                     {
                         FileUtil.DeleteFileOrDirectory(AssetDatabase.GetAssetPath(_notes[i]));
@@ -904,7 +904,7 @@ namespace GUIInspector.StoryEditor
         /// <summary> Создать новую заметку </summary>
         private void CreateNewNote(string nameNote)
         {
-            AssetDatabase.CreateAsset(CreateInstance(typeof(Notes)),
+            AssetDatabase.CreateAsset(CreateInstance(typeof(Note)),
                 "Assets/Resources/Notes/" +
                 _notes.Count +
                 "_" +
@@ -1027,7 +1027,7 @@ namespace GUIInspector.StoryEditor
 
                     for (int i = 0; i < loadedObj.Length; i++)
                     {
-                        if (loadedObj[i] is Notes) _notes.Add((Notes)loadedObj[i]);
+                        if (loadedObj[i] is Note) _notes.Add((Note)loadedObj[i]);
                     }
 
                     break;

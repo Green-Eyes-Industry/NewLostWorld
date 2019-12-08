@@ -19,6 +19,7 @@ public class GamePart : ScriptableObject
 #if UNITY_EDITOR
 
     public Rect windowRect;
+    public float openedHeight = 120f;
     public string windowTitle;
     public GamePart part;
 
@@ -26,9 +27,23 @@ public class GamePart : ScriptableObject
     public int[] workStadyNum = new int[] { 0, 1, 2};
     public string[] workStadyNames = new string[] { "Пусто", "Разработка", "Готово" };
 
+    public string comment;
+    public bool isShowComment;
+
     public void DrawWindow()
     {
-        workStady = UnityEditor.EditorGUILayout.IntPopup(workStady, workStadyNames, workStadyNum, GUILayout.Width(110f));
+        UnityEditor.EditorGUILayout.BeginHorizontal();
+        workStady = UnityEditor.EditorGUILayout.IntPopup(workStady, workStadyNames, workStadyNum, GUILayout.Width(90f));
+        isShowComment = UnityEditor.EditorGUILayout.Toggle(isShowComment);
+        UnityEditor.EditorGUILayout.EndHorizontal();
+
+        if (isShowComment)
+        {
+            windowRect.height = openedHeight;
+
+            comment = UnityEditor.EditorGUILayout.TextArea(comment, GUILayout.Width(110f), GUILayout.Height(78));
+        }
+        else windowRect.height = 40f;
     }
 
     /// <summary> Отрисовка связей </summary>
@@ -103,8 +118,6 @@ public class GamePart : ScriptableObject
 
         Vector3 startTan = startPos + Vector3.right * 30;
         Vector3 endTan = endPos + Vector3.left * 30;
-
-        Color shadow = new Color(0, 0, 0, 0.75f);
 
         UnityEditor.Handles.DrawBezier(startPos, endPos, startTan, endTan, colorCurve, null, 3f);
     }

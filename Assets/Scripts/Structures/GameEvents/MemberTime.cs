@@ -4,7 +4,7 @@
 public class MemberTime : GameEvent
 {
     /// <summary> Воспоминание </summary>
-    public Notes _note;
+    public Note _note;
 
     public override bool EventStart()
     {

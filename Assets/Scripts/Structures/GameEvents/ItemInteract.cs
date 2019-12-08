@@ -34,7 +34,7 @@ public class ItemInteract : GameEvent
                 DataController.playerData.playerInventory.Remove(gameItem);
                 return true;
             }
-            else return true;
+            else return false;
         }
     }
 }

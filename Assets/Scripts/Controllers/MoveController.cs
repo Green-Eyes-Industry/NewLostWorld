@@ -24,15 +24,15 @@ public class MoveController : MonoBehaviour
     #region VARIABLES
 
     /// <summary> Глава запускаемая по нажатию "Начало" </summary>
-    [HideInInspector] public static GamePart _startPart;
+    [HideInInspector] public static GamePart thisPart;
 
     #endregion
 
     /// <summary> Начало игры </summary>
     public void GameStart()
     {
-        if (_startPart == null) _startPart = firstPart;
-        NextPart(_startPart);
+        if (thisPart == null) thisPart = firstPart;
+        NextPart(thisPart);
     }
 
     /// <summary> Привязка компонентов </summary>
@@ -58,7 +58,7 @@ public class MoveController : MonoBehaviour
 
         _playerController.EventsStart(nextPart.mainEvents);
         
-        _startPart = nextPart;
+        thisPart = nextPart;
     }
 
     /// <summary> Запуск текстовой главы </summary>
@@ -125,21 +125,21 @@ public class MoveController : MonoBehaviour
                 // Первая кнопка в игре
 
                 _mainAnimator.SetBool("GameButton_1", false);
-                if(_startPart.movePart_1 != null) NextPart(_startPart.movePart_1);
+                if(thisPart.movePart_1 != null) NextPart(thisPart.movePart_1);
                 break;
 
             case 1:
                 // Вторая кнопка в игре
 
                 _mainAnimator.SetBool("GameButton_2", false);
-                if (_startPart.movePart_2 != null) NextPart(_startPart.movePart_2);
+                if (thisPart.movePart_2 != null) NextPart(thisPart.movePart_2);
                 break;
 
             case 2:
                 // Третья кнопка в игре
 
                 _mainAnimator.SetBool("GameButton_3", false);
-                if (_startPart.movePart_3 != null) NextPart(_startPart.movePart_3);
+                if (thisPart.movePart_3 != null) NextPart(thisPart.movePart_3);
                 break;
 
             case 3:
@@ -385,10 +385,10 @@ public class MoveController : MonoBehaviour
 
                         int partType;
 
-                        if (_startPart is TextPart) partType = 0;
-                        else if (_startPart is ChangePart) partType = 1;
-                        else if (_startPart is BattlePart) partType = 2;
-                        else if (_startPart is EventPart) partType = 3;
+                        if (thisPart is TextPart) partType = 0;
+                        else if (thisPart is ChangePart) partType = 1;
+                        else if (thisPart is BattlePart) partType = 2;
+                        else if (thisPart is EventPart) partType = 3;
                         else partType = 4;
 
                         _mainAnimator.SetInteger("GameStady", partType);

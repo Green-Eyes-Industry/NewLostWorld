@@ -125,8 +125,6 @@ namespace GUIInspector.NodeEditor
         {
             _drag = Vector2.zero;
 
-            
-
             try
             {
                 BeginWindows();
@@ -138,6 +136,7 @@ namespace GUIInspector.NodeEditor
                         bn.DrawCurve(_storyData.nodesData);
                         DrawConnectPoint(bn);
                         bn.DrawEvents();
+                        bn.comment = GUI.TextField(new Rect(bn.windowRect.x, bn.windowRect.y + 20, bn.windowRect.width, 20), bn.comment, "Box");
                     }
                 }
 
@@ -149,9 +148,9 @@ namespace GUIInspector.NodeEditor
 
                         if (EditorApplication.isPlaying)
                         {
-                            if (MoveController._startPart != null)
+                            if (MoveController.thisPart != null)
                             {
-                                if (MoveController._startPart == _storyData.nodesData[i]) GUI.backgroundColor = new Color(0.5f, 0.5f, 0.75f);
+                                if (MoveController.thisPart == _storyData.nodesData[i]) GUI.backgroundColor = new Color(0.5f, 0.5f, 0.75f);
                             }
                         }
                         else

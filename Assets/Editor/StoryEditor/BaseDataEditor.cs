@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace GUIInspector.StoryEditor
 {
-    public class BaseStoryEditor : EditorWindow
+    public class BaseDataEditor : EditorWindow
     {
         #region VARIABLES
 
@@ -177,7 +177,7 @@ namespace GUIInspector.StoryEditor
         public static void ShowEditor()
         {
             // Создание окна редактора
-            BaseStoryEditor storyEditor = GetWindow<BaseStoryEditor>();
+            BaseDataEditor storyEditor = GetWindow<BaseDataEditor>();
             storyEditor.title = "Data Editor";
 
             storyEditor.ReloadLoadObjects();

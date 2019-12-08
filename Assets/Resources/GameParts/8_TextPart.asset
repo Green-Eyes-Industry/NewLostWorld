@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainText: 
   mainEvents: []
-  movePart_1: {fileID: 0}
+  movePart_1: {fileID: 11400000, guid: 8a0abc628b0f9f34a8386c7df9b8b6ba, type: 2}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
   windowRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  windowTitle: 
+    x: 401
+    y: 284
+    width: 120
+    height: 40
+  windowTitle: 8_TextPart
   part: {fileID: 0}
   workStady: 0
   workStadyNum: 000000000100000002000000

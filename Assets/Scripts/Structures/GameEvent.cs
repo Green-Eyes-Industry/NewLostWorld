@@ -75,6 +75,10 @@ namespace GUIInspector
             {
 
             }
+            else if(gameEvent is RandomPart)
+            {
+
+            }
 
             GUILayout.EndVertical();
 

@@ -29,33 +29,70 @@ public class GamePart : ScriptableObject
     public void DrawWindow()
     {
         workStady = UnityEditor.EditorGUILayout.IntPopup(workStady, workStadyNames, workStadyNum, GUILayout.Width(110f));
-
     }
 
     /// <summary> Отрисовка связей </summary>
     public void DrawCurve(List<GamePart> partList)
     {
+        Color baseConnectColor = new Color(0, 0, 0, 0.75f);
+        
+
         if (movePart_1 != null)
         {
-            if (partList.Contains(movePart_1) && movePart_1 != this) CreateCurve(ConnectPosition(0), movePart_1.windowRect, true);
+            if (partList.Contains(movePart_1) && movePart_1 != this) CreateCurve(ConnectPosition(0), movePart_1.windowRect, baseConnectColor);
         }
 
         if (movePart_2 != null)
         {
-            if (partList.Contains(movePart_2) && movePart_2 != this) CreateCurve(ConnectPosition(1), movePart_2.windowRect, true);
+            if (partList.Contains(movePart_2) && movePart_2 != this) CreateCurve(ConnectPosition(1), movePart_2.windowRect, baseConnectColor);
         }
 
         if (movePart_3 != null)
         {
-            if (partList.Contains(movePart_3) && movePart_3 != this) CreateCurve(ConnectPosition(2), movePart_3.windowRect, true);
+            if (partList.Contains(movePart_3) && movePart_3 != this) CreateCurve(ConnectPosition(2), movePart_3.windowRect, baseConnectColor);
+        }
+
+        if(mainEvents != null)
+        {
+            bool checkRandom = false;
+            RandomPart randomEvent = null;
+
+            for (int i = 0; i < mainEvents.Count; i++)
+            {
+                if (mainEvents[i] is RandomPart)
+                {
+                    checkRandom = true;
+                    randomEvent = (RandomPart)mainEvents[i];
+                }
+            }
+
+            if (checkRandom)
+            {
+                Color randomConnectColor = new Color(1f, 0, 0, 0.75f);
+
+                if(randomEvent.part_1_random != null && randomEvent.part_1_random != this)
+                {
+                    CreateCurve(ConnectPosition(0), randomEvent.part_1_random.windowRect, randomConnectColor);
+                }
+
+                if (randomEvent.part_2_random != null && randomEvent.part_2_random != this)
+                {
+                    CreateCurve(ConnectPosition(1), randomEvent.part_2_random.windowRect, randomConnectColor);
+                }
+
+                if (randomEvent.part_3_random != null && randomEvent.part_3_random != this)
+                {
+                    CreateCurve(ConnectPosition(2), randomEvent.part_3_random.windowRect, randomConnectColor);
+                }
+            }
         }
     }
 
     /// <summary> Связь </summary>
-    private void CreateCurve(Rect start, Rect end, bool left)
+    private void CreateCurve(Rect start, Rect end,Color colorCurve)
     {
         Vector3 startPos = new Vector3(
-            (left) ? start.x + start.width : start.x,
+            start.x,
             start.y + (start.height * .5f),
             0);
 
@@ -69,7 +106,7 @@ public class GamePart : ScriptableObject
 
         Color shadow = new Color(0, 0, 0, 0.75f);
 
-        UnityEditor.Handles.DrawBezier(startPos, endPos, startTan, endTan, shadow, null, 3f);
+        UnityEditor.Handles.DrawBezier(startPos, endPos, startTan, endTan, colorCurve, null, 3f);
     }
 
     /// <summary> Позиция подключения следующей главы </summary>
@@ -158,6 +195,7 @@ public class GamePart : ScriptableObject
         else if (crEvent is PlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/PlayerInfl.png";
         else if (crEvent is LocationFind) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/LocationFind.png";
         else if (crEvent is MemberTime) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/MemberTime.png";
+        else if (crEvent is RandomPart) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/RandomPart.png";
         else return null;
 
         eventIco = (Texture)UnityEditor.AssetDatabase.LoadAssetAtPath(pathToIco, typeof(Texture));

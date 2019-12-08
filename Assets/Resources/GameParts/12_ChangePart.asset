@@ -12,24 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199829bf18e949743aa71e45590ed96f, type: 3}
   m_Name: 12_ChangePart
   m_EditorClassIdentifier: 
-  mainText: 
+  mainText: "\u041E\u0431\u044B\u0447\u043D\u043E\u0435 \u043E\u043A\u043D\u043E,
+    \u0443\u0436\u0435 \u0434\u0430\u0432\u043D\u043E \u0433\u0440\u044F\u0437\u043D\u043E\u0435"
   mainEvents: []
   movePart_1: {fileID: 0}
-  movePart_2: {fileID: 0}
+  movePart_2: {fileID: 11400000, guid: 16e6a867f2ec0774694b0facafe1fcac, type: 2}
   movePart_3: {fileID: 0}
   windowRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  windowTitle: 
+    x: 651
+    y: -12
+    width: 120
+    height: 40
+  windowTitle: 12_ChangePart
   part: {fileID: 0}
-  workStady: 0
+  workStady: 2
   workStadyNum: 000000000100000002000000
   workStadyNames:
   - "\u041F\u0443\u0441\u0442\u043E"
   - "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430"
   - "\u0413\u043E\u0442\u043E\u0432\u043E"
-  buttonText_1: 
-  buttonText_2: 
+  buttonText_1: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C"
+  buttonText_2: "\u041F\u043E\u0447\u0438\u0441\u0442\u0438\u0442\u044C"

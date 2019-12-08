@@ -48,7 +48,8 @@ namespace GUIInspector.NodeEditor
             LOCATION_FIND,
             MEMBER_TIME,
             NON_PLAYER_INFL,
-            PLAYER_INFL
+            PLAYER_INFL,
+            RANDOM_PART
         }
 
         #endregion
@@ -583,6 +584,14 @@ namespace GUIInspector.NodeEditor
                     _selectedNode.mainEvents.Add((PlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(PlayerInfl)));
 
                     break;
+
+                case AddEventActions.RANDOM_PART:
+
+                    nameEvent = _selectedNode.mainEvents.Count + "_RandomPart.asset";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(RandomPart)), path + nameEvent);
+                    _selectedNode.mainEvents.Add((RandomPart)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(RandomPart)));
+
+                    break;
             }
         }
 
@@ -621,6 +630,7 @@ namespace GUIInspector.NodeEditor
             menu.AddItem(new GUIContent("Добавить событие/Использование предмета"), false, AddEventMethod, AddEventActions.ITEM_INFL);
             menu.AddItem(new GUIContent("Добавить событие/Найдена локация"), false, AddEventMethod, AddEventActions.LOCATION_FIND);
             menu.AddItem(new GUIContent("Добавить событие/Воспоминание"), false, AddEventMethod, AddEventActions.MEMBER_TIME);
+            menu.AddItem(new GUIContent("Добавить событие/Случайный переход"), false, AddEventMethod, AddEventActions.RANDOM_PART);
             menu.ShowAsContext();
             e.Use();
         }

@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainText: 
   mainEvents: []
-  movePart_1: {fileID: 0}
-  movePart_2: {fileID: 0}
-  movePart_3: {fileID: 0}
+  movePart_1: {fileID: 11400000, guid: da70810a6fca85e4eae8efd8811e9884, type: 2}
+  movePart_2: {fileID: 11400000, guid: 1001590a8f41d814ea8293d158e4061d, type: 2}
+  movePart_3: {fileID: 11400000, guid: 487d78ff72e74e94e83ec6d1ccf54f03, type: 2}
   windowRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  windowTitle: 
+    x: 399
+    y: 491
+    width: 120
+    height: 40
+  windowTitle: 6_BattlePart
   part: {fileID: 0}
   workStady: 0
   workStadyNum: 000000000100000002000000

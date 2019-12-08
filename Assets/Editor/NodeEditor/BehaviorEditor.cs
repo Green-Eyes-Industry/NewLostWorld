@@ -8,7 +8,7 @@ namespace GUIInspector.NodeEditor
     {
         #region VARIABLES
 
-        private Color _gridColor; // Цвет сетки
+        private Color _gridColor = new Color(0.55f, 0.55f, 0.55f); // Цвет сетки
         private Vector2 _offset; // Отступ поля
         private Vector2 _drag; // Отступ нод
 
@@ -124,55 +124,64 @@ namespace GUIInspector.NodeEditor
         {
             _drag = Vector2.zero;
 
-            BeginWindows();
+            
 
-            foreach (GamePart bn in _storyData.nodesData)
+            try
             {
-                if (bn != null)
-                {
-                    bn.DrawCurve(_storyData.nodesData);
-                    DrawConnectPoint(bn);
-                    bn.DrawEvents();
-                }
-            }
+                BeginWindows();
 
-            for (int i = 0; i < _storyData.nodesData.Count; i++)
+                foreach (GamePart bn in _storyData.nodesData)
+                {
+                    if (bn != null)
+                    {
+                        bn.DrawCurve(_storyData.nodesData);
+                        DrawConnectPoint(bn);
+                        bn.DrawEvents();
+                    }
+                }
+
+                for (int i = 0; i < _storyData.nodesData.Count; i++)
+                {
+                    if (_storyData.nodesData[i] != null)
+                    {
+                        GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
+
+                        if (EditorApplication.isPlaying)
+                        {
+                            if (MoveController._startPart != null)
+                            {
+                                if (MoveController._startPart == _storyData.nodesData[i]) GUI.backgroundColor = new Color(0.5f, 0.5f, 0.75f);
+                            }
+                        }
+                        else
+                        {
+                            switch (_storyData.nodesData[i].workStady)
+                            {
+                                case 0: GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f); ; break;
+                                case 1: GUI.backgroundColor = Color.yellow; break;
+                                case 2: GUI.backgroundColor = Color.green; break;
+                            }
+
+                            if (_sellectedToConnect != null)
+                            {
+                                if (_sellectedToConnect.Equals(_storyData.nodesData[i])) GUI.backgroundColor = Color.red;
+                            }
+                        }
+
+                        _storyData.nodesData[i].windowRect = GUI.Window(
+                         i,
+                         _storyData.nodesData[i].windowRect,
+                         DrawNodeWindow,
+                         _storyData.nodesData[i].windowTitle);
+                    }
+                }
+
+                EndWindows();
+            }
+            catch (System.ArgumentOutOfRangeException)
             {
-                if (_storyData.nodesData[i] != null)
-                {
-                    GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
-
-                    if (EditorApplication.isPlaying)
-                    {
-                        if (MoveController._startPart != null)
-                        {
-                            if (MoveController._startPart == _storyData.nodesData[i]) GUI.backgroundColor = new Color(0.5f, 0.5f, 0.75f);
-                        }
-                    }
-                    else
-                    {
-                        switch (_storyData.nodesData[i].workStady)
-                        {
-                            case 0: GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f); ; break;
-                            case 1: GUI.backgroundColor = Color.yellow; break;
-                            case 2: GUI.backgroundColor = Color.green; break;
-                        }
-
-                        if (_sellectedToConnect != null)
-                        {
-                            if (_sellectedToConnect.Equals(_storyData.nodesData[i])) GUI.backgroundColor = Color.red;
-                        }
-                    }
-
-                    _storyData.nodesData[i].windowRect = GUI.Window(
-                     i,
-                     _storyData.nodesData[i].windowRect,
-                     DrawNodeWindow,
-                     _storyData.nodesData[i].windowTitle);
-                }
+                return;
             }
-
-            EndWindows();
         }
 
         #region CONNECTORS_WORK

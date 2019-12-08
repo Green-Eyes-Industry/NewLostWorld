@@ -39,14 +39,15 @@ public class GamePart : ScriptableObject
         {
             if (partList.Contains(movePart_1) && movePart_1 != this) CreateCurve(ConnectPosition(0), movePart_1.windowRect, true);
         }
+
         if (movePart_2 != null)
         {
-            if (partList.Contains(movePart_2) && movePart_1 != this) CreateCurve(ConnectPosition(1), movePart_2.windowRect, true);
+            if (partList.Contains(movePart_2) && movePart_2 != this) CreateCurve(ConnectPosition(1), movePart_2.windowRect, true);
         }
 
         if (movePart_3 != null)
         {
-            if (partList.Contains(movePart_2) && movePart_1 != this) CreateCurve(ConnectPosition(2), movePart_3.windowRect, true);
+            if (partList.Contains(movePart_3) && movePart_3 != this) CreateCurve(ConnectPosition(2), movePart_3.windowRect, true);
         }
     }
 
@@ -111,27 +112,30 @@ public class GamePart : ScriptableObject
     {
         GUIStyle st = new GUIStyle();
 
-        for (int i = 0; i < mainEvents.Count; i++)
+        if(mainEvents != null)
         {
-            if (i < 6)
+            for (int i = 0; i < mainEvents.Count; i++)
             {
-                GUI.Box(new Rect(
-            windowRect.x + (20 * i),
-            windowRect.y + windowRect.height,
-            20,
-            20),
-            GetEventTextures(mainEvents[i]), st);
-            }
-            else
-            {
-                if (i < 11)
+                if (i < 6)
                 {
                     GUI.Box(new Rect(
-                windowRect.x + (20 * (i - 6)),
-                windowRect.y + windowRect.height + 20,
+                windowRect.x + (20 * i),
+                windowRect.y + windowRect.height,
                 20,
                 20),
                 GetEventTextures(mainEvents[i]), st);
+                }
+                else
+                {
+                    if (i < 11)
+                    {
+                        GUI.Box(new Rect(
+                    windowRect.x + (20 * (i - 6)),
+                    windowRect.y + windowRect.height + 20,
+                    20,
+                    20),
+                    GetEventTextures(mainEvents[i]), st);
+                    }
                 }
             }
         }

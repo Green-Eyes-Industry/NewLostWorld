@@ -34,7 +34,11 @@ namespace GUIInspector
 
             GUILayout.BeginVertical("Button");
 
-            if (gameEvent is CheckPlayerInfl)
+            if (gameEvent is CheckDecision)
+            {
+
+            }
+            else if (gameEvent is CheckPlayerInfl)
             {
 
             }
@@ -55,6 +59,14 @@ namespace GUIInspector
 
             }
             else if (gameEvent is ItemInteract) ItemInteractGUI_Inspector.ShowEventEditor((ItemInteract)gameEvent);
+            else if (gameEvent is LocationFind)
+            {
+
+            }
+            else if (gameEvent is MemberTime)
+            {
+
+            }
             else if (gameEvent is NonPlayerInfl)
             {
 
@@ -91,9 +103,11 @@ namespace GUIInspector
                             EditorGUILayout.EndFoldoutHeaderGroup();
                         }
 
-                        if (GUILayout.Button("Удалить", GUILayout.Width(70))) listEvent.RemoveAt(i);
-
-
+                        if (GUILayout.Button("Удалить", GUILayout.Width(70)))
+                        {
+                            AssetDatabase.DeleteAsset("Assets/Resources/GameEvents/" + listEvent[i].name + ".asset");
+                            listEvent.RemoveAt(i);
+                        }
 
                         GUILayout.EndHorizontal();
 

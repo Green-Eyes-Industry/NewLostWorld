@@ -9,21 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 199829bf18e949743aa71e45590ed96f, type: 3}
-  m_Name: 0_ChangePart
+  m_Script: {fileID: 11500000, guid: 220329a67e3a9ab48991cf9cd8c5c581, type: 3}
+  m_Name: 14_TextPart
   m_EditorClassIdentifier: 
   mainText: 
   mainEvents: []
-  movePart_1: {fileID: 11400000, guid: 06712ac3adf79f54b8f43c758e6ac6e8, type: 2}
-  movePart_2: {fileID: 11400000, guid: 023efb63ebbd4c74bab79a5db01a08c5, type: 2}
+  movePart_1: {fileID: 0}
+  movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
   windowRect:
     serializedVersion: 2
-    x: 71
-    y: 176
-    width: 120
-    height: 40
-  windowTitle: 0_ChangePart
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  windowTitle: 
   part: {fileID: 0}
   workStady: 0
   workStadyNum: 000000000100000002000000
@@ -32,4 +32,3 @@ MonoBehaviour:
   - "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430"
   - "\u0413\u043E\u0442\u043E\u0432\u043E"
   buttonText_1: 
-  buttonText_2: 

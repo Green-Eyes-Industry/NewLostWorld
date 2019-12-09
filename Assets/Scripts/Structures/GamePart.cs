@@ -18,12 +18,12 @@ public class GamePart : ScriptableObject
 
 #if UNITY_EDITOR
 
-    private bool windowSizeStady = false;
+    public bool windowSizeStady = false;
     private bool memberComment;
     public Rect windowRect;
     public float openedHeight = 120f;
     public string windowTitle;
-    private string _memberTitle;
+    public string _memberTitle;
     public GamePart part;
 
     public int workStady;
@@ -56,7 +56,6 @@ public class GamePart : ScriptableObject
     {
         Color baseConnectColor = new Color(0, 0, 0, 0.75f);
         
-
         if (movePart_1 != null)
         {
             if (partList.Contains(movePart_1) && movePart_1 != this) CreateCurve(ConnectPosition(0), movePart_1.windowRect, baseConnectColor);

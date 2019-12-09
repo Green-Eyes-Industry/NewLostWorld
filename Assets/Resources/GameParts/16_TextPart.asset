@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 220329a67e3a9ab48991cf9cd8c5c581, type: 3}
-  m_Name: 4_TextPart
+  m_Name: 16_TextPart
   m_EditorClassIdentifier: 
   mainText: 
   mainEvents: []

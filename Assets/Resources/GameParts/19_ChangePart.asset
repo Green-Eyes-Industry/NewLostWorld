@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 220329a67e3a9ab48991cf9cd8c5c581, type: 3}
-  m_Name: 4_TextPart
+  m_Script: {fileID: 11500000, guid: 199829bf18e949743aa71e45590ed96f, type: 3}
+  m_Name: 19_ChangePart
   m_EditorClassIdentifier: 
   mainText: 
   mainEvents: []
   movePart_1: {fileID: 0}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
+  windowSizeStady: 0
   windowRect:
     serializedVersion: 2
     x: 0
@@ -25,6 +26,7 @@ MonoBehaviour:
     height: 0
   openedHeight: 120
   windowTitle: 
+  _memberTitle: 
   part: {fileID: 0}
   workStady: 0
   workStadyNum: 000000000100000002000000
@@ -35,3 +37,4 @@ MonoBehaviour:
   comment: 
   isShowComment: 0
   buttonText_1: 
+  buttonText_2: 

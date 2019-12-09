@@ -237,14 +237,6 @@ namespace GUIInspector.NodeEditor
             if (e.type == EventType.KeyDown)
             {
                 if (e.keyCode == KeyCode.Delete) DeleteKeyDown();
-                if(e.keyCode == KeyCode.N)
-                {
-                    for (int i = 0; i < _storyData.nodesData.Count; i++)
-                    {
-                        _storyData.nodesData[i].SetWindowStady();
-                    }
-                    Repaint();
-                }
             }
 
             if (e.type == EventType.MouseDrag)
@@ -253,6 +245,15 @@ namespace GUIInspector.NodeEditor
                 {
                     OnDrag(e.delta);
                 }
+            }
+
+            if(e.type == EventType.ScrollWheel)
+            {
+                for (int i = 0; i < _storyData.nodesData.Count; i++)
+                {
+                    _storyData.nodesData[i].SetWindowStady();
+                }
+                Repaint();
             }
         }
 
@@ -367,8 +368,22 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(TextPart)), pathTextPartAsset);
                     TextPart textPart = (TextPart)AssetDatabase.LoadAssetAtPath(pathTextPartAsset, typeof(TextPart));
 
-                    textPart.windowTitle = nameTextPart;
-                    textPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                    if (_storyData.nodesData != null)
+                    {
+                        textPart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
+
+                        if (_storyData.nodesData[0].windowSizeStady)
+                        {
+                            textPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+                            textPart.windowTitle = nameTextPart.Substring(0, 2);
+                            textPart._memberTitle = nameTextPart;
+                        }
+                        else
+                        {
+                            textPart.windowTitle = nameTextPart;
+                            textPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                        }
+                    }
 
                     _storyData.nodesData.Add(textPart);
                     SaveData();
@@ -383,8 +398,22 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(ChangePart)), pathChangePartAsset);
                     ChangePart changePart = (ChangePart)AssetDatabase.LoadAssetAtPath(pathChangePartAsset, typeof(ChangePart));
 
-                    changePart.windowTitle = nameChangePart;
-                    changePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                    if (_storyData.nodesData != null)
+                    {
+                        changePart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
+
+                        if (_storyData.nodesData[0].windowSizeStady)
+                        {
+                            changePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+                            changePart.windowTitle = nameChangePart.Substring(0, 2);
+                            changePart._memberTitle = nameChangePart;
+                        }
+                        else
+                        {
+                            changePart.windowTitle = nameChangePart;
+                            changePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                        }
+                    }
 
                     _storyData.nodesData.Add(changePart);
                     SaveData();
@@ -399,8 +428,22 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(BattlePart)), pathBattlePartAsset);
                     BattlePart battlePart = (BattlePart)AssetDatabase.LoadAssetAtPath(pathBattlePartAsset, typeof(BattlePart));
 
-                    battlePart.windowTitle = nameBattlePart;
-                    battlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                    if (_storyData.nodesData != null)
+                    {
+                        battlePart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
+
+                        if (_storyData.nodesData[0].windowSizeStady)
+                        {
+                            battlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+                            battlePart.windowTitle = nameBattlePart.Substring(0, 2);
+                            battlePart._memberTitle = nameBattlePart;
+                        }
+                        else
+                        {
+                            battlePart.windowTitle = nameBattlePart;
+                            battlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                        }
+                    }
 
                     _storyData.nodesData.Add(battlePart);
                     SaveData();
@@ -415,8 +458,22 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(PazzlePart)), pathPazzlePartAsset);
                     PazzlePart pazzlePart = (PazzlePart)AssetDatabase.LoadAssetAtPath(pathPazzlePartAsset, typeof(PazzlePart));
 
-                    pazzlePart.windowTitle = namePazzlePart;
-                    pazzlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                    if (_storyData.nodesData != null)
+                    {
+                        pazzlePart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
+
+                        if (_storyData.nodesData[0].windowSizeStady)
+                        {
+                            pazzlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+                            pazzlePart.windowTitle = namePazzlePart.Substring(0, 2);
+                            pazzlePart._memberTitle = namePazzlePart;
+                        }
+                        else
+                        {
+                            pazzlePart.windowTitle = namePazzlePart;
+                            pazzlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                        }
+                    }
 
                     _storyData.nodesData.Add(pazzlePart);
                     SaveData();
@@ -431,8 +488,22 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(EventPart)), pathEventPartAsset);
                     EventPart eventPart = (EventPart)AssetDatabase.LoadAssetAtPath(pathEventPartAsset, typeof(EventPart));
 
-                    eventPart.windowTitle = nameEventPart;
-                    eventPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                    if (_storyData.nodesData != null)
+                    {
+                        eventPart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
+
+                        if (_storyData.nodesData[0].windowSizeStady)
+                        {
+                            eventPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+                            eventPart.windowTitle = nameEventPart.Substring(0, 2);
+                            eventPart._memberTitle = nameEventPart;
+                        }
+                        else
+                        {
+                            eventPart.windowTitle = nameEventPart;
+                            eventPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                        }
+                    }
 
                     _storyData.nodesData.Add(eventPart);
                     SaveData();
@@ -447,8 +518,22 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(FinalPart)), pathFinalPartAsset);
                     FinalPart finalPart = (FinalPart)AssetDatabase.LoadAssetAtPath(pathFinalPartAsset, typeof(FinalPart));
 
-                    finalPart.windowTitle = nameFinalPart;
-                    finalPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                    if (_storyData.nodesData != null)
+                    {
+                        finalPart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
+
+                        if (_storyData.nodesData[0].windowSizeStady)
+                        {
+                            finalPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+                            finalPart.windowTitle = nameFinalPart.Substring(0, 2);
+                            finalPart._memberTitle = nameFinalPart;
+                        }
+                        else
+                        {
+                            finalPart.windowTitle = nameFinalPart;
+                            finalPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                        }
+                    }
 
                     _storyData.nodesData.Add(finalPart);
                     SaveData();
@@ -463,8 +548,22 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(LeandPart)), pathLeandPartAsset);
                     LeandPart leandPart = (LeandPart)AssetDatabase.LoadAssetAtPath(pathLeandPartAsset, typeof(LeandPart));
 
-                    leandPart.windowTitle = nameLeandPart;
-                    leandPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                    if (_storyData.nodesData != null)
+                    {
+                        leandPart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
+
+                        if (_storyData.nodesData[0].windowSizeStady)
+                        {
+                            leandPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+                            leandPart.windowTitle = nameLeandPart.Substring(0, 2);
+                            leandPart._memberTitle = nameLeandPart;
+                        }
+                        else
+                        {
+                            leandPart.windowTitle = nameLeandPart;
+                            leandPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                        }
+                    }
 
                     _storyData.nodesData.Add(leandPart);
                     SaveData();
@@ -479,9 +578,23 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(MoviePart)), pathMoviePartAsset);
                     MoviePart moviePart = (MoviePart)AssetDatabase.LoadAssetAtPath(pathMoviePartAsset, typeof(MoviePart));
 
-                    moviePart.windowTitle = nameMoviePart;
-                    moviePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                    if (_storyData.nodesData != null)
+                    {
+                        moviePart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
 
+                        if (_storyData.nodesData[0].windowSizeStady)
+                        {
+                            moviePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+                            moviePart.windowTitle = nameMoviePart.Substring(0, 2);
+                            moviePart._memberTitle = nameMoviePart;
+                        }
+                        else
+                        {
+                            moviePart.windowTitle = nameMoviePart;
+                            moviePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+                        }
+                    }
+                    
                     _storyData.nodesData.Add(moviePart);
                     SaveData();
 

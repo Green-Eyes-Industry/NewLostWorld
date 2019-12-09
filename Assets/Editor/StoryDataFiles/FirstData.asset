@@ -15,5 +15,3 @@ MonoBehaviour:
   storyDescript: "\u041F\u0440\u043E\u0431\u043D\u0438\u043A \u0441\u044E\u0436\u0435\u0442\u0430"
   nodesData:
   - {fileID: 11400000, guid: d2436e58343c5184abdb663c7601aa26, type: 2}
-  - {fileID: 11400000, guid: e453bf583662c394792bbc7cfa276e5c, type: 2}
-  - {fileID: 11400000, guid: 9744036f29cb7244ab173bea073d0c15, type: 2}

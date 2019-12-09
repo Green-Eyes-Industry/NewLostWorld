@@ -14,7 +14,7 @@ public class ItemInteract : GameEvent
     public GameItem gameItem;
 
     /// <summary> Глава при провале </summary>
-    public GamePart failPart;
+    public GamePart _failPart;
 
     /// <summary> Старт события </summary>
     public override bool EventStart()
@@ -24,6 +24,7 @@ public class ItemInteract : GameEvent
             if (!DataController.playerData.playerInventory.Contains(gameItem))
             {
                 DataController.playerData.playerInventory.Add(gameItem);
+                DataController.SaveInventory();
             }
             return true;
         }
@@ -32,11 +33,15 @@ public class ItemInteract : GameEvent
             if (DataController.playerData.playerInventory.Contains(gameItem))
             {
                 DataController.playerData.playerInventory.Remove(gameItem);
+                DataController.SaveInventory();
                 return true;
             }
             else return false;
         }
     }
+
+    /// <summary> Вернуть главу провала </summary>
+    public override GamePart FailPart() { return _failPart; }
 }
 
 
@@ -55,7 +60,7 @@ namespace GUIInspector
 
         public static void ShowEventEditor(ItemInteract itemInteract)
         {
-            GUILayout.Label("Событие взаимодействия с предметом");
+            GUILayout.Label("Получение или потеря предмета");
 
             GUILayout.BeginHorizontal("Box");
 
@@ -68,9 +73,9 @@ namespace GUIInspector
             {
                 GUILayout.BeginHorizontal("Box");
 
-                itemInteract.failPart = (GamePart)EditorGUILayout.ObjectField(
+                itemInteract._failPart = (GamePart)EditorGUILayout.ObjectField(
                     "Отсутствие :",
-                    itemInteract.failPart,
+                    itemInteract._failPart,
                     typeof(GamePart),
                     true);
 

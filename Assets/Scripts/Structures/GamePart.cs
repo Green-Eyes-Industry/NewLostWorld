@@ -40,7 +40,6 @@ public class GamePart : ScriptableObject
         if (isShowComment)
         {
             windowRect.height = openedHeight;
-
             comment = UnityEditor.EditorGUILayout.TextArea(comment, GUILayout.Width(110f), GUILayout.Height(78));
         }
         else windowRect.height = 40f;

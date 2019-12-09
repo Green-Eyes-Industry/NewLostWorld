@@ -8,7 +8,11 @@ using UnityEditor;
 /// <summary> Игровое событие </summary>
 public class GameEvent : ScriptableObject
 {
+    /// <summary> Старт события </summary>
     public virtual bool EventStart() { return false; }
+
+    /// <summary> Глава при провале </summary>
+    public virtual GamePart FailPart() { return null; }
 
     #region UNITY_EDITOR
 
@@ -17,12 +21,10 @@ public class GameEvent : ScriptableObject
     #endregion
 }
 
-
 #if UNITY_EDITOR
 
 namespace GUIInspector
 {
-
     public class GlobalHelperGUI_Inspector : Editor
     {
         private static Vector2 _eventSlider = Vector2.zero;
@@ -30,59 +32,20 @@ namespace GUIInspector
         /// <summary> Включает дополнительный редактор главы </summary>
         public static void ShowEventEdit(GameEvent gameEvent)
         {
-            EditorGUILayout.Space();
-
-            GUILayout.BeginVertical("Button");
-
-            if (gameEvent is CheckDecision)
-            {
-
-            }
-            else if (gameEvent is CheckPlayerInfl)
-            {
-
-            }
-            else if (gameEvent is CheckPoint)
-            {
-
-            }
-            else if (gameEvent is EffectInteract)
-            {
-
-            }
-            else if (gameEvent is ImportantDecision)
-            {
-
-            }
-            else if (gameEvent is ItemInfl)
-            {
-
-            }
+            GUI.backgroundColor = Color.white;
+            if (gameEvent is CheckDecision) CheckDecisionGUI_Inspector.ShowEventEditor((CheckDecision)gameEvent);
+            else if (gameEvent is CheckPlayerInfl) CheckPlayerInflGUI_Inspector.ShowEventEditor((CheckPlayerInfl)gameEvent);
+            else if (gameEvent is CheckPoint) CheckPointGUI_Inspector.ShowEventEditor((CheckPoint)gameEvent);
+            else if (gameEvent is EffectInteract) EffectInteractGUI_Inspector.ShowEventEditor((EffectInteract)gameEvent);
+            else if (gameEvent is ImportantDecision) ImportantDecisionGUI_Inspector.ShowEventEditor((ImportantDecision)gameEvent);
+            else if (gameEvent is ItemInfl) ItemInflGUI_Inspector.ShowEventEditor((ItemInfl)gameEvent);
             else if (gameEvent is ItemInteract) ItemInteractGUI_Inspector.ShowEventEditor((ItemInteract)gameEvent);
-            else if (gameEvent is LocationFind)
-            {
+            else if (gameEvent is LocationFind) LocationFindGUI_Inspector.ShowEventEditor((LocationFind)gameEvent);
+            else if (gameEvent is MemberTime) MemberTimeGUI_Inspector.ShowEventEditor((MemberTime)gameEvent);
+            else if (gameEvent is NonPlayerInfl) NonPlayerInflGUI_Inspector.ShowEventEditor((NonPlayerInfl)gameEvent);
+            else if (gameEvent is PlayerInfl) PlayerInflGUI_Inspector.ShowEventEditor((PlayerInfl)gameEvent);
+            else if(gameEvent is RandomPart) RandomPartGUI_Inspector.ShowEventEditor((RandomPart)gameEvent);
 
-            }
-            else if (gameEvent is MemberTime)
-            {
-
-            }
-            else if (gameEvent is NonPlayerInfl)
-            {
-
-            }
-            else if (gameEvent is PlayerInfl)
-            {
-
-            }
-            else if(gameEvent is RandomPart)
-            {
-
-            }
-
-            GUILayout.EndVertical();
-
-            EditorGUILayout.Space();
         }
 
         /// <summary> Показать список событий </summary>
@@ -96,7 +59,8 @@ namespace GUIInspector
                 {
                     for (int i = 0; i < listEvent.Count; i++)
                     {
-                        GUILayout.BeginHorizontal();
+                        GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
+                        GUILayout.BeginHorizontal("Box");
 
                         listEvent[i] = (GameEvent)EditorGUILayout.ObjectField(listEvent[i], typeof(GameEvent), true);
 
@@ -107,20 +71,19 @@ namespace GUIInspector
                             EditorGUILayout.EndFoldoutHeaderGroup();
                         }
 
+                        GUI.backgroundColor = Color.red;
                         if (GUILayout.Button("Удалить", GUILayout.Width(70)))
                         {
                             AssetDatabase.DeleteAsset("Assets/Resources/GameEvents/" + listEvent[i].name + ".asset");
                             listEvent.RemoveAt(i);
                         }
-
                         GUILayout.EndHorizontal();
+
 
                         if (listEvent[i] != null)
                         {
                             if (listEvent[i].editorEventFoldout && listEvent[i] != null) ShowEventEdit(listEvent[i]);
                         }
-
-                        if (i != listEvent.Count - 1) EditorGUILayout.Space();
                     }
                 }
                 catch (System.ArgumentOutOfRangeException)
@@ -131,8 +94,6 @@ namespace GUIInspector
             else GUILayout.Label("Нет событий");
 
             GUILayout.EndScrollView();
-
-            if (GUILayout.Button("Добавить событие", GUILayout.Height(30))) listEvent.Add(null);
         }
 
         /// <summary> Показать эффект </summary>

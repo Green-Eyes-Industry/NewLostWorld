@@ -19,6 +19,7 @@ public class GamePart : ScriptableObject
 #if UNITY_EDITOR
 
     private bool windowSizeStady = false;
+    private bool memberComment;
     public Rect windowRect;
     public Vector2 memberPosition;
     public float openedHeight = 120f;
@@ -247,6 +248,8 @@ public class GamePart : ScriptableObject
             _memberTitle = windowTitle;
             windowTitle = windowTitle.Substring(0, 2);
 
+            memberComment = isShowComment;
+
             if (isShowComment) isShowComment = false;
         }
         else
@@ -258,6 +261,8 @@ public class GamePart : ScriptableObject
             windowRect.y = memberPosition.y;
 
             windowTitle = _memberTitle;
+
+            isShowComment = memberComment;
         }
     }
 

@@ -21,7 +21,6 @@ public class GamePart : ScriptableObject
     private bool windowSizeStady = false;
     private bool memberComment;
     public Rect windowRect;
-    public Vector2 memberPosition;
     public float openedHeight = 120f;
     public string windowTitle;
     private string _memberTitle;
@@ -236,9 +235,6 @@ public class GamePart : ScriptableObject
             windowRect.width = 40;
             windowRect.height = 38;
 
-            memberPosition.x = windowRect.x;
-            memberPosition.y = windowRect.y;
-
             windowRect.x /= 2f;
             windowRect.y /= 2f;
 
@@ -257,8 +253,11 @@ public class GamePart : ScriptableObject
             windowRect.width = 120;
             windowRect.height = 40;
 
-            windowRect.x = memberPosition.x;
-            windowRect.y = memberPosition.y;
+            windowRect.x *= 2f;
+            windowRect.y *= 2f;
+
+            windowRect.x -= Screen.width / 2f;
+            windowRect.y -= Screen.height / 2f;
 
             windowTitle = _memberTitle;
 

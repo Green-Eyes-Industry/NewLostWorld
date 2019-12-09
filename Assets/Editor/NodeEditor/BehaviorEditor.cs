@@ -136,7 +136,6 @@ namespace GUIInspector.NodeEditor
                         bn.DrawCurve(_storyData.nodesData);
                         DrawConnectPoint(bn);
                         bn.DrawEvents();
-                        bn.comment = GUI.TextField(new Rect(bn.windowRect.x, bn.windowRect.y + 20, bn.windowRect.width, 20), bn.comment, "Box");
                     }
                 }
 
@@ -238,6 +237,14 @@ namespace GUIInspector.NodeEditor
             if (e.type == EventType.KeyDown)
             {
                 if (e.keyCode == KeyCode.Delete) DeleteKeyDown();
+                if(e.keyCode == KeyCode.N)
+                {
+                    for (int i = 0; i < _storyData.nodesData.Count; i++)
+                    {
+                        _storyData.nodesData[i].SetWindowStady();
+                    }
+                    Repaint();
+                }
             }
 
             if (e.type == EventType.MouseDrag)

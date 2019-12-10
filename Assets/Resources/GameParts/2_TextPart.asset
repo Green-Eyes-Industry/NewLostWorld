@@ -25,10 +25,11 @@ MonoBehaviour:
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
   windowSizeStady: 0
+  memberComment: 0
   windowRect:
     serializedVersion: 2
-    x: 511
-    y: -62.5
+    x: -206
+    y: 481.5
     width: 120
     height: 40
   openedHeight: 120
@@ -36,11 +37,6 @@ MonoBehaviour:
   _memberTitle: 2_TextPart
   part: {fileID: 0}
   workStady: 2
-  workStadyNum: 000000000100000002000000
-  workStadyNames:
-  - "\u041F\u0443\u0441\u0442\u043E"
-  - "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430"
-  - "\u0413\u043E\u0442\u043E\u0432\u043E"
   comment: 
   isShowComment: 0
   buttonText_1: "\u041E\u0431\u0434\u0443\u043C\u0430\u0442\u044C \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F"

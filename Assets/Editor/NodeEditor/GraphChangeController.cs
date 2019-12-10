@@ -248,6 +248,11 @@ namespace GUIInspector.NodeEditor
             RANDOM_PART
         }
 
+        public enum HelpNodeActions
+        {
+            ADD_PART_TO_EVENT
+        }
+
         /// <summary> Добавить событие к главе </summary>
         public static void AddEventToPart(Event e)
         {
@@ -266,6 +271,12 @@ namespace GUIInspector.NodeEditor
             menu.AddItem(new GUIContent("Добавить событие/Найдена локация"), false, graphCC.AddEventMethod, AddEventActions.LOCATION_FIND);
             menu.AddItem(new GUIContent("Добавить событие/Воспоминание"), false, graphCC.AddEventMethod, AddEventActions.MEMBER_TIME);
             menu.AddItem(new GUIContent("Добавить событие/Случайный переход"), false, graphCC.AddEventMethod, AddEventActions.RANDOM_PART);
+
+            if (selectedNode is EventPart)
+            {
+                menu.AddItem(new GUIContent("Добавить главу к евенту"), false, graphCC.AddPartToEvent, HelpNodeActions.ADD_PART_TO_EVENT);
+            }
+            
             menu.ShowAsContext();
             e.Use();
         }
@@ -356,6 +367,19 @@ namespace GUIInspector.NodeEditor
                     selectedNode.mainEvents.Add((RandomPart)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(RandomPart)));
                     break;
             }
+        }
+
+        /// <summary> Добавить под-главу к эвенту </summary>
+        private void AddPartToEvent(object o)
+        {
+            Object[] loadedObj = Resources.LoadAll("GameParts/" + selectedNode.name, typeof(GamePart));
+
+            HelpNodeActions a = (HelpNodeActions)o;
+
+            string nameNode = loadedObj.Length.ToString();
+            string pathToNode = "Assets/Resources/GameParts/";
+            bool sizeStady = false;
+            Rect nodeRect;
         }
 
         #endregion

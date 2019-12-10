@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEditor;
 
 namespace GUIInspector.NodeEditor
@@ -22,6 +23,9 @@ namespace GUIInspector.NodeEditor
         private Texture _connectTexture; // Текстура подключения
         private GamePart _sellectedToConnect; // Нода в памяти при подключении полключения
         private int _sellectionId; // Идентификатор типа подключения
+
+        public int[] workStadyNum = new int[] { 0, 1, 2 };
+        public string[] workStadyNames = new string[] { "Пусто", "Разработка", "Готово" };
 
         #endregion
 
@@ -108,9 +112,8 @@ namespace GUIInspector.NodeEditor
                 {
                     if (bn != null)
                     {
-                        bn.DrawCurve(_storyData.nodesData);
                         DrawConnectPoint(bn);
-                        bn.DrawEvents();
+                        DrawEvents(bn);
                     }
                 }
 
@@ -165,18 +168,21 @@ namespace GUIInspector.NodeEditor
         {
             if (bn is TextPart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _connectTexture)) ConnectorClick(0, bn);
+                DrawCurve(bn);
             }
             else if (bn is ChangePart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
-                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1, bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _connectTexture)) ConnectorClick(0, bn);
+                if (GUI.Button(ConnectPosition(bn, 1), _connectTexture)) ConnectorClick(1, bn);
+                DrawCurve(bn);
             }
             else if (bn is BattlePart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
-                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1, bn);
-                if (GUI.Button(bn.ConnectPosition(2), _connectTexture)) ConnectorClick(2, bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _connectTexture)) ConnectorClick(0, bn);
+                if (GUI.Button(ConnectPosition(bn, 1), _connectTexture)) ConnectorClick(1, bn);
+                if (GUI.Button(ConnectPosition(bn, 2), _connectTexture)) ConnectorClick(2, bn);
+                DrawCurve(bn);
             }
         }
 
@@ -192,7 +198,21 @@ namespace GUIInspector.NodeEditor
         /// <summary> Отрисовка отдельной ноды </summary>
         private void DrawNodeWindow(int id)
         {
-            _storyData.nodesData[id].DrawWindow();
+            if (!_storyData.nodesData[id].windowSizeStady)
+            {
+                EditorGUILayout.BeginHorizontal();
+                _storyData.nodesData[id].workStady = EditorGUILayout.IntPopup(_storyData.nodesData[id].workStady, workStadyNames, workStadyNum, GUILayout.Width(90f));
+                _storyData.nodesData[id].isShowComment = EditorGUILayout.Toggle(_storyData.nodesData[id].isShowComment);
+                EditorGUILayout.EndHorizontal();
+
+                if (_storyData.nodesData[id].isShowComment)
+                {
+                    _storyData.nodesData[id].windowRect.height = _storyData.nodesData[id].openedHeight;
+                    _storyData.nodesData[id].comment = EditorGUILayout.TextArea(_storyData.nodesData[id].comment, GUILayout.Width(110f), GUILayout.Height(78));
+                }
+                else _storyData.nodesData[id].windowRect.height = 40f;
+            }
+
             GUI.DragWindow();
         }
 
@@ -226,7 +246,7 @@ namespace GUIInspector.NodeEditor
             {
                 for (int i = 0; i < _storyData.nodesData.Count; i++)
                 {
-                    _storyData.nodesData[i].SetWindowStady();
+                    SetWindowStady(_storyData.nodesData[i]);
                 }
                 Repaint();
             }
@@ -331,7 +351,223 @@ namespace GUIInspector.NodeEditor
 
         #endregion
 
-        #region HELPERS
+        #region NODE_DRAW
+
+        /// <summary> Отрисовка ноды </summary>
+        public void DrawNode(GamePart partNode)
+        {
+            
+        }
+
+        /// <summary> Отрисовка связей </summary>
+        public void DrawCurve(GamePart partNode)
+        {
+            Color baseConnectColor = new Color(0, 0, 0, 0.75f);
+
+            if (partNode.movePart_1 != null)
+            {
+                if (storyData.nodesData.Contains(partNode.movePart_1) && partNode.movePart_1 != this)
+                    CreateCurve(ConnectPosition(partNode, 0), partNode.movePart_1.windowRect, baseConnectColor);
+            }
+
+            if (partNode.movePart_2 != null)
+            {
+                if (storyData.nodesData.Contains(partNode.movePart_2) && partNode.movePart_2 != this)
+                    CreateCurve(ConnectPosition(partNode, 1), partNode.movePart_2.windowRect, baseConnectColor);
+            }
+
+            if (partNode.movePart_3 != null)
+            {
+                if (storyData.nodesData.Contains(partNode.movePart_3) && partNode.movePart_3 != this)
+                    CreateCurve(ConnectPosition(partNode, 2), partNode.movePart_3.windowRect, baseConnectColor);
+            }
+
+            DrawRandomCurve(partNode);
+        }
+
+        /// <summary> Отрисовка связей Random Event </summary>
+        private void DrawRandomCurve(GamePart partNode)
+        {
+            if (partNode.mainEvents != null)
+            {
+                bool checkRandom = false;
+                RandomPart randomEvent = null;
+
+                for (int i = 0; i < partNode.mainEvents.Count; i++)
+                {
+                    if (partNode.mainEvents[i] is RandomPart)
+                    {
+                        checkRandom = true;
+                        randomEvent = (RandomPart)partNode.mainEvents[i];
+                    }
+                }
+
+                if (checkRandom)
+                {
+                    Color randomConnectColor = new Color(1f, 0, 0, 0.75f);
+
+                    if (randomEvent.part_1_random != null && randomEvent.part_1_random != this)
+                    {
+                        CreateCurve(ConnectPosition(partNode, 0), randomEvent.part_1_random.windowRect, randomConnectColor);
+                    }
+
+                    if (randomEvent.part_2_random != null && randomEvent.part_2_random != this)
+                    {
+                        CreateCurve(ConnectPosition(partNode, 1), randomEvent.part_2_random.windowRect, randomConnectColor);
+                    }
+
+                    if (randomEvent.part_3_random != null && randomEvent.part_3_random != this)
+                    {
+                        CreateCurve(ConnectPosition(partNode, 2), randomEvent.part_3_random.windowRect, randomConnectColor);
+                    }
+                }
+            }
+        }
+
+        /// <summary> Связь </summary>
+        private void CreateCurve(Rect start, Rect end, Color colorCurve)
+        {
+            Vector3 startPos = new Vector3(
+                start.x + start.width,
+                start.y + (start.height * .5f),
+                0);
+
+            Vector3 endPos = new Vector3(
+                end.x,
+                end.y + (end.height * .5f),
+                0);
+
+            Vector3 startTan = startPos + Vector3.right * 30;
+            Vector3 endTan = endPos + Vector3.left * 30;
+
+            Handles.DrawBezier(startPos, endPos, startTan, endTan, colorCurve, null, 3f);
+        }
+
+        /// <summary> Позиция подключения следующей главы </summary>
+        public Rect ConnectPosition(GamePart partNode, int id)
+        {
+            Rect nodeConnectPosition = new Rect(
+                    partNode.windowRect.x + partNode.windowRect.width + 3,
+                    (partNode.windowRect.y + 6) + (12 * id),
+                    8,
+                    8);
+
+            return nodeConnectPosition;
+        }
+
+        /// <summary> Отрисовка евентов </summary>
+        public void DrawEvents(GamePart partNode)
+        {
+            int sizeEvent;
+
+            if (partNode.windowSizeStady) sizeEvent = 7;
+            else sizeEvent = 20;
+
+            GUIStyle st = new GUIStyle();
+
+            if (partNode.mainEvents != null)
+            {
+                for (int i = 0; i < partNode.mainEvents.Count; i++)
+                {
+                    if (i < 6)
+                    {
+                        GUI.Box(new Rect(
+                    partNode.windowRect.x + (sizeEvent * i),
+                    partNode.windowRect.y + partNode.windowRect.height,
+                    sizeEvent,
+                    sizeEvent),
+                    GetEventTextures(partNode.mainEvents[i]), st);
+                    }
+                    else
+                    {
+                        if (i < 11)
+                        {
+                            GUI.Box(new Rect(
+                        partNode.windowRect.x + (sizeEvent * (i - 6)),
+                        partNode.windowRect.y + partNode.windowRect.height + sizeEvent,
+                        sizeEvent,
+                        sizeEvent),
+                        GetEventTextures(partNode.mainEvents[i]), st);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary> Получить текстуру эвента </summary>
+        private Texture GetEventTextures(GameEvent crEvent)
+        {
+            Texture eventIco;
+            string pathToIco;
+
+            if (crEvent is CheckDecision) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckDecision.png";
+            else if (crEvent is CheckPlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckPlayerInfl.png";
+            else if (crEvent is CheckPoint) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckPoint.png";
+            else if (crEvent is EffectInteract) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/EffectInteract.png";
+            else if (crEvent is ImportantDecision) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ImportantDecision.png";
+            else if (crEvent is ItemInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInfl.png";
+            else if (crEvent is ItemInteract) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInteract.png";
+            else if (crEvent is NonPlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/NonPlayerInfl.png";
+            else if (crEvent is PlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/PlayerInfl.png";
+            else if (crEvent is LocationFind) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/LocationFind.png";
+            else if (crEvent is MemberTime) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/MemberTime.png";
+            else if (crEvent is RandomPart) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/RandomPart.png";
+            else return null;
+
+            eventIco = (Texture)AssetDatabase.LoadAssetAtPath(pathToIco, typeof(Texture));
+            return eventIco;
+        }
+
+        /// <summary> Масштаб окна </summary>
+        public void SetWindowStady(GamePart partNode)
+        {
+            partNode.windowSizeStady = !partNode.windowSizeStady;
+
+            if (partNode.windowSizeStady)
+            {
+                partNode.windowRect.width = 40;
+                partNode.windowRect.height = 38;
+
+                partNode.windowRect.x /= 2f;
+                partNode.windowRect.y /= 2f;
+
+                partNode.windowRect.x += Screen.width / 4f;
+                partNode.windowRect.y += Screen.height / 4f;
+
+                partNode._memberTitle = partNode.windowTitle;
+                partNode.windowTitle = partNode.windowTitle.Substring(0, GetShortNameNode(partNode.windowTitle));
+
+                partNode.memberComment = partNode.isShowComment;
+
+                if (partNode.isShowComment) partNode.isShowComment = false;
+            }
+            else
+            {
+                partNode.windowRect.width = 120;
+                partNode.windowRect.height = 40;
+
+                partNode.windowRect.x *= 2f;
+                partNode.windowRect.y *= 2f;
+
+                partNode.windowRect.x -= Screen.width / 2f;
+                partNode.windowRect.y -= Screen.height / 2f;
+
+                partNode.windowTitle = partNode._memberTitle;
+
+                partNode.isShowComment = partNode.memberComment;
+            }
+        }
+
+        /// <summary> Насколько сокращать имя </summary>
+        private int GetShortNameNode(string longName)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (longName[i] == '_') return i;
+            }
+
+            return 4;
+        }
 
         /// <summary> Сохранить данные </summary>
         public static void SaveData()

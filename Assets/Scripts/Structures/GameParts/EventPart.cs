@@ -56,19 +56,23 @@ namespace GUIInspector
 
             GUILayout.BeginScrollView(_partsSlider, "Box");
 
-            if (_eventPart.eventParts.Count > 0)
+            if (_eventPart.eventParts != null)
             {
-                for (int i = 0; i < _eventPart.eventParts.Count; i++)
+                if (_eventPart.eventParts.Count > 0)
                 {
-                    GUILayout.BeginHorizontal();
+                    for (int i = 0; i < _eventPart.eventParts.Count; i++)
+                    {
+                        GUILayout.BeginHorizontal();
 
-                    _eventPart.eventParts[i] = (GamePart)EditorGUILayout.ObjectField(_eventPart.eventParts[i], typeof(GamePart), true);
-                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _eventPart.eventParts.RemoveAt(i);
+                        _eventPart.eventParts[i] = (GamePart)EditorGUILayout.ObjectField(_eventPart.eventParts[i], typeof(GamePart), true);
+                        if (GUILayout.Button("Удалить", GUILayout.Width(70))) _eventPart.eventParts.RemoveAt(i);
 
-                    GUILayout.EndHorizontal();
+                        GUILayout.EndHorizontal();
+                    }
                 }
+                else GUILayout.Label("Нет глав");
             }
-            else GUILayout.Label("Нет глав");
+            else _eventPart.eventParts = new List<GamePart>();
 
             GUILayout.EndScrollView();
 

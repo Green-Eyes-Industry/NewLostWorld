@@ -21,7 +21,15 @@ namespace GUIInspector
     {
         private TextPart _textPart;
 
-        private void OnEnable() => _textPart = (TextPart)target;
+        private Texture dellConnect;
+        private Texture noneConnect;
+
+        private void OnEnable()
+        {
+            _textPart = (TextPart)target;
+            dellConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/DellConnectButton.png", typeof(Texture));
+            noneConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/NullConnectButton.png", typeof(Texture));
+        }
 
         public override void OnInspectorGUI()
         {
@@ -34,7 +42,13 @@ namespace GUIInspector
 
             GUILayout.BeginHorizontal();
             _textPart.buttonText_1 = EditorGUILayout.TextArea(_textPart.buttonText_1, GUILayout.Height(40));
-            _textPart.movePart_1 = (GamePart)EditorGUILayout.ObjectField(_textPart.movePart_1, typeof(GamePart), true, GUILayout.Width(80));
+
+            if (_textPart.movePart_1 != null)
+            {
+                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _textPart.movePart_1 = null;
+            }
+            else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
+
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();

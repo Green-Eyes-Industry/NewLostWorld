@@ -24,7 +24,15 @@ namespace GUIInspector
     {
         private ChangePart _changePart;
 
-        private void OnEnable() => _changePart = (ChangePart)target;
+        private Texture dellConnect;
+        private Texture noneConnect;
+
+        private void OnEnable()
+        {
+            _changePart = (ChangePart)target;
+            dellConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/DellConnectButton.png", typeof(Texture));
+            noneConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/NullConnectButton.png", typeof(Texture));
+        }
 
         public override void OnInspectorGUI()
         {
@@ -37,13 +45,25 @@ namespace GUIInspector
 
             GUILayout.BeginHorizontal();
             _changePart.buttonText_1 = EditorGUILayout.TextArea(_changePart.buttonText_1, GUILayout.Height(40));
-            _changePart.movePart_1 = (GamePart)EditorGUILayout.ObjectField(_changePart.movePart_1, typeof(GamePart), true, GUILayout.Width(80));
+
+            if (_changePart.movePart_1 != null)
+            {
+                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _changePart.movePart_1 = null;
+            }
+            else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
+
             GUILayout.EndHorizontal();
             EditorGUILayout.Space();
 
             GUILayout.BeginHorizontal();
             _changePart.buttonText_2 = EditorGUILayout.TextArea(_changePart.buttonText_2, GUILayout.Height(40));
-            _changePart.movePart_2 = (GamePart)EditorGUILayout.ObjectField(_changePart.movePart_2, typeof(GamePart), true, GUILayout.Width(80));
+
+            if (_changePart.movePart_2 != null)
+            {
+                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _changePart.movePart_2 = null;
+            }
+            else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
+
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();

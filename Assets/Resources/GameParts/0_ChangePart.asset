@@ -24,8 +24,8 @@ MonoBehaviour:
   windowSizeStady: 0
   windowRect:
     serializedVersion: 2
-    x: -853.41675
-    y: 444.16663
+    x: -489.41675
+    y: 579.1666
     width: 120
     height: 40
   openedHeight: 120

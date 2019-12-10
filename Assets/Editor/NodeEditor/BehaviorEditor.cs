@@ -355,258 +355,174 @@ namespace GUIInspector.NodeEditor
         }
 
         /// <summary> Проверка действия </summary>
-        private void ContexCallBack(object o)
+        private void AddNodeToWindow(object o)
         {
             Object[] loadedObj = Resources.LoadAll("GameParts", typeof(GamePart));
 
             UserActions a = (UserActions)o;
 
+            string nameNode = loadedObj.Length.ToString();
+            string pathToNode = "Assets/Resources/GameParts/";
+            bool sizeStady = false;
+            Rect nodeRect;
+
+            switch (a)
+            {
+                case UserActions.ADD_TEXT_PART: nameNode += "_TextPart"; break;
+                case UserActions.ADD_CHANGE_PART: nameNode += "_ChangePart"; break;
+                case UserActions.ADD_BATTLE_PART: nameNode += "_BattlePart"; break;
+                case UserActions.ADD_MAZE_PART: nameNode += "_PazzlePart"; break;
+                case UserActions.ADD_EVENT_PART: nameNode += "_EventPart"; break;
+                case UserActions.ADD_FINAL_PART: nameNode += "_FinalPart"; break;
+                case UserActions.ADD_LABEL_PART: nameNode += "_LeandPart"; break;
+                case UserActions.ADD_SLIDESHOW_PART: nameNode += "_MoviePart"; break;
+                case UserActions.ADD_TRANSIT: nameNode += ""; break;
+            }
+
+            pathToNode += nameNode + ".asset";
+
+            if (_storyData.nodesData != null)
+            {
+                if(_storyData.nodesData[0] != null) sizeStady = _storyData.nodesData[0].windowSizeStady;
+            }
+
+            if (sizeStady) nodeRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
+            else nodeRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
+
             switch (a)
             {
                 case UserActions.ADD_TEXT_PART:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(TextPart)), pathToNode);
+                    TextPart textPart = (TextPart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(TextPart));
 
-                    string nameTextPart = loadedObj.Length + "_TextPart";
-                    string pathTextPartAsset = "Assets/Resources/GameParts/" + nameTextPart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(TextPart)), pathTextPartAsset);
-                    TextPart textPart = (TextPart)AssetDatabase.LoadAssetAtPath(pathTextPartAsset, typeof(TextPart));
-
-                    if (_storyData.nodesData != null)
+                    textPart.windowSizeStady = sizeStady;
+                    if (sizeStady)
                     {
-                        textPart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
-
-                        if (_storyData.nodesData[0].windowSizeStady)
-                        {
-                            textPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
-                            textPart.windowTitle = nameTextPart.Substring(0, GetShortNameNode(nameTextPart));
-                            textPart._memberTitle = nameTextPart;
-                        }
-                        else
-                        {
-                            textPart.windowTitle = nameTextPart;
-                            textPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-                        }
+                        textPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
+                        textPart._memberTitle = nameNode;
                     }
+                    else textPart.windowTitle = nameNode;
 
+                    textPart.windowRect = nodeRect;
                     _storyData.nodesData.Add(textPart);
-                    SaveData();
-
                     break;
 
                 case UserActions.ADD_CHANGE_PART:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(ChangePart)), pathToNode);
+                    ChangePart changePart = (ChangePart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(ChangePart));
 
-                    string nameChangePart = loadedObj.Length + "_ChangePart";
-                    string pathChangePartAsset = "Assets/Resources/GameParts/" + nameChangePart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(ChangePart)), pathChangePartAsset);
-                    ChangePart changePart = (ChangePart)AssetDatabase.LoadAssetAtPath(pathChangePartAsset, typeof(ChangePart));
-
-                    if (_storyData.nodesData != null)
+                    changePart.windowSizeStady = sizeStady;
+                    if (sizeStady)
                     {
-                        changePart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
-
-                        if (_storyData.nodesData[0].windowSizeStady)
-                        {
-                            changePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
-                            changePart.windowTitle = nameChangePart.Substring(0, GetShortNameNode(nameChangePart));
-                            changePart._memberTitle = nameChangePart;
-                        }
-                        else
-                        {
-                            changePart.windowTitle = nameChangePart;
-                            changePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-                        }
+                        changePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
+                        changePart._memberTitle = nameNode;
                     }
+                    else changePart.windowTitle = nameNode;
 
+                    changePart.windowRect = nodeRect;
                     _storyData.nodesData.Add(changePart);
-                    SaveData();
-
                     break;
 
                 case UserActions.ADD_BATTLE_PART:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(BattlePart)), pathToNode);
+                    BattlePart battlePart = (BattlePart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(BattlePart));
 
-                    string nameBattlePart = loadedObj.Length + "_BattlePart";
-                    string pathBattlePartAsset = "Assets/Resources/GameParts/" + nameBattlePart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(BattlePart)), pathBattlePartAsset);
-                    BattlePart battlePart = (BattlePart)AssetDatabase.LoadAssetAtPath(pathBattlePartAsset, typeof(BattlePart));
-
-                    if (_storyData.nodesData != null)
+                    battlePart.windowSizeStady = sizeStady;
+                    if (sizeStady)
                     {
-                        battlePart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
-
-                        if (_storyData.nodesData[0].windowSizeStady)
-                        {
-                            battlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
-                            battlePart.windowTitle = nameBattlePart.Substring(0, GetShortNameNode(nameBattlePart));
-                            battlePart._memberTitle = nameBattlePart;
-                        }
-                        else
-                        {
-                            battlePart.windowTitle = nameBattlePart;
-                            battlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-                        }
+                        battlePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
+                        battlePart._memberTitle = nameNode;
                     }
+                    else battlePart.windowTitle = nameNode;
 
+                    battlePart.windowRect = nodeRect;
                     _storyData.nodesData.Add(battlePart);
-                    SaveData();
-
                     break;
 
                 case UserActions.ADD_MAZE_PART:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(PazzlePart)), pathToNode);
+                    PazzlePart pazzlePart = (PazzlePart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(PazzlePart));
 
-                    string namePazzlePart = loadedObj.Length + "_PazzlePart";
-                    string pathPazzlePartAsset = "Assets/Resources/GameParts/" + namePazzlePart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(PazzlePart)), pathPazzlePartAsset);
-                    PazzlePart pazzlePart = (PazzlePart)AssetDatabase.LoadAssetAtPath(pathPazzlePartAsset, typeof(PazzlePart));
-
-                    if (_storyData.nodesData != null)
+                    pazzlePart.windowSizeStady = sizeStady;
+                    if (sizeStady)
                     {
-                        pazzlePart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
-
-                        if (_storyData.nodesData[0].windowSizeStady)
-                        {
-                            pazzlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
-                            pazzlePart.windowTitle = namePazzlePart.Substring(0, GetShortNameNode(namePazzlePart));
-                            pazzlePart._memberTitle = namePazzlePart;
-                        }
-                        else
-                        {
-                            pazzlePart.windowTitle = namePazzlePart;
-                            pazzlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-                        }
+                        pazzlePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
+                        pazzlePart._memberTitle = nameNode;
                     }
+                    else pazzlePart.windowTitle = nameNode;
 
+                    pazzlePart.windowRect = nodeRect;
                     _storyData.nodesData.Add(pazzlePart);
-                    SaveData();
-
                     break;
 
                 case UserActions.ADD_EVENT_PART:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(EventPart)), pathToNode);
+                    EventPart eventPart = (EventPart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(EventPart));
 
-                    string nameEventPart = loadedObj.Length + "_EventPart";
-                    string pathEventPartAsset = "Assets/Resources/GameParts/" + nameEventPart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(EventPart)), pathEventPartAsset);
-                    EventPart eventPart = (EventPart)AssetDatabase.LoadAssetAtPath(pathEventPartAsset, typeof(EventPart));
-
-                    if (_storyData.nodesData != null)
+                    eventPart.windowSizeStady = sizeStady;
+                    if (sizeStady)
                     {
-                        eventPart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
-
-                        if (_storyData.nodesData[0].windowSizeStady)
-                        {
-                            eventPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
-                            eventPart.windowTitle = nameEventPart.Substring(0, GetShortNameNode(nameEventPart));
-                            eventPart._memberTitle = nameEventPart;
-                        }
-                        else
-                        {
-                            eventPart.windowTitle = nameEventPart;
-                            eventPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-                        }
+                        eventPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
+                        eventPart._memberTitle = nameNode;
                     }
+                    else eventPart.windowTitle = nameNode;
 
+                    eventPart.windowRect = nodeRect;
                     _storyData.nodesData.Add(eventPart);
-                    SaveData();
-
                     break;
 
                 case UserActions.ADD_FINAL_PART:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(FinalPart)), pathToNode);
+                    FinalPart finalPart = (FinalPart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(FinalPart));
 
-                    string nameFinalPart = loadedObj.Length + "_FinalPart";
-                    string pathFinalPartAsset = "Assets/Resources/GameParts/" + nameFinalPart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(FinalPart)), pathFinalPartAsset);
-                    FinalPart finalPart = (FinalPart)AssetDatabase.LoadAssetAtPath(pathFinalPartAsset, typeof(FinalPart));
-
-                    if (_storyData.nodesData != null)
+                    finalPart.windowSizeStady = sizeStady;
+                    if (sizeStady)
                     {
-                        finalPart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
-
-                        if (_storyData.nodesData[0].windowSizeStady)
-                        {
-                            finalPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
-                            finalPart.windowTitle = nameFinalPart.Substring(0, GetShortNameNode(nameFinalPart));
-                            finalPart._memberTitle = nameFinalPart;
-                        }
-                        else
-                        {
-                            finalPart.windowTitle = nameFinalPart;
-                            finalPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-                        }
+                        finalPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
+                        finalPart._memberTitle = nameNode;
                     }
+                    else finalPart.windowTitle = nameNode;
 
+                    finalPart.windowRect = nodeRect;
                     _storyData.nodesData.Add(finalPart);
-                    SaveData();
-
                     break;
 
                 case UserActions.ADD_LABEL_PART:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(LeandPart)), pathToNode);
+                    LeandPart leandPart = (LeandPart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(LeandPart));
 
-                    string nameLeandPart = loadedObj.Length + "_LeandPart";
-                    string pathLeandPartAsset = "Assets/Resources/GameParts/" + nameLeandPart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(LeandPart)), pathLeandPartAsset);
-                    LeandPart leandPart = (LeandPart)AssetDatabase.LoadAssetAtPath(pathLeandPartAsset, typeof(LeandPart));
-
-                    if (_storyData.nodesData != null)
+                    leandPart.windowSizeStady = sizeStady;
+                    if (sizeStady)
                     {
-                        leandPart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
-
-                        if (_storyData.nodesData[0].windowSizeStady)
-                        {
-                            leandPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
-                            leandPart.windowTitle = nameLeandPart.Substring(0, GetShortNameNode(nameLeandPart));
-                            leandPart._memberTitle = nameLeandPart;
-                        }
-                        else
-                        {
-                            leandPart.windowTitle = nameLeandPart;
-                            leandPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-                        }
+                        leandPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
+                        leandPart._memberTitle = nameNode;
                     }
+                    else leandPart.windowTitle = nameNode;
 
+                    leandPart.windowRect = nodeRect;
                     _storyData.nodesData.Add(leandPart);
-                    SaveData();
-
                     break;
 
                 case UserActions.ADD_SLIDESHOW_PART:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(MoviePart)), pathToNode);
+                    MoviePart moviePart = (MoviePart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(MoviePart));
 
-                    string nameMoviePart = loadedObj.Length + "_MoviePart";
-                    string pathMoviePartAsset = "Assets/Resources/GameParts/" + nameMoviePart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(MoviePart)), pathMoviePartAsset);
-                    MoviePart moviePart = (MoviePart)AssetDatabase.LoadAssetAtPath(pathMoviePartAsset, typeof(MoviePart));
-
-                    if (_storyData.nodesData != null)
+                    moviePart.windowSizeStady = sizeStady;
+                    if (sizeStady)
                     {
-                        moviePart.windowSizeStady = _storyData.nodesData[0].windowSizeStady;
-
-                        if (_storyData.nodesData[0].windowSizeStady)
-                        {
-                            moviePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 40, 38);
-                            moviePart.windowTitle = nameMoviePart.Substring(0, GetShortNameNode(nameMoviePart));
-                            moviePart._memberTitle = nameMoviePart;
-                        }
-                        else
-                        {
-                            moviePart.windowTitle = nameMoviePart;
-                            moviePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-                        }
+                        moviePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
+                        moviePart._memberTitle = nameNode;
                     }
-                    
+                    else moviePart.windowTitle = nameNode;
+
+                    moviePart.windowRect = nodeRect;
                     _storyData.nodesData.Add(moviePart);
-                    SaveData();
-
                     break;
 
-                case UserActions.ADD_TRANSIT:
-
-                    break;
+                case UserActions.ADD_TRANSIT: break;
             }
+
+            SaveData();
         }
 
         /// <summary> Насколько сокращать имя </summary>
@@ -626,104 +542,72 @@ namespace GUIInspector.NodeEditor
             AddEventActions a = (AddEventActions)o;
 
             string path = "Assets/Resources/GameEvents/";
-            string nameEvent;
+            string nameEvent = _selectedNode.mainEvents.Count.ToString();
 
             switch (a)
             {
-                case AddEventActions.CHECK_DECISION:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_CheckDecision.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckDecision)), path + nameEvent);
+                case AddEventActions.CHECK_DECISION: nameEvent += "_CheckDecision.asset"; break;
+                case AddEventActions.CHECK_PLAYER_INFL: nameEvent += "_CheckPlayerInfl.asset"; break;
+                case AddEventActions.CHECK_POINT: nameEvent += "_CheckPoint.asset"; break;
+                case AddEventActions.EFFECT_INTERACT: nameEvent += "_EffectInteract.asset"; break;
+                case AddEventActions.IMPORTANT_DECISION: nameEvent += "_ImportantDecision.asset"; break;
+                case AddEventActions.ITEM_INFL: nameEvent += "_ItemInfl.asset"; break;
+                case AddEventActions.ITEM_INTERACT: nameEvent += "_ItemInteract.asset"; break;
+                case AddEventActions.LOCATION_FIND: nameEvent += "_LocationFind.asset"; break;
+                case AddEventActions.MEMBER_TIME: nameEvent += "_MemberTime.asset"; break;
+                case AddEventActions.NON_PLAYER_INFL: nameEvent += "_NonPlayerInfl.asset"; break;
+                case AddEventActions.PLAYER_INFL: nameEvent += "_PlayerInfl.asset"; break;
+                case AddEventActions.RANDOM_PART: nameEvent += "_RandomPart.asset"; break;
+            }
+            
+            switch (a)
+            {
+                case AddEventActions.CHECK_DECISION: AssetDatabase.CreateAsset(CreateInstance(typeof(CheckDecision)), path + nameEvent);
                     _selectedNode.mainEvents.Add((CheckDecision)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(CheckDecision)));
-
                     break;
-
-                case AddEventActions.CHECK_PLAYER_INFL:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_CheckPlayerInfl.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckPlayerInfl)), path + nameEvent);
+            
+                case AddEventActions.CHECK_PLAYER_INFL: AssetDatabase.CreateAsset(CreateInstance(typeof(CheckPlayerInfl)), path + nameEvent);
                     _selectedNode.mainEvents.Add((CheckPlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(CheckPlayerInfl)));
-
                     break;
-
-                case AddEventActions.CHECK_POINT:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_CheckPoint.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckPoint)), path + nameEvent);
+            
+                case AddEventActions.CHECK_POINT: AssetDatabase.CreateAsset(CreateInstance(typeof(CheckPoint)), path + nameEvent);
                     _selectedNode.mainEvents.Add((CheckPoint)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(CheckPoint)));
-
                     break;
-
-                case AddEventActions.EFFECT_INTERACT:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_EffectInteract.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(EffectInteract)), path + nameEvent);
+            
+                case AddEventActions.EFFECT_INTERACT: AssetDatabase.CreateAsset(CreateInstance(typeof(EffectInteract)), path + nameEvent);
                     _selectedNode.mainEvents.Add((EffectInteract)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(EffectInteract)));
-
                     break;
-
-                case AddEventActions.IMPORTANT_DECISION:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_ImportantDecision.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(ImportantDecision)), path + nameEvent);
+            
+                case AddEventActions.IMPORTANT_DECISION: AssetDatabase.CreateAsset(CreateInstance(typeof(ImportantDecision)), path + nameEvent);
                     _selectedNode.mainEvents.Add((ImportantDecision)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ImportantDecision)));
-
                     break;
-
-                case AddEventActions.ITEM_INFL:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_ItemInfl.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(ItemInfl)), path + nameEvent);
+            
+                case AddEventActions.ITEM_INFL: AssetDatabase.CreateAsset(CreateInstance(typeof(ItemInfl)), path + nameEvent);
                     _selectedNode.mainEvents.Add((ItemInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ItemInfl)));
-
                     break;
-
-                case AddEventActions.ITEM_INTERACT:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_ItemInteract.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(ItemInteract)), path + nameEvent);
+            
+                case AddEventActions.ITEM_INTERACT: AssetDatabase.CreateAsset(CreateInstance(typeof(ItemInteract)), path + nameEvent);
                     _selectedNode.mainEvents.Add((ItemInteract)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ItemInteract)));
-
                     break;
-
-                case AddEventActions.LOCATION_FIND:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_LocationFind.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(LocationFind)), path + nameEvent);
+            
+                case AddEventActions.LOCATION_FIND: AssetDatabase.CreateAsset(CreateInstance(typeof(LocationFind)), path + nameEvent);
                     _selectedNode.mainEvents.Add((LocationFind)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(LocationFind)));
-
                     break;
-
-                case AddEventActions.MEMBER_TIME:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_MemberTime.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(MemberTime)), path + nameEvent);
+            
+                case AddEventActions.MEMBER_TIME: AssetDatabase.CreateAsset(CreateInstance(typeof(MemberTime)), path + nameEvent);
                     _selectedNode.mainEvents.Add((MemberTime)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(MemberTime)));
-
                     break;
-
-                case AddEventActions.NON_PLAYER_INFL:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_NonPlayerInfl.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(NonPlayerInfl)), path + nameEvent);
+            
+                case AddEventActions.NON_PLAYER_INFL: AssetDatabase.CreateAsset(CreateInstance(typeof(NonPlayerInfl)), path + nameEvent);
                     _selectedNode.mainEvents.Add((NonPlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(NonPlayerInfl)));
-
                     break;
-
-                case AddEventActions.PLAYER_INFL:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_PlayerInfl.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(PlayerInfl)), path + nameEvent);
+            
+                case AddEventActions.PLAYER_INFL: AssetDatabase.CreateAsset(CreateInstance(typeof(PlayerInfl)), path + nameEvent);
                     _selectedNode.mainEvents.Add((PlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(PlayerInfl)));
-
                     break;
-
-                case AddEventActions.RANDOM_PART:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_RandomPart.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(RandomPart)), path + nameEvent);
+            
+                case AddEventActions.RANDOM_PART: AssetDatabase.CreateAsset(CreateInstance(typeof(RandomPart)), path + nameEvent);
                     _selectedNode.mainEvents.Add((RandomPart)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(RandomPart)));
-
                     break;
             }
         }
@@ -736,14 +620,14 @@ namespace GUIInspector.NodeEditor
         private void AddNewNode(Event e)
         {
             GenericMenu menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Создать главу/Текстовая"), false, ContexCallBack, UserActions.ADD_TEXT_PART);
-            menu.AddItem(new GUIContent("Создать главу/Выбора"), false, ContexCallBack, UserActions.ADD_CHANGE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Боя"), false, ContexCallBack, UserActions.ADD_BATTLE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Загадка"), false, ContexCallBack, UserActions.ADD_MAZE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Эвент"), false, ContexCallBack, UserActions.ADD_EVENT_PART);
-            menu.AddItem(new GUIContent("Создать главу/Финальная"), false, ContexCallBack, UserActions.ADD_FINAL_PART);
-            menu.AddItem(new GUIContent("Создать главу/Вставка"), false, ContexCallBack, UserActions.ADD_LABEL_PART);
-            menu.AddItem(new GUIContent("Создать главу/Слайдшоу"), false, ContexCallBack, UserActions.ADD_SLIDESHOW_PART);
+            menu.AddItem(new GUIContent("Создать главу/Текстовая"), false, AddNodeToWindow, UserActions.ADD_TEXT_PART);
+            menu.AddItem(new GUIContent("Создать главу/Выбора"), false, AddNodeToWindow, UserActions.ADD_CHANGE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Боя"), false, AddNodeToWindow, UserActions.ADD_BATTLE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Загадка"), false, AddNodeToWindow, UserActions.ADD_MAZE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Эвент"), false, AddNodeToWindow, UserActions.ADD_EVENT_PART);
+            menu.AddItem(new GUIContent("Создать главу/Финальная"), false, AddNodeToWindow, UserActions.ADD_FINAL_PART);
+            menu.AddItem(new GUIContent("Создать главу/Вставка"), false, AddNodeToWindow, UserActions.ADD_LABEL_PART);
+            menu.AddItem(new GUIContent("Создать главу/Слайдшоу"), false, AddNodeToWindow, UserActions.ADD_SLIDESHOW_PART);
             menu.ShowAsContext();
             e.Use();
         }

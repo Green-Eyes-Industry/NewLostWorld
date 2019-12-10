@@ -71,7 +71,13 @@ public class GamePart : ScriptableObject
             if (partList.Contains(movePart_3) && movePart_3 != this) CreateCurve(ConnectPosition(2), movePart_3.windowRect, baseConnectColor);
         }
 
-        if(mainEvents != null)
+        DrawRandomCurve();
+    }
+
+    /// <summary> Отрисовка связей Random Event </summary>
+    private void DrawRandomCurve()
+    {
+        if (mainEvents != null)
         {
             bool checkRandom = false;
             RandomPart randomEvent = null;
@@ -89,7 +95,7 @@ public class GamePart : ScriptableObject
             {
                 Color randomConnectColor = new Color(1f, 0, 0, 0.75f);
 
-                if(randomEvent.part_1_random != null && randomEvent.part_1_random != this)
+                if (randomEvent.part_1_random != null && randomEvent.part_1_random != this)
                 {
                     CreateCurve(ConnectPosition(0), randomEvent.part_1_random.windowRect, randomConnectColor);
                 }
@@ -129,34 +135,11 @@ public class GamePart : ScriptableObject
     /// <summary> Позиция подключения следующей главы </summary>
     public Rect ConnectPosition(int id)
     {
-        Rect nodeConnectPosition;
-
-        switch (id)
-        {
-            case 1:
-                nodeConnectPosition = new Rect(
+        Rect nodeConnectPosition = new Rect(
                 windowRect.x + windowRect.width + 3,
-                windowRect.y + 12,
+                (windowRect.y + 6) + (12 * id),
                 8,
                 8);
-                break;
-
-            case 2:
-                nodeConnectPosition = new Rect(
-                windowRect.x + windowRect.width + 3,
-                windowRect.y + 24,
-                8,
-                8);
-                break;
-
-            default:
-                nodeConnectPosition = new Rect(
-                windowRect.x + windowRect.width + 3,
-                windowRect.y,
-                8,
-                8);
-                break;
-        }
 
         return nodeConnectPosition;
     }

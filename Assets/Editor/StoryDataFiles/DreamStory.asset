@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77596d61f2df5ea418d1a669dd47504e, type: 3}
+  m_Name: DreamStory
+  m_EditorClassIdentifier: 
+  storyDescript: "\u0411\u0430\u0437\u043E\u0432\u044B\u0439 \u0441\u044E\u0436\u0435\u0442
+    \u043A\u0432\u0435\u0441\u0442\u0430"
+  nodesData:
+  - {fileID: 11400000, guid: d2436e58343c5184abdb663c7601aa26, type: 2}
+  - {fileID: 11400000, guid: e453bf583662c394792bbc7cfa276e5c, type: 2}
+  - {fileID: 11400000, guid: 9744036f29cb7244ab173bea073d0c15, type: 2}
+  - {fileID: 11400000, guid: 1cf1ad35ee0588243b72dff5fc074a58, type: 2}
+  - {fileID: 11400000, guid: 5a0dc0e21ee2fbf498992f003098f7ea, type: 2}
+  - {fileID: 11400000, guid: f35b282e9d1ce664387bbecc3892d7be, type: 2}
+  - {fileID: 11400000, guid: 60717b1715fd4984bbb70eaebad89707, type: 2}
+  - {fileID: 11400000, guid: b603ce06107ee894c862c36e32b3df9d, type: 2}
+  - {fileID: 11400000, guid: 93b2d94331ee71d41b45a6c1bd3b2f5c, type: 2}
+  - {fileID: 11400000, guid: 5ed746a4a0744a24a8b5c18b30eb8c00, type: 2}
+  - {fileID: 11400000, guid: db66ea3a94e96104b8e7d453f242c266, type: 2}
+  - {fileID: 11400000, guid: 5e38f264e5d5a584c8c8247046150f06, type: 2}
+  - {fileID: 11400000, guid: dbd00b52433203a4c96df314d779754c, type: 2}
+  - {fileID: 11400000, guid: 17d618ed3e3ddd742b76a5e9a34c1919, type: 2}
+  - {fileID: 11400000, guid: 3377f07ddec05bb4480cce20d7d50038, type: 2}
+  - {fileID: 11400000, guid: 8025d241076bdfb479176ca070a4cc04, type: 2}
+  - {fileID: 11400000, guid: 6deebae8ebbd2da41932f77d435069e7, type: 2}
+  - {fileID: 11400000, guid: dc5701ccf35c9c442a10acd83c35d961, type: 2}
+  - {fileID: 11400000, guid: c64f4812519269645bbc18d4a0a6abbb, type: 2}
+  - {fileID: 11400000, guid: 78850a4503e8a354c92a3ec3c47dd007, type: 2}

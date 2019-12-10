@@ -241,7 +241,7 @@ public class GamePart : ScriptableObject
             windowRect.y += Screen.height / 4f;
 
             _memberTitle = windowTitle;
-            windowTitle = windowTitle.Substring(0, 2);
+            windowTitle = windowTitle.Substring(0, GetShortNameNode(windowTitle));
 
             memberComment = isShowComment;
 
@@ -262,6 +262,17 @@ public class GamePart : ScriptableObject
 
             isShowComment = memberComment;
         }
+    }
+
+    /// <summary> Насколько сокращать имя </summary>
+    private int GetShortNameNode(string longName)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (longName[i] == '_') return i;
+        }
+
+        return 4;
     }
 
 #endif

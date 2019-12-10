@@ -20,13 +20,13 @@ MonoBehaviour:
   windowSizeStady: 0
   windowRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+    x: 827.5
+    y: 114
+    width: 120
+    height: 40
   openedHeight: 120
-  windowTitle: 
-  _memberTitle: 
+  windowTitle: 19_ChangePart
+  _memberTitle: 19_ChangePart
   part: {fileID: 0}
   workStady: 0
   workStadyNum: 000000000100000002000000

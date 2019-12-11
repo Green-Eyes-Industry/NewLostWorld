@@ -13,6 +13,9 @@ namespace GUIInspector.NodeEditor
 
         /// <summary> Главы сюжета </summary>
         public List<GamePart> nodesData;
+
+        /// <summary> Стиль отображения графа </summary>
+        public GUISkin graphSkin;
     }
 }
 
@@ -28,7 +31,8 @@ namespace GUIInspector
         public override void OnInspectorGUI()
         {
             EditorGUILayout.BeginVertical("Box");
-
+            _storyData.graphSkin = (GUISkin)EditorGUILayout.ObjectField("Стиль графа : ", _storyData.graphSkin, typeof(GUISkin), true);
+            EditorGUILayout.Space();
             _storyData.storyDescript = EditorGUILayout.TextArea(_storyData.storyDescript, GUILayout.Height(40));
             if (_storyData.nodesData != null) EditorGUILayout.LabelField("В сюжете учавствует : " + _storyData.nodesData.Count + " Глав");
             else EditorGUILayout.Space();

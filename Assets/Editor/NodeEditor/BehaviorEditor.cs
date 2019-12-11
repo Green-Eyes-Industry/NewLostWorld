@@ -19,13 +19,14 @@ namespace GUIInspector.NodeEditor
         public static Vector3 _mousePosition; // Позиция мыши
         private bool _isClickOnWindow; // Нажал на окно или нет
         private GamePart _selectedNode; // Выбранная нода
+        private Texture _emptyTexture;
 
-        private Texture _connectTexture; // Текстура подключения
         private GamePart _sellectedToConnect; // Нода в памяти при подключении полключения
         private int _sellectionId; // Идентификатор типа подключения
 
         public int[] workStadyNum = new int[] { 0, 1, 2 };
         public string[] workStadyNames = new string[] { "Пусто", "Разработка", "Готово" };
+        public int tempConnect = 0;
 
         #endregion
 
@@ -40,7 +41,7 @@ namespace GUIInspector.NodeEditor
             editor._gridColor = new Color(0.55f, 0.55f, 0.55f);
             trBehaviorEditor = editor;
 
-            editor._connectTexture = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/Connect.png", typeof(Texture));
+            editor._emptyTexture = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/Connect.png", typeof(Texture));
         }
 
         #endregion
@@ -70,13 +71,18 @@ namespace GUIInspector.NodeEditor
                 _mousePosition = e.mousePosition;
                 UserInput(e);
 
+                GUI.Label(new Rect(Screen.width - 300, Screen.height - 50, 300, 50),
+                    storyData.name,
+                    storyData.graphSkin.GetStyle("Label"));
+
                 DrawWindows();
 
                 GUI.backgroundColor = Color.white;
+                DrawConnectors();
 
                 EditorGUILayout.BeginHorizontal("TextArea");
 
-                EditorGUILayout.SelectableLabel("Текущие : ", GUILayout.Height(22));
+                EditorGUILayout.LabelField("Текущие : ", GUILayout.Height(22));
 
                 if (GUILayout.Button("Данные сценария", GUILayout.Width(200))) Selection.activeObject = _storyData;
 
@@ -89,7 +95,6 @@ namespace GUIInspector.NodeEditor
                 if (GUILayout.Button("Сохранить", GUILayout.Width(100), GUILayout.Height(18))) SaveData();
 
                 EditorGUILayout.EndVertical();
-
             }
             else
             {
@@ -97,6 +102,18 @@ namespace GUIInspector.NodeEditor
                 EditorGUILayout.Space();
                 _storyData = (StoryData)EditorGUILayout.ObjectField("Файл данных", _storyData, typeof(StoryData), false);
             }
+        }
+
+        private void DrawConnectors()
+        {
+            foreach (GamePart bn in _storyData.nodesData)
+                {
+                    if (bn != null)
+                    {
+                        DrawConnectPoint(bn);
+                        DrawEvents(bn);
+                    }
+                }
         }
 
         /// <summary> Отрисовка всех нод </summary>
@@ -107,15 +124,6 @@ namespace GUIInspector.NodeEditor
             try
             {
                 BeginWindows();
-
-                foreach (GamePart bn in _storyData.nodesData)
-                {
-                    if (bn != null)
-                    {
-                        DrawConnectPoint(bn);
-                        DrawEvents(bn);
-                    }
-                }
 
                 for (int i = 0; i < _storyData.nodesData.Count; i++)
                 {
@@ -141,7 +149,12 @@ namespace GUIInspector.NodeEditor
 
                             if (_sellectedToConnect != null)
                             {
-                                if (_sellectedToConnect.Equals(_storyData.nodesData[i])) GUI.backgroundColor = Color.red;
+                                if (_sellectedToConnect.Equals(_storyData.nodesData[i]))
+                                {
+                                    CreateCurve(ConnectPosition(_storyData.nodesData[i],tempConnect),
+                                        new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
+                                    Repaint();
+                                }
                             }
                         }
 
@@ -149,7 +162,9 @@ namespace GUIInspector.NodeEditor
                          i,
                          _storyData.nodesData[i].windowRect,
                          DrawNodeWindow,
-                         _storyData.nodesData[i].windowTitle);
+                         _storyData.nodesData[i].windowTitle, storyData.graphSkin.GetStyle("Window"));
+
+                        DrawCurve(_storyData.nodesData[i]);
                     }
                 }
 
@@ -168,21 +183,45 @@ namespace GUIInspector.NodeEditor
         {
             if (bn is TextPart)
             {
-                if (GUI.Button(ConnectPosition(bn, 0), _connectTexture)) ConnectorClick(0, bn);
-                DrawCurve(bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
             }
             else if (bn is ChangePart)
             {
-                if (GUI.Button(ConnectPosition(bn, 0), _connectTexture)) ConnectorClick(0, bn);
-                if (GUI.Button(ConnectPosition(bn, 1), _connectTexture)) ConnectorClick(1, bn);
-                DrawCurve(bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
+
+                if (GUI.Button(ConnectPosition(bn, 1), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(1, bn);
+                    tempConnect = 1;
+                }
             }
             else if (bn is BattlePart)
             {
-                if (GUI.Button(ConnectPosition(bn, 0), _connectTexture)) ConnectorClick(0, bn);
-                if (GUI.Button(ConnectPosition(bn, 1), _connectTexture)) ConnectorClick(1, bn);
-                if (GUI.Button(ConnectPosition(bn, 2), _connectTexture)) ConnectorClick(2, bn);
-                DrawCurve(bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
+
+                if (GUI.Button(ConnectPosition(bn, 1), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(1, bn);
+                    tempConnect = 1;
+                }
+
+                if (GUI.Button(ConnectPosition(bn, 2), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(2, bn);
+                    tempConnect = 2;
+                }
             }
         }
 
@@ -201,14 +240,20 @@ namespace GUIInspector.NodeEditor
             if (!_storyData.nodesData[id].windowSizeStady)
             {
                 EditorGUILayout.BeginHorizontal();
-                _storyData.nodesData[id].workStady = EditorGUILayout.IntPopup(_storyData.nodesData[id].workStady, workStadyNames, workStadyNum, GUILayout.Width(90f));
+                _storyData.nodesData[id].workStady = EditorGUILayout.IntPopup(
+                    _storyData.nodesData[id].workStady,
+                    workStadyNames, workStadyNum,
+                    GUILayout.Width(85f));
                 _storyData.nodesData[id].isShowComment = EditorGUILayout.Toggle(_storyData.nodesData[id].isShowComment);
                 EditorGUILayout.EndHorizontal();
 
                 if (_storyData.nodesData[id].isShowComment)
                 {
                     _storyData.nodesData[id].windowRect.height = _storyData.nodesData[id].openedHeight;
-                    _storyData.nodesData[id].comment = EditorGUILayout.TextArea(_storyData.nodesData[id].comment, GUILayout.Width(110f), GUILayout.Height(78));
+                    _storyData.nodesData[id].comment = EditorGUILayout.TextArea(
+                        _storyData.nodesData[id].comment,
+                        GUILayout.Width(100f),
+                        GUILayout.Height(70));
                 }
                 else _storyData.nodesData[id].windowRect.height = 40f;
             }
@@ -274,7 +319,7 @@ namespace GUIInspector.NodeEditor
             }
 
             if (!_isClickOnWindow) GraphChangeController.AddNewNode(e);
-            else GraphChangeController.AddEventToPart(e); //AddEventToPart(e);
+            else GraphChangeController.AddEventToPart(e);
         }
 
         /// <summary> Левый клик мыши </summary>
@@ -314,6 +359,7 @@ namespace GUIInspector.NodeEditor
                         }
                         break;
                     }
+                    else _sellectedToConnect = null;
                 }
             }
         }
@@ -352,12 +398,6 @@ namespace GUIInspector.NodeEditor
         #endregion
 
         #region NODE_DRAW
-
-        /// <summary> Отрисовка ноды </summary>
-        public void DrawNode(GamePart partNode)
-        {
-            
-        }
 
         /// <summary> Отрисовка связей </summary>
         public void DrawCurve(GamePart partNode)
@@ -437,8 +477,8 @@ namespace GUIInspector.NodeEditor
                 end.y + (end.height * .5f),
                 0);
 
-            Vector3 startTan = startPos + Vector3.right * 30;
-            Vector3 endTan = endPos + Vector3.left * 30;
+            Vector3 startTan = startPos + Vector3.right * 50;
+            Vector3 endTan = endPos + Vector3.left * 50;
 
             Handles.DrawBezier(startPos, endPos, startTan, endTan, colorCurve, null, 3f);
         }
@@ -447,10 +487,10 @@ namespace GUIInspector.NodeEditor
         public Rect ConnectPosition(GamePart partNode, int id)
         {
             Rect nodeConnectPosition = new Rect(
-                    partNode.windowRect.x + partNode.windowRect.width + 3,
-                    (partNode.windowRect.y + 6) + (12 * id),
-                    8,
-                    8);
+                    partNode.windowRect.x + partNode.windowRect.width - 5,
+                    (partNode.windowRect.y + 2) + (13 * id),
+                    10,
+                    10);
 
             return nodeConnectPosition;
         }
@@ -598,7 +638,7 @@ namespace GUIInspector.NodeEditor
 
             Handles.BeginGUI();
             Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
-
+            
             _offset += _drag * 0.5f;
             Vector3 newOffset = new Vector3(_offset.x % gridSpacing, _offset.y % gridSpacing, 0);
 
@@ -612,7 +652,7 @@ namespace GUIInspector.NodeEditor
                 Handles.DrawLine(new Vector3(-gridSpacing, gridSpacing * j, 0) + newOffset, new Vector3(position.width, gridSpacing * j, 0f) + newOffset);
             }
 
-            Handles.color = Color.white;
+            Handles.color = Color.gray;
             Handles.EndGUI();
         }
 

@@ -13,6 +13,21 @@ namespace GUIInspector.NodeEditor
 
         /// <summary> Главы сюжета </summary>
         public List<GamePart> nodesData;
+
+        /// <summary> Стиль отображения графа </summary>
+        public GUISkin graphSkin;
+
+        #region STYLE_NODE
+
+        public float baseNodeSmWidth = 40f;
+        public float baseNodeSmHeight = 40f;
+
+        public float baseNodeLgWidth = 120;
+        public float baseNodeLgHeight = 42;
+
+        public float baseNodeCommentHeight = 120;
+
+        #endregion
     }
 }
 
@@ -28,15 +43,18 @@ namespace GUIInspector
         public override void OnInspectorGUI()
         {
             EditorGUILayout.BeginVertical("Box");
-
-            _storyData.storyDescript = EditorGUILayout.TextArea(_storyData.storyDescript, GUILayout.Height(40));
-
+            _storyData.graphSkin = (GUISkin)EditorGUILayout.ObjectField("Стиль графа : ", _storyData.graphSkin, typeof(GUISkin), true);
             EditorGUILayout.Space();
+            _storyData.storyDescript = EditorGUILayout.TextArea(_storyData.storyDescript, GUILayout.Height(40));
+            if (_storyData.nodesData != null) EditorGUILayout.LabelField("В сюжете учавствует : " + _storyData.nodesData.Count + " Глав");
+            else EditorGUILayout.Space();
 
             for (int i = 0; i < _storyData.nodesData.Count; i++)
             {
+                GUI.backgroundColor = Color.white;
                 EditorGUILayout.BeginHorizontal("TextArea");
                 EditorGUILayout.LabelField(_storyData.nodesData[i].name);
+                GUI.backgroundColor = Color.red;
                 if (GUILayout.Button("Удалить", GUILayout.Width(70)))
                 {
                     AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_storyData.nodesData[i]));

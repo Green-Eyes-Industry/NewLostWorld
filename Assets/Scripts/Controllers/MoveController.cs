@@ -11,6 +11,7 @@ public class MoveController : MonoBehaviour
 
     /// <summary> Первая глава сюжета </summary>
     public GamePart firstPart;
+    public static MoveController moveC;
 
     private TextController _textController;
     [HideInInspector] public static Animator _mainAnimator;
@@ -48,15 +49,15 @@ public class MoveController : MonoBehaviour
     #region PART_START
 
     /// <summary> Запуск следующей главы </summary>
-    private void NextPart(GamePart nextPart)
+    public static void NextPart(GamePart nextPart)
     {
         _mainAnimator.SetTrigger("SwitchGameText");
-        if (nextPart is TextPart) ShowTextPart((TextPart)nextPart);
-        else if (nextPart is ChangePart) ShowChangePart((ChangePart)nextPart);
-        else if (nextPart is BattlePart) ShowBattlePart((BattlePart)nextPart);
-        else ShowFinalPart((FinalPart)nextPart);
+        if (nextPart is TextPart) moveC.ShowTextPart((TextPart)nextPart);
+        else if (nextPart is ChangePart) moveC.ShowChangePart((ChangePart)nextPart);
+        else if (nextPart is BattlePart) moveC.ShowBattlePart((BattlePart)nextPart);
+        else moveC.ShowFinalPart((FinalPart)nextPart);
 
-        _playerController.EventsStart(nextPart.mainEvents);
+        moveC._playerController.EventsStart(nextPart.mainEvents);
         
         thisPart = nextPart;
     }

@@ -8,49 +8,25 @@ namespace GUIInspector.NodeEditor
     {
         #region VARIABLES
 
-        private Color _gridColor = new Color(0.55f, 0.55f, 0.55f); // Цвет сетки
+        private Color _gridColor = new Color(0.2f, 0.2f, 0.2f); // Цвет сетки
         private Vector2 _offset; // Отступ поля
         private Vector2 _drag; // Отступ нод
 
         private GameSettings _mainSettings; // Настройки поля
         public static BehaviorEditor trBehaviorEditor; // ссылка на себя
-        private StoryData _storyData; // Данные сюжета
-        private Vector3 _mousePosition; // Позиция мыши
+        public static StoryData storyData; // Данные сюжета
+        private StoryData _storyData;
+        public static Vector3 _mousePosition; // Позиция мыши
         private bool _isClickOnWindow; // Нажал на окно или нет
         private GamePart _selectedNode; // Выбранная нода
+        private Texture _emptyTexture;
 
-        private Texture _connectTexture; // Текстура подключения
         private GamePart _sellectedToConnect; // Нода в памяти при подключении полключения
         private int _sellectionId; // Идентификатор типа подключения
 
-        public enum UserActions
-        {
-            ADD_TEXT_PART,
-            ADD_CHANGE_PART,
-            ADD_BATTLE_PART,
-            ADD_MAZE_PART,
-            ADD_EVENT_PART,
-            ADD_FINAL_PART,
-            ADD_LABEL_PART,
-            ADD_SLIDESHOW_PART,
-            ADD_TRANSIT
-        }
-
-        public enum AddEventActions
-        {
-            CHECK_DECISION,
-            CHECK_PLAYER_INFL,
-            CHECK_POINT,
-            EFFECT_INTERACT,
-            IMPORTANT_DECISION,
-            ITEM_INFL,
-            ITEM_INTERACT,
-            LOCATION_FIND,
-            MEMBER_TIME,
-            NON_PLAYER_INFL,
-            PLAYER_INFL,
-            RANDOM_PART
-        }
+        public int[] workStadyNum = new int[] { 0, 1, 2 };
+        public string[] workStadyNames = new string[] { "Пусто", "Разработка", "Готово" };
+        public int tempConnect = 0;
 
         #endregion
 
@@ -62,10 +38,10 @@ namespace GUIInspector.NodeEditor
         {
             BehaviorEditor editor = GetWindow<BehaviorEditor>();
             editor.title = "Node Editor";
-            editor._gridColor = new Color(0.55f, 0.55f, 0.55f);
+            editor._gridColor = new Color(0.2f, 0.2f, 0.2f);
             trBehaviorEditor = editor;
 
-            editor._connectTexture = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/Connect.png", typeof(Texture));
+            editor._emptyTexture = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/Connect.png", typeof(Texture));
         }
 
         #endregion
@@ -75,6 +51,7 @@ namespace GUIInspector.NodeEditor
         private void OnFocus()
         {
             if (EditorApplication.isPlaying) EditorApplication.isPaused = true;
+            if (EventEditor.eventEditor == null) EventEditor.eventEditor = (EventEditor)CreateInstance(typeof(EventEditor));
         }
 
         private void OnLostFocus()
@@ -86,18 +63,40 @@ namespace GUIInspector.NodeEditor
         {
             if (_storyData != null)
             {
+                if (storyData == null) storyData = _storyData;
+
+                EditorGUILayout.BeginVertical(_storyData.graphSkin.GetStyle("Box"), GUILayout.Width(Screen.width), GUILayout.Height(Screen.height));
+                
                 DrawGrid(10, 0.2f, _gridColor);
                 DrawGrid(50, 0.4f, _gridColor);
 
                 Event e = Event.current;
                 _mousePosition = e.mousePosition;
-                UserInput(e);
+                if (EventEditor.eventGraph == null) UserInput(e);
+                else EventEditor.eventThis = e;
+
+                GUI.Label(new Rect(Screen.width - 300, Screen.height - 50, 300, 50),
+                    storyData.name,
+                    storyData.graphSkin.GetStyle("Label"));
+
+                if (EventEditor.eventGraph == null)
+                {
+                    DrawWindows();
+                    GUI.backgroundColor = Color.white;
+                    DrawConnectors();
+                }
+                else EventEditor.ShowWindow();
+
 
                 EditorGUILayout.BeginHorizontal("TextArea");
+                if (EventEditor.eventGraph == null) EditorGUILayout.LabelField("Сценарий", GUILayout.Height(22));
+                else
+                {
+                    EditorGUILayout.LabelField("Евент " + EventEditor.eventGraph.name, GUILayout.Height(22));
+                    if (GUILayout.Button("Вернуться", GUILayout.Width(100), GUILayout.Height(18))) EventEditor.eventGraph = null;
+                }
 
-                EditorGUILayout.SelectableLabel("Текущие : ", GUILayout.Height(22));
-
-                if (GUILayout.Button("Данные сценария", GUILayout.Width(200))) Selection.activeObject = _storyData;
+                if (GUILayout.Button("Сценарий", GUILayout.Width(100))) Selection.activeObject = _storyData;
 
                 if (_mainSettings == null) _mainSettings = (GameSettings)Resources.Load("BaseParameters");
                 else
@@ -107,9 +106,8 @@ namespace GUIInspector.NodeEditor
 
                 if (GUILayout.Button("Сохранить", GUILayout.Width(100), GUILayout.Height(18))) SaveData();
 
+                EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
-
-                DrawWindows();
             }
             else
             {
@@ -117,7 +115,18 @@ namespace GUIInspector.NodeEditor
                 EditorGUILayout.Space();
                 _storyData = (StoryData)EditorGUILayout.ObjectField("Файл данных", _storyData, typeof(StoryData), false);
             }
+        }
 
+        private void DrawConnectors()
+        {
+            foreach (GamePart bn in _storyData.nodesData)
+                {
+                    if (bn != null)
+                    {
+                        DrawConnectPoint(bn);
+                        DrawEvents(bn);
+                    }
+                }
         }
 
         /// <summary> Отрисовка всех нод </summary>
@@ -129,16 +138,6 @@ namespace GUIInspector.NodeEditor
             {
                 BeginWindows();
 
-                foreach (GamePart bn in _storyData.nodesData)
-                {
-                    if (bn != null)
-                    {
-                        bn.DrawCurve(_storyData.nodesData);
-                        DrawConnectPoint(bn);
-                        bn.DrawEvents();
-                    }
-                }
-
                 for (int i = 0; i < _storyData.nodesData.Count; i++)
                 {
                     if (_storyData.nodesData[i] != null)
@@ -149,7 +148,7 @@ namespace GUIInspector.NodeEditor
                         {
                             if (MoveController.thisPart != null)
                             {
-                                if (MoveController.thisPart == _storyData.nodesData[i]) GUI.backgroundColor = new Color(0.5f, 0.5f, 0.75f);
+                                if (MoveController.thisPart == _storyData.nodesData[i]) GUI.backgroundColor = Color.blue;
                             }
                         }
                         else
@@ -163,7 +162,12 @@ namespace GUIInspector.NodeEditor
 
                             if (_sellectedToConnect != null)
                             {
-                                if (_sellectedToConnect.Equals(_storyData.nodesData[i])) GUI.backgroundColor = Color.red;
+                                if (_sellectedToConnect.Equals(_storyData.nodesData[i]))
+                                {
+                                    CreateCurve(ConnectPosition(_storyData.nodesData[i], tempConnect),
+                                        new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
+                                    Repaint();
+                                }
                             }
                         }
 
@@ -171,9 +175,12 @@ namespace GUIInspector.NodeEditor
                          i,
                          _storyData.nodesData[i].windowRect,
                          DrawNodeWindow,
-                         _storyData.nodesData[i].windowTitle);
+                         _storyData.nodesData[i].windowTitle, storyData.graphSkin.GetStyle("Window"));
+
+                        DrawCurve(_storyData.nodesData[i]);
                     }
                 }
+                
 
                 EndWindows();
             }
@@ -190,18 +197,68 @@ namespace GUIInspector.NodeEditor
         {
             if (bn is TextPart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
             }
             else if (bn is ChangePart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
-                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1, bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
+
+                if (GUI.Button(ConnectPosition(bn, 1), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(1, bn);
+                    tempConnect = 1;
+                }
             }
             else if (bn is BattlePart)
             {
-                if (GUI.Button(bn.ConnectPosition(0), _connectTexture)) ConnectorClick(0, bn);
-                if (GUI.Button(bn.ConnectPosition(1), _connectTexture)) ConnectorClick(1, bn);
-                if (GUI.Button(bn.ConnectPosition(2), _connectTexture)) ConnectorClick(2, bn);
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
+
+                if (GUI.Button(ConnectPosition(bn, 1), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(1, bn);
+                    tempConnect = 1;
+                }
+
+                if (GUI.Button(ConnectPosition(bn, 2), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(2, bn);
+                    tempConnect = 2;
+                }
+            }
+            else if (bn is LeandPart)
+            {
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
+            }
+
+            else if (bn is EventPart)
+            {
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
+
+                if (GUI.Button(ConnectPosition(bn, 2), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(2, bn);
+                    tempConnect = 2;
+                }
             }
         }
 
@@ -217,42 +274,45 @@ namespace GUIInspector.NodeEditor
         /// <summary> Отрисовка отдельной ноды </summary>
         private void DrawNodeWindow(int id)
         {
-            _storyData.nodesData[id].DrawWindow();
+            if (!_storyData.nodesData[id].windowSizeStady)
+            {
+                EditorGUILayout.BeginHorizontal();
+                _storyData.nodesData[id].workStady = EditorGUILayout.IntPopup(
+                    _storyData.nodesData[id].workStady,
+                    workStadyNames, workStadyNum,
+                    GUILayout.Width(85f));
+                _storyData.nodesData[id].isShowComment = EditorGUILayout.Toggle(_storyData.nodesData[id].isShowComment);
+                EditorGUILayout.EndHorizontal();
+
+                if (_storyData.nodesData[id].isShowComment)
+                {
+                    _storyData.nodesData[id].windowRect.height = _storyData.baseNodeCommentHeight;
+                    _storyData.nodesData[id].comment = EditorGUILayout.TextArea(
+                        _storyData.nodesData[id].comment, _storyData.graphSkin.GetStyle("TextArea"),
+                        GUILayout.Width(100f),
+                        GUILayout.Height(70));
+                }
+                else _storyData.nodesData[id].windowRect.height = _storyData.baseNodeLgHeight;
+            }
+
             GUI.DragWindow();
         }
 
         /// <summary> Действия пользователя </summary>
         private void UserInput(Event e)
         {
-            if (e.button == 1)
-            {
-                if (e.type == EventType.MouseDown) RightMouseClick(e);
-            }
+            if (e.button == 1) { if (e.type == EventType.MouseDown) RightMouseClick(e); }
+            if (e.button == 0) { if (e.type == EventType.MouseDown) LeftMouseClick(); }
+            if (e.type == EventType.KeyDown) { if (e.keyCode == KeyCode.Delete) DeleteKeyDown(); }
+            if (e.type == EventType.MouseDrag) { if (e.button == 2) OnDrag(e.delta); }
 
-            if (e.button == 0)
+            if(e.type == EventType.ScrollWheel)
             {
-                if (e.type == EventType.MouseDown) LeftMouseClick();
-            }
-
-            if (e.type == EventType.KeyDown)
-            {
-                if (e.keyCode == KeyCode.Delete) DeleteKeyDown();
-                if(e.keyCode == KeyCode.N)
+                for (int i = 0; i < _storyData.nodesData.Count; i++)
                 {
-                    for (int i = 0; i < _storyData.nodesData.Count; i++)
-                    {
-                        _storyData.nodesData[i].SetWindowStady();
-                    }
-                    Repaint();
+                    SetWindowStady(_storyData.nodesData[i]);
                 }
-            }
-
-            if (e.type == EventType.MouseDrag)
-            {
-                if (e.button == 2)
-                {
-                    OnDrag(e.delta);
-                }
+                Repaint();
             }
         }
 
@@ -270,14 +330,15 @@ namespace GUIInspector.NodeEditor
                     {
                         _isClickOnWindow = true;
                         _selectedNode = _storyData.nodesData[i];
+                        GraphChangeController.selectedNode = _storyData.nodesData[i];
                         Selection.activeObject = _storyData.nodesData[i];
                         break;
                     }
                 }
             }
 
-            if (!_isClickOnWindow) AddNewNode(e);
-            else AddEventToPart(e);
+            if (!_isClickOnWindow) GraphChangeController.AddNewNode(e);
+            else GraphChangeController.AddEventToPart(e);
         }
 
         /// <summary> Левый клик мыши </summary>
@@ -293,25 +354,17 @@ namespace GUIInspector.NodeEditor
                         {
                             switch (_sellectionId)
                             {
-                                case 0:
-                                    _sellectedToConnect.movePart_1 = _storyData.nodesData[i];
-                                    _sellectedToConnect = null;
-                                    break;
-
-                                case 1:
-                                    _sellectedToConnect.movePart_2 = _storyData.nodesData[i];
-                                    _sellectedToConnect = null;
-                                    break;
-
-                                case 2:
-                                    _sellectedToConnect.movePart_3 = _storyData.nodesData[i];
-                                    _sellectedToConnect = null;
-                                    break;
+                                case 0: _sellectedToConnect.movePart_1 = _storyData.nodesData[i]; break;
+                                case 1: _sellectedToConnect.movePart_2 = _storyData.nodesData[i]; break;
+                                case 2: _sellectedToConnect.movePart_3 = _storyData.nodesData[i]; break;
                             }
+
+                            _sellectedToConnect = null;
                         }
                         else
                         {
                             _selectedNode = _storyData.nodesData[i];
+                            GraphChangeController.selectedNode = _storyData.nodesData[i];
                             Selection.activeObject = _storyData.nodesData[i];
                         }
                         break;
@@ -345,321 +398,245 @@ namespace GUIInspector.NodeEditor
                 _storyData.nodesData.Remove(_selectedNode);
                 AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNode));
                 _selectedNode = null;
+                GraphChangeController.selectedNode = null;
                 SaveData();
                 Repaint();
             }
         }
 
-        /// <summary> Проверка действия </summary>
-        private void ContexCallBack(object o)
-        {
-            Object[] loadedObj = Resources.LoadAll("GameParts", typeof(GamePart));
-
-            UserActions a = (UserActions)o;
-
-            switch (a)
-            {
-                case UserActions.ADD_TEXT_PART:
-
-                    string nameTextPart = loadedObj.Length + "_TextPart";
-                    string pathTextPartAsset = "Assets/Resources/GameParts/" + nameTextPart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(TextPart)), pathTextPartAsset);
-                    TextPart textPart = (TextPart)AssetDatabase.LoadAssetAtPath(pathTextPartAsset, typeof(TextPart));
-
-                    textPart.windowTitle = nameTextPart;
-                    textPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-
-                    _storyData.nodesData.Add(textPart);
-                    SaveData();
-
-                    break;
-
-                case UserActions.ADD_CHANGE_PART:
-
-                    string nameChangePart = loadedObj.Length + "_ChangePart";
-                    string pathChangePartAsset = "Assets/Resources/GameParts/" + nameChangePart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(ChangePart)), pathChangePartAsset);
-                    ChangePart changePart = (ChangePart)AssetDatabase.LoadAssetAtPath(pathChangePartAsset, typeof(ChangePart));
-
-                    changePart.windowTitle = nameChangePart;
-                    changePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-
-                    _storyData.nodesData.Add(changePart);
-                    SaveData();
-
-                    break;
-
-                case UserActions.ADD_BATTLE_PART:
-
-                    string nameBattlePart = loadedObj.Length + "_BattlePart";
-                    string pathBattlePartAsset = "Assets/Resources/GameParts/" + nameBattlePart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(BattlePart)), pathBattlePartAsset);
-                    BattlePart battlePart = (BattlePart)AssetDatabase.LoadAssetAtPath(pathBattlePartAsset, typeof(BattlePart));
-
-                    battlePart.windowTitle = nameBattlePart;
-                    battlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-
-                    _storyData.nodesData.Add(battlePart);
-                    SaveData();
-
-                    break;
-
-                case UserActions.ADD_MAZE_PART:
-
-                    string namePazzlePart = loadedObj.Length + "_PazzlePart";
-                    string pathPazzlePartAsset = "Assets/Resources/GameParts/" + namePazzlePart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(PazzlePart)), pathPazzlePartAsset);
-                    PazzlePart pazzlePart = (PazzlePart)AssetDatabase.LoadAssetAtPath(pathPazzlePartAsset, typeof(PazzlePart));
-
-                    pazzlePart.windowTitle = namePazzlePart;
-                    pazzlePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-
-                    _storyData.nodesData.Add(pazzlePart);
-                    SaveData();
-
-                    break;
-
-                case UserActions.ADD_EVENT_PART:
-
-                    string nameEventPart = loadedObj.Length + "_EventPart";
-                    string pathEventPartAsset = "Assets/Resources/GameParts/" + nameEventPart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(EventPart)), pathEventPartAsset);
-                    EventPart eventPart = (EventPart)AssetDatabase.LoadAssetAtPath(pathEventPartAsset, typeof(EventPart));
-
-                    eventPart.windowTitle = nameEventPart;
-                    eventPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-
-                    _storyData.nodesData.Add(eventPart);
-                    SaveData();
-
-                    break;
-
-                case UserActions.ADD_FINAL_PART:
-
-                    string nameFinalPart = loadedObj.Length + "_FinalPart";
-                    string pathFinalPartAsset = "Assets/Resources/GameParts/" + nameFinalPart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(FinalPart)), pathFinalPartAsset);
-                    FinalPart finalPart = (FinalPart)AssetDatabase.LoadAssetAtPath(pathFinalPartAsset, typeof(FinalPart));
-
-                    finalPart.windowTitle = nameFinalPart;
-                    finalPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-
-                    _storyData.nodesData.Add(finalPart);
-                    SaveData();
-
-                    break;
-
-                case UserActions.ADD_LABEL_PART:
-
-                    string nameLeandPart = loadedObj.Length + "_LeandPart";
-                    string pathLeandPartAsset = "Assets/Resources/GameParts/" + nameLeandPart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(LeandPart)), pathLeandPartAsset);
-                    LeandPart leandPart = (LeandPart)AssetDatabase.LoadAssetAtPath(pathLeandPartAsset, typeof(LeandPart));
-
-                    leandPart.windowTitle = nameLeandPart;
-                    leandPart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-
-                    _storyData.nodesData.Add(leandPart);
-                    SaveData();
-
-                    break;
-
-                case UserActions.ADD_SLIDESHOW_PART:
-
-                    string nameMoviePart = loadedObj.Length + "_MoviePart";
-                    string pathMoviePartAsset = "Assets/Resources/GameParts/" + nameMoviePart + ".asset";
-
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(MoviePart)), pathMoviePartAsset);
-                    MoviePart moviePart = (MoviePart)AssetDatabase.LoadAssetAtPath(pathMoviePartAsset, typeof(MoviePart));
-
-                    moviePart.windowTitle = nameMoviePart;
-                    moviePart.windowRect = new Rect(_mousePosition.x, _mousePosition.y, 120, 40);
-
-                    _storyData.nodesData.Add(moviePart);
-                    SaveData();
-
-                    break;
-
-                case UserActions.ADD_TRANSIT:
-
-                    break;
-            }
-        }
-
-        /// <summary> Проверка действия добавления евента </summary>
-        private void AddEventMethod(object o)
-        {
-            AddEventActions a = (AddEventActions)o;
-
-            string path = "Assets/Resources/GameEvents/";
-            string nameEvent;
-
-            switch (a)
-            {
-                case AddEventActions.CHECK_DECISION:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_CheckDecision.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckDecision)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((CheckDecision)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(CheckDecision)));
-
-                    break;
-
-                case AddEventActions.CHECK_PLAYER_INFL:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_CheckPlayerInfl.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckPlayerInfl)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((CheckPlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(CheckPlayerInfl)));
-
-                    break;
-
-                case AddEventActions.CHECK_POINT:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_CheckPoint.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(CheckPoint)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((CheckPoint)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(CheckPoint)));
-
-                    break;
-
-                case AddEventActions.EFFECT_INTERACT:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_EffectInteract.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(EffectInteract)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((EffectInteract)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(EffectInteract)));
-
-                    break;
-
-                case AddEventActions.IMPORTANT_DECISION:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_ImportantDecision.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(ImportantDecision)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((ImportantDecision)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ImportantDecision)));
-
-                    break;
-
-                case AddEventActions.ITEM_INFL:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_ItemInfl.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(ItemInfl)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((ItemInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ItemInfl)));
-
-                    break;
-
-                case AddEventActions.ITEM_INTERACT:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_ItemInteract.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(ItemInteract)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((ItemInteract)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(ItemInteract)));
-
-                    break;
-
-                case AddEventActions.LOCATION_FIND:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_LocationFind.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(LocationFind)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((LocationFind)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(LocationFind)));
-
-                    break;
-
-                case AddEventActions.MEMBER_TIME:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_MemberTime.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(MemberTime)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((MemberTime)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(MemberTime)));
-
-                    break;
-
-                case AddEventActions.NON_PLAYER_INFL:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_NonPlayerInfl.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(NonPlayerInfl)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((NonPlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(NonPlayerInfl)));
-
-                    break;
-
-                case AddEventActions.PLAYER_INFL:
-                    
-                    nameEvent = _selectedNode.mainEvents.Count + "_PlayerInfl.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(PlayerInfl)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((PlayerInfl)AssetDatabase.LoadAssetAtPath(path + nameEvent,typeof(PlayerInfl)));
-
-                    break;
-
-                case AddEventActions.RANDOM_PART:
-
-                    nameEvent = _selectedNode.mainEvents.Count + "_RandomPart.asset";
-                    AssetDatabase.CreateAsset(CreateInstance(typeof(RandomPart)), path + nameEvent);
-                    _selectedNode.mainEvents.Add((RandomPart)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(RandomPart)));
-
-                    break;
-            }
-        }
-
         #endregion
 
-        #region HELPERS
+        #region NODE_DRAW
 
-        /// <summary> Создать новую ноду </summary>
-        private void AddNewNode(Event e)
+        /// <summary> Отрисовка связей </summary>
+        public void DrawCurve(GamePart partNode)
         {
-            GenericMenu menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Создать главу/Текстовая"), false, ContexCallBack, UserActions.ADD_TEXT_PART);
-            menu.AddItem(new GUIContent("Создать главу/Выбора"), false, ContexCallBack, UserActions.ADD_CHANGE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Боя"), false, ContexCallBack, UserActions.ADD_BATTLE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Загадка"), false, ContexCallBack, UserActions.ADD_MAZE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Эвент"), false, ContexCallBack, UserActions.ADD_EVENT_PART);
-            menu.AddItem(new GUIContent("Создать главу/Финальная"), false, ContexCallBack, UserActions.ADD_FINAL_PART);
-            menu.AddItem(new GUIContent("Создать главу/Вставка"), false, ContexCallBack, UserActions.ADD_LABEL_PART);
-            menu.AddItem(new GUIContent("Создать главу/Слайдшоу"), false, ContexCallBack, UserActions.ADD_SLIDESHOW_PART);
-            menu.ShowAsContext();
-            e.Use();
+            Color baseConnectColor = new Color(1, 1, 1, 0.75f);
+
+            if (partNode.movePart_1 != null)
+            {
+                if (storyData.nodesData.Contains(partNode.movePart_1) && partNode.movePart_1 != this)
+                    CreateCurve(ConnectPosition(partNode, 0), partNode.movePart_1.windowRect, baseConnectColor);
+            }
+
+            if (partNode.movePart_2 != null)
+            {
+                if (storyData.nodesData.Contains(partNode.movePart_2) && partNode.movePart_2 != this)
+                    CreateCurve(ConnectPosition(partNode, 1), partNode.movePart_2.windowRect, baseConnectColor);
+            }
+
+            if (partNode.movePart_3 != null)
+            {
+                if (storyData.nodesData.Contains(partNode.movePart_3) && partNode.movePart_3 != this)
+                    CreateCurve(ConnectPosition(partNode, 2), partNode.movePart_3.windowRect, baseConnectColor);
+            }
+
+            DrawRandomCurve(partNode);
         }
 
-        /// <summary> Добавить событие к главе </summary>
-        private void AddEventToPart(Event e)
+        /// <summary> Отрисовка связей Random Event </summary>
+        private void DrawRandomCurve(GamePart partNode)
         {
-            GenericMenu menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Добавить событие/Контрольная точка"), false, AddEventMethod, AddEventActions.CHECK_POINT);
-            menu.AddItem(new GUIContent("Добавить событие/Важное решение"), false, AddEventMethod, AddEventActions.IMPORTANT_DECISION);
-            menu.AddItem(new GUIContent("Добавить событие/Проверка решения"), false, AddEventMethod, AddEventActions.CHECK_DECISION);
-            menu.AddItem(new GUIContent("Добавить событие/Влияние на игрока"), false, AddEventMethod, AddEventActions.PLAYER_INFL);
-            menu.AddItem(new GUIContent("Добавить событие/Влияние на НПС"), false, AddEventMethod, AddEventActions.NON_PLAYER_INFL);
-            menu.AddItem(new GUIContent("Добавить событие/Проверка влияния персонажа"), false, AddEventMethod, AddEventActions.CHECK_PLAYER_INFL);
-            menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с эффектом"), false, AddEventMethod, AddEventActions.EFFECT_INTERACT);
-            menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с предметом"), false, AddEventMethod, AddEventActions.ITEM_INTERACT);
-            menu.AddItem(new GUIContent("Добавить событие/Использование предмета"), false, AddEventMethod, AddEventActions.ITEM_INFL);
-            menu.AddItem(new GUIContent("Добавить событие/Найдена локация"), false, AddEventMethod, AddEventActions.LOCATION_FIND);
-            menu.AddItem(new GUIContent("Добавить событие/Воспоминание"), false, AddEventMethod, AddEventActions.MEMBER_TIME);
-            menu.AddItem(new GUIContent("Добавить событие/Случайный переход"), false, AddEventMethod, AddEventActions.RANDOM_PART);
-            menu.ShowAsContext();
-            e.Use();
+            if (partNode.mainEvents != null)
+            {
+                bool checkRandom = false;
+                RandomPart randomEvent = null;
+
+                for (int i = 0; i < partNode.mainEvents.Count; i++)
+                {
+                    if (partNode.mainEvents[i] is RandomPart)
+                    {
+                        checkRandom = true;
+                        randomEvent = (RandomPart)partNode.mainEvents[i];
+                    }
+                }
+
+                if (checkRandom)
+                {
+                    Color randomConnectColor = new Color(1f, 0, 0, 0.75f);
+
+                    if (randomEvent.part_1_random != null && randomEvent.part_1_random != this)
+                    {
+                        CreateCurve(ConnectPosition(partNode, 0), randomEvent.part_1_random.windowRect, randomConnectColor);
+                    }
+
+                    if (randomEvent.part_2_random != null && randomEvent.part_2_random != this)
+                    {
+                        CreateCurve(ConnectPosition(partNode, 1), randomEvent.part_2_random.windowRect, randomConnectColor);
+                    }
+
+                    if (randomEvent.part_3_random != null && randomEvent.part_3_random != this)
+                    {
+                        CreateCurve(ConnectPosition(partNode, 2), randomEvent.part_3_random.windowRect, randomConnectColor);
+                    }
+                }
+            }
+        }
+
+        /// <summary> Связь </summary>
+        private void CreateCurve(Rect start, Rect end, Color colorCurve)
+        {
+            Vector3 startPos = new Vector3(
+                start.x + start.width,
+                start.y + (start.height * .5f),
+                0);
+
+            Vector3 endPos = new Vector3(
+                end.x,
+                end.y + (end.height * .5f),
+                0);
+
+            Vector3 startTan = startPos + Vector3.right * 50;
+            Vector3 endTan = endPos + Vector3.left * 50;
+
+            Handles.DrawBezier(startPos, endPos, startTan, endTan, colorCurve, null, 3f);
+        }
+
+        /// <summary> Позиция подключения следующей главы </summary>
+        public Rect ConnectPosition(GamePart partNode, int id)
+        {
+            Rect nodeConnectPosition = new Rect(
+                    partNode.windowRect.x + partNode.windowRect.width + 5,
+                    (partNode.windowRect.y + 2) + (13 * id),
+                    11,
+                    11);
+
+            return nodeConnectPosition;
+        }
+
+        /// <summary> Отрисовка евентов </summary>
+        public void DrawEvents(GamePart partNode)
+        {
+            int sizeEvent;
+
+            if (partNode.windowSizeStady) sizeEvent = 7;
+            else sizeEvent = 20;
+
+            GUIStyle st = new GUIStyle();
+
+            if (partNode.mainEvents != null)
+            {
+                for (int i = 0; i < partNode.mainEvents.Count; i++)
+                {
+                    if (i < 6)
+                    {
+                        GUI.Box(new Rect(
+                    partNode.windowRect.x + (sizeEvent * i),
+                    partNode.windowRect.y + partNode.windowRect.height,
+                    sizeEvent,
+                    sizeEvent),
+                    GetEventTextures(partNode.mainEvents[i]), st);
+                    }
+                    else
+                    {
+                        if (i < 11)
+                        {
+                            GUI.Box(new Rect(
+                        partNode.windowRect.x + (sizeEvent * (i - 6)),
+                        partNode.windowRect.y + partNode.windowRect.height + sizeEvent,
+                        sizeEvent,
+                        sizeEvent),
+                        GetEventTextures(partNode.mainEvents[i]), st);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary> Получить текстуру эвента </summary>
+        private Texture GetEventTextures(GameEvent crEvent)
+        {
+            Texture eventIco;
+            string pathToIco;
+
+            if (crEvent is CheckDecision) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckDecision.png";
+            else if (crEvent is CheckPlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckPlayerInfl.png";
+            else if (crEvent is CheckPoint) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckPoint.png";
+            else if (crEvent is EffectInteract) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/EffectInteract.png";
+            else if (crEvent is ImportantDecision) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ImportantDecision.png";
+            else if (crEvent is ItemInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInfl.png";
+            else if (crEvent is ItemInteract) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInteract.png";
+            else if (crEvent is NonPlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/NonPlayerInfl.png";
+            else if (crEvent is PlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/PlayerInfl.png";
+            else if (crEvent is LocationFind) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/LocationFind.png";
+            else if (crEvent is MemberTime) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/MemberTime.png";
+            else if (crEvent is RandomPart) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/RandomPart.png";
+            else return null;
+
+            eventIco = (Texture)AssetDatabase.LoadAssetAtPath(pathToIco, typeof(Texture));
+            return eventIco;
+        }
+
+        /// <summary> Масштаб окна </summary>
+        public void SetWindowStady(GamePart partNode)
+        {
+            partNode.windowSizeStady = !partNode.windowSizeStady;
+
+            if (partNode.windowSizeStady)
+            {
+                partNode.windowRect.width = 40;
+                partNode.windowRect.height = 38;
+
+                partNode.windowRect.x /= 2f;
+                partNode.windowRect.y /= 2f;
+
+                partNode.windowRect.x += Screen.width / 4f;
+                partNode.windowRect.y += Screen.height / 4f;
+
+                partNode._memberTitle = partNode.windowTitle;
+                partNode.windowTitle = partNode.windowTitle.Substring(0, GetShortNameNode(partNode.windowTitle));
+
+                partNode.memberComment = partNode.isShowComment;
+
+                if (partNode.isShowComment) partNode.isShowComment = false;
+            }
+            else
+            {
+                partNode.windowRect.width = 120;
+                partNode.windowRect.height = 40;
+
+                partNode.windowRect.x *= 2f;
+                partNode.windowRect.y *= 2f;
+
+                partNode.windowRect.x -= Screen.width / 2f;
+                partNode.windowRect.y -= Screen.height / 2f;
+
+                partNode.windowTitle = partNode._memberTitle;
+
+                partNode.isShowComment = partNode.memberComment;
+            }
+        }
+
+        /// <summary> Насколько сокращать имя </summary>
+        private int GetShortNameNode(string longName)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (longName[i] == '_') return i;
+            }
+
+            return 4;
         }
 
         /// <summary> Сохранить данные </summary>
-        private void SaveData()
+        public static void SaveData()
         {
-            for (int i = 0; i < _storyData.nodesData.Count; i++)
+            for (int i = 0; i < storyData.nodesData.Count; i++)
             {
-                if (_storyData.nodesData[i] == null)
+                if (storyData.nodesData[i] == null)
                 {
-                    _storyData.nodesData.RemoveAt(i);
+                    storyData.nodesData.RemoveAt(i);
                     SaveData();
                     return;
                 }
             }
 
-            for (int i = 0; i < _storyData.nodesData.Count; i++)
+            for (int i = 0; i < storyData.nodesData.Count; i++)
             {
-                EditorUtility.SetDirty(_storyData.nodesData[i]);
+                EditorUtility.SetDirty(storyData.nodesData[i]);
             }
 
-            EditorUtility.SetDirty(_storyData);
+            EditorUtility.SetDirty(storyData);
         }
 
         /// <summary> Отрисовка сетки </summary>
@@ -670,7 +647,7 @@ namespace GUIInspector.NodeEditor
 
             Handles.BeginGUI();
             Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
-
+            
             _offset += _drag * 0.5f;
             Vector3 newOffset = new Vector3(_offset.x % gridSpacing, _offset.y % gridSpacing, 0);
 
@@ -684,7 +661,7 @@ namespace GUIInspector.NodeEditor
                 Handles.DrawLine(new Vector3(-gridSpacing, gridSpacing * j, 0) + newOffset, new Vector3(position.width, gridSpacing * j, 0f) + newOffset);
             }
 
-            Handles.color = Color.white;
+            Handles.color = Color.gray;
             Handles.EndGUI();
         }
 

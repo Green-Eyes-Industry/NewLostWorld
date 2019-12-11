@@ -137,14 +137,14 @@ public class DataController : MonoBehaviour
 
     #region SAVE_METHODS
 
-    /// <summary> Согранить последнюю главу </summary>
+    /// <summary> Сохранить последнюю главу </summary>
     public static void SaveLastPart()
     {
         PlayerPrefs.SetString("LastPart", MoveController.thisPart.name);
         PlayerPrefs.Save();
     }
 
-    /// <summary> Согранить характеристики персонажа </summary>
+    /// <summary> Сохранить характеристики персонажа </summary>
     public static void SaveCharacteristic()
     {
         PlayerPrefs.SetInt("Health", playerData.playerHealth);
@@ -152,7 +152,7 @@ public class DataController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary> Согранить инвентарь персонажа </summary>
+    /// <summary> Сохранить инвентарь персонажа </summary>
     public static void SaveInventory()
     {
         if (playerData.playerInventory != null)
@@ -176,7 +176,7 @@ public class DataController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary> Согранить эффекты на персонаже </summary>
+    /// <summary> Сохранить эффекты на персонаже </summary>
     public static void SaveEffects()
     {
         if (playerData.playerEffects != null)
@@ -200,7 +200,7 @@ public class DataController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary> Согранить карту </summary>
+    /// <summary> Сохранить карту </summary>
     public static void SaveMap()
     {
         if (playerData.playerMap != null)
@@ -224,7 +224,7 @@ public class DataController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary> Согранить заметки </summary>
+    /// <summary> Сохранить заметки </summary>
     public static void SaveNotes()
     {
         if (playerData.playerDecisions != null)
@@ -248,7 +248,7 @@ public class DataController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary> Согранить решения </summary>
+    /// <summary> Сохранить решения </summary>
     public static void SaveDecisons()
     {
         if (playerData.playerNotes != null)

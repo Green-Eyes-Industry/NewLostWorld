@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 220329a67e3a9ab48991cf9cd8c5c581, type: 3}
+  m_Name: 13_TextPart
+  m_EditorClassIdentifier: 
+  mainText: "\u041D\u0435 \u0443\u0441\u043F\u0435\u043B\u0438 \u043E\u043F\u043E\u043C\u043D\u0438\u0442\u0441\u044F
+    \u043A\u0430\u043A \u0432 \u043F\u0440\u044F\u043C\u043E \u0432 \u0432\u0430\u0441
+    \u043F\u043E\u043F\u0430\u043B\u0430 \u0441\u0442\u0440\u0435\u043B\u0430...\r\n\u0412\u044B
+    \u0443\u043F\u0430\u043B\u0438 \u043F\u043E\u0442\u0435\u0440\u044F\u0432 \u0441\u043E\u0437\u043D\u0430\u043D\u0438\u0435..."
+  mainEvents: []
+  movePart_1: {fileID: 0}
+  movePart_2: {fileID: 0}
+  movePart_3: {fileID: 0}
+  windowSizeStady: 1
+  memberComment: 0
+  windowRect:
+    serializedVersion: 2
+    x: 841.5
+    y: -49.5
+    width: 40
+    height: 38
+  openedHeight: 120
+  windowTitle: 13
+  _memberTitle: 13_TextPart
+  part: {fileID: 0}
+  workStady: 1
+  comment: 
+  isShowComment: 0
+  buttonText_1: '...'

@@ -16,19 +16,31 @@ namespace GUIInspector
     public class LeandPartGUI_Inspector : Editor
     {
         private LeandPart _leandPart;
+        private Texture dellConnect;
+        private Texture noneConnect;
 
-        private void OnEnable() => _leandPart = (LeandPart)target;
+        private void OnEnable()
+        {
+            _leandPart = (LeandPart)target;
+            dellConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/DellConnectButton.png", typeof(Texture));
+            noneConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/NullConnectButton.png", typeof(Texture));
+        }
 
         public override void OnInspectorGUI()
         {
             GUILayout.Label("Текстовые поля");
 
-            GUILayout.BeginVertical("Box");
+            GUILayout.BeginHorizontal("Box");
 
             _leandPart.mainText = EditorGUILayout.TextArea(_leandPart.mainText, GUILayout.Height(100));
-            _leandPart.movePart_1 = (GamePart)EditorGUILayout.ObjectField("Следующая глава: ", _leandPart.movePart_1, typeof(GamePart), true);
 
-            GUILayout.EndVertical();
+            if (_leandPart.movePart_1 != null)
+            {
+                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _leandPart.movePart_1 = null;
+            }
+            else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
+
+            GUILayout.EndHorizontal();
         }
     }
 }

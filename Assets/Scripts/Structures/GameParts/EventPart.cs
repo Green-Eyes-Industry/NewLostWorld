@@ -11,21 +11,15 @@ public class EventPart : GamePart
     /// <summary> Время на эвент </summary>
     public int timeToEvent;
 
-    /// <summary> Финальная глава </summary>
-    public GamePart finalPart;
-
-    /// <summary> Глава при провале </summary>
-    public GamePart failPart;
-
     /// <summary> Список глав эвента </summary>
-    public List<GamePart> eventParts;
+    public List<SubEventPart> eventParts;
 
     /// <summary> Проверка главы </summary>
     /// <param name="currentPart"> Текущая глава </param>
     /// <returns> True если вы добрались к последней главе </returns>
     public bool CheckEvent(GamePart currentPart)
     {
-        if (currentPart == finalPart) return true;
+        if (currentPart == movePart_3) return true;
         else return false;
     }
 }
@@ -47,8 +41,8 @@ namespace GUIInspector
         {
             GUILayout.Label("Параметры");
 
-            _eventPart.failPart = (GamePart)EditorGUILayout.ObjectField("Глава при провале :", _eventPart.failPart, typeof(GamePart), true);
-            _eventPart.finalPart = (GamePart)EditorGUILayout.ObjectField("Глава при победе :", _eventPart.finalPart, typeof(GamePart), true);
+            _eventPart.movePart_1 = (GamePart)EditorGUILayout.ObjectField("Глава при победе :", _eventPart.movePart_1, typeof(GamePart), true);
+            _eventPart.movePart_3 = (GamePart)EditorGUILayout.ObjectField("Глава при провале :", _eventPart.movePart_3, typeof(GamePart), true);
             EditorGUILayout.Space();
 
             _eventPart.timeToEvent = EditorGUILayout.IntSlider("Время на выполнение: ", _eventPart.timeToEvent, 0, 120);
@@ -56,19 +50,23 @@ namespace GUIInspector
 
             GUILayout.BeginScrollView(_partsSlider, "Box");
 
-            if (_eventPart.eventParts.Count > 0)
+            if (_eventPart.eventParts != null)
             {
-                for (int i = 0; i < _eventPart.eventParts.Count; i++)
+                if (_eventPart.eventParts.Count > 0)
                 {
-                    GUILayout.BeginHorizontal();
+                    for (int i = 0; i < _eventPart.eventParts.Count; i++)
+                    {
+                        GUILayout.BeginHorizontal();
 
-                    _eventPart.eventParts[i] = (GamePart)EditorGUILayout.ObjectField(_eventPart.eventParts[i], typeof(GamePart), true);
-                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _eventPart.eventParts.RemoveAt(i);
+                        _eventPart.eventParts[i] = (SubEventPart)EditorGUILayout.ObjectField(_eventPart.eventParts[i], typeof(SubEventPart), true);
+                        if (GUILayout.Button("Удалить", GUILayout.Width(70))) _eventPart.eventParts.RemoveAt(i);
 
-                    GUILayout.EndHorizontal();
+                        GUILayout.EndHorizontal();
+                    }
                 }
+                else GUILayout.Label("Нет глав");
             }
-            else GUILayout.Label("Нет глав");
+            else _eventPart.eventParts = new List<SubEventPart>();
 
             GUILayout.EndScrollView();
 

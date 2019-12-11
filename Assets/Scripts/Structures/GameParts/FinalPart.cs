@@ -2,6 +2,7 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using System.Collections.Generic;
 #endif
 
 [CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Финальная глава", order = 5)]
@@ -23,8 +24,19 @@ namespace GUIInspector
     public class FinalPartGUI_Inspector : Editor
     {
         private FinalPart _finalPart;
+        private List<Achivemants> _achivemants;
+        private string[] _newAchiveNames;
+        private Achivemants[] _newAchiveFiles;
+        private int _newAchiveIndex;
+        private int _memIndex;
 
-        private void OnEnable() => _finalPart = (FinalPart)target;
+        private void OnEnable()
+        {
+            _memIndex = 999;
+            _finalPart = (FinalPart)target;
+            _achivemants = new List<Achivemants>();
+            ReloadAchives();
+        }
 
         public override void OnInspectorGUI()
         {
@@ -41,9 +53,67 @@ namespace GUIInspector
 
             GUILayout.EndVertical();
 
-            _finalPart.newAchive = (Achivemants)EditorGUILayout.ObjectField("Получаемое достижение :", _finalPart.newAchive, typeof(Achivemants), true);
+            EditorGUILayout.BeginHorizontal();
 
+            _newAchiveIndex = EditorGUILayout.Popup(_newAchiveIndex, _newAchiveNames);
+
+            if(_memIndex != _newAchiveIndex)
+            {
+                _memIndex = _newAchiveIndex;
+                _finalPart.newAchive = _newAchiveFiles[_memIndex];
+            }
+            
+            if (_finalPart.newAchive != null)
+            {
+                GUI.backgroundColor = Color.green;
+                if (GUILayout.Button("Создать", GUILayout.Width(70)))
+                {
+                    string nameFile = _newAchiveFiles.Length + "_Achive";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(Achivemants)), "Assets/Resources/Achivemants/" + nameFile + ".asset");
+                    ReloadAchives();
+                }
+
+                GUI.backgroundColor = Color.red;
+                if (GUILayout.Button("Удалить", GUILayout.Width(70)))
+                {
+                    AssetDatabase.DeleteAsset("Assets/Resources/Achivemants/" + _finalPart.newAchive.name + ".asset");
+                    ReloadAchives();
+                }
+            }
+            else
+            {
+                GUI.backgroundColor = Color.green;
+                if (GUILayout.Button("Создать", GUILayout.Width(70)))
+                {
+                    string nameFile = _newAchiveFiles.Length + "_Achive";
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(Achivemants)), "Assets/Resources/Achivemants/" + nameFile + ".asset");
+                    _finalPart.newAchive = (Achivemants)Resources.Load("Achivemants/" + nameFile, typeof(Achivemants));
+                    ReloadAchives();
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = Color.white;
             if (_finalPart.newAchive != null) AchivemantsGUI_Inspector.ShowAchiveGUI(_finalPart.newAchive);
+        }
+
+        /// <summary> Перезагрузить список достижений </summary>
+        private void ReloadAchives()
+        {
+            Object[] obj = Resources.LoadAll("Achivemants", typeof(Achivemants));
+
+            List<string> _newAchiveList = new List<string>();
+            List<Achivemants> _newAchiveFileList = new List<Achivemants>();
+
+            for (int i = 0; i < obj.Length; i++)
+            {
+                _achivemants.Add((Achivemants)obj[i]);
+                _newAchiveList.Add(_achivemants[i].achiveName);
+                _newAchiveFileList.Add(_achivemants[i]);
+            }
+
+            _newAchiveNames = _newAchiveList.ToArray();
+            _newAchiveFiles = _newAchiveFileList.ToArray();
         }
     }
 }

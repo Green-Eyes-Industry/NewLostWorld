@@ -21,20 +21,20 @@ MonoBehaviour:
   movePart_1: {fileID: 11400000, guid: e453bf583662c394792bbc7cfa276e5c, type: 2}
   movePart_2: {fileID: 11400000, guid: 5a0dc0e21ee2fbf498992f003098f7ea, type: 2}
   movePart_3: {fileID: 0}
-  windowSizeStady: 0
+  windowSizeStady: 1
   memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 56.583252
-    y: 357.66663
-    width: 120
-    height: 120
+    x: -18.958374
+    y: 201.83331
+    width: 40
+    height: 38
   openedHeight: 120
-  windowTitle: 0_ChangePart
+  windowTitle: 0
   _memberTitle: 0_ChangePart
   part: {fileID: 0}
   workStady: 2
   comment: "\u041D\u0430\u0447\u0430\u043B\u043E \u0441\u044E\u0436\u0435\u0442\u0430"
-  isShowComment: 1
+  isShowComment: 0
   buttonText_1: "\u0412\u0441\u043F\u043E\u043C\u043D\u0438\u0442\u044C \u0441\u043E\u043D"
   buttonText_2: "\u041E\u0442\u0432\u0435\u0442\u0438\u0442\u044C \u043D\u0430 \u0437\u0432\u043E\u043D\u043E\u043A"

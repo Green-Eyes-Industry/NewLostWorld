@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < partEvents.Count; i++)
             {
                 if (partEvents[i] is RandomPart) StartRandomEvent((RandomPart)partEvents[i]);
-                else if (!partEvents[i].EventStart()) MoveController.thisPart = partEvents[i].FailPart();
+                else if (!partEvents[i].EventStart()) MoveController.NextPart(partEvents[i].FailPart());
             }
         }
     }
@@ -26,10 +26,6 @@ public class PlayerController : MonoBehaviour
         if (e.part_2_random != null) MoveController.thisPart.movePart_2 = e.Randomize(MoveController.thisPart, e.part_2_random, e.randomChance_2);
         if (e.part_2_random != null) MoveController.thisPart.movePart_3 = e.Randomize(MoveController.thisPart, e.part_3_random, e.randomChance_3);
     }
-
-    #endregion
-
-    #region INVENTORY_CONTROLLER
 
     #endregion
 }

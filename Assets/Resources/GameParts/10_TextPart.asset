@@ -24,19 +24,19 @@ MonoBehaviour:
   movePart_1: {fileID: 0}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
-  windowSizeStady: 0
+  windowSizeStady: 1
   memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 1725.5
-    y: 796
-    width: 120
-    height: 120
+    x: 810
+    y: 443
+    width: 40
+    height: 38
   openedHeight: 120
-  windowTitle: 10_TextPart
+  windowTitle: 10
   _memberTitle: 10_TextPart
   part: {fileID: 0}
   workStady: 1
   comment: 
-  isShowComment: 1
+  isShowComment: 0
   buttonText_1: "\u0416\u0434\u0430\u0442\u044C"

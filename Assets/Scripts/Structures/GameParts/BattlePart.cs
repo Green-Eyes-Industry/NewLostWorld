@@ -4,7 +4,6 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Глава боя", order = 2)]
 public class BattlePart : GamePart
 {
     /// <summary> Текст первой кнопки </summary>

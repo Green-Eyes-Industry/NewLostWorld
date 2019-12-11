@@ -21,7 +21,6 @@ public class GamePart : ScriptableObject
     public bool windowSizeStady = false;
     public bool memberComment;
     public Rect windowRect;
-    public float openedHeight = 120f;
     public string windowTitle;
     public string _memberTitle;
     public GamePart part;

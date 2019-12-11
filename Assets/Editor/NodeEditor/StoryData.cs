@@ -16,6 +16,18 @@ namespace GUIInspector.NodeEditor
 
         /// <summary> Стиль отображения графа </summary>
         public GUISkin graphSkin;
+
+        #region STYLE_NODE
+
+        public float baseNodeSmWidth = 40f;
+        public float baseNodeSmHeight = 40f;
+
+        public float baseNodeLgWidth = 120;
+        public float baseNodeLgHeight = 42;
+
+        public float baseNodeCommentHeight = 120;
+
+        #endregion
     }
 }
 

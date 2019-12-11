@@ -51,6 +51,7 @@ namespace GUIInspector.NodeEditor
         private void OnFocus()
         {
             if (EditorApplication.isPlaying) EditorApplication.isPaused = true;
+            if (EventEditor.eventEditor == null) EventEditor.eventEditor = (EventEditor)CreateInstance(typeof(EventEditor));
         }
 
         private void OnLostFocus()
@@ -64,30 +65,38 @@ namespace GUIInspector.NodeEditor
             {
                 if (storyData == null) storyData = _storyData;
 
-                
                 EditorGUILayout.BeginVertical(_storyData.graphSkin.GetStyle("Box"), GUILayout.Width(Screen.width), GUILayout.Height(Screen.height));
-
+                
                 DrawGrid(10, 0.2f, _gridColor);
                 DrawGrid(50, 0.4f, _gridColor);
 
                 Event e = Event.current;
                 _mousePosition = e.mousePosition;
-                UserInput(e);
+                if (EventEditor.eventGraph == null) UserInput(e);
+                else EventEditor.eventThis = e;
 
                 GUI.Label(new Rect(Screen.width - 300, Screen.height - 50, 300, 50),
                     storyData.name,
                     storyData.graphSkin.GetStyle("Label"));
 
-                DrawWindows();
+                if (EventEditor.eventGraph == null)
+                {
+                    DrawWindows();
+                    GUI.backgroundColor = Color.white;
+                    DrawConnectors();
+                }
+                else EventEditor.ShowWindow();
 
-                GUI.backgroundColor = Color.white;
-                DrawConnectors();
 
                 EditorGUILayout.BeginHorizontal("TextArea");
+                if (EventEditor.eventGraph == null) EditorGUILayout.LabelField("Сценарий", GUILayout.Height(22));
+                else
+                {
+                    EditorGUILayout.LabelField("Евент " + EventEditor.eventGraph.name, GUILayout.Height(22));
+                    if (GUILayout.Button("Вернуться", GUILayout.Width(100), GUILayout.Height(18))) EventEditor.eventGraph = null;
+                }
 
-                EditorGUILayout.LabelField("Текущие : ", GUILayout.Height(22));
-
-                if (GUILayout.Button("Данные сценария", GUILayout.Width(200))) Selection.activeObject = _storyData;
+                if (GUILayout.Button("Сценарий", GUILayout.Width(100))) Selection.activeObject = _storyData;
 
                 if (_mainSettings == null) _mainSettings = (GameSettings)Resources.Load("BaseParameters");
                 else
@@ -155,7 +164,7 @@ namespace GUIInspector.NodeEditor
                             {
                                 if (_sellectedToConnect.Equals(_storyData.nodesData[i]))
                                 {
-                                    CreateCurve(ConnectPosition(_storyData.nodesData[i],tempConnect),
+                                    CreateCurve(ConnectPosition(_storyData.nodesData[i], tempConnect),
                                         new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
                                     Repaint();
                                 }
@@ -171,6 +180,7 @@ namespace GUIInspector.NodeEditor
                         DrawCurve(_storyData.nodesData[i]);
                     }
                 }
+                
 
                 EndWindows();
             }
@@ -227,6 +237,29 @@ namespace GUIInspector.NodeEditor
                     tempConnect = 2;
                 }
             }
+            else if (bn is LeandPart)
+            {
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
+            }
+
+            else if (bn is EventPart)
+            {
+                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(0, bn);
+                    tempConnect = 0;
+                }
+
+                if (GUI.Button(ConnectPosition(bn, 2), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                {
+                    ConnectorClick(2, bn);
+                    tempConnect = 2;
+                }
+            }
         }
 
         /// <summary> Нажатие на коннектор </summary>
@@ -253,13 +286,13 @@ namespace GUIInspector.NodeEditor
 
                 if (_storyData.nodesData[id].isShowComment)
                 {
-                    _storyData.nodesData[id].windowRect.height = _storyData.nodesData[id].openedHeight;
+                    _storyData.nodesData[id].windowRect.height = _storyData.baseNodeCommentHeight;
                     _storyData.nodesData[id].comment = EditorGUILayout.TextArea(
                         _storyData.nodesData[id].comment, _storyData.graphSkin.GetStyle("TextArea"),
                         GUILayout.Width(100f),
                         GUILayout.Height(70));
                 }
-                else _storyData.nodesData[id].windowRect.height = 40f;
+                else _storyData.nodesData[id].windowRect.height = _storyData.baseNodeLgHeight;
             }
 
             GUI.DragWindow();
@@ -268,28 +301,10 @@ namespace GUIInspector.NodeEditor
         /// <summary> Действия пользователя </summary>
         private void UserInput(Event e)
         {
-            if (e.button == 1)
-            {
-                if (e.type == EventType.MouseDown) RightMouseClick(e);
-            }
-
-            if (e.button == 0)
-            {
-                if (e.type == EventType.MouseDown) LeftMouseClick();
-            }
-
-            if (e.type == EventType.KeyDown)
-            {
-                if (e.keyCode == KeyCode.Delete) DeleteKeyDown();
-            }
-
-            if (e.type == EventType.MouseDrag)
-            {
-                if (e.button == 2)
-                {
-                    OnDrag(e.delta);
-                }
-            }
+            if (e.button == 1) { if (e.type == EventType.MouseDown) RightMouseClick(e); }
+            if (e.button == 0) { if (e.type == EventType.MouseDown) LeftMouseClick(); }
+            if (e.type == EventType.KeyDown) { if (e.keyCode == KeyCode.Delete) DeleteKeyDown(); }
+            if (e.type == EventType.MouseDrag) { if (e.button == 2) OnDrag(e.delta); }
 
             if(e.type == EventType.ScrollWheel)
             {
@@ -339,17 +354,9 @@ namespace GUIInspector.NodeEditor
                         {
                             switch (_sellectionId)
                             {
-                                case 0:
-                                    _sellectedToConnect.movePart_1 = _storyData.nodesData[i];
-                                    break;
-
-                                case 1:
-                                    _sellectedToConnect.movePart_2 = _storyData.nodesData[i];
-                                    break;
-
-                                case 2:
-                                    _sellectedToConnect.movePart_3 = _storyData.nodesData[i];
-                                    break;
+                                case 0: _sellectedToConnect.movePart_1 = _storyData.nodesData[i]; break;
+                                case 1: _sellectedToConnect.movePart_2 = _storyData.nodesData[i]; break;
+                                case 2: _sellectedToConnect.movePart_3 = _storyData.nodesData[i]; break;
                             }
 
                             _sellectedToConnect = null;

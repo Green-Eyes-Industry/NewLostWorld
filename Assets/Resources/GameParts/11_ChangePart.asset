@@ -21,16 +21,16 @@ MonoBehaviour:
   movePart_1: {fileID: 0}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
-  windowSizeStady: 0
+  windowSizeStady: 1
   memberComment: 0
   windowRect:
     serializedVersion: 2
-    x: 1441.5
-    y: 683
-    width: 120
-    height: 40
+    x: 680.5
+    y: 374.5
+    width: 40
+    height: 38
   openedHeight: 120
-  windowTitle: 11_ChangePart
+  windowTitle: 11
   _memberTitle: 11_ChangePart
   part: {fileID: 0}
   workStady: 1

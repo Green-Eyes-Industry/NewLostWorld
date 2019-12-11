@@ -78,8 +78,22 @@ namespace GUIInspector.NodeEditor
                 if (BehaviorEditor.storyData.nodesData[0] != null) sizeStady = BehaviorEditor.storyData.nodesData[0].windowSizeStady;
             }
 
-            if (sizeStady) nodeRect = new Rect(BehaviorEditor._mousePosition.x, BehaviorEditor._mousePosition.y, 40, 38);
-            else nodeRect = new Rect(BehaviorEditor._mousePosition.x, BehaviorEditor._mousePosition.y, 120, 40);
+            if (sizeStady)
+            {
+                nodeRect = new Rect(
+                    BehaviorEditor._mousePosition.x,
+                    BehaviorEditor._mousePosition.y,
+                    BehaviorEditor.storyData.baseNodeSmWidth,
+                    BehaviorEditor.storyData.baseNodeSmHeight);
+            }
+            else
+            {
+                nodeRect = new Rect(
+                    BehaviorEditor._mousePosition.x,
+                    BehaviorEditor._mousePosition.y,
+                    BehaviorEditor.storyData.baseNodeLgWidth,
+                    BehaviorEditor.storyData.baseNodeLgHeight);
+            }
 
             switch (a)
             {
@@ -250,7 +264,7 @@ namespace GUIInspector.NodeEditor
 
         public enum HelpNodeActions
         {
-            ADD_PART_TO_EVENT
+            EDIT_EVENT_PART
         }
 
         /// <summary> Добавить событие к главе </summary>
@@ -274,7 +288,7 @@ namespace GUIInspector.NodeEditor
 
             if (selectedNode is EventPart)
             {
-                menu.AddItem(new GUIContent("Добавить главу к евенту"), false, graphCC.AddPartToEvent, HelpNodeActions.ADD_PART_TO_EVENT);
+                menu.AddItem(new GUIContent("Открыть редактор евента"), false, graphCC.AddPartToEvent, HelpNodeActions.EDIT_EVENT_PART);
             }
             
             menu.ShowAsContext();
@@ -369,17 +383,11 @@ namespace GUIInspector.NodeEditor
             }
         }
 
-        /// <summary> Добавить под-главу к эвенту </summary>
+        /// <summary> Открыть редактор евента </summary>
         private void AddPartToEvent(object o)
         {
-            Object[] loadedObj = Resources.LoadAll("GameParts/" + selectedNode.name, typeof(GamePart));
-
-            HelpNodeActions a = (HelpNodeActions)o;
-
-            string nameNode = loadedObj.Length.ToString();
-            string pathToNode = "Assets/Resources/GameParts/";
-            bool sizeStady = false;
-            Rect nodeRect;
+            EventPart ePart = (EventPart)selectedNode;
+            EventEditor.eventGraph = ePart;
         }
 
         #endregion

@@ -6,6 +6,8 @@ public class DataController : MonoBehaviour
     public static Player playerData;
     public static GameSettings gameSettingsData;
 
+    #region LOAD_METHODS
+
     /// <summary> Загрузить базовые данные </summary>
     public static void LoadData()
     {
@@ -25,6 +27,21 @@ public class DataController : MonoBehaviour
 
         if (PlayerPrefs.HasKey("Effects")) gameSettingsData.isEffectCheck = true;
         else gameSettingsData.isEffectCheck = false;
+
+        // Достижения
+        if (PlayerPrefs.HasKey("Achive_0"))
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (PlayerPrefs.HasKey("Achive_" + i))
+                {
+                    gameSettingsData.gameAchivemants.Add((Achivemants)Resources.Load(
+                        "Achivemants/" + PlayerPrefs.GetString("Achive_" + i),
+                        typeof(Achivemants)));
+                }
+                else break;
+            }
+        }
     }
 
     /// <summary> Загрузка данных для игры </summary>
@@ -41,29 +58,104 @@ public class DataController : MonoBehaviour
             {
                 if (PlayerPrefs.HasKey("Invent_" + i))
                 {
-                    playerData.playerInventory.Add((GameItem)Resources.Load("GameItems/" + PlayerPrefs.GetString("Invent_" + i), typeof(GameItem)));
+                    playerData.playerInventory.Add((GameItem)Resources.Load(
+                        "GameItems/" + PlayerPrefs.GetString("Invent_" + i),
+                        typeof(GameItem)));
+                }
+                else break;
+            }
+        }
+
+        // Эффекты
+        if (PlayerPrefs.HasKey("Effect_0"))
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (PlayerPrefs.HasKey("Effect_" + i))
+                {
+                    playerData.playerEffects.Add((GameEffect)Resources.Load(
+                        "PlayerEffects/" + PlayerPrefs.GetString("Effect_" + i),
+                        typeof(GameEffect)));
+                }
+                else break;
+            }
+        }
+
+        // Карта
+        if (PlayerPrefs.HasKey("Location_0"))
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (PlayerPrefs.HasKey("Location_" + i))
+                {
+                    playerData.playerMap.Add((MapMark)Resources.Load(
+                        "Locations/" + PlayerPrefs.GetString("Location_" + i),
+                        typeof(MapMark)));
+                }
+                else break;
+            }
+        }
+
+        // Заметки
+        if (PlayerPrefs.HasKey("Note_0"))
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (PlayerPrefs.HasKey("Note_" + i))
+                {
+                    playerData.playerNotes.Add((Note)Resources.Load(
+                        "Notes/" + PlayerPrefs.GetString("Note_" + i),
+                        typeof(Note)));
+                }
+                else break;
+            }
+        }
+
+        // Решения
+        if (PlayerPrefs.HasKey("Decision_0"))
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (PlayerPrefs.HasKey("Decision_" + i))
+                {
+                    playerData.playerDecisions.Add((Decision)Resources.Load(
+                        "Decisions/" + PlayerPrefs.GetString("Decision_" + i),
+                        typeof(Decision)));
                 }
                 else break;
             }
         }
     }
 
+    /// <summary> Загрузить отношение к игроку </summary>
+    public static void LoadNonPlayerRatio(NonPlayer n)
+    {
+        if (PlayerPrefs.HasKey(n.name)) n.npToPlayerRatio = PlayerPrefs.GetInt(n.name);
+    }
+
+    #endregion
+
     #region SAVE_METHODS
 
-    /// <summary> Сохранить игровые данные </summary>
-    public static void SaveGameData()
+    /// <summary> Согранить последнюю главу </summary>
+    public static void SaveLastPart()
     {
-        // TODO : Сохранения в процессе игры
-
-        // Глава на которой закончили
         PlayerPrefs.SetString("LastPart", MoveController.thisPart.name);
+        PlayerPrefs.Save();
+    }
 
-        // Характеристики игрока
+    /// <summary> Согранить характеристики персонажа </summary>
+    public static void SaveCharacteristic()
+    {
         PlayerPrefs.SetInt("Health", playerData.playerHealth);
         PlayerPrefs.SetInt("Mind", playerData.playerMind);
+        PlayerPrefs.Save();
+    }
 
-        // Инвентарь
-        if(playerData.playerInventory != null)
+    /// <summary> Согранить инвентарь персонажа </summary>
+    public static void SaveInventory()
+    {
+        if (playerData.playerInventory != null)
         {
             // Сохранение
             for (int i = 0; i < playerData.playerInventory.Count; i++)
@@ -72,7 +164,7 @@ public class DataController : MonoBehaviour
             }
 
             // Очистка от лишнего
-            if(playerData.playerInventory.Count > 0)
+            if (playerData.playerInventory.Count > 0)
             {
                 for (int i = playerData.playerInventory.Count - 1; i < 50; i++)
                 {
@@ -81,8 +173,12 @@ public class DataController : MonoBehaviour
                 }
             }
         }
+        PlayerPrefs.Save();
+    }
 
-        // Эффекты
+    /// <summary> Согранить эффекты на персонаже </summary>
+    public static void SaveEffects()
+    {
         if (playerData.playerEffects != null)
         {
             // Сохранение
@@ -101,8 +197,12 @@ public class DataController : MonoBehaviour
                 }
             }
         }
+        PlayerPrefs.Save();
+    }
 
-        // Карта
+    /// <summary> Согранить карту </summary>
+    public static void SaveMap()
+    {
         if (playerData.playerMap != null)
         {
             // Сохранение
@@ -121,28 +221,12 @@ public class DataController : MonoBehaviour
                 }
             }
         }
+        PlayerPrefs.Save();
+    }
 
-        // Заметки
-        if (playerData.playerNotes != null)
-        {
-            // Сохранение
-            for (int i = 0; i < playerData.playerNotes.Count; i++)
-            {
-                PlayerPrefs.SetString("Note_" + i, playerData.playerNotes[i].name);
-            }
-
-            // Очистка от лишнего
-            if (playerData.playerNotes.Count > 0)
-            {
-                for (int i = playerData.playerNotes.Count - 1; i < 50; i++)
-                {
-                    if (PlayerPrefs.HasKey("Note_" + i)) PlayerPrefs.DeleteKey("Note_" + i);
-                    else break;
-                }
-            }
-        }
-
-        // Решения
+    /// <summary> Согранить заметки </summary>
+    public static void SaveNotes()
+    {
         if (playerData.playerDecisions != null)
         {
             // Сохранение
@@ -161,7 +245,30 @@ public class DataController : MonoBehaviour
                 }
             }
         }
+        PlayerPrefs.Save();
+    }
 
+    /// <summary> Согранить решения </summary>
+    public static void SaveDecisons()
+    {
+        if (playerData.playerNotes != null)
+        {
+            // Сохранение
+            for (int i = 0; i < playerData.playerNotes.Count; i++)
+            {
+                PlayerPrefs.SetString("Note_" + i, playerData.playerNotes[i].name);
+            }
+
+            // Очистка от лишнего
+            if (playerData.playerNotes.Count > 0)
+            {
+                for (int i = playerData.playerNotes.Count - 1; i < 50; i++)
+                {
+                    if (PlayerPrefs.HasKey("Note_" + i)) PlayerPrefs.DeleteKey("Note_" + i);
+                    else break;
+                }
+            }
+        }
         PlayerPrefs.Save();
     }
 
@@ -183,7 +290,32 @@ public class DataController : MonoBehaviour
     /// <summary> Сохранить данные достижений </summary>
     public static void SaveAchivesData()
     {
-        // TODO : Сохранение достижений
+        if (gameSettingsData.gameAchivemants != null)
+        {
+            // Сохранение
+            for (int i = 0; i < gameSettingsData.gameAchivemants.Count; i++)
+            {
+                PlayerPrefs.SetString("Achive_" + i, gameSettingsData.gameAchivemants[i].name);
+            }
+
+            // Очистка от лишнего
+            if (gameSettingsData.gameAchivemants.Count > 0)
+            {
+                for (int i = gameSettingsData.gameAchivemants.Count - 1; i < 50; i++)
+                {
+                    if (PlayerPrefs.HasKey("Achive_" + i)) PlayerPrefs.DeleteKey("Achive_" + i);
+                    else break;
+                }
+            }
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    /// <summary> Сохранить отношение к игроку </summary>
+    public static void SaveNonPlayerRatio(NonPlayer n)
+    {
+        PlayerPrefs.SetInt(n.name, n.npToPlayerRatio);
     }
 
     #endregion

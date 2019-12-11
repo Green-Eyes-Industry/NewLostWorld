@@ -18,9 +18,13 @@ public class GamePart : ScriptableObject
 
 #if UNITY_EDITOR
 
+    private bool windowSizeStady = false;
+    private bool memberComment;
     public Rect windowRect;
+    public Vector2 memberPosition;
     public float openedHeight = 120f;
     public string windowTitle;
+    private string _memberTitle;
     public GamePart part;
 
     public int workStady;
@@ -32,18 +36,20 @@ public class GamePart : ScriptableObject
 
     public void DrawWindow()
     {
-        UnityEditor.EditorGUILayout.BeginHorizontal();
-        workStady = UnityEditor.EditorGUILayout.IntPopup(workStady, workStadyNames, workStadyNum, GUILayout.Width(90f));
-        isShowComment = UnityEditor.EditorGUILayout.Toggle(isShowComment);
-        UnityEditor.EditorGUILayout.EndHorizontal();
-
-        if (isShowComment)
+        if (!windowSizeStady)
         {
-            windowRect.height = openedHeight;
+            UnityEditor.EditorGUILayout.BeginHorizontal();
+            workStady = UnityEditor.EditorGUILayout.IntPopup(workStady, workStadyNames, workStadyNum, GUILayout.Width(90f));
+            isShowComment = UnityEditor.EditorGUILayout.Toggle(isShowComment);
+            UnityEditor.EditorGUILayout.EndHorizontal();
 
-            comment = UnityEditor.EditorGUILayout.TextArea(comment, GUILayout.Width(110f), GUILayout.Height(78));
+            if (isShowComment)
+            {
+                windowRect.height = openedHeight;
+                comment = UnityEditor.EditorGUILayout.TextArea(comment, GUILayout.Width(110f), GUILayout.Height(78));
+            }
+            else windowRect.height = 40f;
         }
-        else windowRect.height = 40f;
     }
 
     /// <summary> Отрисовка связей </summary>
@@ -160,6 +166,11 @@ public class GamePart : ScriptableObject
     /// <summary> Отрисовка евентов </summary>
     public void DrawEvents()
     {
+        int sizeEvent;
+
+        if (windowSizeStady) sizeEvent = 7;
+        else sizeEvent = 20;
+
         GUIStyle st = new GUIStyle();
 
         if(mainEvents != null)
@@ -169,10 +180,10 @@ public class GamePart : ScriptableObject
                 if (i < 6)
                 {
                     GUI.Box(new Rect(
-                windowRect.x + (20 * i),
+                windowRect.x + (sizeEvent * i),
                 windowRect.y + windowRect.height,
-                20,
-                20),
+                sizeEvent,
+                sizeEvent),
                 GetEventTextures(mainEvents[i]), st);
                 }
                 else
@@ -180,10 +191,10 @@ public class GamePart : ScriptableObject
                     if (i < 11)
                     {
                         GUI.Box(new Rect(
-                    windowRect.x + (20 * (i - 6)),
-                    windowRect.y + windowRect.height + 20,
-                    20,
-                    20),
+                    windowRect.x + (sizeEvent * (i - 6)),
+                    windowRect.y + windowRect.height + sizeEvent,
+                    sizeEvent,
+                    sizeEvent),
                     GetEventTextures(mainEvents[i]), st);
                     }
                 }
@@ -213,6 +224,46 @@ public class GamePart : ScriptableObject
 
         eventIco = (Texture)UnityEditor.AssetDatabase.LoadAssetAtPath(pathToIco, typeof(Texture));
         return eventIco;
+    }
+
+    /// <summary> Масштаб окна </summary>
+    public void SetWindowStady()
+    {
+        windowSizeStady = !windowSizeStady;
+
+        if (windowSizeStady)
+        {
+            windowRect.width = 40;
+            windowRect.height = 38;
+
+            memberPosition.x = windowRect.x;
+            memberPosition.y = windowRect.y;
+
+            windowRect.x /= 2f;
+            windowRect.y /= 2f;
+
+            windowRect.x += Screen.width / 4f;
+            windowRect.y += Screen.height / 4f;
+
+            _memberTitle = windowTitle;
+            windowTitle = windowTitle.Substring(0, 2);
+
+            memberComment = isShowComment;
+
+            if (isShowComment) isShowComment = false;
+        }
+        else
+        {
+            windowRect.width = 120;
+            windowRect.height = 40;
+
+            windowRect.x = memberPosition.x;
+            windowRect.y = memberPosition.y;
+
+            windowTitle = _memberTitle;
+
+            isShowComment = memberComment;
+        }
     }
 
 #endif

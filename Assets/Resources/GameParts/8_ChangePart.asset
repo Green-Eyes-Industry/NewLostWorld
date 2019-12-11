@@ -22,16 +22,16 @@ MonoBehaviour:
   movePart_1: {fileID: 11400000, guid: 5ed746a4a0744a24a8b5c18b30eb8c00, type: 2}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
-  windowSizeStady: 1
+  windowSizeStady: 0
   memberComment: 0
   windowRect:
     serializedVersion: 2
-    x: 408.75
-    y: 593.25
-    width: 40
-    height: 38
+    x: 1233.5
+    y: 828
+    width: 120
+    height: 40
   openedHeight: 120
-  windowTitle: 8
+  windowTitle: 8_ChangePart
   _memberTitle: 8_ChangePart
   part: {fileID: 0}
   workStady: 1

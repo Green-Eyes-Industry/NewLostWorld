@@ -8,7 +8,7 @@ namespace GUIInspector.NodeEditor
     {
         #region VARIABLES
 
-        private Color _gridColor = new Color(0.55f, 0.55f, 0.55f); // Цвет сетки
+        private Color _gridColor = new Color(0.2f, 0.2f, 0.2f); // Цвет сетки
         private Vector2 _offset; // Отступ поля
         private Vector2 _drag; // Отступ нод
 
@@ -139,7 +139,7 @@ namespace GUIInspector.NodeEditor
                         {
                             if (MoveController.thisPart != null)
                             {
-                                if (MoveController.thisPart == _storyData.nodesData[i]) GUI.backgroundColor = new Color(0.5f, 0.5f, 0.75f);
+                                if (MoveController.thisPart == _storyData.nodesData[i]) GUI.backgroundColor = Color.blue;
                             }
                         }
                         else
@@ -489,7 +489,7 @@ namespace GUIInspector.NodeEditor
         public Rect ConnectPosition(GamePart partNode, int id)
         {
             Rect nodeConnectPosition = new Rect(
-                    partNode.windowRect.x + partNode.windowRect.width - 5,
+                    partNode.windowRect.x + partNode.windowRect.width + 5,
                     (partNode.windowRect.y + 2) + (13 * id),
                     11,
                     11);

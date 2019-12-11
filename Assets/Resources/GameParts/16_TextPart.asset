@@ -21,19 +21,19 @@ MonoBehaviour:
   movePart_1: {fileID: 11400000, guid: dc5701ccf35c9c442a10acd83c35d961, type: 2}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
-  windowSizeStady: 1
-  memberComment: 0
+  windowSizeStady: 0
+  memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 377.25
-    y: 63.75
-    width: 40
-    height: 38
+    x: 1158.5
+    y: -261
+    width: 120
+    height: 120
   openedHeight: 120
-  windowTitle: 16
+  windowTitle: 16_TextPart
   _memberTitle: 16_TextPart
   part: {fileID: 0}
   workStady: 2
   comment: "\u041F\u043E\u043B\u044F\u043D\u0430"
-  isShowComment: 0
+  isShowComment: 1
   buttonText_1: "\u0416\u0434\u0430\u0442\u044C"

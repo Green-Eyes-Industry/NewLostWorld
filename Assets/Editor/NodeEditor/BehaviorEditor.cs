@@ -38,7 +38,7 @@ namespace GUIInspector.NodeEditor
         {
             BehaviorEditor editor = GetWindow<BehaviorEditor>();
             editor.title = "Node Editor";
-            editor._gridColor = new Color(0.55f, 0.55f, 0.55f);
+            editor._gridColor = new Color(0.2f, 0.2f, 0.2f);
             trBehaviorEditor = editor;
 
             editor._emptyTexture = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/Connect.png", typeof(Texture));
@@ -63,7 +63,10 @@ namespace GUIInspector.NodeEditor
             if (_storyData != null)
             {
                 if (storyData == null) storyData = _storyData;
+
                 
+                EditorGUILayout.BeginVertical(_storyData.graphSkin.GetStyle("Box"), GUILayout.Width(Screen.width), GUILayout.Height(Screen.height));
+
                 DrawGrid(10, 0.2f, _gridColor);
                 DrawGrid(50, 0.4f, _gridColor);
 
@@ -94,6 +97,7 @@ namespace GUIInspector.NodeEditor
 
                 if (GUILayout.Button("Сохранить", GUILayout.Width(100), GUILayout.Height(18))) SaveData();
 
+                EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
             }
             else
@@ -251,7 +255,7 @@ namespace GUIInspector.NodeEditor
                 {
                     _storyData.nodesData[id].windowRect.height = _storyData.nodesData[id].openedHeight;
                     _storyData.nodesData[id].comment = EditorGUILayout.TextArea(
-                        _storyData.nodesData[id].comment,
+                        _storyData.nodesData[id].comment, _storyData.graphSkin.GetStyle("TextArea"),
                         GUILayout.Width(100f),
                         GUILayout.Height(70));
                 }
@@ -337,19 +341,18 @@ namespace GUIInspector.NodeEditor
                             {
                                 case 0:
                                     _sellectedToConnect.movePart_1 = _storyData.nodesData[i];
-                                    _sellectedToConnect = null;
                                     break;
 
                                 case 1:
                                     _sellectedToConnect.movePart_2 = _storyData.nodesData[i];
-                                    _sellectedToConnect = null;
                                     break;
 
                                 case 2:
                                     _sellectedToConnect.movePart_3 = _storyData.nodesData[i];
-                                    _sellectedToConnect = null;
                                     break;
                             }
+
+                            _sellectedToConnect = null;
                         }
                         else
                         {
@@ -359,7 +362,6 @@ namespace GUIInspector.NodeEditor
                         }
                         break;
                     }
-                    else _sellectedToConnect = null;
                 }
             }
         }
@@ -402,7 +404,7 @@ namespace GUIInspector.NodeEditor
         /// <summary> Отрисовка связей </summary>
         public void DrawCurve(GamePart partNode)
         {
-            Color baseConnectColor = new Color(0, 0, 0, 0.75f);
+            Color baseConnectColor = new Color(1, 1, 1, 0.75f);
 
             if (partNode.movePart_1 != null)
             {
@@ -489,8 +491,8 @@ namespace GUIInspector.NodeEditor
             Rect nodeConnectPosition = new Rect(
                     partNode.windowRect.x + partNode.windowRect.width - 5,
                     (partNode.windowRect.y + 2) + (13 * id),
-                    10,
-                    10);
+                    11,
+                    11);
 
             return nodeConnectPosition;
         }

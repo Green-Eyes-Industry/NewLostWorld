@@ -28,19 +28,18 @@ MonoBehaviour:
   movePart_1: {fileID: 11400000, guid: 60717b1715fd4984bbb70eaebad89707, type: 2}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
-  windowSizeStady: 1
+  windowSizeStady: 0
   memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 290.5
-    y: 346.5
-    width: 40
-    height: 38
-  openedHeight: 120
-  windowTitle: 5
+    x: 360.5
+    y: 465
+    width: 120
+    height: 120
+  windowTitle: 5_TextPart
   _memberTitle: 5_TextPart
   part: {fileID: 0}
   workStady: 2
   comment: "\u041F\u043E\u0435\u0437\u0434\u043A\u0430"
-  isShowComment: 0
+  isShowComment: 1
   buttonText_1: "\u0425\u043E\u0440\u043E\u0448\u043E \u044F \u0441\u043E\u0431\u0438\u0440\u0430\u044E\u0441\u044C"

@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Глава Эвента", order = 4)]
 public class EventPart : GamePart
 {
     /// <summary> Время на эвент </summary>
@@ -41,11 +40,31 @@ namespace GUIInspector
         {
             GUILayout.Label("Параметры");
 
-            _eventPart.movePart_1 = (GamePart)EditorGUILayout.ObjectField("Глава при победе :", _eventPart.movePart_1, typeof(GamePart), true);
-            _eventPart.movePart_3 = (GamePart)EditorGUILayout.ObjectField("Глава при провале :", _eventPart.movePart_3, typeof(GamePart), true);
+            EditorGUILayout.BeginHorizontal("Box");
+            if (_eventPart.movePart_1 != null)
+            {
+                EditorGUILayout.LabelField("Победа : " + _eventPart.movePart_1.name);
+                GUI.backgroundColor = Color.red;
+                if (GUILayout.Button("Отключить", GUILayout.Width(80))) _eventPart.movePart_1 = null;
+                GUI.backgroundColor = Color.white;
+            }
+            else EditorGUILayout.LabelField("Победа : " + "Нет подключения");
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal("Box");
+            if (_eventPart.movePart_3 != null)
+            {
+                EditorGUILayout.LabelField("Провал : " + _eventPart.movePart_3.name);
+                GUI.backgroundColor = Color.red;
+                if (GUILayout.Button("Отключить", GUILayout.Width(80))) _eventPart.movePart_3 = null;
+                GUI.backgroundColor = Color.white;
+            }
+            else EditorGUILayout.LabelField("Провал : " + "Нет подключения");
+            EditorGUILayout.EndHorizontal();
+
             EditorGUILayout.Space();
 
-            _eventPart.timeToEvent = EditorGUILayout.IntSlider("Время на выполнение: ", _eventPart.timeToEvent, 0, 120);
+            _eventPart.timeToEvent = EditorGUILayout.IntSlider("Время на выполнение (сек): ", _eventPart.timeToEvent, 20, 360);
             EditorGUILayout.Space();
 
             GUILayout.BeginScrollView(_partsSlider, "Box");
@@ -58,8 +77,16 @@ namespace GUIInspector
                     {
                         GUILayout.BeginHorizontal();
 
-                        _eventPart.eventParts[i] = (SubEventPart)EditorGUILayout.ObjectField(_eventPart.eventParts[i], typeof(SubEventPart), true);
-                        if (GUILayout.Button("Удалить", GUILayout.Width(70))) _eventPart.eventParts.RemoveAt(i);
+                        if (_eventPart.eventParts[i].isFail) GUI.backgroundColor = Color.red;
+                        else if (_eventPart.eventParts[i].isFinal) GUI.backgroundColor = Color.green;
+                        else if (i == 0) GUI.backgroundColor = Color.yellow;
+                        else GUI.backgroundColor = Color.white;
+
+                        EditorGUILayout.BeginHorizontal("Button");
+                        if (_eventPart.eventParts[i].comment != null)
+                            EditorGUILayout.LabelField(_eventPart.eventParts[i].name);
+                        else EditorGUILayout.LabelField(_eventPart.eventParts[i].comment);
+                        EditorGUILayout.EndHorizontal();
 
                         GUILayout.EndHorizontal();
                     }
@@ -69,8 +96,6 @@ namespace GUIInspector
             else _eventPart.eventParts = new List<SubEventPart>();
 
             GUILayout.EndScrollView();
-
-            if (GUILayout.Button("Добавить главу", GUILayout.Height(30))) _eventPart.eventParts.Add(null);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace GUIInspector.NodeEditor
         #region VARIABLES
 
         private Color _gridColor = new Color(0.2f, 0.2f, 0.2f); // Цвет сетки
-        private Vector2 _offset; // Отступ поля
+        public static Vector2 _offset; // Отступ поля
         private Vector2 _drag; // Отступ нод
 
         private GameSettings _mainSettings; // Настройки поля
@@ -64,6 +64,7 @@ namespace GUIInspector.NodeEditor
             if (_storyData != null)
             {
                 if (storyData == null) storyData = _storyData;
+                if (trBehaviorEditor == null) trBehaviorEditor = this;
 
                 EditorGUILayout.BeginVertical(_storyData.graphSkin.GetStyle("Box"), GUILayout.Width(Screen.width), GUILayout.Height(Screen.height));
                 
@@ -72,21 +73,25 @@ namespace GUIInspector.NodeEditor
 
                 Event e = Event.current;
                 _mousePosition = e.mousePosition;
-                if (EventEditor.eventGraph == null) UserInput(e);
-                else EventEditor.eventThis = e;
-
-                GUI.Label(new Rect(Screen.width - 300, Screen.height - 50, 300, 50),
-                    storyData.name,
-                    storyData.graphSkin.GetStyle("Label"));
 
                 if (EventEditor.eventGraph == null)
                 {
+                    UserInput(e);
+                    GUI.Label(new Rect(Screen.width - 300, Screen.height - 50, 300, 50),
+                    storyData.name,
+                    storyData.graphSkin.GetStyle("Label"));
                     DrawWindows();
                     GUI.backgroundColor = Color.white;
                     DrawConnectors();
                 }
-                else EventEditor.ShowWindow();
-
+                else
+                {
+                    EventEditor.eventThis = e;
+                    GUI.Label(new Rect(Screen.width - 300, Screen.height - 50, 300, 50),
+                    EventEditor.eventGraph.name,
+                    storyData.graphSkin.GetStyle("Label"));
+                    EventEditor.ShowWindow();
+                }
 
                 EditorGUILayout.BeginHorizontal("TextArea");
                 if (EventEditor.eventGraph == null) EditorGUILayout.LabelField("Сценарий", GUILayout.Height(22));
@@ -120,13 +125,13 @@ namespace GUIInspector.NodeEditor
         private void DrawConnectors()
         {
             foreach (GamePart bn in _storyData.nodesData)
+            {
+                if (bn != null)
                 {
-                    if (bn != null)
-                    {
-                        DrawConnectPoint(bn);
-                        DrawEvents(bn);
-                    }
+                    DrawConnectPoint(bn);
+                    DrawEvents(bn);
                 }
+            }
         }
 
         /// <summary> Отрисовка всех нод </summary>
@@ -181,7 +186,6 @@ namespace GUIInspector.NodeEditor
                     }
                 }
                 
-
                 EndWindows();
             }
             catch (System.ArgumentOutOfRangeException)
@@ -395,6 +399,21 @@ namespace GUIInspector.NodeEditor
         {
             if (_selectedNode != null)
             {
+                if (_selectedNode is EventPart)
+                {
+                    EventPart evPr = (EventPart)_selectedNode;
+
+                    if (AssetDatabase.IsValidFolder("Assets/Resources/GameParts/" + evPr.name))
+                    {
+                        for (int i = 0; i < evPr.eventParts.Count; i++)
+                        {
+                            AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(evPr.eventParts[i]));
+                        }
+
+                        AssetDatabase.DeleteAsset("Assets/Resources/GameParts/" + evPr.name);
+                    }
+                }
+
                 _storyData.nodesData.Remove(_selectedNode);
                 AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNode));
                 _selectedNode = null;

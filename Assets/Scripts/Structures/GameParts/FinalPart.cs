@@ -5,7 +5,6 @@ using UnityEditor;
 using System.Collections.Generic;
 #endif
 
-[CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Финальная глава", order = 5)]
 public class FinalPart : GamePart
 {
     /// <summary> Получаемое достижение, если нужно </summary>
@@ -19,7 +18,6 @@ public class FinalPart : GamePart
 
 namespace GUIInspector
 {
-
     [CustomEditor(typeof(FinalPart))]
     public class FinalPartGUI_Inspector : Editor
     {

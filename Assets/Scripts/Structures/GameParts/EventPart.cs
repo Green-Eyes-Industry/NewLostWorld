@@ -83,7 +83,7 @@ namespace GUIInspector
                         else GUI.backgroundColor = Color.white;
 
                         EditorGUILayout.BeginHorizontal("Button");
-                        if (_eventPart.eventParts[i].comment != null)
+                        if (_eventPart.eventParts[i].comment == null)
                             EditorGUILayout.LabelField(_eventPart.eventParts[i].name);
                         else EditorGUILayout.LabelField(_eventPart.eventParts[i].comment);
                         EditorGUILayout.EndHorizontal();

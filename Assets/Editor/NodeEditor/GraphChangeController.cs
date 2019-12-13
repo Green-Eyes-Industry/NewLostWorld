@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using UnityEditor;
 
 namespace GUIInspector.NodeEditor
@@ -53,25 +54,33 @@ namespace GUIInspector.NodeEditor
 
             UserActions a = (UserActions)o;
 
-            string nameNode = loadedObj.Length.ToString();
-            string pathToNode = "Assets/Resources/GameParts/";
+            string pathToNode;
             bool sizeStady = false;
             Rect nodeRect;
 
-            switch (a)
-            {
-                case UserActions.ADD_TEXT_PART: nameNode += "_TextPart"; break;
-                case UserActions.ADD_CHANGE_PART: nameNode += "_ChangePart"; break;
-                case UserActions.ADD_BATTLE_PART: nameNode += "_BattlePart"; break;
-                case UserActions.ADD_MAZE_PART: nameNode += "_PazzlePart"; break;
-                case UserActions.ADD_EVENT_PART: nameNode += "_EventPart"; break;
-                case UserActions.ADD_FINAL_PART: nameNode += "_FinalPart"; break;
-                case UserActions.ADD_LABEL_PART: nameNode += "_LeandPart"; break;
-                case UserActions.ADD_SLIDESHOW_PART: nameNode += "_MoviePart"; break;
-                case UserActions.ADD_TRANSIT: nameNode += ""; break;
-            }
+            int numNode = 0;
 
-            pathToNode += nameNode + ".asset";
+            string nameNode = numNode.ToString();
+
+            do
+            {
+                switch (a)
+                {
+                    case UserActions.ADD_TEXT_PART: nameNode = numNode + "_TextPart"; break;
+                    case UserActions.ADD_CHANGE_PART: nameNode = numNode + "_ChangePart"; break;
+                    case UserActions.ADD_BATTLE_PART: nameNode = numNode + "_BattlePart"; break;
+                    case UserActions.ADD_MAZE_PART: nameNode = numNode + "_PazzlePart"; break;
+                    case UserActions.ADD_EVENT_PART: nameNode = numNode + "_EventPart"; break;
+                    case UserActions.ADD_FINAL_PART: nameNode = numNode + "_FinalPart"; break;
+                    case UserActions.ADD_LABEL_PART: nameNode = numNode + "_LeandPart"; break;
+                    case UserActions.ADD_SLIDESHOW_PART: nameNode = numNode + "_MoviePart"; break;
+                    case UserActions.ADD_TRANSIT: nameNode = numNode + ""; break;
+                }
+                
+                pathToNode = "Assets/Resources/GameParts/" + nameNode + ".asset";
+                numNode++;
+
+            } while (File.Exists(pathToNode));
 
             if (BehaviorEditor.storyData.nodesData != null)
             {
@@ -105,7 +114,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         textPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        textPart._memberTitle = nameNode;
+                        textPart._memTitle = nameNode;
                     }
                     else textPart.windowTitle = nameNode;
 
@@ -121,7 +130,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         changePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        changePart._memberTitle = nameNode;
+                        changePart._memTitle = nameNode;
                     }
                     else changePart.windowTitle = nameNode;
 
@@ -137,7 +146,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         battlePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        battlePart._memberTitle = nameNode;
+                        battlePart._memTitle = nameNode;
                     }
                     else battlePart.windowTitle = nameNode;
 
@@ -153,7 +162,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         pazzlePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        pazzlePart._memberTitle = nameNode;
+                        pazzlePart._memTitle = nameNode;
                     }
                     else pazzlePart.windowTitle = nameNode;
 
@@ -169,7 +178,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         eventPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        eventPart._memberTitle = nameNode;
+                        eventPart._memTitle = nameNode;
                     }
                     else eventPart.windowTitle = nameNode;
 
@@ -185,7 +194,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         finalPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        finalPart._memberTitle = nameNode;
+                        finalPart._memTitle = nameNode;
                     }
                     else finalPart.windowTitle = nameNode;
 
@@ -201,7 +210,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         leandPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        leandPart._memberTitle = nameNode;
+                        leandPart._memTitle = nameNode;
                     }
                     else leandPart.windowTitle = nameNode;
 
@@ -217,7 +226,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         moviePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        moviePart._memberTitle = nameNode;
+                        moviePart._memTitle = nameNode;
                     }
                     else moviePart.windowTitle = nameNode;
 
@@ -228,6 +237,7 @@ namespace GUIInspector.NodeEditor
                 case UserActions.ADD_TRANSIT: break;
             }
 
+            
             BehaviorEditor.SaveData();
         }
 
@@ -273,22 +283,25 @@ namespace GUIInspector.NodeEditor
             if (graphCC == null) graphCC = (GraphChangeController)CreateInstance(typeof(GraphChangeController));
 
             GenericMenu menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Добавить событие/Контрольная точка"), false, graphCC.AddEventMethod, AddEventActions.CHECK_POINT);
-            menu.AddItem(new GUIContent("Добавить событие/Важное решение"), false, graphCC.AddEventMethod, AddEventActions.IMPORTANT_DECISION);
-            menu.AddItem(new GUIContent("Добавить событие/Проверка решения"), false, graphCC.AddEventMethod, AddEventActions.CHECK_DECISION);
-            menu.AddItem(new GUIContent("Добавить событие/Влияние на игрока"), false, graphCC.AddEventMethod, AddEventActions.PLAYER_INFL);
-            menu.AddItem(new GUIContent("Добавить событие/Влияние на НПС"), false, graphCC.AddEventMethod, AddEventActions.NON_PLAYER_INFL);
-            menu.AddItem(new GUIContent("Добавить событие/Проверка влияния персонажа"), false, graphCC.AddEventMethod, AddEventActions.CHECK_PLAYER_INFL);
-            menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с эффектом"), false, graphCC.AddEventMethod, AddEventActions.EFFECT_INTERACT);
-            menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с предметом"), false, graphCC.AddEventMethod, AddEventActions.ITEM_INTERACT);
-            menu.AddItem(new GUIContent("Добавить событие/Использование предмета"), false, graphCC.AddEventMethod, AddEventActions.ITEM_INFL);
-            menu.AddItem(new GUIContent("Добавить событие/Найдена локация"), false, graphCC.AddEventMethod, AddEventActions.LOCATION_FIND);
-            menu.AddItem(new GUIContent("Добавить событие/Воспоминание"), false, graphCC.AddEventMethod, AddEventActions.MEMBER_TIME);
-            menu.AddItem(new GUIContent("Добавить событие/Случайный переход"), false, graphCC.AddEventMethod, AddEventActions.RANDOM_PART);
-
+            
             if (selectedNode is EventPart)
             {
                 menu.AddItem(new GUIContent("Открыть редактор евента"), false, graphCC.AddPartToEvent, HelpNodeActions.EDIT_EVENT_PART);
+            }
+            else
+            {
+                menu.AddItem(new GUIContent("Добавить событие/Контрольная точка"), false, graphCC.AddEventMethod, AddEventActions.CHECK_POINT);
+                menu.AddItem(new GUIContent("Добавить событие/Важное решение"), false, graphCC.AddEventMethod, AddEventActions.IMPORTANT_DECISION);
+                menu.AddItem(new GUIContent("Добавить событие/Проверка решения"), false, graphCC.AddEventMethod, AddEventActions.CHECK_DECISION);
+                menu.AddItem(new GUIContent("Добавить событие/Влияние на игрока"), false, graphCC.AddEventMethod, AddEventActions.PLAYER_INFL);
+                menu.AddItem(new GUIContent("Добавить событие/Влияние на НПС"), false, graphCC.AddEventMethod, AddEventActions.NON_PLAYER_INFL);
+                menu.AddItem(new GUIContent("Добавить событие/Проверка влияния персонажа"), false, graphCC.AddEventMethod, AddEventActions.CHECK_PLAYER_INFL);
+                menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с эффектом"), false, graphCC.AddEventMethod, AddEventActions.EFFECT_INTERACT);
+                menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с предметом"), false, graphCC.AddEventMethod, AddEventActions.ITEM_INTERACT);
+                menu.AddItem(new GUIContent("Добавить событие/Использование предмета"), false, graphCC.AddEventMethod, AddEventActions.ITEM_INFL);
+                menu.AddItem(new GUIContent("Добавить событие/Найдена локация"), false, graphCC.AddEventMethod, AddEventActions.LOCATION_FIND);
+                menu.AddItem(new GUIContent("Добавить событие/Воспоминание"), false, graphCC.AddEventMethod, AddEventActions.MEMBER_TIME);
+                menu.AddItem(new GUIContent("Добавить событие/Случайный переход"), false, graphCC.AddEventMethod, AddEventActions.RANDOM_PART);
             }
             
             menu.ShowAsContext();

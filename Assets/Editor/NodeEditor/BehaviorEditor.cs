@@ -66,6 +66,7 @@ namespace GUIInspector.NodeEditor
                 if (storyData == null) storyData = _storyData;
                 if (trBehaviorEditor == null) trBehaviorEditor = this;
 
+
                 EditorGUILayout.BeginVertical(_storyData.graphSkin.GetStyle("Box"), GUILayout.Width(Screen.width), GUILayout.Height(Screen.height));
                 
                 DrawGrid(10, 0.2f, _gridColor);
@@ -602,7 +603,7 @@ namespace GUIInspector.NodeEditor
                 partNode.windowRect.x += Screen.width / 4f;
                 partNode.windowRect.y += Screen.height / 4f;
 
-                partNode._memberTitle = partNode.windowTitle;
+                partNode._memTitle = partNode.windowTitle;
                 partNode.windowTitle = partNode.windowTitle.Substring(0, GetShortNameNode(partNode.windowTitle));
 
                 partNode.memberComment = partNode.isShowComment;
@@ -620,7 +621,7 @@ namespace GUIInspector.NodeEditor
                 partNode.windowRect.x -= Screen.width / 2f;
                 partNode.windowRect.y -= Screen.height / 2f;
 
-                partNode.windowTitle = partNode._memberTitle;
+                partNode.windowTitle = partNode._memTitle;
 
                 partNode.isShowComment = partNode.memberComment;
             }

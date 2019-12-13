@@ -21,8 +21,8 @@ public class GamePart : ScriptableObject
     public bool windowSizeStady = false;
     public bool memberComment;
     public Rect windowRect;
+    public string _memTitle;
     public string windowTitle;
-    public string _memberTitle;
     public GamePart part;
     public int workStady;
     public string comment;

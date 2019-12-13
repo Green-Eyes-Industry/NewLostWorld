@@ -55,7 +55,8 @@ public class MoveController : MonoBehaviour
         if (nextPart is TextPart) moveC.ShowTextPart((TextPart)nextPart);
         else if (nextPart is ChangePart) moveC.ShowChangePart((ChangePart)nextPart);
         else if (nextPart is BattlePart) moveC.ShowBattlePart((BattlePart)nextPart);
-        else moveC.ShowFinalPart((FinalPart)nextPart);
+        else if (nextPart is FinalPart) moveC.ShowFinalPart((FinalPart)nextPart);
+        else if (nextPart is EventPart) moveC.ShowFinalPart((EventPart)nextPart);
 
         moveC._playerController.EventsStart(nextPart.mainEvents);
         
@@ -94,8 +95,13 @@ public class MoveController : MonoBehaviour
     /// <summary> Запуск финальной главы </summary>
     private void ShowFinalPart(FinalPart finalPart)
     {
-        // Код
-        Debug.Log("Это не текстовая глава а финальная");
+        // TODO : Запуск финальной главы
+    }
+
+    /// <summary> Запуск временного евента </summary>
+    private void ShowFinalPart(EventPart eventPart)
+    {
+        // TODO : Запуск главы эвента
     }
 
     #endregion
@@ -314,21 +320,20 @@ public class MoveController : MonoBehaviour
     /// <summary> Взаимодействие с кнопкой в меню персонажа </summary>
     public void GameHelpPlayerButton(bool btStady, int btType)
     {
-
+        // TODO : Меню персонажа
     }
 
     /// <summary> Взаимодействие с кнопкой в меню карты </summary>
     public void GameHelpMapButton(bool btStady, int btType)
     {
-
+        // TODO : Меню карты
     }
 
     /// <summary> Взаимодействие с кнопкой в меню заметок </summary>
     public void GameHelpNotesButton(bool btStady, int btType)
     {
-
+        // TODO : Меню заметок
     }
-
 
     #endregion
 

@@ -34,7 +34,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6deebae8ebbd2da41932f77d435069e7, type: 2}
   - {fileID: 11400000, guid: dc5701ccf35c9c442a10acd83c35d961, type: 2}
   - {fileID: 11400000, guid: c64f4812519269645bbc18d4a0a6abbb, type: 2}
-  - {fileID: 11400000, guid: 96d0f2e4d32c73442a315852e0852824, type: 2}
   graphSkin: {fileID: 11400000, guid: 1132d6cb6b48c4e44861756b60e31b73, type: 2}
   baseNodeSmWidth: 40
   baseNodeSmHeight: 38

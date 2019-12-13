@@ -13,7 +13,7 @@ public class MoveController : MonoBehaviour
     public GamePart firstPart;
     public static MoveController moveC;
 
-    private TextController _textController;
+    private UIController _textController;
     [HideInInspector] public static Animator _mainAnimator;
     private PlayerController _playerController;
 
@@ -40,7 +40,7 @@ public class MoveController : MonoBehaviour
     public void Init()
     {
         _mainAnimator = GetComponent<Animator>();
-        _textController = GetComponent<TextController>();
+        _textController = GetComponent<UIController>();
         _playerController = GetComponent<PlayerController>();
 
         _isAchiveDetail = false;

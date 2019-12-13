@@ -3,28 +3,47 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary> Замена текста на кнопках и контроль UI </summary>
-public class TextController : MonoBehaviour
+public class UIController : MonoBehaviour
 {
-    #region CONNECTED_VAR
+    #region VARIABLES
 
     [SerializeField] private float _gameWaitToSwitch;
 
     [SerializeField] private RectTransform _eyeCenter;
 
-    [SerializeField] private Text _menuButton_1;
-    [SerializeField] private Text _menuButton_2;
-    [SerializeField] private Text _menuButton_3;
-    [SerializeField] private Text _menuButton_4;
+    [SerializeField] private Image
+        _achiveCase_1, _achiveCase_2,
+        _achiveCase_3, _achiveCase_4,
+        _achiveCase_5;
+
+    [SerializeField] private Text
+        _menuButton_1,
+        _menuButton_2,
+        _menuButton_3,
+        _menuButton_4;
 
     [SerializeField] private Text _gameMain_Txt;
-    [SerializeField] private Text _gameButton_1_Txt;
-    [SerializeField] private Text _gameButton_2_Txt;
-    [SerializeField] private Text _gameButton_3_Txt;
+    [SerializeField] private Text
+        _gameButton_1_Txt,
+        _gameButton_2_Txt,
+        _gameButton_3_Txt;
 
     [SerializeField] private Text _gameMessageInventoryTxt;
     [SerializeField] private Text _gameMessageCharacterTxt;
     [SerializeField] private Text _gameMessageMapTxt;
     [SerializeField] private Text _gameMessageNotesTxt;
+
+    [SerializeField] private Image
+        _inventCase_1, _inventCase_2,
+        _inventCase_3, _inventCase_4,
+        _inventCase_5, _inventCase_6,
+        _inventCase_7, _inventCase_8;
+
+    [SerializeField]
+    private Image
+        _effectCase_1, _effectCase_2,
+        _effectCase_3, _effectCase_4,
+        _effectCase_5, _effectCase_6;
 
     private Gyroscope _mainGyro;
     private bool _isGyroEnable;
@@ -105,16 +124,48 @@ public class TextController : MonoBehaviour
 
     #region UI_CONTROL
 
-    /// <summary> Перерисовать инвентарь </summary>
-    public void RepaintInventory()
+    /// <summary> Отобразить инвентарь </summary>
+    public void ShowInventory(int page)
     {
-        if (DataController.playerData.playerInventory.Count != 0)
-        {
-            for (int i = 0; i < DataController.playerData.playerInventory.Count; i++)
-            {
-                //  _mainPlayer.playerInventory[i].itemIco;
-            }
-        }
+        int InventLendth = DataController.playerData.playerInventory.Count;
+
+        page *= 8;
+
+        if (0 + page < InventLendth) _inventCase_1.sprite = DataController.playerData.playerInventory[0 + page].itemIco;
+        if (1 + page < InventLendth) _inventCase_2.sprite = DataController.playerData.playerInventory[1 + page].itemIco;
+        if (2 + page < InventLendth) _inventCase_3.sprite = DataController.playerData.playerInventory[2 + page].itemIco;
+        if (3 + page < InventLendth) _inventCase_4.sprite = DataController.playerData.playerInventory[3 + page].itemIco;
+        if (4 + page < InventLendth) _inventCase_5.sprite = DataController.playerData.playerInventory[4 + page].itemIco;
+        if (5 + page < InventLendth) _inventCase_6.sprite = DataController.playerData.playerInventory[5 + page].itemIco;
+        if (6 + page < InventLendth) _inventCase_7.sprite = DataController.playerData.playerInventory[6 + page].itemIco;
+        if (7 + page < InventLendth) _inventCase_8.sprite = DataController.playerData.playerInventory[7 + page].itemIco;
+    }
+
+    /// <summary> Отобразить еффекты на персонаже </summary>
+    public void ShowEffects()
+    {
+        int InventLendth = DataController.playerData.playerEffects.Count;
+
+        if (0 < InventLendth) _effectCase_1.sprite = DataController.playerData.playerEffects[0].icoEffect;
+        if (1 < InventLendth) _effectCase_2.sprite = DataController.playerData.playerEffects[1].icoEffect;
+        if (2 < InventLendth) _effectCase_3.sprite = DataController.playerData.playerEffects[2].icoEffect;
+        if (3 < InventLendth) _effectCase_4.sprite = DataController.playerData.playerEffects[3].icoEffect;
+        if (4 < InventLendth) _effectCase_5.sprite = DataController.playerData.playerEffects[4].icoEffect;
+        if (5 < InventLendth) _effectCase_6.sprite = DataController.playerData.playerEffects[5].icoEffect;
+    }
+
+    /// <summary> Отобразить достижения </summary>
+    public void ShowAchive(int page)
+    {
+        int achivesLendth = DataController.gameSettingsData.gameAchivemants.Count;
+
+        page *= 5;
+
+        if (0 + page < achivesLendth) _achiveCase_1.sprite = DataController.gameSettingsData.gameAchivemants[0 + page].achiveIco;
+        if (1 + page < achivesLendth) _achiveCase_2.sprite = DataController.gameSettingsData.gameAchivemants[1 + page].achiveIco;
+        if (2 + page < achivesLendth) _achiveCase_3.sprite = DataController.gameSettingsData.gameAchivemants[2 + page].achiveIco;
+        if (3 + page < achivesLendth) _achiveCase_4.sprite = DataController.gameSettingsData.gameAchivemants[3 + page].achiveIco;
+        if (4 + page < achivesLendth) _achiveCase_5.sprite = DataController.gameSettingsData.gameAchivemants[4 + page].achiveIco;
     }
 
     #endregion

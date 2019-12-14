@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 namespace GUIInspector.NodeEditor
@@ -63,9 +62,10 @@ namespace GUIInspector.NodeEditor
         {
             if (_storyData != null)
             {
+                // Подключение связей
+
                 if (storyData == null) storyData = _storyData;
                 if (trBehaviorEditor == null) trBehaviorEditor = this;
-
 
                 EditorGUILayout.BeginVertical(_storyData.graphSkin.GetStyle("Box"), GUILayout.Width(Screen.width), GUILayout.Height(Screen.height));
                 
@@ -75,6 +75,8 @@ namespace GUIInspector.NodeEditor
                 Event e = Event.current;
                 _mousePosition = e.mousePosition;
 
+                // Отображение
+
                 if (EventEditor.eventGraph == null)
                 {
                     UserInput(e);
@@ -83,7 +85,6 @@ namespace GUIInspector.NodeEditor
                     storyData.graphSkin.GetStyle("Label"));
                     DrawWindows();
                     GUI.backgroundColor = Color.white;
-                    DrawConnectors();
                 }
                 else
                 {
@@ -93,6 +94,8 @@ namespace GUIInspector.NodeEditor
                     storyData.graphSkin.GetStyle("Label"));
                     EventEditor.ShowWindow();
                 }
+
+                // Верхняя панель
 
                 EditorGUILayout.BeginHorizontal("TextArea");
                 if (EventEditor.eventGraph == null) EditorGUILayout.LabelField("Сценарий", GUILayout.Height(22));
@@ -123,76 +126,60 @@ namespace GUIInspector.NodeEditor
             }
         }
 
-        private void DrawConnectors()
-        {
-            foreach (GamePart bn in _storyData.nodesData)
-            {
-                if (bn != null)
-                {
-                    DrawConnectPoint(bn);
-                    DrawEvents(bn);
-                }
-            }
-        }
-
         /// <summary> Отрисовка всех нод </summary>
         private void DrawWindows()
         {
             _drag = Vector2.zero;
 
-            try
-            {
-                BeginWindows();
+            BeginWindows();
 
-                for (int i = 0; i < _storyData.nodesData.Count; i++)
+            for (int i = 0; i < _storyData.nodesData.Count; i++)
+            {
+                if (_storyData.nodesData[i] != null)
                 {
-                    if (_storyData.nodesData[i] != null)
+                    GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
+
+                    if (EditorApplication.isPlaying)
                     {
-                        GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
-
-                        if (EditorApplication.isPlaying)
+                        if (MoveController.thisPart != null)
                         {
-                            if (MoveController.thisPart != null)
-                            {
-                                if (MoveController.thisPart == _storyData.nodesData[i]) GUI.backgroundColor = Color.blue;
-                            }
+                            if (MoveController.thisPart == _storyData.nodesData[i]) GUI.backgroundColor = Color.blue;
                         }
-                        else
-                        {
-                            switch (_storyData.nodesData[i].workStady)
-                            {
-                                case 0: GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f); ; break;
-                                case 1: GUI.backgroundColor = Color.yellow; break;
-                                case 2: GUI.backgroundColor = Color.green; break;
-                            }
-
-                            if (_sellectedToConnect != null)
-                            {
-                                if (_sellectedToConnect.Equals(_storyData.nodesData[i]))
-                                {
-                                    CreateCurve(ConnectPosition(_storyData.nodesData[i], tempConnect),
-                                        new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
-                                    Repaint();
-                                }
-                            }
-                        }
-
-                        _storyData.nodesData[i].windowRect = GUI.Window(
-                         i,
-                         _storyData.nodesData[i].windowRect,
-                         DrawNodeWindow,
-                         _storyData.nodesData[i].windowTitle, storyData.graphSkin.GetStyle("Window"));
-
-                        DrawCurve(_storyData.nodesData[i]);
                     }
+                    else
+                    {
+                        switch (_storyData.nodesData[i].workStady)
+                        {
+                            case 0: GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f); ; break;
+                            case 1: GUI.backgroundColor = Color.yellow; break;
+                            case 2: GUI.backgroundColor = Color.green; break;
+                        }
+
+                        if (_sellectedToConnect != null)
+                        {
+                            if (_sellectedToConnect.Equals(_storyData.nodesData[i]))
+                            {
+                                CreateCurve(ConnectPosition(_storyData.nodesData[i], tempConnect),
+                                    new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
+                                Repaint();
+                            }
+                        }
+                    }
+
+                    _storyData.nodesData[i].windowRect = GUI.Window(
+                     i,
+                     _storyData.nodesData[i].windowRect,
+                     DrawNodeWindow,
+                     _storyData.nodesData[i].windowTitle, storyData.graphSkin.GetStyle("Window"));
+
+                    GUI.backgroundColor = Color.white;
+                    DrawConnectPoint(_storyData.nodesData[i]);
+                    DrawEvents(_storyData.nodesData[i]);
+                    DrawCurve(_storyData.nodesData[i]);
                 }
-                
-                EndWindows();
             }
-            catch (System.ArgumentOutOfRangeException)
-            {
-                return;
-            }
+
+            EndWindows();
         }
 
         #region CONNECTORS_WORK

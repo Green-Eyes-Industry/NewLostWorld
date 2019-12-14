@@ -50,8 +50,6 @@ namespace GUIInspector.NodeEditor
         /// <summary> Проверка действия </summary>
         private void AddNodeToWindow(object o)
         {
-            Object[] loadedObj = Resources.LoadAll("GameParts", typeof(GamePart));
-
             UserActions a = (UserActions)o;
 
             string pathToNode;
@@ -60,27 +58,24 @@ namespace GUIInspector.NodeEditor
 
             int numNode = 0;
 
+            do { numNode++; } while (PartNameExistor(numNode));
+
             string nameNode = numNode.ToString();
 
-            do
+            switch (a)
             {
-                switch (a)
-                {
-                    case UserActions.ADD_TEXT_PART: nameNode = numNode + "_TextPart"; break;
-                    case UserActions.ADD_CHANGE_PART: nameNode = numNode + "_ChangePart"; break;
-                    case UserActions.ADD_BATTLE_PART: nameNode = numNode + "_BattlePart"; break;
-                    case UserActions.ADD_MAZE_PART: nameNode = numNode + "_PazzlePart"; break;
-                    case UserActions.ADD_EVENT_PART: nameNode = numNode + "_EventPart"; break;
-                    case UserActions.ADD_FINAL_PART: nameNode = numNode + "_FinalPart"; break;
-                    case UserActions.ADD_LABEL_PART: nameNode = numNode + "_LeandPart"; break;
-                    case UserActions.ADD_SLIDESHOW_PART: nameNode = numNode + "_MoviePart"; break;
-                    case UserActions.ADD_TRANSIT: nameNode = numNode + ""; break;
-                }
-                
-                pathToNode = "Assets/Resources/GameParts/" + nameNode + ".asset";
-                numNode++;
+                case UserActions.ADD_TEXT_PART: nameNode = numNode + "_TextPart"; break;
+                case UserActions.ADD_CHANGE_PART: nameNode = numNode + "_ChangePart"; break;
+                case UserActions.ADD_BATTLE_PART: nameNode = numNode + "_BattlePart"; break;
+                case UserActions.ADD_MAZE_PART: nameNode = numNode + "_PazzlePart"; break;
+                case UserActions.ADD_EVENT_PART: nameNode = numNode + "_EventPart"; break;
+                case UserActions.ADD_FINAL_PART: nameNode = numNode + "_FinalPart"; break;
+                case UserActions.ADD_LABEL_PART: nameNode = numNode + "_LeandPart"; break;
+                case UserActions.ADD_SLIDESHOW_PART: nameNode = numNode + "_MoviePart"; break;
+                case UserActions.ADD_TRANSIT: nameNode = numNode + ""; break;
+            }
 
-            } while (File.Exists(pathToNode));
+            pathToNode = "Assets/Resources/GameParts/" + nameNode + ".asset";
 
             if (BehaviorEditor.storyData.nodesData != null)
             {
@@ -239,6 +234,21 @@ namespace GUIInspector.NodeEditor
 
             
             BehaviorEditor.SaveData();
+        }
+
+        /// <summary> Поиск дубликатов </summary>
+        private bool PartNameExistor(int partId)
+        {
+            if (File.Exists("Assets/Resources/GameParts/" + partId + "_TextPart" + ".asset")) return true;
+            if (File.Exists("Assets/Resources/GameParts/" + partId + "_ChangePart" + ".asset")) return true;
+            if (File.Exists("Assets/Resources/GameParts/" + partId + "_BattlePart" + ".asset")) return true;
+            if (File.Exists("Assets/Resources/GameParts/" + partId + "_EventPart" + ".asset")) return true;
+            if (File.Exists("Assets/Resources/GameParts/" + partId + "_PazzlePart" + ".asset")) return true;
+            if (File.Exists("Assets/Resources/GameParts/" + partId + "_FinalPart" + ".asset")) return true;
+            if (File.Exists("Assets/Resources/GameParts/" + partId + "_MoviePart" + ".asset")) return true;
+            if (File.Exists("Assets/Resources/GameParts/" + partId + "_LeandPart" + ".asset")) return true;
+
+            return false;
         }
 
         /// <summary> Насколько сокращать имя </summary>

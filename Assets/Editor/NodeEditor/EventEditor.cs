@@ -33,8 +33,6 @@ namespace GUIInspector.NodeEditor
                 eventEditor._emptyTexture = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/Connect.png", typeof(Texture));
 
             eventEditor.DrawEventWindows();
-            GUI.backgroundColor = Color.white;
-            eventEditor.DrawEventConnectors();
         }
 
         /// <summary> Отрисовка окон в редакторе Евентов </summary>
@@ -74,6 +72,8 @@ namespace GUIInspector.NodeEditor
                              DrawSubEventWindow,
                              eventGraph.eventParts[i].name, BehaviorEditor.storyData.graphSkin.GetStyle("Window"));
 
+                    GUI.backgroundColor = Color.white;
+                    DrawEventConnectors(eventGraph.eventParts[i]);
                     DrawCurve(eventGraph.eventParts[i]);
                 }
             }
@@ -150,25 +150,21 @@ namespace GUIInspector.NodeEditor
         }
 
         /// <summary> Отрисовка соединений в редакторе событий </summary>
-        private void DrawEventConnectors()
+        private void DrawEventConnectors(SubEventPart part)
         {
-            for (int i = 0; i < eventGraph.eventParts.Count; i++)
+            if (part.isFail) return;
+            else if (part.isFinal) return;
+
+            if (GUI.Button(ConnectPosition(part, 0), _emptyTexture, BehaviorEditor.storyData.graphSkin.FindStyle("Button")))
             {
-                if (eventGraph.eventParts[i].isFail) continue;
-                else if (eventGraph.eventParts[i].isFinal) continue;
+                ConnectorClick(0, part);
+                tempConnect = 0;
+            }
 
-                if (GUI.Button(ConnectPosition(eventGraph.eventParts[i], 0), _emptyTexture, BehaviorEditor.storyData.graphSkin.FindStyle("Button")))
-                {
-                    ConnectorClick(0, eventGraph.eventParts[i]);
-                    tempConnect = 0;
-                }
-
-                if (GUI.Button(ConnectPosition(eventGraph.eventParts[i], 2), _emptyTexture, BehaviorEditor.storyData.graphSkin.FindStyle("Button")))
-                {
-                    ConnectorClick(1, eventGraph.eventParts[i]);
-                    tempConnect = 2;
-                }
-
+            if (GUI.Button(ConnectPosition(part, 2), _emptyTexture, BehaviorEditor.storyData.graphSkin.FindStyle("Button")))
+            {
+                ConnectorClick(1, part);
+                tempConnect = 2;
             }
         }
 

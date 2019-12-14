@@ -74,7 +74,7 @@ namespace GUIInspector
                 GUILayout.BeginHorizontal("Box");
 
                 itemInteract._failPart = (GamePart)EditorGUILayout.ObjectField(
-                    "Отсутствие :",
+                    "Глава провала :",
                     itemInteract._failPart,
                     typeof(GamePart),
                     true);

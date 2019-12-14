@@ -1209,7 +1209,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155599880}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -7150,7 +7150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397153379}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -7725,7 +7725,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571637109}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -7798,7 +7798,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626626114}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -7932,6 +7932,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameWaitToSwitch: 0.4
   _eyeCenter: {fileID: 339409854}
+  _achiveClose: {fileID: 21300000, guid: d5c12501febb0534694b0944a8ebe197, type: 3}
+  _achiveOpen: {fileID: 21300000, guid: 1b09819bdc1e752468deef88b92ef339, type: 3}
+  _achiveCase_1: {fileID: 155599882}
+  _achiveCase_2: {fileID: 1973286530}
+  _achiveCase_3: {fileID: 571637111}
+  _achiveCase_4: {fileID: 397153381}
+  _achiveCase_5: {fileID: 626626116}
   _menuButton_1: {fileID: 2073387544}
   _menuButton_2: {fileID: 983895235}
   _menuButton_3: {fileID: 215654930}
@@ -7944,6 +7951,20 @@ MonoBehaviour:
   _gameMessageCharacterTxt: {fileID: 180768437}
   _gameMessageMapTxt: {fileID: 100136119}
   _gameMessageNotesTxt: {fileID: 2036074031}
+  _inventCase_1: {fileID: 1317822168}
+  _inventCase_2: {fileID: 78422199}
+  _inventCase_3: {fileID: 688242755}
+  _inventCase_4: {fileID: 1931432598}
+  _inventCase_5: {fileID: 1422102901}
+  _inventCase_6: {fileID: 1046873481}
+  _inventCase_7: {fileID: 491658412}
+  _inventCase_8: {fileID: 790723263}
+  _effectCase_1: {fileID: 727981201}
+  _effectCase_2: {fileID: 803887527}
+  _effectCase_3: {fileID: 354008733}
+  _effectCase_4: {fileID: 1351102267}
+  _effectCase_5: {fileID: 742372672}
+  _effectCase_6: {fileID: 246835561}
 --- !u!114 &638641261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49232,7 +49253,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973286528}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

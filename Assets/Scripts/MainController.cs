@@ -26,7 +26,7 @@ public class MainController : MonoBehaviour
     private void ConnectControllers()
     {
         _moveController = GetComponent<MoveController>();
-        MoveController.moveC = _moveController;
+        MoveController.moveContr = _moveController;
 
         DataController.gameSettingsData = _mainGameSettings;
         DataController.playerData = _mainPlayer;

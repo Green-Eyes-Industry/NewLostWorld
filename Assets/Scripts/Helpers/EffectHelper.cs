@@ -16,7 +16,7 @@ public class EffectHelper : MonoBehaviour
     /// <summary> Задержка отключения эффекта </summary>
     private IEnumerator WaitForDisable()
     {
-        yield return new WaitForSeconds(_particle.GetComponent<ParticleSystem>().duration * 3);
+        yield return new WaitForSeconds(_particle.GetComponent<ParticleSystem>().main.duration * 3);
         _particle.SetActive(false);
     }
 }

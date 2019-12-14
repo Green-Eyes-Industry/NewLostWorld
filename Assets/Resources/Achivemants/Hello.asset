@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d562ba768f5e464ab58262676848bf5, type: 3}
-  m_Name: BaseParameters
+  m_Script: {fileID: 11500000, guid: ee004723432fb8e4b8b4144b036f97c9, type: 3}
+  m_Name: Hello
   m_EditorClassIdentifier: 
-  lastPart: {fileID: 0}
-  isSoundCheck: 0
-  isVibrationCheck: 0
-  isEffectCheck: 0
-  eyeColor: {r: 0, g: 0, b: 0, a: 0}
-  gameAchivemants: []
+  achiveIco: {fileID: 0}
+  achiveName: 
+  achiveDescript: 

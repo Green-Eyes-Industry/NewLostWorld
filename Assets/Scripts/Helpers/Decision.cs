@@ -4,10 +4,12 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New decision", menuName = "Игровые обьекты/Решение")]
 public class Decision : ScriptableObject
 {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
+
+    /// <summary> Название решения </summary>
+    public string _nameDecision;
 
     /// <summary> Описание решения </summary>
     public string _decisionDescription;
@@ -26,10 +28,18 @@ namespace GUIInspector
 
         private void OnEnable() => _decision = (Decision)target;
 
-        public override void OnInspectorGUI()
+        public override void OnInspectorGUI() => ShowItemEditor(_decision);
+
+        /// <summary> Отобразить в редакторе </summary>
+        public static void ShowItemEditor(Decision decision)
         {
-            EditorGUILayout.LabelField("Описание решения");
-            _decision._decisionDescription = EditorGUILayout.TextArea(_decision._decisionDescription, GUILayout.Height(100));
+            EditorGUILayout.LabelField("Важное решение");
+
+            EditorGUILayout.BeginVertical("Box");
+            decision._nameDecision = EditorGUILayout.TextField("Название", decision._nameDecision);
+            EditorGUILayout.LabelField("Описание");
+            decision._decisionDescription = EditorGUILayout.TextArea(decision._decisionDescription, GUILayout.Height(100));
+            EditorGUILayout.EndVertical();
         }
     }
 }

@@ -17,16 +17,16 @@ MonoBehaviour:
   movePart_1: {fileID: 11400000, guid: 6deebae8ebbd2da41932f77d435069e7, type: 2}
   movePart_2: {fileID: 11400000, guid: dbd00b52433203a4c96df314d779754c, type: 2}
   movePart_3: {fileID: 11400000, guid: 8025d241076bdfb479176ca070a4cc04, type: 2}
-  windowSizeStady: 1
+  windowSizeStady: 0
   memberComment: 0
   windowRect:
     serializedVersion: 2
-    x: 133.5
-    y: 171.5
-    width: 40
-    height: 38
+    x: -30.5
+    y: 524
+    width: 120
+    height: 40
   _memTitle: 3_BattlePart
-  windowTitle: 3
+  windowTitle: 3_BattlePart
   part: {fileID: 0}
   workStady: 2
   comment: "\u0420\u0430\u0437\u0432\u0438\u043B\u043A\u0430"

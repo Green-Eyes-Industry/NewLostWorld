@@ -11,11 +11,11 @@ public class MoveController : MonoBehaviour
 
     /// <summary> Первая глава сюжета </summary>
     public GamePart firstPart;
-    public static MoveController moveC;
+    public static MoveController moveContr;
 
-    private UIController _textController;
+    private UIController _uiContr;
     [HideInInspector] public static Animator _mainAnimator;
-    private PlayerController _playerController;
+    private PlayerController _plContr;
 
     private bool _isAchiveDetail; // Вы в меню описания достижения
     private int _lastPartType;
@@ -26,6 +26,9 @@ public class MoveController : MonoBehaviour
 
     /// <summary> Глава запускаемая по нажатию "Начало" </summary>
     [HideInInspector] public static GamePart thisPart;
+
+    private int _achiveSelectId; // Глава для вывода описания
+    private int _achiveDisplayPage; // Отображаемая страница достижений
 
     #endregion
 
@@ -40,8 +43,8 @@ public class MoveController : MonoBehaviour
     public void Init()
     {
         _mainAnimator = GetComponent<Animator>();
-        _textController = GetComponent<UIController>();
-        _playerController = GetComponent<PlayerController>();
+        _uiContr = GetComponent<UIController>();
+        _plContr = GetComponent<PlayerController>();
 
         _isAchiveDetail = false;
     }
@@ -52,13 +55,13 @@ public class MoveController : MonoBehaviour
     public static void NextPart(GamePart nextPart)
     {
         _mainAnimator.SetTrigger("SwitchGameText");
-        if (nextPart is TextPart) moveC.ShowTextPart((TextPart)nextPart);
-        else if (nextPart is ChangePart) moveC.ShowChangePart((ChangePart)nextPart);
-        else if (nextPart is BattlePart) moveC.ShowBattlePart((BattlePart)nextPart);
-        else if (nextPart is FinalPart) moveC.ShowFinalPart((FinalPart)nextPart);
-        else if (nextPart is EventPart) moveC.ShowFinalPart((EventPart)nextPart);
+        if (nextPart is TextPart) moveContr.ShowTextPart((TextPart)nextPart);
+        else if (nextPart is ChangePart) moveContr.ShowChangePart((ChangePart)nextPart);
+        else if (nextPart is BattlePart) moveContr.ShowBattlePart((BattlePart)nextPart);
+        else if (nextPart is FinalPart) moveContr.ShowFinalPart((FinalPart)nextPart);
+        else if (nextPart is EventPart) moveContr.ShowFinalPart((EventPart)nextPart);
 
-        moveC._playerController.EventsStart(nextPart.mainEvents);
+        moveContr._plContr.EventsStart(nextPart.mainEvents);
         
         thisPart = nextPart;
     }
@@ -67,8 +70,8 @@ public class MoveController : MonoBehaviour
     private void ShowTextPart(TextPart textPart)
     {
         _mainAnimator.SetInteger("GameStady", 0);
-        _textController.GameMain(textPart.mainText);
-        _textController.GameButton_1(textPart.buttonText_1);
+        _uiContr.GameMain(textPart.mainText);
+        _uiContr.GameButton_1(textPart.buttonText_1);
     }
 
     /// <summary> Запуск главы выбора </summary>
@@ -76,9 +79,9 @@ public class MoveController : MonoBehaviour
     {
         // Код
         _mainAnimator.SetInteger("GameStady", 1);
-        _textController.GameMain(changePart.mainText);
-        _textController.GameButton_1(changePart.buttonText_1);
-        _textController.GameButton_2(changePart.buttonText_2);
+        _uiContr.GameMain(changePart.mainText);
+        _uiContr.GameButton_1(changePart.buttonText_1);
+        _uiContr.GameButton_2(changePart.buttonText_2);
     }
 
     /// <summary> Запуск главы боя </summary>
@@ -86,10 +89,10 @@ public class MoveController : MonoBehaviour
     {
         // Код
         _mainAnimator.SetInteger("GameStady", 2);
-        _textController.GameMain(battlePart.mainText);
-        _textController.GameButton_1(battlePart.buttonText_1);
-        _textController.GameButton_2(battlePart.buttonText_2);
-        _textController.GameButton_3(battlePart.buttonText_3);
+        _uiContr.GameMain(battlePart.mainText);
+        _uiContr.GameButton_1(battlePart.buttonText_1);
+        _uiContr.GameButton_2(battlePart.buttonText_2);
+        _uiContr.GameButton_3(battlePart.buttonText_3);
     }
 
     /// <summary> Запуск финальной главы </summary>
@@ -344,25 +347,28 @@ public class MoveController : MonoBehaviour
     {
         switch (buttonID)
         {
-            case 0: _mainAnimator.SetBool("Menu_1_Button", true); break;    // Меню 1 кнопка
-            case 1: _mainAnimator.SetBool("Menu_2_Button", true); break;    // Меню 2 кнопка
-            case 2: _mainAnimator.SetBool("Menu_3_Button", true); break;    // Меню 3 кнопка
+            case 0: MenuB1(true); break;
+            case 1: MenuB2(true); break;
+            case 2: MenuB3(true); break;
+            case 3: MenuB4(true); break;
 
-            case 3:
-                // Меню 4 кнопка
-
-                switch (_mainAnimator.GetInteger("MenuStady"))
+            case 4:
+                if (!_isAchiveDetail && _achiveDisplayPage > 0)
                 {
-                    case 0:
-                    case 1:
-                    case 2: _mainAnimator.SetBool("Menu_4_Button", true); break;
-                    default: _mainAnimator.SetBool("Achives_Back", true); break;
+                    _achiveDisplayPage--;
+                    _uiContr.ShowAchive(_achiveDisplayPage);
+                    _mainAnimator.SetBool("Achives_Left", true);
                 }
+                break; // Влево в меню достижений
 
-                break;
-
-            case 4: if (!_isAchiveDetail) _mainAnimator.SetBool("Achives_Left", true); break; // Влево в меню достижений
-            case 5: if (!_isAchiveDetail) _mainAnimator.SetBool("Achives_Right", true); break; // Вправо в меню достижений
+            case 5:
+                if (!_isAchiveDetail && DataController.gameSettingsData.gameAchivemants.Count > 5 * (_achiveDisplayPage + 1))
+                {
+                    _achiveDisplayPage++;
+                    _uiContr.ShowAchive(_achiveDisplayPage);
+                    _mainAnimator.SetBool("Achives_Right", true);
+                }
+                break; // Вправо в меню достижений
 
             case 7: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_1", true); break; // Ячейка достижения 1
             case 8: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_2", true); break; // Ячейка достижения 2
@@ -377,121 +383,15 @@ public class MoveController : MonoBehaviour
     {
         switch (buttonID)
         {
-            case 0:
-                // Начать игру
-
-                _mainAnimator.SetBool("Menu_1_Button", false);
-
-                switch (_mainAnimator.GetInteger("MenuStady"))
-                {
-                    case 0:
-                        _mainAnimator.SetBool("StartGameDescript", true);
-                        GameStart();
-                        _mainAnimator.SetInteger("MenuStady", 9);
-
-                        int partType;
-
-                        if (thisPart is TextPart) partType = 0;
-                        else if (thisPart is ChangePart) partType = 1;
-                        else if (thisPart is BattlePart) partType = 2;
-                        else if (thisPart is EventPart) partType = 3;
-                        else partType = 4;
-
-                        _mainAnimator.SetInteger("GameStady", partType);
-                        StartCoroutine(HideStartDescriptMenu());
-
-                        break;
-
-                    case 1:
-                        _mainAnimator.SetBool("Settings_1_St", !_mainAnimator.GetBool("Settings_1_St"));
-                        DataController.gameSettingsData.isSoundCheck = _mainAnimator.GetBool("Settings_1_St");
-                        DataController.SaveSettingsData();
-                        break;
-                }
-
-                break;
-
-            case 1:
-                // Настройки
-
-                _mainAnimator.SetBool("Menu_2_Button", false);
-
-                switch (_mainAnimator.GetInteger("MenuStady"))
-                {
-                    case 0:
-                        _textController.MenuOpenSettings();
-                        _mainAnimator.SetTrigger("SwitchTextToSettings");
-                        _mainAnimator.SetInteger("MenuStady", 1);
-                        break;
-
-                    case 1:
-                        _mainAnimator.SetBool("Settings_2_St", !_mainAnimator.GetBool("Settings_2_St"));
-                        DataController.gameSettingsData.isVibrationCheck = _mainAnimator.GetBool("Settings_2_St");
-                        DataController.SaveSettingsData();
-                        break;
-                }
-
-                break;
-
-            case 2:
-                // Об авторе
-
-                _mainAnimator.SetBool("Menu_3_Button", false);
-
-                switch (_mainAnimator.GetInteger("MenuStady"))
-                {
-                    case 0:
-                        _textController.MenuOpenAbout();
-                        _mainAnimator.SetTrigger("SwitchTextToAbout");
-                        _mainAnimator.SetInteger("MenuStady", 2);
-                        break;
-
-                    case 1:
-                        _mainAnimator.SetBool("Settings_3_St", !_mainAnimator.GetBool("Settings_3_St"));
-                        DataController.gameSettingsData.isEffectCheck = _mainAnimator.GetBool("Settings_3_St");
-                        DataController.SaveSettingsData();
-                        break;
-                }
-
-                break;
-
-            case 3:
-                // Достижения
-                
-                switch (_mainAnimator.GetInteger("MenuStady"))
-                {
-                    case 0:
-                        _mainAnimator.SetBool("Menu_4_Button", false);
-                        _mainAnimator.SetInteger("MenuStady", 3);
-                        break;
-
-                    case 1:
-                    case 2:
-                        _textController.MenuOpenMain();
-                        _mainAnimator.SetBool("Menu_4_Button", false);
-                        _mainAnimator.SetInteger("MenuStady", 0);
-                        _mainAnimator.SetTrigger("ReturnToMenu");
-                        break;
-
-                    default:
-                        _mainAnimator.SetBool("Achives_Back", false);
-
-                        if (!_isAchiveDetail) _mainAnimator.SetInteger("MenuStady", 0);
-                        else
-                        {
-                            _mainAnimator.SetBool("AchiveDescript", false);
-                            _isAchiveDetail = false;
-                        }
-                            
-                        break;
-                }
-
-                break;
+            case 0: MenuB1(false); break;
+            case 1: MenuB2(false); break;
+            case 2: MenuB3(false); break;
+            case 3: MenuB4(false); break;
 
             case 4:
                 // Влево в меню достижений
 
-                if (!_isAchiveDetail)
+                if (!_isAchiveDetail && _achiveDisplayPage > 1)
                 {
                     _mainAnimator.SetBool("Achives_Left", false);
                     _mainAnimator.SetTrigger("AchiveSlidePage");
@@ -501,7 +401,7 @@ public class MoveController : MonoBehaviour
             case 5:
                 // Вправо в меню достижений
 
-                if (!_isAchiveDetail)
+                if (!_isAchiveDetail && DataController.gameSettingsData.gameAchivemants.Count > 5 * (_achiveDisplayPage + 1))
                 {
                     _mainAnimator.SetBool("Achives_Right", false);
                     _mainAnimator.SetTrigger("AchiveSlidePage");
@@ -628,6 +528,151 @@ public class MoveController : MonoBehaviour
                 break;
         }
     }
+
+    #region MAIN_MENU
+
+    /// <summary> Меню кнопка 1 </summary>
+    private void MenuB1(bool press)
+    {
+        _mainAnimator.SetBool("Menu_1_Button", press);
+
+        if (!press)
+        {
+            switch (_mainAnimator.GetInteger("MenuStady"))
+            {
+                case 0:
+                    _mainAnimator.SetBool("StartGameDescript", true);
+                    GameStart();
+                    _mainAnimator.SetInteger("MenuStady", 9);
+
+                    int partType;
+
+                    if (thisPart is TextPart) partType = 0;
+                    else if (thisPart is ChangePart) partType = 1;
+                    else if (thisPart is BattlePart) partType = 2;
+                    else if (thisPart is EventPart) partType = 3;
+                    else partType = 4;
+
+                    _mainAnimator.SetInteger("GameStady", partType);
+                    StartCoroutine(HideStartDescriptMenu());
+
+                    break;
+
+                case 1:
+                    _mainAnimator.SetBool("Settings_1_St", !_mainAnimator.GetBool("Settings_1_St"));
+                    DataController.gameSettingsData.isSoundCheck = _mainAnimator.GetBool("Settings_1_St");
+                    DataController.SaveSettingsData();
+                    break;
+            }
+        }
+    }
+
+    /// <summary> Меню кнопка 2 </summary>
+    private void MenuB2(bool press)
+    {
+        _mainAnimator.SetBool("Menu_2_Button", press);
+
+        if (!press)
+        {
+            switch (_mainAnimator.GetInteger("MenuStady"))
+            {
+                case 0:
+                    _uiContr.MenuOpenSettings();
+                    _mainAnimator.SetTrigger("SwitchTextToSettings");
+                    _mainAnimator.SetInteger("MenuStady", 1);
+                    break;
+
+                case 1:
+                    _mainAnimator.SetBool("Settings_2_St", !_mainAnimator.GetBool("Settings_2_St"));
+                    DataController.gameSettingsData.isVibrationCheck = _mainAnimator.GetBool("Settings_2_St");
+                    DataController.SaveSettingsData();
+                    break;
+            }
+        }
+    }
+
+    /// <summary> Меню кнопка 3 </summary>
+    private void MenuB3(bool press)
+    {
+        _mainAnimator.SetBool("Menu_3_Button", press);
+
+        if (!press)
+        {
+            switch (_mainAnimator.GetInteger("MenuStady"))
+            {
+                case 0:
+                    _uiContr.MenuOpenAbout();
+                    _mainAnimator.SetTrigger("SwitchTextToAbout");
+                    _mainAnimator.SetInteger("MenuStady", 2);
+                    break;
+
+                case 1:
+                    _mainAnimator.SetBool("Settings_3_St", !_mainAnimator.GetBool("Settings_3_St"));
+                    DataController.gameSettingsData.isEffectCheck = _mainAnimator.GetBool("Settings_3_St");
+                    DataController.SaveSettingsData();
+                    break;
+            }
+        }
+    }
+
+    /// <summary> Меню кнопка 4 </summary>
+    private void MenuB4(bool press)
+    {
+        if (press)
+        {
+            _achiveDisplayPage = 0;
+
+            switch (_mainAnimator.GetInteger("MenuStady"))
+            {
+                case 0:
+                case 1:
+                case 2:
+                    _mainAnimator.SetBool("Menu_4_Button", true);
+                    _uiContr.ShowAchive(_achiveDisplayPage);
+                    break;
+
+                default: _mainAnimator.SetBool("Achives_Back", true); break;
+            }
+        }
+        else
+        {
+            switch (_mainAnimator.GetInteger("MenuStady"))
+            {
+                case 0:
+                    _mainAnimator.SetBool("Menu_4_Button", press);
+                    _mainAnimator.SetInteger("MenuStady", 3);
+                    break;
+
+                case 1:
+                case 2:
+                    _uiContr.MenuOpenMain();
+                    _mainAnimator.SetBool("Menu_4_Button", press);
+                    _mainAnimator.SetInteger("MenuStady", 0);
+                    _mainAnimator.SetTrigger("ReturnToMenu");
+                    break;
+
+                default:
+                    _mainAnimator.SetBool("Achives_Back", press);
+
+                    if (!_isAchiveDetail) _mainAnimator.SetInteger("MenuStady", 0);
+                    else
+                    {
+                        _mainAnimator.SetBool("AchiveDescript", false);
+                        _isAchiveDetail = false;
+                    }
+
+                    break;
+            }
+        }
+    }
+
+    /// <summary> Достижения </summary>
+    private void AchivemantButtons(bool press)
+    {
+
+    }
+
+    #endregion
 
     #endregion
 

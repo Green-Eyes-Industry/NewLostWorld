@@ -33,12 +33,6 @@ namespace GUIInspector
         public static void ShowEventEditor(CheckPoint checkPoint)
         {
             GUILayout.Label("Контрольная точка");
-
-            EditorGUILayout.BeginVertical("Box");
-
-            // Код
-
-            EditorGUILayout.EndVertical();
         }
     }
 }

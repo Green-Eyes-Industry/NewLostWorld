@@ -48,7 +48,38 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            // Код
+            checkDecision._failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", checkDecision._failPart, typeof(GamePart), true);
+
+            int id = 0;
+            object[] allDecisions = Resources.LoadAll("Decisions/", typeof(Decision));
+
+            string[] names = new string[allDecisions.Length];
+
+            Decision nameConvert;
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                nameConvert = (Decision)allDecisions[i];
+                names[i] = nameConvert._nameDecision;
+            }
+
+            EditorGUILayout.BeginHorizontal();
+
+            if(allDecisions.Length > 0)
+            {
+                id = EditorGUILayout.Popup(id, names);
+                checkDecision.decision = (Decision)allDecisions[id];
+            }
+            else GUILayout.Label("Нет решений");
+
+            GUI.backgroundColor = Color.green;
+            if (GUILayout.Button("Создать",GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(Decision)),
+                 "Assets/Resources/Decisions/" + allDecisions.Length + "_Decision.asset");
+
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = Color.white;
+            if (checkDecision.decision != null) DecisionGUI_Inspector.ShowItemEditor(checkDecision.decision);
 
             EditorGUILayout.EndVertical();
         }

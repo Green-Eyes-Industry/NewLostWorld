@@ -7,43 +7,63 @@ public class UIController : MonoBehaviour
 {
     #region VARIABLES
 
+    [Header("Базовые")]
+
     [SerializeField] private float _gameWaitToSwitch;
 
     [SerializeField] private RectTransform _eyeCenter;
 
-    [SerializeField] private Image
-        _achiveCase_1, _achiveCase_2,
-        _achiveCase_3, _achiveCase_4,
-        _achiveCase_5;
+    [Header("Достижения")]
 
-    [SerializeField] private Text
-        _menuButton_1,
-        _menuButton_2,
-        _menuButton_3,
-        _menuButton_4;
+    [SerializeField] private Sprite _achiveClose;
+    [SerializeField] private Sprite _achiveOpen;
+
+    [SerializeField] private Image _achiveCase_1;
+    [SerializeField] private Image _achiveCase_2;
+    [SerializeField] private Image _achiveCase_3;
+    [SerializeField] private Image _achiveCase_4;
+    [SerializeField] private Image _achiveCase_5;
+
+    [Header("Главное меню")]
+
+    [SerializeField] private Text _menuButton_1;
+    [SerializeField] private Text _menuButton_2;
+    [SerializeField] private Text _menuButton_3;
+    [SerializeField] private Text _menuButton_4;
+
+    [Header("Игровая глава")]
 
     [SerializeField] private Text _gameMain_Txt;
-    [SerializeField] private Text
-        _gameButton_1_Txt,
-        _gameButton_2_Txt,
-        _gameButton_3_Txt;
+    [SerializeField] private Text _gameButton_1_Txt;
+    [SerializeField] private Text _gameButton_2_Txt;
+    [SerializeField] private Text _gameButton_3_Txt;
+
+    [Header("Сообщения в игре")]
 
     [SerializeField] private Text _gameMessageInventoryTxt;
     [SerializeField] private Text _gameMessageCharacterTxt;
     [SerializeField] private Text _gameMessageMapTxt;
     [SerializeField] private Text _gameMessageNotesTxt;
 
-    [SerializeField] private Image
-        _inventCase_1, _inventCase_2,
-        _inventCase_3, _inventCase_4,
-        _inventCase_5, _inventCase_6,
-        _inventCase_7, _inventCase_8;
+    [Header("Инвентарь")]
 
-    [SerializeField]
-    private Image
-        _effectCase_1, _effectCase_2,
-        _effectCase_3, _effectCase_4,
-        _effectCase_5, _effectCase_6;
+    [SerializeField] private Image _inventCase_1;
+    [SerializeField] private Image _inventCase_2;
+    [SerializeField] private Image _inventCase_3;
+    [SerializeField] private Image _inventCase_4;
+    [SerializeField] private Image _inventCase_5;
+    [SerializeField] private Image _inventCase_6;
+    [SerializeField] private Image _inventCase_7;
+    [SerializeField] private Image _inventCase_8;
+
+    [Header("Эффекты в меню персонажа")]
+
+    [SerializeField] private Image _effectCase_1;
+    [SerializeField] private Image _effectCase_2;
+    [SerializeField] private Image _effectCase_3;
+    [SerializeField] private Image _effectCase_4;
+    [SerializeField] private Image _effectCase_5;
+    [SerializeField] private Image _effectCase_6;
 
     private Gyroscope _mainGyro;
     private bool _isGyroEnable;
@@ -131,14 +151,62 @@ public class UIController : MonoBehaviour
 
         page *= 8;
 
-        if (0 + page < InventLendth) _inventCase_1.sprite = DataController.playerData.playerInventory[0 + page].itemIco;
-        if (1 + page < InventLendth) _inventCase_2.sprite = DataController.playerData.playerInventory[1 + page].itemIco;
-        if (2 + page < InventLendth) _inventCase_3.sprite = DataController.playerData.playerInventory[2 + page].itemIco;
-        if (3 + page < InventLendth) _inventCase_4.sprite = DataController.playerData.playerInventory[3 + page].itemIco;
-        if (4 + page < InventLendth) _inventCase_5.sprite = DataController.playerData.playerInventory[4 + page].itemIco;
-        if (5 + page < InventLendth) _inventCase_6.sprite = DataController.playerData.playerInventory[5 + page].itemIco;
-        if (6 + page < InventLendth) _inventCase_7.sprite = DataController.playerData.playerInventory[6 + page].itemIco;
-        if (7 + page < InventLendth) _inventCase_8.sprite = DataController.playerData.playerInventory[7 + page].itemIco;
+        if (0 + page < InventLendth)
+        {
+            _inventCase_1.gameObject.SetActive(true);
+            _inventCase_1.sprite = DataController.playerData.playerInventory[0 + page].itemIco;
+        }
+        else _inventCase_8.gameObject.SetActive(false);
+
+        if (1 + page < InventLendth)
+        {
+            _inventCase_2.gameObject.SetActive(true);
+            _inventCase_2.sprite = DataController.playerData.playerInventory[1 + page].itemIco;
+        }
+        else _inventCase_8.gameObject.SetActive(false);
+
+        if (2 + page < InventLendth)
+        {
+            _inventCase_3.gameObject.SetActive(true);
+            _inventCase_3.sprite = DataController.playerData.playerInventory[2 + page].itemIco;
+        }
+        else _inventCase_8.gameObject.SetActive(false);
+
+        if (3 + page < InventLendth)
+        {
+            _inventCase_4.gameObject.SetActive(true);
+            _inventCase_4.sprite = DataController.playerData.playerInventory[3 + page].itemIco;
+        }
+        else _inventCase_8.gameObject.SetActive(false);
+
+        if (4 + page < InventLendth)
+        {
+            _inventCase_5.gameObject.SetActive(true);
+            _inventCase_5.sprite = DataController.playerData.playerInventory[4 + page].itemIco;
+        }
+        else _inventCase_8.gameObject.SetActive(false);
+
+        if (5 + page < InventLendth)
+        {
+            _inventCase_6.gameObject.SetActive(true);
+            _inventCase_6.sprite = DataController.playerData.playerInventory[5 + page].itemIco;
+        }
+        else _inventCase_8.gameObject.SetActive(false);
+
+        if (6 + page < InventLendth)
+        {
+            _inventCase_7.gameObject.SetActive(true);
+            _inventCase_7.sprite = DataController.playerData.playerInventory[6 + page].itemIco;
+        }
+        else _inventCase_8.gameObject.SetActive(false);
+
+        if (7 + page < InventLendth)
+        {
+            _inventCase_8.gameObject.SetActive(true);
+            _inventCase_8.sprite = DataController.playerData.playerInventory[7 + page].itemIco;
+        }
+        else _inventCase_8.gameObject.SetActive(false);
+
     }
 
     /// <summary> Отобразить еффекты на персонаже </summary>
@@ -146,12 +214,47 @@ public class UIController : MonoBehaviour
     {
         int InventLendth = DataController.playerData.playerEffects.Count;
 
-        if (0 < InventLendth) _effectCase_1.sprite = DataController.playerData.playerEffects[0].icoEffect;
-        if (1 < InventLendth) _effectCase_2.sprite = DataController.playerData.playerEffects[1].icoEffect;
-        if (2 < InventLendth) _effectCase_3.sprite = DataController.playerData.playerEffects[2].icoEffect;
-        if (3 < InventLendth) _effectCase_4.sprite = DataController.playerData.playerEffects[3].icoEffect;
-        if (4 < InventLendth) _effectCase_5.sprite = DataController.playerData.playerEffects[4].icoEffect;
-        if (5 < InventLendth) _effectCase_6.sprite = DataController.playerData.playerEffects[5].icoEffect;
+        if (0 < InventLendth)
+        {
+            _effectCase_1.gameObject.SetActive(true);
+            _effectCase_1.sprite = DataController.playerData.playerEffects[0].icoEffect;
+        }
+        else _effectCase_1.gameObject.SetActive(false);
+
+        if (1 < InventLendth)
+        {
+            _effectCase_2.gameObject.SetActive(true);
+            _effectCase_2.sprite = DataController.playerData.playerEffects[1].icoEffect;
+        }
+        else _effectCase_2.gameObject.SetActive(false);
+
+        if (2 < InventLendth)
+        {
+            _effectCase_3.gameObject.SetActive(true);
+            _effectCase_3.sprite = DataController.playerData.playerEffects[2].icoEffect;
+        }
+        else _effectCase_3.gameObject.SetActive(false);
+
+        if (3 < InventLendth)
+        {
+            _effectCase_4.gameObject.SetActive(true);
+            _effectCase_4.sprite = DataController.playerData.playerEffects[3].icoEffect;
+        }
+        else _effectCase_4.gameObject.SetActive(false);
+
+        if (4 < InventLendth)
+        {
+            _effectCase_5.gameObject.SetActive(true);
+            _effectCase_5.sprite = DataController.playerData.playerEffects[4].icoEffect;
+        }
+        else _effectCase_5.gameObject.SetActive(false);
+
+        if (5 < InventLendth)
+        {
+            _effectCase_6.gameObject.SetActive(true);
+            _effectCase_6.sprite = DataController.playerData.playerEffects[5].icoEffect;
+        }
+        else _effectCase_6.gameObject.SetActive(false);
     }
 
     /// <summary> Отобразить достижения </summary>
@@ -161,11 +264,65 @@ public class UIController : MonoBehaviour
 
         page *= 5;
 
-        if (0 + page < achivesLendth) _achiveCase_1.sprite = DataController.gameSettingsData.gameAchivemants[0 + page].achiveIco;
-        if (1 + page < achivesLendth) _achiveCase_2.sprite = DataController.gameSettingsData.gameAchivemants[1 + page].achiveIco;
-        if (2 + page < achivesLendth) _achiveCase_3.sprite = DataController.gameSettingsData.gameAchivemants[2 + page].achiveIco;
-        if (3 + page < achivesLendth) _achiveCase_4.sprite = DataController.gameSettingsData.gameAchivemants[3 + page].achiveIco;
-        if (4 + page < achivesLendth) _achiveCase_5.sprite = DataController.gameSettingsData.gameAchivemants[4 + page].achiveIco;
+        if (0 + page < achivesLendth)
+        {
+            _achiveCase_1.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
+            _achiveCase_1.gameObject.SetActive(true);
+            _achiveCase_1.sprite = DataController.gameSettingsData.gameAchivemants[0 + page].achiveIco;
+        }
+        else
+        {
+            _achiveCase_1.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
+            _achiveCase_1.gameObject.SetActive(false);
+        }
+
+        if (1 + page < achivesLendth)
+        {
+            _achiveCase_2.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
+            _achiveCase_2.gameObject.SetActive(true);
+            _achiveCase_2.sprite = DataController.gameSettingsData.gameAchivemants[1 + page].achiveIco;
+        }
+        else
+        {
+            _achiveCase_2.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
+            _achiveCase_2.gameObject.SetActive(false);
+        }
+
+        if (2 + page < achivesLendth)
+        {
+            _achiveCase_3.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
+            _achiveCase_3.gameObject.SetActive(true);
+            _achiveCase_3.sprite = DataController.gameSettingsData.gameAchivemants[2 + page].achiveIco;
+        }
+        else
+        {
+            _achiveCase_3.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
+            _achiveCase_3.gameObject.SetActive(false);
+        }
+
+        if (3 + page < achivesLendth)
+        {
+            _achiveCase_4.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
+            _achiveCase_4.gameObject.SetActive(true);
+            _achiveCase_4.sprite = DataController.gameSettingsData.gameAchivemants[3 + page].achiveIco;
+        }
+        else
+        {
+            _achiveCase_4.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
+            _achiveCase_4.gameObject.SetActive(false);
+        }
+
+        if (4 + page < achivesLendth)
+        {
+            _achiveCase_5.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
+            _achiveCase_5.gameObject.SetActive(true);
+            _achiveCase_5.sprite = DataController.gameSettingsData.gameAchivemants[4 + page].achiveIco;
+        }
+        else
+        {
+            _achiveCase_5.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
+            _achiveCase_5.gameObject.SetActive(false);
+        }
     }
 
     #endregion

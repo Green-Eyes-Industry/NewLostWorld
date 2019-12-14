@@ -284,7 +284,8 @@ namespace GUIInspector.NodeEditor
                     _storyData.nodesData[id].workStady,
                     workStadyNames, workStadyNum,
                     GUILayout.Width(85f));
-                _storyData.nodesData[id].isShowComment = EditorGUILayout.Toggle(_storyData.nodesData[id].isShowComment);
+                _storyData.nodesData[id].isShowComment = EditorGUILayout.Toggle(
+                    _storyData.nodesData[id].isShowComment);
                 EditorGUILayout.EndHorizontal();
 
                 if (_storyData.nodesData[id].isShowComment)

@@ -173,13 +173,24 @@ namespace GUIInspector.NodeEditor
                      _storyData.nodesData[i].windowTitle, storyData.graphSkin.GetStyle("Window"));
 
                     GUI.backgroundColor = Color.white;
-                    DrawConnectPoint(_storyData.nodesData[i]);
-                    DrawEvents(_storyData.nodesData[i]);
-                    DrawCurve(_storyData.nodesData[i]);
+
+                    if (!_storyData.nodesData[i].Equals(_selectedNode))
+                    {
+                        DrawConnectPoint(_storyData.nodesData[i]);
+                        DrawEvents(_storyData.nodesData[i]);
+                        DrawCurve(_storyData.nodesData[i]);
+                    }
                 }
             }
 
             EndWindows();
+
+            if (_selectedNode != null)
+            {
+                DrawConnectPoint(_selectedNode);
+                DrawEvents(_selectedNode);
+                DrawCurve(_selectedNode);
+            }
         }
 
         #region CONNECTORS_WORK
@@ -493,8 +504,12 @@ namespace GUIInspector.NodeEditor
                 end.y + (end.height * .5f),
                 0);
 
-            Vector3 startTan = startPos + Vector3.right * 50;
-            Vector3 endTan = endPos + Vector3.left * 50;
+            // Vector3 startTan = startPos + Vector3.right * 40;
+            // Vector3 endTan = endPos + Vector3.left * 40;
+
+
+            Vector3 startTan = startPos + Vector3.right * (Vector3.Distance(startPos, endPos) * 0.6f);
+            Vector3 endTan = endPos + Vector3.left * (Vector3.Distance(startPos, endPos) * 0.6f);
 
             Handles.DrawBezier(startPos, endPos, startTan, endTan, colorCurve, null, 3f);
         }

@@ -15,7 +15,6 @@ MonoBehaviour:
   storyDescript: "\u0411\u0430\u0437\u043E\u0432\u044B\u0439 \u0441\u044E\u0436\u0435\u0442
     \u043A\u0432\u0435\u0441\u0442\u0430"
   nodesData:
-  - {fileID: 11400000, guid: e453bf583662c394792bbc7cfa276e5c, type: 2}
   - {fileID: 11400000, guid: 9744036f29cb7244ab173bea073d0c15, type: 2}
   - {fileID: 11400000, guid: 1cf1ad35ee0588243b72dff5fc074a58, type: 2}
   - {fileID: 11400000, guid: 5a0dc0e21ee2fbf498992f003098f7ea, type: 2}
@@ -47,6 +46,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 55e52e595037a4f4b8800114a9891088, type: 2}
   - {fileID: 11400000, guid: 8aa1cbd54652b6e44b68cbbd0d903b35, type: 2}
   - {fileID: 11400000, guid: 2864d27249cc7a247a4b8e1a8136dce3, type: 2}
+  - {fileID: 11400000, guid: fb2720f06c64ace4c90614b0170ebadf, type: 2}
   graphSkin: {fileID: 11400000, guid: 1132d6cb6b48c4e44861756b60e31b73, type: 2}
   baseNodeSmWidth: 40
   baseNodeSmHeight: 38

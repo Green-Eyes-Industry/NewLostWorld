@@ -22,8 +22,8 @@ MonoBehaviour:
   memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 480.25
-    y: 41.5
+    x: 506.75
+    y: -16.5
     width: 40
     height: 38
   _memTitle: 3_BattlePart

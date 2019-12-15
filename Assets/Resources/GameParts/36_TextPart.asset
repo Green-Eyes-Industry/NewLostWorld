@@ -10,28 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 220329a67e3a9ab48991cf9cd8c5c581, type: 3}
-  m_Name: 13_TextPart
+  m_Name: 36_TextPart
   m_EditorClassIdentifier: 
-  mainText: "\u041D\u0435 \u0443\u0441\u043F\u0435\u043B\u0438 \u043E\u043F\u043E\u043C\u043D\u0438\u0442\u0441\u044F
-    \u043A\u0430\u043A \u0432 \u043F\u0440\u044F\u043C\u043E \u0432 \u0432\u0430\u0441
-    \u043F\u043E\u043F\u0430\u043B\u0430 \u0441\u0442\u0440\u0435\u043B\u0430...\r\n\u0412\u044B
-    \u0443\u043F\u0430\u043B\u0438 \u043F\u043E\u0442\u0435\u0440\u044F\u0432 \u0441\u043E\u0437\u043D\u0430\u043D\u0438\u0435..."
+  mainText: 
   mainEvents: []
-  movePart_1: {fileID: 0}
+  movePart_1: {fileID: 11400000, guid: 9744036f29cb7244ab173bea073d0c15, type: 2}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
   windowSizeStady: 1
   memberComment: 0
   windowRect:
     serializedVersion: 2
-    x: 938.25
-    y: -144.5
+    x: 254
+    y: 83
     width: 40
     height: 38
-  _memTitle: 13_TextPart
-  windowTitle: 13
+  _memTitle: 36_TextPart
+  windowTitle: 36
   part: {fileID: 0}
-  workStady: 1
+  workStady: 0
   comment: 
   isShowComment: 0
-  buttonText_1: '...'
+  buttonText_1: 

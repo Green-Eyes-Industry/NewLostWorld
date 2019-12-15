@@ -18,15 +18,15 @@ MonoBehaviour:
     \u0441\u043E\u043B\u043D\u0446\u0435...\r\n\u0412\u043D\u0435\u0437\u0430\u043F\u043D\u043E
     \u0437\u0432\u043E\u043D\u0438\u0442 \u0432\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D!"
   mainEvents: []
-  movePart_1: {fileID: 11400000, guid: e453bf583662c394792bbc7cfa276e5c, type: 2}
+  movePart_1: {fileID: 11400000, guid: fb2720f06c64ace4c90614b0170ebadf, type: 2}
   movePart_2: {fileID: 11400000, guid: 5a0dc0e21ee2fbf498992f003098f7ea, type: 2}
   movePart_3: {fileID: 0}
   windowSizeStady: 1
   memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 82.5
-    y: 254
+    x: 124
+    y: 175
     width: 40
     height: 38
   _memTitle: 22_ChangePart

@@ -8,6 +8,7 @@ namespace GUIInspector.NodeEditor
         #region VARIABLES
 
         public bool _drawWindow;
+        private Vector2 _distDifference;
 
         private Color _gridColor = new Color(0.2f, 0.2f, 0.2f); // Цвет сетки
         public static Vector2 _offset; // Отступ поля
@@ -51,7 +52,10 @@ namespace GUIInspector.NodeEditor
 
         private void OnFocus()
         {
-            if (EditorApplication.isPlaying) EditorApplication.isPaused = true;
+            if (EditorApplication.isPlaying)
+            {
+                EditorApplication.isPaused = true;
+            }
             if (EventEditor.eventEditor == null) EventEditor.eventEditor = (EventEditor)CreateInstance(typeof(EventEditor));
 
             _drawWindow = true;
@@ -153,7 +157,11 @@ namespace GUIInspector.NodeEditor
                 {
                     if (AnimController.thisPart != null)
                     {
-                        if (AnimController.thisPart == part) GUI.backgroundColor = Color.blue;
+                        if (AnimController.thisPart == part)
+                        {
+                            FocusPart(part);
+                            GUI.backgroundColor = Color.blue;
+                        }
                     }
                 }
                 else
@@ -177,10 +185,10 @@ namespace GUIInspector.NodeEditor
                 }
 
                 part.windowRect = GUI.Window(
-                 idWindow,
-                 part.windowRect,
-                 DrawNodeWindow,
-                 part.windowTitle, storyData.graphSkin.GetStyle("Window"));
+                    idWindow,
+                    part.windowRect,
+                    DrawNodeWindow,
+                    part.windowTitle, storyData.graphSkin.GetStyle("Window"));
 
                 GUI.backgroundColor = Color.white;
 
@@ -203,6 +211,15 @@ namespace GUIInspector.NodeEditor
                 DrawEvents(_selectedNode);
                 DrawCurve(_selectedNode);
             }
+        }
+
+        /// <summary> Сфокусироваться на главе </summary>
+        private void FocusPart(GamePart part)
+        {
+            _distDifference = new Vector2(Screen.width / 2, Screen.height / 2);
+            _distDifference -= part.windowRect.position;
+
+            OnDrag(_distDifference);
         }
 
         #region CONNECTORS_WORK
@@ -397,7 +414,7 @@ namespace GUIInspector.NodeEditor
                 for (int i = 0; i < _storyData.nodesData.Count; i++)
                 {
                     _storyData.nodesData[i].windowRect.position += _drag;
-                    _offset += delta / _storyData.nodesData.Count;
+                    _offset += _drag / _storyData.nodesData.Count;
                 }
             }
 

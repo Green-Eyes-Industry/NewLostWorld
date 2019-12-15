@@ -29,22 +29,23 @@ MonoBehaviour:
     \u0414\u0432\u0435 \u0442\u0443\u0441\u043A\u043B\u043E \u0436\u0435\u043B\u0442\u044B\u0445\n\u043E\u0434\u043D\u0430
     \u044F\u0440\u043A\u043E \u043A\u0440\u0430\u0441\u0442\u043D\u0430\u044F \u0438
     \u043E\u0434\u043D\u0430 \u0421\u0438\u043D\u044F\u044F..."
-  mainEvents: []
-  movePart_1: {fileID: 0}
+  mainEvents:
+  - {fileID: 0}
+  movePart_1: {fileID: 11400000, guid: 22ec35bfe27dcf043be7934cd66ca455, type: 2}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
   windowSizeStady: 1
   memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 783.75
-    y: 16
+    x: 649.75
+    y: 139.5
     width: 40
     height: 38
   _memTitle: 15_TextPart
   windowTitle: 15
   part: {fileID: 0}
-  workStady: 1
+  workStady: 2
   comment: "\u041B\u0435\u0441"
   isShowComment: 0
   buttonText_1: "\u0418\u0434\u0442\u0438 \u0434\u0430\u043B\u044C\u0448\u0435"

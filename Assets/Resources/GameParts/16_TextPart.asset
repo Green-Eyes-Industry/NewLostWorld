@@ -25,8 +25,8 @@ MonoBehaviour:
   memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 465.25
-    y: -61
+    x: 586.25
+    y: -91
     width: 40
     height: 38
   _memTitle: 16_TextPart

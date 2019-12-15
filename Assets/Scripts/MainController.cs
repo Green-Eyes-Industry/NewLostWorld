@@ -5,8 +5,8 @@ public class MainController : MonoBehaviour
 {
     private AnimController _animController;
 
-    [SerializeField] private Player _mainPlayer;
-    [SerializeField] private GameSettings _mainGameSettings;
+    public Player mainPlayer;
+    public GameSettings mainGameSettings;
 
     private void Start()
     {
@@ -20,8 +20,8 @@ public class MainController : MonoBehaviour
         _animController = GetComponent<AnimController>();
 
         AnimController.moveContr = _animController;
-        DataController.gameSettingsData = _mainGameSettings;
-        DataController.playerData = _mainPlayer;
+        DataController.gameSettingsData = mainGameSettings;
+        DataController.playerData = mainPlayer;
     }
 
     /// <summary> Подключение компонентов </summary>

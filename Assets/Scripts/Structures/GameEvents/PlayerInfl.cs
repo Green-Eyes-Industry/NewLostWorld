@@ -42,7 +42,17 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            // Код
+            if (_playerInfl._healthInfl == 0) GUI.backgroundColor = Color.white;
+            else if(_playerInfl._healthInfl > 0) GUI.backgroundColor = Color.green;
+            else GUI.backgroundColor = Color.red;
+
+            _playerInfl._healthInfl = EditorGUILayout.IntSlider("Здоровье", _playerInfl._healthInfl, -100, 100);
+
+            if (_playerInfl._mindInfl == 0) GUI.backgroundColor = Color.white;
+            else if (_playerInfl._mindInfl > 0) GUI.backgroundColor = Color.green;
+            else GUI.backgroundColor = Color.red;
+
+            _playerInfl._mindInfl = EditorGUILayout.IntSlider("Рассудок", _playerInfl._mindInfl, -100, 100);
 
             EditorGUILayout.EndVertical();
         }

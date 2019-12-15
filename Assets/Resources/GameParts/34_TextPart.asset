@@ -17,16 +17,16 @@ MonoBehaviour:
   movePart_1: {fileID: 0}
   movePart_2: {fileID: 0}
   movePart_3: {fileID: 0}
-  windowSizeStady: 0
+  windowSizeStady: 1
   memberComment: 0
   windowRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  _memTitle: 
-  windowTitle: 
+    x: 1641.75
+    y: 310.75
+    width: 40
+    height: 38
+  _memTitle: 34_TextPart
+  windowTitle: 34
   part: {fileID: 0}
   workStady: 0
   comment: 

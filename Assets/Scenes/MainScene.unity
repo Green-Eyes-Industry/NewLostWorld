@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 9
+  menuType: 1
+  buttonId: 3
 --- !u!58 &4549316
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -314,8 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 2
+  menuType: 0
+  buttonId: 3
 --- !u!61 &39958577
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -443,10 +443,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 64201553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
+  menuType: 7
   buttonId: 4
 --- !u!1 &76768138
 GameObject:
@@ -561,12 +561,12 @@ GameObject:
   - component: {fileID: 78422200}
   - component: {fileID: 78422199}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Item_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &78422198
 RectTransform:
   m_ObjectHideFlags: 0
@@ -593,7 +593,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78422197}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -890,10 +890,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100459826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
+  menuType: 7
   buttonId: 6
 --- !u!1 &109032134
 GameObject:
@@ -1581,7 +1581,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 189835802}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -6345,8 +6345,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 3
+  menuType: 0
+  buttonId: 4
 --- !u!58 &234379733
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6375,7 +6375,7 @@ GameObject:
   - component: {fileID: 246835562}
   - component: {fileID: 246835561}
   m_Layer: 5
-  m_Name: Player_Effect_6
+  m_Name: Effect_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6413,7 +6413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6524,8 +6524,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 10
+  menuType: 1
+  buttonId: 4
 --- !u!58 &304808485
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6941,7 +6941,7 @@ GameObject:
   - component: {fileID: 354008734}
   - component: {fileID: 354008733}
   m_Layer: 5
-  m_Name: Player_Effect_3
+  m_Name: Effect_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6979,7 +6979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7105,7 +7105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1001867054}
+  particle: {fileID: 1001867054}
 --- !u!1 &397153379
 GameObject:
   m_ObjectHideFlags: 0
@@ -7282,7 +7282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1686226902}
+  particle: {fileID: 1686226902}
 --- !u!1 &477959159
 GameObject:
   m_ObjectHideFlags: 0
@@ -7397,8 +7397,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 6
+  menuType: 2
+  buttonId: 3
 --- !u!1 &485606386
 GameObject:
   m_ObjectHideFlags: 0
@@ -7410,8 +7410,8 @@ GameObject:
   - component: {fileID: 485606387}
   - component: {fileID: 485606389}
   - component: {fileID: 485606388}
-  - component: {fileID: 485606390}
   - component: {fileID: 485606391}
+  - component: {fileID: 485606390}
   m_Layer: 5
   m_Name: MemoBtn
   m_TagString: Untagged
@@ -7487,8 +7487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 0
-  _buttonId: 6
+  menuType: 10
+  buttonId: 0
 --- !u!61 &485606391
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7527,12 +7527,12 @@ GameObject:
   - component: {fileID: 491658413}
   - component: {fileID: 491658412}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Item_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &491658411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7559,7 +7559,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491658410}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -7901,9 +7901,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0c5c912d820ad4494272a63e6fdc26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuCanvas: {fileID: 2076524694}
-  _gameCanvas: {fileID: 109032134}
-  firstPart: {fileID: 11400000, guid: d2436e58343c5184abdb663c7601aa26, type: 2}
+  firstPart: {fileID: 11400000, guid: 240492b726a0dd24d81261f0cddc2feb, type: 2}
+  menuCanvas: {fileID: 2076524694}
+  gameCanvas: {fileID: 109032134}
 --- !u!114 &638641259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7916,8 +7916,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44fd7593807def64a86416ee21453c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainPlayer: {fileID: 11400000, guid: fd9fd1ffb4c9ebc4dbd81e577de86d6a, type: 2}
-  _mainGameSettings: {fileID: 11400000, guid: 87b0a1a1cbf14324090b4e5eb1cf3a87, type: 2}
+  mainPlayer: {fileID: 11400000, guid: fd9fd1ffb4c9ebc4dbd81e577de86d6a, type: 2}
+  mainGameSettings: {fileID: 11400000, guid: 87b0a1a1cbf14324090b4e5eb1cf3a87, type: 2}
 --- !u!114 &638641260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7930,41 +7930,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88eacb27f23b0b14eb1960e17d336786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameWaitToSwitch: 0.4
-  _eyeCenter: {fileID: 339409854}
-  _achiveClose: {fileID: 21300000, guid: d5c12501febb0534694b0944a8ebe197, type: 3}
-  _achiveOpen: {fileID: 21300000, guid: 1b09819bdc1e752468deef88b92ef339, type: 3}
-  _achiveCase_1: {fileID: 155599882}
-  _achiveCase_2: {fileID: 1973286530}
-  _achiveCase_3: {fileID: 571637111}
-  _achiveCase_4: {fileID: 397153381}
-  _achiveCase_5: {fileID: 626626116}
-  _menuButton_1: {fileID: 2073387544}
-  _menuButton_2: {fileID: 983895235}
-  _menuButton_3: {fileID: 215654930}
-  _menuButton_4: {fileID: 327909851}
-  _gameMain_Txt: {fileID: 908110211}
-  _gameButton_1_Txt: {fileID: 1021553530}
-  _gameButton_2_Txt: {fileID: 1041855237}
-  _gameButton_3_Txt: {fileID: 2097428055}
-  _gameMessageInventoryTxt: {fileID: 1241103908}
-  _gameMessageCharacterTxt: {fileID: 180768437}
-  _gameMessageMapTxt: {fileID: 100136119}
-  _gameMessageNotesTxt: {fileID: 2036074031}
-  _inventCase_1: {fileID: 1317822168}
-  _inventCase_2: {fileID: 78422199}
-  _inventCase_3: {fileID: 688242755}
-  _inventCase_4: {fileID: 1931432598}
-  _inventCase_5: {fileID: 1422102901}
-  _inventCase_6: {fileID: 1046873481}
-  _inventCase_7: {fileID: 491658412}
-  _inventCase_8: {fileID: 790723263}
-  _effectCase_1: {fileID: 727981201}
-  _effectCase_2: {fileID: 803887527}
-  _effectCase_3: {fileID: 354008733}
-  _effectCase_4: {fileID: 1351102267}
-  _effectCase_5: {fileID: 742372672}
-  _effectCase_6: {fileID: 246835561}
+  gameWaitToSwitch: 0.2
+  eyeCenter: {fileID: 339409854}
+  achiveClose: {fileID: 21300000, guid: d5c12501febb0534694b0944a8ebe197, type: 3}
+  achiveOpen: {fileID: 21300000, guid: 1b09819bdc1e752468deef88b92ef339, type: 3}
+  achiveCase_1: {fileID: 155599882}
+  achiveCase_2: {fileID: 1973286530}
+  achiveCase_3: {fileID: 571637111}
+  achiveCase_4: {fileID: 397153381}
+  achiveCase_5: {fileID: 626626116}
+  achiveDescript_txt: {fileID: 820966569}
+  menuButton_1: {fileID: 2073387544}
+  menuButton_2: {fileID: 983895235}
+  menuButton_3: {fileID: 215654930}
+  menuButton_4: {fileID: 327909851}
+  gameMain_Txt: {fileID: 908110211}
+  gameButton_1_Txt: {fileID: 1021553530}
+  gameButton_2_Txt: {fileID: 1041855237}
+  gameButton_3_Txt: {fileID: 2097428055}
+  gameMessageInventoryTxt: {fileID: 1241103908}
+  gameMessageCharacterTxt: {fileID: 180768437}
+  gameMessageMapTxt: {fileID: 100136119}
+  gameMessageNotesTxt: {fileID: 2036074031}
+  inventCase_1: {fileID: 1317822168}
+  inventCase_2: {fileID: 78422199}
+  inventCase_3: {fileID: 688242755}
+  inventCase_4: {fileID: 1931432598}
+  inventCase_5: {fileID: 1422102901}
+  inventCase_6: {fileID: 1046873481}
+  inventCase_7: {fileID: 491658412}
+  inventCase_8: {fileID: 790723263}
+  effectCase_1: {fileID: 727981201}
+  effectCase_2: {fileID: 803887527}
+  effectCase_3: {fileID: 354008733}
+  effectCase_4: {fileID: 1351102267}
+  effectCase_5: {fileID: 742372672}
+  effectCase_6: {fileID: 246835561}
 --- !u!114 &638641261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8075,12 +8076,12 @@ GameObject:
   - component: {fileID: 688242756}
   - component: {fileID: 688242755}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Item_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &688242754
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8107,7 +8108,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688242753}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -8224,8 +8225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 11
+  menuType: 1
+  buttonId: 5
 --- !u!58 &700746505
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8343,10 +8344,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 706225908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
+  menuType: 7
   buttonId: 3
 --- !u!1 &710575186
 GameObject:
@@ -8436,8 +8437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 8
+  menuType: 1
+  buttonId: 2
 --- !u!58 &710575191
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8548,7 +8549,7 @@ GameObject:
   - component: {fileID: 727981202}
   - component: {fileID: 727981201}
   m_Layer: 5
-  m_Name: Player_Effect_1
+  m_Name: Effect_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8586,7 +8587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8783,7 +8784,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 734183037}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -13468,10 +13469,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 734359042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
+  menuType: 7
   buttonId: 1
 --- !u!1 &742372670
 GameObject:
@@ -13485,7 +13486,7 @@ GameObject:
   - component: {fileID: 742372673}
   - component: {fileID: 742372672}
   m_Layer: 5
-  m_Name: Player_Effect_5
+  m_Name: Effect_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13523,7 +13524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13631,12 +13632,12 @@ GameObject:
   - component: {fileID: 790723264}
   - component: {fileID: 790723263}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Item_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &790723262
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13663,7 +13664,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790723261}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -13870,7 +13871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 189835801}
+  particle: {fileID: 189835801}
 --- !u!1 &803887525
 GameObject:
   m_ObjectHideFlags: 0
@@ -13883,7 +13884,7 @@ GameObject:
   - component: {fileID: 803887528}
   - component: {fileID: 803887527}
   m_Layer: 5
-  m_Name: Player_Effect_2
+  m_Name: Effect_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13921,7 +13922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14214,7 +14215,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 824443180}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -18912,8 +18913,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 0
-  _buttonId: 1
+  menuType: 4
+  buttonId: 2
 --- !u!1 &882523810
 GameObject:
   m_ObjectHideFlags: 0
@@ -19231,8 +19232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 12
+  menuType: 3
+  buttonId: 1
 --- !u!1 &912912229
 GameObject:
   m_ObjectHideFlags: 0
@@ -19580,8 +19581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 5
+  menuType: 2
+  buttonId: 2
 --- !u!1 &954210360
 GameObject:
   m_ObjectHideFlags: 0
@@ -19850,11 +19851,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 966525675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
-  buttonId: 11
+  menuType: 7
+  buttonId: 12
 --- !u!1 &983895232
 GameObject:
   m_ObjectHideFlags: 0
@@ -20049,10 +20050,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 990057135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
+  menuType: 7
   buttonId: 2
 --- !u!1 &990695120
 GameObject:
@@ -20301,7 +20302,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 1001867055}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -25094,8 +25095,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 4
+  menuType: 2
+  buttonId: 1
 --- !u!1 &1030727286
 GameObject:
   m_ObjectHideFlags: 0
@@ -25203,8 +25204,8 @@ GameObject:
   - component: {fileID: 1034815138}
   - component: {fileID: 1034815140}
   - component: {fileID: 1034815139}
-  - component: {fileID: 1034815141}
   - component: {fileID: 1034815142}
+  - component: {fileID: 1034815141}
   m_Layer: 5
   m_Name: PlayerBtn
   m_TagString: Untagged
@@ -25280,8 +25281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 0
-  _buttonId: 5
+  menuType: 8
+  buttonId: 0
 --- !u!61 &1034815142
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25489,12 +25490,12 @@ GameObject:
   - component: {fileID: 1046873482}
   - component: {fileID: 1046873481}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Item_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1046873480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25521,7 +25522,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046873479}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -25653,7 +25654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 189835801}
+  particle: {fileID: 189835801}
 --- !u!1 &1100976888
 GameObject:
   m_ObjectHideFlags: 0
@@ -25798,11 +25799,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1123163322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
-  buttonId: 9
+  menuType: 7
+  buttonId: 10
 --- !u!1 &1135070818
 GameObject:
   m_ObjectHideFlags: 0
@@ -26052,7 +26053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1288348642}
+  particle: {fileID: 1288348642}
 --- !u!1 &1158409312
 GameObject:
   m_ObjectHideFlags: 0
@@ -26259,8 +26260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 3
+  menuType: 0
+  buttonId: 4
 --- !u!61 &1168452279
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26401,8 +26402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 0
-  _buttonId: 0
+  menuType: 4
+  buttonId: 1
 --- !u!1 &1217046289
 GameObject:
   m_ObjectHideFlags: 0
@@ -26504,11 +26505,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1217046289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
-  buttonId: 0
+  menuType: 7
+  buttonId: 9
 --- !u!1 &1241103906
 GameObject:
   m_ObjectHideFlags: 0
@@ -26718,8 +26719,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 0
-  _buttonId: 2
+  menuType: 4
+  buttonId: 3
 --- !u!1 &1288348642
 GameObject:
   m_ObjectHideFlags: 0
@@ -26894,7 +26895,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 1288348643}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -31640,8 +31641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 1
+  menuType: 0
+  buttonId: 2
 --- !u!61 &1313680621
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -31680,12 +31681,12 @@ GameObject:
   - component: {fileID: 1317822169}
   - component: {fileID: 1317822168}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Item_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1317822167
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31712,7 +31713,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317822166}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -31899,7 +31900,7 @@ GameObject:
   - component: {fileID: 1351102268}
   - component: {fileID: 1351102267}
   m_Layer: 5
-  m_Name: Player_Effect_4
+  m_Name: Effect_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31937,7 +31938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -32215,12 +32216,12 @@ GameObject:
   - component: {fileID: 1422102902}
   - component: {fileID: 1422102901}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Item_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1422102900
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32247,7 +32248,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422102899}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -32377,10 +32378,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1436614724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
+  menuType: 7
   buttonId: 7
 --- !u!1 &1456022393
 GameObject:
@@ -32702,7 +32703,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 1475901654}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -37480,10 +37481,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1500666230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
+  menuType: 7
   buttonId: 8
 --- !u!1 &1521661388
 GameObject:
@@ -37586,10 +37587,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1521661388}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
+  menuType: 7
   buttonId: 5
 --- !u!1 &1528956224
 GameObject:
@@ -37768,7 +37769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1475901653}
+  particle: {fileID: 1475901653}
 --- !u!1 &1547728531
 GameObject:
   m_ObjectHideFlags: 0
@@ -38026,8 +38027,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 7
+  menuType: 1
+  buttonId: 1
 --- !u!58 &1564409095
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -38221,7 +38222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1001867054}
+  particle: {fileID: 1001867054}
 --- !u!1 &1602858831
 GameObject:
   m_ObjectHideFlags: 0
@@ -38233,8 +38234,8 @@ GameObject:
   - component: {fileID: 1602858832}
   - component: {fileID: 1602858834}
   - component: {fileID: 1602858833}
-  - component: {fileID: 1602858835}
   - component: {fileID: 1602858836}
+  - component: {fileID: 1602858835}
   m_Layer: 5
   m_Name: MapBtn
   m_TagString: Untagged
@@ -38310,8 +38311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 0
-  _buttonId: 4
+  menuType: 9
+  buttonId: 0
 --- !u!61 &1602858836
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38534,7 +38535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 824443179}
+  particle: {fileID: 824443179}
 --- !u!1 &1641553509
 GameObject:
   m_ObjectHideFlags: 0
@@ -38782,7 +38783,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 1686226903}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -43377,8 +43378,8 @@ GameObject:
   - component: {fileID: 1690769867}
   - component: {fileID: 1690769869}
   - component: {fileID: 1690769868}
-  - component: {fileID: 1690769870}
   - component: {fileID: 1690769871}
+  - component: {fileID: 1690769870}
   m_Layer: 5
   m_Name: InventoryBtn
   m_TagString: Untagged
@@ -43454,8 +43455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 0
-  _buttonId: 3
+  menuType: 7
+  buttonId: 0
 --- !u!61 &1690769871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -43656,7 +43657,7 @@ ParticleSystem:
       m_PostInfinity: 2
       m_RotationOrder: 4
   moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithCustomTransform: {fileID: 1715454507}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -48450,11 +48451,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1818134230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
-  buttonId: 10
+  menuType: 7
+  buttonId: 11
 --- !u!1 &1834848818
 GameObject:
   m_ObjectHideFlags: 0
@@ -48878,11 +48879,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1850650216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb21a277a5849964699c7826ba108729, type: 3}
+  m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisMenuType: 0
-  buttonId: 12
+  menuType: 7
+  buttonId: 13
 --- !u!1 &1887877953
 GameObject:
   m_ObjectHideFlags: 0
@@ -48986,7 +48987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 1715454506}
+  particle: {fileID: 1715454506}
 --- !u!1 &1904761436
 GameObject:
   m_ObjectHideFlags: 0
@@ -49148,12 +49149,12 @@ GameObject:
   - component: {fileID: 1931432599}
   - component: {fileID: 1931432598}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Item_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1931432597
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49180,7 +49181,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931432596}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -49536,7 +49537,7 @@ GameObject:
   - component: {fileID: 2066794477}
   - component: {fileID: 2066794476}
   m_Layer: 5
-  m_Name: DownButtons
+  m_Name: DownInventoryButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49702,7 +49703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 734183036}
+  particle: {fileID: 734183036}
 --- !u!1 &2073387542
 GameObject:
   m_ObjectHideFlags: 0
@@ -49937,7 +49938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee4d06637c149d41b37d9e9ddf8ea5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particle: {fileID: 824443179}
+  particle: {fileID: 824443179}
 --- !u!1 &2097428052
 GameObject:
   m_ObjectHideFlags: 0
@@ -50281,8 +50282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d0b7c66f1a4244b64ad4b768411bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMenu: 1
-  _buttonId: 0
+  menuType: 0
+  buttonId: 1
 --- !u!61 &2137433014
 BoxCollider2D:
   m_ObjectHideFlags: 0

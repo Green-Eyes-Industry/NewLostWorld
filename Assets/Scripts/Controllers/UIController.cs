@@ -9,61 +9,63 @@ public class UIController : MonoBehaviour
 
     [Header("Базовые")]
 
-    [SerializeField] private float _gameWaitToSwitch;
+    public float gameWaitToSwitch;
 
-    [SerializeField] private RectTransform _eyeCenter;
+    public RectTransform eyeCenter;
 
     [Header("Достижения")]
 
-    [SerializeField] private Sprite _achiveClose;
-    [SerializeField] private Sprite _achiveOpen;
+    public Sprite achiveClose;
+    public Sprite achiveOpen;
 
-    [SerializeField] private Image _achiveCase_1;
-    [SerializeField] private Image _achiveCase_2;
-    [SerializeField] private Image _achiveCase_3;
-    [SerializeField] private Image _achiveCase_4;
-    [SerializeField] private Image _achiveCase_5;
+    public Image achiveCase_1;
+    public Image achiveCase_2;
+    public Image achiveCase_3;
+    public Image achiveCase_4;
+    public Image achiveCase_5;
+
+    public Text achiveDescript_txt;
 
     [Header("Главное меню")]
 
-    [SerializeField] private Text _menuButton_1;
-    [SerializeField] private Text _menuButton_2;
-    [SerializeField] private Text _menuButton_3;
-    [SerializeField] private Text _menuButton_4;
+    public Text menuButton_1;
+    public Text menuButton_2;
+    public Text menuButton_3;
+    public Text menuButton_4;
 
     [Header("Игровая глава")]
 
-    [SerializeField] private Text _gameMain_Txt;
-    [SerializeField] private Text _gameButton_1_Txt;
-    [SerializeField] private Text _gameButton_2_Txt;
-    [SerializeField] private Text _gameButton_3_Txt;
+    public Text gameMain_Txt;
+    public Text gameButton_1_Txt;
+    public Text gameButton_2_Txt;
+    public Text gameButton_3_Txt;
 
     [Header("Сообщения в игре")]
 
-    [SerializeField] private Text _gameMessageInventoryTxt;
-    [SerializeField] private Text _gameMessageCharacterTxt;
-    [SerializeField] private Text _gameMessageMapTxt;
-    [SerializeField] private Text _gameMessageNotesTxt;
+    public Text gameMessageInventoryTxt;
+    public Text gameMessageCharacterTxt;
+    public Text gameMessageMapTxt;
+    public Text gameMessageNotesTxt;
 
     [Header("Инвентарь")]
 
-    [SerializeField] private Image _inventCase_1;
-    [SerializeField] private Image _inventCase_2;
-    [SerializeField] private Image _inventCase_3;
-    [SerializeField] private Image _inventCase_4;
-    [SerializeField] private Image _inventCase_5;
-    [SerializeField] private Image _inventCase_6;
-    [SerializeField] private Image _inventCase_7;
-    [SerializeField] private Image _inventCase_8;
+    public Image inventCase_1;
+    public Image inventCase_2;
+    public Image inventCase_3;
+    public Image inventCase_4;
+    public Image inventCase_5;
+    public Image inventCase_6;
+    public Image inventCase_7;
+    public Image inventCase_8;
 
     [Header("Эффекты в меню персонажа")]
 
-    [SerializeField] private Image _effectCase_1;
-    [SerializeField] private Image _effectCase_2;
-    [SerializeField] private Image _effectCase_3;
-    [SerializeField] private Image _effectCase_4;
-    [SerializeField] private Image _effectCase_5;
-    [SerializeField] private Image _effectCase_6;
+    public Image effectCase_1;
+    public Image effectCase_2;
+    public Image effectCase_3;
+    public Image effectCase_4;
+    public Image effectCase_5;
+    public Image effectCase_6;
 
     private Gyroscope _mainGyro;
     private bool _isGyroEnable;
@@ -74,6 +76,8 @@ public class UIController : MonoBehaviour
     private void Start() => ConnectGyroscope();
 
     private void Update() => EyeWatching();
+
+    #region VISUAL_EFFECTS
 
     /// <summary> Подключение гироскопа </summary>
     private void ConnectGyroscope()
@@ -86,7 +90,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            _eyeCenter.anchoredPosition = new Vector2(0, 40);
+            eyeCenter.anchoredPosition = new Vector2(0, 40);
             _isGyroEnable = false;
         }
     }
@@ -101,9 +105,11 @@ public class UIController : MonoBehaviour
 
             _eyeFixPosition.x = (_mainGyro.gravity.x * 50) * -1;
 
-            _eyeCenter.anchoredPosition = _eyeFixPosition;
+            eyeCenter.anchoredPosition = _eyeFixPosition;
         }
     }
+
+    #endregion
 
     #region TEXT_CONTROL
 
@@ -117,28 +123,28 @@ public class UIController : MonoBehaviour
     public void MenuOpenAbout() => StartCoroutine(WaitToAboutSwitch(0.2f));
 
     /// <summary> Замена основного текста в игре </summary>
-    public void GameMain(string newTxt) => StartCoroutine(WaitToMainTextSwitch(_gameWaitToSwitch, newTxt));
+    public void GameMain(string newTxt) => StartCoroutine(WaitToMainTextSwitch(gameWaitToSwitch, newTxt));
 
     /// <summary> Замена текста на первой игровой кнопке </summary>
-    public void GameButton_1(string newTxt) => StartCoroutine(WaitToGameButton_1_Switch(_gameWaitToSwitch, newTxt));
+    public void GameButton_1(string newTxt) => StartCoroutine(WaitToGameButton_1_Switch(gameWaitToSwitch, newTxt));
 
     /// <summary> Замена текста на второй игровой кнопке </summary>
-    public void GameButton_2(string newTxt) => StartCoroutine(WaitToGameButton_2_Switch(_gameWaitToSwitch, newTxt));
+    public void GameButton_2(string newTxt) => StartCoroutine(WaitToGameButton_2_Switch(gameWaitToSwitch, newTxt));
 
     /// <summary> Замена текста на третьей игровой кнопке </summary>
-    public void GameButton_3(string newTxt) => StartCoroutine(WaitToGameButton_3_Switch(_gameWaitToSwitch, newTxt));
+    public void GameButton_3(string newTxt) => StartCoroutine(WaitToGameButton_3_Switch(gameWaitToSwitch, newTxt));
 
     /// <summary> Текст сообщения инвентаря </summary>
-    public void GameMessageInventory(string newTxt) => _gameMessageInventoryTxt.text = newTxt;
+    public void GameMessageInventory(string newTxt) => gameMessageInventoryTxt.text = newTxt;
 
     /// <summary> Текст сообщения персонажа </summary>
-    public void GameMessageCharacter(string newTxt) => _gameMessageCharacterTxt.text = newTxt;
+    public void GameMessageCharacter(string newTxt) => gameMessageCharacterTxt.text = newTxt;
 
     /// <summary> Текст сообщения карты </summary>
-    public void GameMessageMap(string newTxt) => _gameMessageMapTxt.text = newTxt;
+    public void GameMessageMap(string newTxt) => gameMessageMapTxt.text = newTxt;
 
     /// <summary> Текст сообщения заметок </summary>
-    public void GameMessageNotes(string newTxt) => _gameMessageNotesTxt.text = newTxt;
+    public void GameMessageNotes(string newTxt) => gameMessageNotesTxt.text = newTxt;
 
     #endregion
 
@@ -153,59 +159,59 @@ public class UIController : MonoBehaviour
 
         if (0 + page < InventLendth)
         {
-            _inventCase_1.gameObject.SetActive(true);
-            _inventCase_1.sprite = DataController.playerData.playerInventory[0 + page].itemIco;
+            inventCase_1.gameObject.SetActive(true);
+            inventCase_1.sprite = DataController.playerData.playerInventory[0 + page].itemIco;
         }
-        else _inventCase_8.gameObject.SetActive(false);
+        else inventCase_8.gameObject.SetActive(false);
 
         if (1 + page < InventLendth)
         {
-            _inventCase_2.gameObject.SetActive(true);
-            _inventCase_2.sprite = DataController.playerData.playerInventory[1 + page].itemIco;
+            inventCase_2.gameObject.SetActive(true);
+            inventCase_2.sprite = DataController.playerData.playerInventory[1 + page].itemIco;
         }
-        else _inventCase_8.gameObject.SetActive(false);
+        else inventCase_8.gameObject.SetActive(false);
 
         if (2 + page < InventLendth)
         {
-            _inventCase_3.gameObject.SetActive(true);
-            _inventCase_3.sprite = DataController.playerData.playerInventory[2 + page].itemIco;
+            inventCase_3.gameObject.SetActive(true);
+            inventCase_3.sprite = DataController.playerData.playerInventory[2 + page].itemIco;
         }
-        else _inventCase_8.gameObject.SetActive(false);
+        else inventCase_8.gameObject.SetActive(false);
 
         if (3 + page < InventLendth)
         {
-            _inventCase_4.gameObject.SetActive(true);
-            _inventCase_4.sprite = DataController.playerData.playerInventory[3 + page].itemIco;
+            inventCase_4.gameObject.SetActive(true);
+            inventCase_4.sprite = DataController.playerData.playerInventory[3 + page].itemIco;
         }
-        else _inventCase_8.gameObject.SetActive(false);
+        else inventCase_8.gameObject.SetActive(false);
 
         if (4 + page < InventLendth)
         {
-            _inventCase_5.gameObject.SetActive(true);
-            _inventCase_5.sprite = DataController.playerData.playerInventory[4 + page].itemIco;
+            inventCase_5.gameObject.SetActive(true);
+            inventCase_5.sprite = DataController.playerData.playerInventory[4 + page].itemIco;
         }
-        else _inventCase_8.gameObject.SetActive(false);
+        else inventCase_8.gameObject.SetActive(false);
 
         if (5 + page < InventLendth)
         {
-            _inventCase_6.gameObject.SetActive(true);
-            _inventCase_6.sprite = DataController.playerData.playerInventory[5 + page].itemIco;
+            inventCase_6.gameObject.SetActive(true);
+            inventCase_6.sprite = DataController.playerData.playerInventory[5 + page].itemIco;
         }
-        else _inventCase_8.gameObject.SetActive(false);
+        else inventCase_8.gameObject.SetActive(false);
 
         if (6 + page < InventLendth)
         {
-            _inventCase_7.gameObject.SetActive(true);
-            _inventCase_7.sprite = DataController.playerData.playerInventory[6 + page].itemIco;
+            inventCase_7.gameObject.SetActive(true);
+            inventCase_7.sprite = DataController.playerData.playerInventory[6 + page].itemIco;
         }
-        else _inventCase_8.gameObject.SetActive(false);
+        else inventCase_8.gameObject.SetActive(false);
 
         if (7 + page < InventLendth)
         {
-            _inventCase_8.gameObject.SetActive(true);
-            _inventCase_8.sprite = DataController.playerData.playerInventory[7 + page].itemIco;
+            inventCase_8.gameObject.SetActive(true);
+            inventCase_8.sprite = DataController.playerData.playerInventory[7 + page].itemIco;
         }
-        else _inventCase_8.gameObject.SetActive(false);
+        else inventCase_8.gameObject.SetActive(false);
 
     }
 
@@ -216,45 +222,45 @@ public class UIController : MonoBehaviour
 
         if (0 < InventLendth)
         {
-            _effectCase_1.gameObject.SetActive(true);
-            _effectCase_1.sprite = DataController.playerData.playerEffects[0].icoEffect;
+            effectCase_1.gameObject.SetActive(true);
+            effectCase_1.sprite = DataController.playerData.playerEffects[0].icoEffect;
         }
-        else _effectCase_1.gameObject.SetActive(false);
+        else effectCase_1.gameObject.SetActive(false);
 
         if (1 < InventLendth)
         {
-            _effectCase_2.gameObject.SetActive(true);
-            _effectCase_2.sprite = DataController.playerData.playerEffects[1].icoEffect;
+            effectCase_2.gameObject.SetActive(true);
+            effectCase_2.sprite = DataController.playerData.playerEffects[1].icoEffect;
         }
-        else _effectCase_2.gameObject.SetActive(false);
+        else effectCase_2.gameObject.SetActive(false);
 
         if (2 < InventLendth)
         {
-            _effectCase_3.gameObject.SetActive(true);
-            _effectCase_3.sprite = DataController.playerData.playerEffects[2].icoEffect;
+            effectCase_3.gameObject.SetActive(true);
+            effectCase_3.sprite = DataController.playerData.playerEffects[2].icoEffect;
         }
-        else _effectCase_3.gameObject.SetActive(false);
+        else effectCase_3.gameObject.SetActive(false);
 
         if (3 < InventLendth)
         {
-            _effectCase_4.gameObject.SetActive(true);
-            _effectCase_4.sprite = DataController.playerData.playerEffects[3].icoEffect;
+            effectCase_4.gameObject.SetActive(true);
+            effectCase_4.sprite = DataController.playerData.playerEffects[3].icoEffect;
         }
-        else _effectCase_4.gameObject.SetActive(false);
+        else effectCase_4.gameObject.SetActive(false);
 
         if (4 < InventLendth)
         {
-            _effectCase_5.gameObject.SetActive(true);
-            _effectCase_5.sprite = DataController.playerData.playerEffects[4].icoEffect;
+            effectCase_5.gameObject.SetActive(true);
+            effectCase_5.sprite = DataController.playerData.playerEffects[4].icoEffect;
         }
-        else _effectCase_5.gameObject.SetActive(false);
+        else effectCase_5.gameObject.SetActive(false);
 
         if (5 < InventLendth)
         {
-            _effectCase_6.gameObject.SetActive(true);
-            _effectCase_6.sprite = DataController.playerData.playerEffects[5].icoEffect;
+            effectCase_6.gameObject.SetActive(true);
+            effectCase_6.sprite = DataController.playerData.playerEffects[5].icoEffect;
         }
-        else _effectCase_6.gameObject.SetActive(false);
+        else effectCase_6.gameObject.SetActive(false);
     }
 
     /// <summary> Отобразить достижения </summary>
@@ -266,64 +272,67 @@ public class UIController : MonoBehaviour
 
         if (0 + page < achivesLendth)
         {
-            _achiveCase_1.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
-            _achiveCase_1.gameObject.SetActive(true);
-            _achiveCase_1.sprite = DataController.gameSettingsData.gameAchivemants[0 + page].achiveIco;
+            achiveCase_1.gameObject.transform.parent.GetComponent<Image>().sprite = achiveOpen;
+            achiveCase_1.gameObject.SetActive(true);
+            achiveCase_1.sprite = DataController.gameSettingsData.gameAchivemants[0 + page].achiveIco;
         }
         else
         {
-            _achiveCase_1.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
-            _achiveCase_1.gameObject.SetActive(false);
+            achiveCase_1.gameObject.transform.parent.GetComponent<Image>().sprite = achiveClose;
+            achiveCase_1.gameObject.SetActive(false);
         }
 
         if (1 + page < achivesLendth)
         {
-            _achiveCase_2.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
-            _achiveCase_2.gameObject.SetActive(true);
-            _achiveCase_2.sprite = DataController.gameSettingsData.gameAchivemants[1 + page].achiveIco;
+            achiveCase_2.gameObject.transform.parent.GetComponent<Image>().sprite = achiveOpen;
+            achiveCase_2.gameObject.SetActive(true);
+            achiveCase_2.sprite = DataController.gameSettingsData.gameAchivemants[1 + page].achiveIco;
         }
         else
         {
-            _achiveCase_2.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
-            _achiveCase_2.gameObject.SetActive(false);
+            achiveCase_2.gameObject.transform.parent.GetComponent<Image>().sprite = achiveClose;
+            achiveCase_2.gameObject.SetActive(false);
         }
 
         if (2 + page < achivesLendth)
         {
-            _achiveCase_3.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
-            _achiveCase_3.gameObject.SetActive(true);
-            _achiveCase_3.sprite = DataController.gameSettingsData.gameAchivemants[2 + page].achiveIco;
+            achiveCase_3.gameObject.transform.parent.GetComponent<Image>().sprite = achiveOpen;
+            achiveCase_3.gameObject.SetActive(true);
+            achiveCase_3.sprite = DataController.gameSettingsData.gameAchivemants[2 + page].achiveIco;
         }
         else
         {
-            _achiveCase_3.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
-            _achiveCase_3.gameObject.SetActive(false);
+            achiveCase_3.gameObject.transform.parent.GetComponent<Image>().sprite = achiveClose;
+            achiveCase_3.gameObject.SetActive(false);
         }
 
         if (3 + page < achivesLendth)
         {
-            _achiveCase_4.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
-            _achiveCase_4.gameObject.SetActive(true);
-            _achiveCase_4.sprite = DataController.gameSettingsData.gameAchivemants[3 + page].achiveIco;
+            achiveCase_4.gameObject.transform.parent.GetComponent<Image>().sprite = achiveOpen;
+            achiveCase_4.gameObject.SetActive(true);
+            achiveCase_4.sprite = DataController.gameSettingsData.gameAchivemants[3 + page].achiveIco;
         }
         else
         {
-            _achiveCase_4.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
-            _achiveCase_4.gameObject.SetActive(false);
+            achiveCase_4.gameObject.transform.parent.GetComponent<Image>().sprite = achiveClose;
+            achiveCase_4.gameObject.SetActive(false);
         }
 
         if (4 + page < achivesLendth)
         {
-            _achiveCase_5.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
-            _achiveCase_5.gameObject.SetActive(true);
-            _achiveCase_5.sprite = DataController.gameSettingsData.gameAchivemants[4 + page].achiveIco;
+            achiveCase_5.gameObject.transform.parent.GetComponent<Image>().sprite = achiveOpen;
+            achiveCase_5.gameObject.SetActive(true);
+            achiveCase_5.sprite = DataController.gameSettingsData.gameAchivemants[4 + page].achiveIco;
         }
         else
         {
-            _achiveCase_5.gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
-            _achiveCase_5.gameObject.SetActive(false);
+            achiveCase_5.gameObject.transform.parent.GetComponent<Image>().sprite = achiveClose;
+            achiveCase_5.gameObject.SetActive(false);
         }
     }
+
+    /// <summary> Показать подробности о достижении </summary>
+    public void ShowAchiveDescript(Achivemants achive) => achiveDescript_txt.text = achive.achiveDescript;
 
     #endregion
 
@@ -339,10 +348,10 @@ public class UIController : MonoBehaviour
         if (DataController.gameSettingsData.lastPart != null) mainText = "Продолжить";
         else mainText = "Новая игра";
 
-        _menuButton_1.text = mainText;
-        _menuButton_2.text = "Настройки";
-        _menuButton_3.text = "Об Авторах";
-        _menuButton_4.text = "Достижения";
+        menuButton_1.text = mainText;
+        menuButton_2.text = "Настройки";
+        menuButton_3.text = "Об Авторах";
+        menuButton_4.text = "Достижения";
     }
 
     /// <summary> Задержка при переходе в настройки </summary>
@@ -350,10 +359,10 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        _menuButton_1.text = "Звук";
-        _menuButton_2.text = "Вибриция";
-        _menuButton_3.text = "Эффекты";
-        _menuButton_4.text = "Назад";
+        menuButton_1.text = "Звук";
+        menuButton_2.text = "Вибриция";
+        menuButton_3.text = "Эффекты";
+        menuButton_4.text = "Назад";
     }
 
     /// <summary> Задержка при переходе в меню автора </summary>
@@ -361,7 +370,7 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        _menuButton_4.text = "Назад";
+        menuButton_4.text = "Назад";
     }
 
     /// <summary> Задержка замена основного текста в игре </summary>
@@ -369,7 +378,7 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        _gameMain_Txt.text = newTxt;
+        gameMain_Txt.text = newTxt;
     }
 
     /// <summary> Задержка при замене текста на первой кнопке </summary>
@@ -377,7 +386,7 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        _gameButton_1_Txt.text = newTxt;
+        gameButton_1_Txt.text = newTxt;
     }
 
     /// <summary> Задержка при замене текста на второй кнопке </summary>
@@ -385,7 +394,7 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        _gameButton_2_Txt.text = newTxt;
+        gameButton_2_Txt.text = newTxt;
     }
 
     /// <summary> Задержка при замене текста на третей кнопке </summary>
@@ -393,7 +402,7 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        _gameButton_3_Txt.text = newTxt;
+        gameButton_3_Txt.text = newTxt;
     }
 
     #endregion

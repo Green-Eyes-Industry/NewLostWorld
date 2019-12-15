@@ -9,7 +9,7 @@ using UnityEditor;
 public class GameEvent : ScriptableObject
 {
     /// <summary> Старт события </summary>
-    public virtual bool EventStart() { return false; }
+    public virtual bool EventStart() { return true; }
 
     /// <summary> Глава при провале </summary>
     public virtual GamePart FailPart() { return null; }
@@ -45,7 +45,6 @@ namespace GUIInspector
             else if (gameEvent is NonPlayerInfl) NonPlayerInflGUI_Inspector.ShowEventEditor((NonPlayerInfl)gameEvent);
             else if (gameEvent is PlayerInfl) PlayerInflGUI_Inspector.ShowEventEditor((PlayerInfl)gameEvent);
             else if(gameEvent is RandomPart) RandomPartGUI_Inspector.ShowEventEditor((RandomPart)gameEvent);
-
         }
 
         /// <summary> Показать список событий </summary>

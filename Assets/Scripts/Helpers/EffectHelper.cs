@@ -4,19 +4,21 @@ using UnityEngine;
 /// <summary> Запуск визуального эффекта </summary>
 public class EffectHelper : MonoBehaviour
 {
-    [SerializeField] private GameObject _particle;
+    public GameObject particle;
 
+    [System.Obsolete]
     private void OnMouseDown()
     {
-        _particle.SetActive(true);
-        _particle.GetComponent<ParticleSystem>().Play();
+        particle.SetActive(true);
+        particle.GetComponent<ParticleSystem>().Play();
         StartCoroutine(WaitForDisable());
     }
 
     /// <summary> Задержка отключения эффекта </summary>
+    [System.Obsolete]
     private IEnumerator WaitForDisable()
     {
-        yield return new WaitForSeconds(_particle.GetComponent<ParticleSystem>().main.duration * 3);
-        _particle.SetActive(false);
+        yield return new WaitForSeconds(particle.GetComponent<ParticleSystem>().duration * 3);
+        particle.SetActive(false);
     }
 }

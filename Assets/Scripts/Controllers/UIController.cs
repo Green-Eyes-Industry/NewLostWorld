@@ -334,7 +334,12 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        _menuButton_1.text = "Новая игра";
+        string mainText;
+
+        if (DataController.gameSettingsData.lastPart != null) mainText = "Продолжить";
+        else mainText = "Новая игра";
+
+        _menuButton_1.text = mainText;
         _menuButton_2.text = "Настройки";
         _menuButton_3.text = "Об Авторах";
         _menuButton_4.text = "Достижения";

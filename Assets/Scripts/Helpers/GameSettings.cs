@@ -101,7 +101,7 @@ namespace GUIInspector
                     ReloadAchives();
                 }
             }
-            else GUILayout.Label("Нет доступных достижений");
+            else GUILayout.Label("Нет доступных для получения достижений");
 
             EditorGUILayout.EndHorizontal();
 

@@ -7,6 +7,8 @@ namespace GUIInspector.NodeEditor
     {
         #region VARIABLES
 
+        public bool _drawWindow;
+
         private Color _gridColor = new Color(0.2f, 0.2f, 0.2f); // Цвет сетки
         public static Vector2 _offset; // Отступ поля
         private Vector2 _drag; // Отступ нод
@@ -51,6 +53,8 @@ namespace GUIInspector.NodeEditor
         {
             if (EditorApplication.isPlaying) EditorApplication.isPaused = true;
             if (EventEditor.eventEditor == null) EventEditor.eventEditor = (EventEditor)CreateInstance(typeof(EventEditor));
+
+            _drawWindow = true;
         }
 
         private void OnLostFocus()
@@ -60,6 +64,12 @@ namespace GUIInspector.NodeEditor
 
         private void OnGUI()
         {
+            if (_drawWindow) DrawGUI();
+        }
+
+        /// <summary> Отрисовка интерфейса </summary>
+        private void DrawGUI()
+        {
             if (_storyData != null)
             {
                 // Подключение связей
@@ -68,7 +78,7 @@ namespace GUIInspector.NodeEditor
                 if (trBehaviorEditor == null) trBehaviorEditor = this;
 
                 EditorGUILayout.BeginVertical(_storyData.graphSkin.GetStyle("Box"), GUILayout.Width(Screen.width), GUILayout.Height(Screen.height));
-                
+
                 DrawGrid(10, 0.2f, _gridColor);
                 DrawGrid(50, 0.4f, _gridColor);
 
@@ -133,54 +143,56 @@ namespace GUIInspector.NodeEditor
 
             BeginWindows();
 
-            for (int i = 0; i < _storyData.nodesData.Count; i++)
+            int idWindow = 0;
+
+            foreach (GamePart part in _storyData.nodesData)
             {
-                if (_storyData.nodesData[i] != null)
+                GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
+
+                if (EditorApplication.isPlaying)
                 {
-                    GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
-
-                    if (EditorApplication.isPlaying)
+                    if (AnimController.thisPart != null)
                     {
-                        if (MoveController.thisPart != null)
-                        {
-                            if (MoveController.thisPart == _storyData.nodesData[i]) GUI.backgroundColor = Color.blue;
-                        }
-                    }
-                    else
-                    {
-                        switch (_storyData.nodesData[i].workStady)
-                        {
-                            case 0: GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f); ; break;
-                            case 1: GUI.backgroundColor = Color.yellow; break;
-                            case 2: GUI.backgroundColor = Color.green; break;
-                        }
-
-                        if (_sellectedToConnect != null)
-                        {
-                            if (_sellectedToConnect.Equals(_storyData.nodesData[i]))
-                            {
-                                CreateCurve(ConnectPosition(_storyData.nodesData[i], tempConnect),
-                                    new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
-                                Repaint();
-                            }
-                        }
-                    }
-
-                    _storyData.nodesData[i].windowRect = GUI.Window(
-                     i,
-                     _storyData.nodesData[i].windowRect,
-                     DrawNodeWindow,
-                     _storyData.nodesData[i].windowTitle, storyData.graphSkin.GetStyle("Window"));
-
-                    GUI.backgroundColor = Color.white;
-
-                    if (!_storyData.nodesData[i].Equals(_selectedNode))
-                    {
-                        DrawConnectPoint(_storyData.nodesData[i]);
-                        DrawEvents(_storyData.nodesData[i]);
-                        DrawCurve(_storyData.nodesData[i]);
+                        if (AnimController.thisPart == part) GUI.backgroundColor = Color.blue;
                     }
                 }
+                else
+                {
+                    switch (part.workStady)
+                    {
+                        case 0: GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f); ; break;
+                        case 1: GUI.backgroundColor = Color.yellow; break;
+                        case 2: GUI.backgroundColor = Color.green; break;
+                    }
+
+                    if (_sellectedToConnect != null)
+                    {
+                        if (_sellectedToConnect.Equals(part))
+                        {
+                            CreateCurve(ConnectPosition(part, tempConnect),
+                                new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
+                            Repaint();
+                        }
+                    }
+                }
+
+                part.windowRect = GUI.Window(
+                 idWindow,
+                 part.windowRect,
+                 DrawNodeWindow,
+                 part.windowTitle, storyData.graphSkin.GetStyle("Window"));
+
+                GUI.backgroundColor = Color.white;
+
+                if (!part.Equals(_selectedNode))
+                {
+                    DrawConnectPoint(part);
+                    DrawEvents(part);
+                    DrawCurve(part);
+                }
+
+                idWindow++;
+
             }
 
             EndWindows();
@@ -310,12 +322,10 @@ namespace GUIInspector.NodeEditor
             if (e.type == EventType.KeyDown) { if (e.keyCode == KeyCode.Delete) DeleteKeyDown(); }
             if (e.type == EventType.MouseDrag) { if (e.button == 2) OnDrag(e.delta); }
 
-            if(e.type == EventType.ScrollWheel)
+            if (e.type == EventType.ScrollWheel)
             {
-                for (int i = 0; i < _storyData.nodesData.Count; i++)
-                {
-                    SetWindowStady(_storyData.nodesData[i]);
-                }
+                if (e.delta.y > 0) SetWindowStady(true);
+                else SetWindowStady(false);
                 Repaint();
             }
         }
@@ -399,10 +409,8 @@ namespace GUIInspector.NodeEditor
         {
             if (_selectedNode != null)
             {
-                if (_selectedNode is EventPart)
+                if (_selectedNode is EventPart evPr)
                 {
-                    EventPart evPr = (EventPart)_selectedNode;
-
                     if (AssetDatabase.IsValidFolder("Assets/Resources/GameParts/" + evPr.name))
                     {
                         for (int i = 0; i < evPr.eventParts.Count; i++)
@@ -418,8 +426,10 @@ namespace GUIInspector.NodeEditor
                 AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNode));
                 _selectedNode = null;
                 GraphChangeController.selectedNode = null;
-                SaveData();
+                
+                _drawWindow = true;
                 Repaint();
+                SaveData();
             }
         }
 
@@ -591,42 +601,48 @@ namespace GUIInspector.NodeEditor
         }
 
         /// <summary> Масштаб окна </summary>
-        public void SetWindowStady(GamePart partNode)
+        public void SetWindowStady(bool stady)
         {
-            partNode.windowSizeStady = !partNode.windowSizeStady;
-
-            if (partNode.windowSizeStady)
+            foreach (GamePart partNode in _storyData.nodesData)
             {
-                partNode.windowRect.width = 40;
-                partNode.windowRect.height = 38;
+                if (partNode.windowSizeStady != stady)
+                {
+                    partNode.windowSizeStady = stady;
 
-                partNode.windowRect.x /= 2f;
-                partNode.windowRect.y /= 2f;
+                    if (partNode.windowSizeStady)
+                    {
+                        partNode.windowRect.width = 40;
+                        partNode.windowRect.height = 38;
 
-                partNode.windowRect.x += Screen.width / 4f;
-                partNode.windowRect.y += Screen.height / 4f;
+                        partNode.windowRect.x /= 2f;
+                        partNode.windowRect.y /= 2f;
 
-                partNode._memTitle = partNode.windowTitle;
-                partNode.windowTitle = partNode.windowTitle.Substring(0, GetShortNameNode(partNode.windowTitle));
+                        partNode.windowRect.x += Screen.width / 4f;
+                        partNode.windowRect.y += Screen.height / 4f;
 
-                partNode.memberComment = partNode.isShowComment;
+                        partNode._memTitle = partNode.windowTitle;
+                        partNode.windowTitle = partNode.windowTitle.Substring(0, GetShortNameNode(partNode.windowTitle));
 
-                if (partNode.isShowComment) partNode.isShowComment = false;
-            }
-            else
-            {
-                partNode.windowRect.width = 120;
-                partNode.windowRect.height = 40;
+                        partNode.memberComment = partNode.isShowComment;
 
-                partNode.windowRect.x *= 2f;
-                partNode.windowRect.y *= 2f;
+                        if (partNode.isShowComment) partNode.isShowComment = false;
+                    }
+                    else
+                    {
+                        partNode.windowRect.width = 120;
+                        partNode.windowRect.height = 40;
 
-                partNode.windowRect.x -= Screen.width / 2f;
-                partNode.windowRect.y -= Screen.height / 2f;
+                        partNode.windowRect.x *= 2f;
+                        partNode.windowRect.y *= 2f;
 
-                partNode.windowTitle = partNode._memTitle;
+                        partNode.windowRect.x -= Screen.width / 2f;
+                        partNode.windowRect.y -= Screen.height / 2f;
 
-                partNode.isShowComment = partNode.memberComment;
+                        partNode.windowTitle = partNode._memTitle;
+
+                        partNode.isShowComment = partNode.memberComment;
+                    }
+                }
             }
         }
 

@@ -140,7 +140,7 @@ public class DataController : MonoBehaviour
     /// <summary> Сохранить последнюю главу </summary>
     public static void SaveLastPart()
     {
-        PlayerPrefs.SetString("LastPart", MoveController.thisPart.name);
+        PlayerPrefs.SetString("LastPart", AnimController.thisPart.name);
         PlayerPrefs.Save();
     }
 

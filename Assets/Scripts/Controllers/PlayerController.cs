@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < partEvents.Count; i++)
             {
                 if (partEvents[i] is RandomPart) StartRandomEvent((RandomPart)partEvents[i]);
-                else if (!partEvents[i].EventStart()) MoveController.NextPart(partEvents[i].FailPart());
+                else if (!partEvents[i].EventStart()) AnimController.NextPart(partEvents[i].FailPart());
             }
         }
     }
@@ -22,12 +22,10 @@ public class PlayerController : MonoBehaviour
     /// <summary> Запустить эвент с рандомом </summary>
     private void StartRandomEvent(RandomPart e)
     {
-        if (e.part_1_random != null) MoveController.thisPart.movePart_1 = e.Randomize(MoveController.thisPart, e.part_1_random, e.randomChance_1);
-        if (e.part_2_random != null) MoveController.thisPart.movePart_2 = e.Randomize(MoveController.thisPart, e.part_2_random, e.randomChance_2);
-        if (e.part_2_random != null) MoveController.thisPart.movePart_3 = e.Randomize(MoveController.thisPart, e.part_3_random, e.randomChance_3);
+        if (e.part_1_random != null) AnimController.thisPart.movePart_1 = e.Randomize(AnimController.thisPart, e.part_1_random, e.randomChance_1);
+        if (e.part_2_random != null) AnimController.thisPart.movePart_2 = e.Randomize(AnimController.thisPart, e.part_2_random, e.randomChance_2);
+        if (e.part_2_random != null) AnimController.thisPart.movePart_3 = e.Randomize(AnimController.thisPart, e.part_3_random, e.randomChance_3);
     }
 
     #endregion
-
-    
 }

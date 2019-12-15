@@ -6,9 +6,9 @@ public class ButtonPressed : MonoBehaviour
     [SerializeField] private bool _isMenu;
     [SerializeField] private int _buttonId;
 
-    private MoveController _moveController;
+    private AnimController _moveController;
 
-    private void Awake() => _moveController = GameObject.FindGameObjectWithTag("GameController").GetComponent<MoveController>();
+    private void Awake() => _moveController = GameObject.FindGameObjectWithTag("GameController").GetComponent<AnimController>();
 
     private void OnMouseDown()
     {

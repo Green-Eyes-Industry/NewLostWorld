@@ -2,30 +2,27 @@
 using UnityEngine;
 
 /// <summary> Анимация и переходы </summary>
-public class MoveController : MonoBehaviour
+public class AnimController : MonoBehaviour
 {
-    #region CONNECTIONS
+    public static AnimController moveContr;
+
+    #region VARIABLES
+
+    [HideInInspector] public static Animator _mainAnimator;
+    private UIController _uiContr;
+    private PlayerController _plContr;
 
     [SerializeField] private GameObject _menuCanvas;
     [SerializeField] private GameObject _gameCanvas;
 
     /// <summary> Первая глава сюжета </summary>
     public GamePart firstPart;
-    public static MoveController moveContr;
-
-    private UIController _uiContr;
-    [HideInInspector] public static Animator _mainAnimator;
-    private PlayerController _plContr;
-
-    private bool _isAchiveDetail; // Вы в меню описания достижения
-    private int _lastPartType;
-
-    #endregion
-
-    #region VARIABLES
 
     /// <summary> Глава запускаемая по нажатию "Начало" </summary>
     [HideInInspector] public static GamePart thisPart;
+
+    private bool _isAchiveDetail; // Вы в меню описания достижения
+    private int _lastPartType; // Тип последней главы
 
     private int _achiveSelectId; // Глава для вывода описания
     private int _achiveDisplayPage; // Отображаемая страница достижений
@@ -45,6 +42,12 @@ public class MoveController : MonoBehaviour
         _mainAnimator = GetComponent<Animator>();
         _uiContr = GetComponent<UIController>();
         _plContr = GetComponent<PlayerController>();
+
+        _mainAnimator.SetBool("Settings_1_St", DataController.gameSettingsData.isSoundCheck);
+        _mainAnimator.SetBool("Settings_2_St", DataController.gameSettingsData.isVibrationCheck);
+        _mainAnimator.SetBool("Settings_3_St", DataController.gameSettingsData.isEffectCheck);
+        
+        _uiContr.MenuOpenMain();
 
         _isAchiveDetail = false;
     }
@@ -370,11 +373,11 @@ public class MoveController : MonoBehaviour
                 }
                 break; // Вправо в меню достижений
 
-            case 7: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_1", true); break; // Ячейка достижения 1
-            case 8: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_2", true); break; // Ячейка достижения 2
-            case 9: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_3", true); break; // Ячейка достижения 3
-            case 10: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_4", true); break; // Ячейка достижения 4
-            case 11: if (!_isAchiveDetail) _mainAnimator.SetBool("AchiveCase_5", true); break; // Ячейка достижения 5
+            case 7: AchivemantCase(true, 1); break; // Ячейка достижения 1
+            case 8: AchivemantCase(true, 2); break; // Ячейка достижения 2
+            case 9: AchivemantCase(true, 3); break; // Ячейка достижения 3
+            case 10: AchivemantCase(true, 4); break; // Ячейка достижения 4
+            case 11: AchivemantCase(true, 5); break; // Ячейка достижения 5
         }
     }
 
@@ -391,7 +394,7 @@ public class MoveController : MonoBehaviour
             case 4:
                 // Влево в меню достижений
 
-                if (!_isAchiveDetail && _achiveDisplayPage > 1)
+                if (!_isAchiveDetail && _achiveDisplayPage > 0)
                 {
                     _mainAnimator.SetBool("Achives_Left", false);
                     _mainAnimator.SetTrigger("AchiveSlidePage");
@@ -401,7 +404,7 @@ public class MoveController : MonoBehaviour
             case 5:
                 // Вправо в меню достижений
 
-                if (!_isAchiveDetail && DataController.gameSettingsData.gameAchivemants.Count > 5 * (_achiveDisplayPage + 1))
+                if (!_isAchiveDetail && 5 * (_achiveDisplayPage + 1) < DataController.gameSettingsData.gameAchivemants.Count)
                 {
                     _mainAnimator.SetBool("Achives_Right", false);
                     _mainAnimator.SetTrigger("AchiveSlidePage");
@@ -416,120 +419,15 @@ public class MoveController : MonoBehaviour
 
                 break;
 
-            case 7:
-                // Ячейка достижения 1
+            case 7: AchivemantCase(false, 1); break; // Ячейка достижения 1
+            case 8: AchivemantCase(false, 2); break; // Ячейка достижения 2
+            case 9: AchivemantCase(false, 3); break; // Ячейка достижения 3
+            case 10: AchivemantCase(false, 4); break; // Ячейка достижения 4
+            case 11: AchivemantCase(false, 5); break; // Ячейка достижения 5
 
-                if (!_isAchiveDetail)
-                {
-                    _mainAnimator.SetBool("AchiveCase_1", false);
-
-                    // Проверка на полученность
-
-                    _mainAnimator.SetBool("AchiveDescript", true);
-                    _isAchiveDetail = true;
-
-                    // Смена текста описания
-                }
-                else
-                {
-                    _mainAnimator.SetBool("AchiveDescript", false);
-                    _isAchiveDetail = false;
-                }
-                break;
-
-            case 8:
-                // Ячейка достижения 2
-
-                if (!_isAchiveDetail)
-                {
-                    _mainAnimator.SetBool("AchiveCase_2", false);
-
-                    // Проверка на полученность
-
-                    _mainAnimator.SetBool("AchiveDescript", true);
-                    _isAchiveDetail = true;
-
-                    // Смена текста описания
-                }
-                else
-                {
-                    _mainAnimator.SetBool("AchiveDescript", false);
-                    _isAchiveDetail = false;
-                }
-                break;
-
-            case 9:
-                // Ячейка достижения 3
-
-                if (!_isAchiveDetail)
-                {
-                    _mainAnimator.SetBool("AchiveCase_3", false);
-
-                    // Проверка на полученность
-
-                    _mainAnimator.SetBool("AchiveDescript", true);
-                    _isAchiveDetail = true;
-
-                    // Смена текста описания
-                }
-                else
-                {
-                    _mainAnimator.SetBool("AchiveDescript", false);
-                    _isAchiveDetail = false;
-                }
-                break;
-
-            case 10:
-                // Ячейка достижения 4
-
-                if (!_isAchiveDetail)
-                {
-                    _mainAnimator.SetBool("AchiveCase_4", false);
-
-                    // Проверка на полученность
-
-                    _mainAnimator.SetBool("AchiveDescript", true);
-                    _isAchiveDetail = true;
-
-                    // Смена текста описания
-                }
-                else
-                {
-                    _mainAnimator.SetBool("AchiveDescript", false);
-                    _isAchiveDetail = false;
-                }
-                break;
-
-            case 11:
-                // Ячейка достижения 5
-
-                if (!_isAchiveDetail)
-                {
-                    _mainAnimator.SetBool("AchiveCase_5", false);
-
-                    // Проверка на полученность
-
-                    _mainAnimator.SetBool("AchiveDescript", true);
-                    _isAchiveDetail = true;
-
-                    // Смена текста описания
-                }
-                else
-                {
-                    _mainAnimator.SetBool("AchiveDescript", false);
-                    _isAchiveDetail = false;
-                }
-                break;
-
-            case 12:
-                // Выход из стартового превью
-
-                _mainAnimator.SetBool("StartGameDescript", false);
-                break;
+            case 12: _mainAnimator.SetBool("StartGameDescript", false); break; // Выход из стартового превью
         }
     }
-
-    #region MAIN_MENU
 
     /// <summary> Меню кнопка 1 </summary>
     private void MenuB1(bool press)
@@ -666,13 +564,30 @@ public class MoveController : MonoBehaviour
         }
     }
 
-    /// <summary> Достижения </summary>
-    private void AchivemantButtons(bool press)
+    /// <summary> Ячейки достижений </summary>
+    private void AchivemantCase(bool press, int idCase)
     {
+        if ((_achiveDisplayPage * 5) + idCase <= DataController.gameSettingsData.gameAchivemants.Count)
+        {
+            _mainAnimator.SetBool("AchiveCase_" + idCase, press);
 
+            if (!press)
+            {
+                if (!_isAchiveDetail)
+                {
+                    _mainAnimator.SetBool("AchiveDescript", true);
+                    _isAchiveDetail = true;
+
+                    // TODO : Смена текста описания
+                }
+                else
+                {
+                    _mainAnimator.SetBool("AchiveDescript", false);
+                    _isAchiveDetail = false;
+                }
+            }
+        }
     }
-
-    #endregion
 
     #endregion
 

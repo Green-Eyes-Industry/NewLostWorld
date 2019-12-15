@@ -14,9 +14,9 @@ public class GameHelpButtonPressed : MonoBehaviour
 
     public int buttonId;
 
-    private MoveController _moveController;
+    private AnimController _moveController;
 
-    private void Awake() => _moveController = GameObject.FindGameObjectWithTag("GameController").GetComponent<MoveController>();
+    private void Awake() => _moveController = GameObject.FindGameObjectWithTag("GameController").GetComponent<AnimController>();
 
     private void OnMouseDown() => PressedMenu(true);
 

@@ -4,7 +4,6 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Проверка решения")]
 public class CheckDecision : GameEvent
 {
     /// <summary> Решение </summary>
@@ -37,6 +36,7 @@ namespace GUIInspector
     public class CheckDecisionGUI_Inspector : Editor
     {
         private CheckDecision _checkDecision;
+        public static int id = 0;
 
         private void OnEnable() => _checkDecision = (CheckDecision)target;
 
@@ -50,7 +50,6 @@ namespace GUIInspector
 
             checkDecision._failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", checkDecision._failPart, typeof(GamePart), true);
 
-            int id = 0;
             object[] allDecisions = Resources.LoadAll("Decisions/", typeof(Decision));
 
             string[] names = new string[allDecisions.Length];
@@ -60,7 +59,9 @@ namespace GUIInspector
             for (int i = 0; i < names.Length; i++)
             {
                 nameConvert = (Decision)allDecisions[i];
-                names[i] = nameConvert._nameDecision;
+
+                if (nameConvert._nameDecision == "") names[i] = nameConvert.name;
+                else names[i] = nameConvert._nameDecision;
             }
 
             EditorGUILayout.BeginHorizontal();

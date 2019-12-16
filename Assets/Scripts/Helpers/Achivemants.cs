@@ -4,7 +4,6 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New achivemant",menuName = "Игровые обьекты/Достижение")]
 public class Achivemants : ScriptableObject
 {
     /// <summary> Значек достижения </summary>

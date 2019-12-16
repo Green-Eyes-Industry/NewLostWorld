@@ -29,17 +29,20 @@ namespace GUIInspector
 
         private void OnEnable() => _mapMark = (MapMark)target;
 
-        public override void OnInspectorGUI()
+        public override void OnInspectorGUI() => ShowItemEditor(_mapMark);
+
+        /// <summary> Отобразить в редакторе </summary>
+        public static void ShowItemEditor(MapMark mapMark)
         {
             EditorGUILayout.LabelField("Метка на карте");
 
             GUILayout.BeginVertical("Box");
 
-            _mapMark.nameLocation = EditorGUILayout.TextField("Название локации :", _mapMark.nameLocation);
+            mapMark.nameLocation = EditorGUILayout.TextField("Название локации :", mapMark.nameLocation);
             EditorGUILayout.LabelField("Лор локации");
-            _mapMark.loreLocation = EditorGUILayout.TextArea(_mapMark.loreLocation, GUILayout.Height(40));
+            mapMark.loreLocation = EditorGUILayout.TextArea(mapMark.loreLocation, GUILayout.Height(40));
             EditorGUILayout.Space();
-            _mapMark._partLocation = (GamePart)EditorGUILayout.ObjectField("Глава локации :", _mapMark._partLocation, typeof(GamePart), true);
+            mapMark._partLocation = (GamePart)EditorGUILayout.ObjectField("Глава локации :", mapMark._partLocation, typeof(GamePart), true);
 
             GUILayout.EndVertical();
         }

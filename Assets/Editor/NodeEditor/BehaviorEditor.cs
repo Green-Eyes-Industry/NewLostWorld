@@ -477,43 +477,42 @@ namespace GUIInspector.NodeEditor
                     CreateCurve(ConnectPosition(partNode, 2), partNode.movePart_3.windowRect, baseConnectColor);
             }
 
-            DrawRandomCurve(partNode);
+            DrawEventCurve(partNode);
         }
 
         /// <summary> Отрисовка связей Random Event </summary>
-        private void DrawRandomCurve(GamePart partNode)
+        private void DrawEventCurve(GamePart partNode)
         {
             if (partNode.mainEvents != null)
             {
-                bool checkRandom = false;
-                RandomPart randomEvent = null;
+                Color randomColor = Color.cyan;
+                Color eventFailColor = Color.red;
 
                 for (int i = 0; i < partNode.mainEvents.Count; i++)
                 {
-                    if (partNode.mainEvents[i] is RandomPart)
+                    if (partNode.mainEvents[i] is RandomPart randomEvent)
                     {
-                        checkRandom = true;
-                        randomEvent = (RandomPart)partNode.mainEvents[i];
+                        if (randomEvent.part_1_random != null && randomEvent.part_1_random != this)
+                        {
+                            CreateCurve(ConnectPosition(partNode, 0), randomEvent.part_1_random.windowRect, randomColor);
+                        }
+
+                        if (randomEvent.part_2_random != null && randomEvent.part_2_random != this)
+                        {
+                            CreateCurve(ConnectPosition(partNode, 1), randomEvent.part_2_random.windowRect, randomColor);
+                        }
+
+                        if (randomEvent.part_3_random != null && randomEvent.part_3_random != this)
+                        {
+                            CreateCurve(ConnectPosition(partNode, 2), randomEvent.part_3_random.windowRect, randomColor);
+                        }
                     }
-                }
-
-                if (checkRandom)
-                {
-                    Color randomConnectColor = new Color(1f, 0, 0, 0.75f);
-
-                    if (randomEvent.part_1_random != null && randomEvent.part_1_random != this)
+                    else if(partNode.mainEvents[i] is CheckDecision checkDecision)
                     {
-                        CreateCurve(ConnectPosition(partNode, 0), randomEvent.part_1_random.windowRect, randomConnectColor);
-                    }
-
-                    if (randomEvent.part_2_random != null && randomEvent.part_2_random != this)
-                    {
-                        CreateCurve(ConnectPosition(partNode, 1), randomEvent.part_2_random.windowRect, randomConnectColor);
-                    }
-
-                    if (randomEvent.part_3_random != null && randomEvent.part_3_random != this)
-                    {
-                        CreateCurve(ConnectPosition(partNode, 2), randomEvent.part_3_random.windowRect, randomConnectColor);
+                        if (checkDecision._failPart != null && checkDecision._failPart != this)
+                        {
+                            CreateCurve(ConnectPosition(partNode, 0), checkDecision._failPart.windowRect, eventFailColor);
+                        }
                     }
                 }
             }

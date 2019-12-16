@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d562ba768f5e464ab58262676848bf5, type: 3}
   m_Name: BaseParameters
   m_EditorClassIdentifier: 
-  lastPart: {fileID: 11400000, guid: d2436e58343c5184abdb663c7601aa26, type: 2}
+  lastPart: {fileID: 0}
   isSoundCheck: 0
   isVibrationCheck: 0
   isEffectCheck: 0
   eyeColor: {r: 0, g: 0, b: 0, a: 0}
-  gameAchivemants:
-  - {fileID: 11400000, guid: 5425c2c50ed520440b39370127fb3ceb, type: 2}
+  gameAchivemants: []

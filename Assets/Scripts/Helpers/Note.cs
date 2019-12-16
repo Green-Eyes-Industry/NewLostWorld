@@ -28,17 +28,20 @@ namespace GUIInspector
 
         private void OnEnable() => _notes = (Note)target;
 
-        public override void OnInspectorGUI()
+        public override void OnInspectorGUI() => ShowItemEditor(_notes);
+
+        /// <summary> Отобразить в редакторе </summary>
+        public static void ShowItemEditor(Note note)
         {
             EditorGUILayout.LabelField("Заметка");
 
             GUILayout.BeginVertical("Box");
 
-            _notes.noteName = EditorGUILayout.TextField("Название заметки :", _notes.noteName);
+            note.noteName = EditorGUILayout.TextField("Название заметки :", note.noteName);
             EditorGUILayout.LabelField("Текст заметки");
-            _notes.noteDescription = EditorGUILayout.TextArea(_notes.noteDescription, GUILayout.Height(40));
+            note.noteDescription = EditorGUILayout.TextArea(note.noteDescription, GUILayout.Height(40));
             EditorGUILayout.Space();
-            _notes.partNote = (GamePart)EditorGUILayout.ObjectField("Глава воспоминания :", _notes.partNote, typeof(GamePart), true);
+            note.partNote = (GamePart)EditorGUILayout.ObjectField("Глава воспоминания :", note.partNote, typeof(GamePart), true);
 
             GUILayout.EndVertical();
         }

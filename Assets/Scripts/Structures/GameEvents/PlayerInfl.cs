@@ -4,7 +4,6 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Влияние на игрока")]
 public class PlayerInfl : GameEvent
 {
     /// <summary> Влияние на здоровье </summary>

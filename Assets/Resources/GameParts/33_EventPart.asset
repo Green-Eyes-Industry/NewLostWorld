@@ -21,8 +21,8 @@ MonoBehaviour:
   memberComment: 1
   windowRect:
     serializedVersion: 2
-    x: 1563.75
-    y: 197.75
+    x: 1851.25
+    y: 244.75
     width: 40
     height: 38
   _memTitle: 33_EventPart

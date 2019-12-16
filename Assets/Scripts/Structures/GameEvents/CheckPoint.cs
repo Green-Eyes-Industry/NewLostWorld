@@ -4,7 +4,6 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Контрольная точка")]
 public class CheckPoint : GameEvent
 {
     /// <summary> Перезаписывает сохраненные данные </summary>

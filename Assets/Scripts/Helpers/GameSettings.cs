@@ -76,6 +76,7 @@ namespace GUIInspector
             GUILayout.Label("Достижения [Получено " + _gameSettings.gameAchivemants.Count + " достижений]");
             EditorGUILayout.Space();
 
+
             for (int i = 0; i < _gameSettings.gameAchivemants.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal("Box");
@@ -87,7 +88,7 @@ namespace GUIInspector
                 }
                 EditorGUILayout.EndHorizontal();
             }
-
+            
             EditorGUILayout.Space();
 
             EditorGUILayout.BeginHorizontal();

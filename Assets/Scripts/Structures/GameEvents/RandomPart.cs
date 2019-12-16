@@ -4,7 +4,6 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Случайный переход")]
 public class RandomPart : GameEvent
 {
     /// <summary> Случайная глава 1 </summary>
@@ -54,7 +53,72 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            // Код
+            // Первая кнопка
+
+            EditorGUILayout.BeginHorizontal();
+
+            randomPart.part_1_random = (GamePart)EditorGUILayout.ObjectField(randomPart.part_1_random,typeof(GamePart),true);
+
+            if(randomPart.part_1_random != null)
+            {
+                GUI.backgroundColor = Color.red;
+                if (GUILayout.Button("Отключить", GUILayout.Width(70))) randomPart.part_1_random = null;
+            }
+            else
+            {
+                GUI.backgroundColor = Color.green;
+                EditorGUILayout.LabelField("Пусто", GUILayout.Width(70));
+            }
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = Color.white;
+            randomPart.randomChance_1 = EditorGUILayout.IntSlider(randomPart.randomChance_1, 0, 100);
+
+            EditorGUILayout.Space();
+
+            // Вторая кнопка
+
+            EditorGUILayout.BeginHorizontal();
+
+            randomPart.part_2_random = (GamePart)EditorGUILayout.ObjectField(randomPart.part_2_random, typeof(GamePart), true);
+
+            if (randomPart.part_2_random != null)
+            {
+                GUI.backgroundColor = Color.red;
+                if (GUILayout.Button("Отключить", GUILayout.Width(70))) randomPart.part_2_random = null;
+            }
+            else
+            {
+                GUI.backgroundColor = Color.green;
+                EditorGUILayout.LabelField("Пусто", GUILayout.Width(70));
+            }
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = Color.white;
+            randomPart.randomChance_2 = EditorGUILayout.IntSlider(randomPart.randomChance_2, 0, 100);
+
+            EditorGUILayout.Space();
+
+            // Третья кнопка
+
+            EditorGUILayout.BeginHorizontal();
+
+            randomPart.part_3_random = (GamePart)EditorGUILayout.ObjectField(randomPart.part_3_random, typeof(GamePart), true);
+
+            if (randomPart.part_3_random != null)
+            {
+                GUI.backgroundColor = Color.red;
+                if (GUILayout.Button("Отключить", GUILayout.Width(70))) randomPart.part_3_random = null;
+            }
+            else
+            {
+                GUI.backgroundColor = Color.green;
+                EditorGUILayout.LabelField("Пусто", GUILayout.Width(70));
+            }
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = Color.white;
+            randomPart.randomChance_3 = EditorGUILayout.IntSlider(randomPart.randomChance_3, 0, 100);
 
             EditorGUILayout.EndVertical();
         }

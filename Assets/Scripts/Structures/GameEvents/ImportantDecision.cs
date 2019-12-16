@@ -4,7 +4,6 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Важное решение")]
 public class ImportantDecision : GameEvent
 {
     /// <summary> Решение </summary>
@@ -30,6 +29,7 @@ namespace GUIInspector
     public class ImportantDecisionGUI_Inspector : Editor
     {
         private ImportantDecision _importantDecision;
+        public static int id = 0;
 
         private void OnEnable() => _importantDecision = (ImportantDecision)target;
 
@@ -41,7 +41,6 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            int id = 0;
             object[] allDecisions = Resources.LoadAll("Decisions/", typeof(Decision));
 
             string[] names = new string[allDecisions.Length];
@@ -51,7 +50,9 @@ namespace GUIInspector
             for (int i = 0; i < names.Length; i++)
             {
                 nameConvert = (Decision)allDecisions[i];
-                names[i] = nameConvert._nameDecision;
+
+                if (nameConvert._nameDecision == "") names[i] = nameConvert.name;
+                else names[i] = nameConvert._nameDecision;
             }
 
             EditorGUILayout.BeginHorizontal();

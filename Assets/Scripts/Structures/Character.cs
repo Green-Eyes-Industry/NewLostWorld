@@ -1,4 +1,4 @@
 ﻿using UnityEngine;
 
 /// <summary> Группа персонажи </summary>
-public class Character : ScriptableObject { }
+public abstract class Character : ScriptableObject { }

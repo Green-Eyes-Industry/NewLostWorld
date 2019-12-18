@@ -445,7 +445,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: GameMenu/BackPanel/DownButtons
+    path: GameMenu/BackPanel/DownInventoryButtons
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -453,7 +453,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.215
+        value: 0.23
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -462,7 +462,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 2
-        value: 0.215
+        value: 0.23
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -473,7 +473,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchorMax.y
-    path: GameMenu/BackPanel/DownButtons
+    path: GameMenu/BackPanel/DownInventoryButtons
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -481,7 +481,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.075
+        value: 0.09
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -490,7 +490,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 2
-        value: 0.075
+        value: 0.09
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -501,7 +501,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchorMin.y
-    path: GameMenu/BackPanel/DownButtons
+    path: GameMenu/BackPanel/DownInventoryButtons
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -968,7 +968,7 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1577799405
+      path: 4227827124
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -1115,14 +1115,14 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1577799405
+      path: 4227827124
       attribute: 3600656472
       script: {fileID: 0}
       typeID: 224
       customType: 28
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1577799405
+      path: 4227827124
       attribute: 193093493
       script: {fileID: 0}
       typeID: 224
@@ -1952,7 +1952,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: GameMenu/BackPanel/DownButtons
+    path: GameMenu/BackPanel/DownInventoryButtons
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -1960,7 +1960,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.215
+        value: 0.23
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1969,7 +1969,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 2
-        value: 0.215
+        value: 0.23
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1980,7 +1980,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchorMax.y
-    path: GameMenu/BackPanel/DownButtons
+    path: GameMenu/BackPanel/DownInventoryButtons
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -1988,7 +1988,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.075
+        value: 0.09
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1997,7 +1997,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 2
-        value: 0.075
+        value: 0.09
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -2008,7 +2008,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchorMin.y
-    path: GameMenu/BackPanel/DownButtons
+    path: GameMenu/BackPanel/DownInventoryButtons
     classID: 224
     script: {fileID: 0}
   - curve:

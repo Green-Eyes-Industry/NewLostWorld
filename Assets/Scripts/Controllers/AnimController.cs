@@ -10,8 +10,9 @@ public class AnimController : MonoBehaviour
 
     /// <summary> Глава запускаемая по нажатию "Начало" </summary>
     public static GamePart thisPart;
+    public static SubEventPart subPart;
     public static Animator mainAnimator;
-
+    
     /// <summary> Первая глава сюжета </summary>
     public GamePart firstPart;
 
@@ -58,56 +59,75 @@ public class AnimController : MonoBehaviour
     public static void NextPart(GamePart nextPart)
     {
         mainAnimator.SetTrigger("SwitchGameText");
-        if (nextPart is TextPart) moveContr.ShowTextPart((TextPart)nextPart);
-        else if (nextPart is ChangePart) moveContr.ShowChangePart((ChangePart)nextPart);
-        else if (nextPart is BattlePart) moveContr.ShowBattlePart((BattlePart)nextPart);
-        else if (nextPart is FinalPart) moveContr.ShowFinalPart((FinalPart)nextPart);
-        else if (nextPart is EventPart) moveContr.ShowFinalPart((EventPart)nextPart);
+        if (nextPart is TextPart textPart)
+        {
+            moveContr.ShowPart(textPart);
+            moveContr._plContr.EventsStart(nextPart.mainEvents);
+        }
+        else if (nextPart is ChangePart changePart)
+        {
+            moveContr.ShowPart(changePart);
+            moveContr._plContr.EventsStart(nextPart.mainEvents);
+        }
+        else if (nextPart is BattlePart battlePart)
+        {
+            moveContr.ShowPart(battlePart);
+            moveContr._plContr.EventsStart(nextPart.mainEvents);
+        }
+        else if (nextPart is FinalPart finalPart) moveContr.ShowPart(finalPart);
+        else if (nextPart is EventPart eventPart)
+        {
+            if (subPart == null)
+            {
+                UIController.TimeEvent(true, eventPart.timeToEvent);
+                subPart = eventPart.eventParts[0];
+            }
+            moveContr.ShowPart(subPart);
+        }
 
-        moveContr._plContr.EventsStart(nextPart.mainEvents);
-        
         thisPart = nextPart;
     }
 
     /// <summary> Запуск текстовой главы </summary>
-    private void ShowTextPart(TextPart textPart)
+    private void ShowPart(TextPart part)
     {
         mainAnimator.SetInteger("GameStady", 0);
-        _uiContr.GameMain(textPart.mainText);
-        _uiContr.GameButton_1(textPart.buttonText_1);
+        _uiContr.GameMain(part.mainText);
+        _uiContr.GameButton_1(part.buttonText_1);
     }
 
     /// <summary> Запуск главы выбора </summary>
-    private void ShowChangePart(ChangePart changePart)
+    private void ShowPart(ChangePart part)
     {
         // Код
         mainAnimator.SetInteger("GameStady", 1);
-        _uiContr.GameMain(changePart.mainText);
-        _uiContr.GameButton_1(changePart.buttonText_1);
-        _uiContr.GameButton_2(changePart.buttonText_2);
+        _uiContr.GameMain(part.mainText);
+        _uiContr.GameButton_1(part.buttonText_1);
+        _uiContr.GameButton_2(part.buttonText_2);
     }
 
     /// <summary> Запуск главы боя </summary>
-    private void ShowBattlePart(BattlePart battlePart)
+    private void ShowPart(BattlePart part)
     {
         // Код
         mainAnimator.SetInteger("GameStady", 2);
-        _uiContr.GameMain(battlePart.mainText);
-        _uiContr.GameButton_1(battlePart.buttonText_1);
-        _uiContr.GameButton_2(battlePart.buttonText_2);
-        _uiContr.GameButton_3(battlePart.buttonText_3);
+        _uiContr.GameMain(part.mainText);
+        _uiContr.GameButton_1(part.buttonText_1);
+        _uiContr.GameButton_2(part.buttonText_2);
+        _uiContr.GameButton_3(part.buttonText_3);
     }
 
     /// <summary> Запуск финальной главы </summary>
-    private void ShowFinalPart(FinalPart finalPart)
+    private void ShowPart(FinalPart part)
     {
         // TODO : Запуск финальной главы
     }
 
     /// <summary> Запуск временного евента </summary>
-    private void ShowFinalPart(EventPart eventPart)
+    private void ShowPart(SubEventPart part)
     {
-        // TODO : Запуск главы эвента
+        mainAnimator.SetInteger("GameStady", 3);
+        _uiContr.GameMain(part.mainText);
     }
 
     #endregion
@@ -366,13 +386,58 @@ public class AnimController : MonoBehaviour
         switch (id)
         {
             case 1:
-                // TODO : Влево в главе евента
+                mainAnimator.SetBool("GameButton_EvLeft", press);
+                if (!press)
+                {
+                    // Влево
+                    if (subPart.moveLeft.isFail && thisPart.movePart_3 != null)
+                    {
+                        UIController.TimeEvent(false, 0f);
+                        FinalEvent(false);
+                    }
+                    else if (subPart.moveLeft.isFinal && thisPart.movePart_1 != null)
+                    {
+                        UIController.TimeEvent(false, 0f);
+                        FinalEvent(true);
+                    }
+                    else if (subPart.moveLeft != null)
+                    {
+                        subPart = subPart.moveLeft;
+                        NextPart(thisPart);
+                    }
+                }
                 break;
 
             case 2:
-                // TODO : Вправо в главе евента
+                mainAnimator.SetBool("GameButton_EvRight", press);
+                if (!press)
+                {
+                    // Вправо
+                    if (subPart.moveRight.isFail && thisPart.movePart_3 != null)
+                    {
+                        UIController.TimeEvent(false, 0f);
+                        FinalEvent(false);
+                    }
+                    else if (subPart.moveRight.isFinal && thisPart.movePart_1 != null)
+                    {
+                        UIController.TimeEvent(false, 0f);
+                        FinalEvent(true);
+                    }
+                    else if (subPart.moveRight != null)
+                    {
+                        subPart = subPart.moveRight;
+                        NextPart(thisPart);
+                    }
+                }
                 break;
         }
+    }
+
+    /// <summary> Завершение эвента </summary>
+    public void FinalEvent(bool isWin)
+    {
+        if (isWin) NextPart(thisPart.movePart_1);
+        else NextPart(thisPart.movePart_3);
     }
 
     /// <summary> Глава загадки </summary>

@@ -5,7 +5,12 @@ using UnityEngine.UI;
 /// <summary> Замена текста на кнопках и контроль UI </summary>
 public class UIController : MonoBehaviour
 {
+    public static UIController uIContr;
+
     #region VARIABLES
+
+    private bool isEventStarted; // Вы в главе евента
+    private float timeForEvent; // Время на эвент
 
     [Header("Базовые")]
 
@@ -39,6 +44,7 @@ public class UIController : MonoBehaviour
     public Text gameButton_1_Txt;
     public Text gameButton_2_Txt;
     public Text gameButton_3_Txt;
+    public Image timerImage;
 
     [Header("Сообщения в игре")]
 
@@ -73,11 +79,39 @@ public class UIController : MonoBehaviour
 
     #endregion
 
-    private void Start() => ConnectGyroscope();
+    private void Start()
+    {
+        uIContr = this;
+        TimeEvent(false, 0f);
+        ConnectGyroscope();
+    }
 
-    private void Update() => EyeWatching();
+    private void Update()
+    {
+        if (isEventStarted) TimerEventVision();
+        EyeWatching();
+    }
 
     #region VISUAL_EFFECTS
+
+    /// <summary> Старт евента </summary>
+    public static void TimeEvent(bool isStart, float timeSec)
+    {
+        uIContr.isEventStarted = isStart;
+        if (isStart) uIContr.timeForEvent = (1 / timeSec);
+        else uIContr.timeForEvent = 0f;
+    }
+
+    /// <summary> Таймер в главе евента </summary>
+    private void TimerEventVision()
+    {
+        if (timerImage.fillAmount > 0) timerImage.fillAmount -= timeForEvent * Time.deltaTime;
+        else
+        {
+            TimeEvent(false, 0f);
+            GetComponent<AnimController>().FinalEvent(false);
+        }
+    }
 
     /// <summary> Подключение гироскопа </summary>
     private void ConnectGyroscope()

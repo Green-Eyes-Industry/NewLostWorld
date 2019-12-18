@@ -79,8 +79,13 @@ namespace GUIInspector.NodeEditor
 
             if (BehaviorEditor.storyData.nodesData != null)
             {
-                if (BehaviorEditor.storyData.nodesData[0] != null) sizeStady = BehaviorEditor.storyData.nodesData[0].windowSizeStady;
+                if(BehaviorEditor.storyData.nodesData.Count > 0)
+                {
+                    sizeStady = BehaviorEditor.storyData.nodesData[0].windowSizeStady;
+                }
             }
+            else BehaviorEditor.storyData.nodesData = new System.Collections.Generic.List<GamePart>();
+
 
             if (sizeStady)
             {

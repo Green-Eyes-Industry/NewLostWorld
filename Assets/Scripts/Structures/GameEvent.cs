@@ -6,7 +6,7 @@ using UnityEditor;
 #endif
 
 /// <summary> Игровое событие </summary>
-public class GameEvent : ScriptableObject
+public abstract class GameEvent : ScriptableObject
 {
     /// <summary> Старт события </summary>
     public virtual bool EventStart() { return true; }

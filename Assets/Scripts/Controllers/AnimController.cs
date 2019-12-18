@@ -363,15 +363,15 @@ public class AnimController : MonoBehaviour
         switch (id)
         {
             case 1:
-                mainAnimator.SetBool("GameButton_" + id, false);
+                mainAnimator.SetBool("GameButton_" + id, press);
                 if (thisPart.movePart_1 != null && !press) NextPart(thisPart.movePart_1);
                 break;
             case 2:
-                mainAnimator.SetBool("GameButton_" + id, false);
+                mainAnimator.SetBool("GameButton_" + id, press);
                 if (thisPart.movePart_2 != null && !press) NextPart(thisPart.movePart_2);
                 break;
             case 3:
-                mainAnimator.SetBool("GameButton_" + id, false);
+                mainAnimator.SetBool("GameButton_" + id, press);
                 if (thisPart.movePart_3 != null && !press) NextPart(thisPart.movePart_3);
                 break;
             case 4:
@@ -590,6 +590,8 @@ public class AnimController : MonoBehaviour
     /// <summary> Задержка стартового меню </summary>
     private IEnumerator HideStartDescriptMenu()
     {
+        DataController.LoadGameData();
+
         yield return new WaitForSeconds(10f);
 
         mainAnimator.SetBool("StartGameDescript", false);

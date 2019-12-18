@@ -28,5 +28,6 @@ public class MainController : MonoBehaviour
     private void InitComponents()
     {
         _animController.Init();
+        DataController.LoadData();
     }
 }

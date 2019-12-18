@@ -11,11 +11,7 @@ public class MemberTime : GameEvent
 
     public override bool EventStart()
     {
-        if (!DataController.playerData.playerNotes.Contains(_note))
-        {
-            DataController.playerData.playerNotes.Add(_note);
-            DataController.SaveNotes();
-        }
+        if (!DataController.playerData.playerNotes.Contains(_note)) DataController.playerData.playerNotes.Add(_note);
 
         return true;
     }

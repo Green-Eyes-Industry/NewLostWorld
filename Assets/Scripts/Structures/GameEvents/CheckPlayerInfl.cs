@@ -21,7 +21,6 @@ public class CheckPlayerInfl : GameEvent
     public override bool EventStart()
     {
         DataController.LoadNonPlayerRatio(nonPlayer);
-
         if (nonPlayer.npToPlayerRatio >= value) return true;
         else return false;
     }

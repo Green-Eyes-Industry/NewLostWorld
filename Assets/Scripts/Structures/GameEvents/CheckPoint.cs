@@ -10,8 +10,14 @@ public class CheckPoint : GameEvent
     public override bool EventStart()
     {
         DataController.gameSettingsData.lastPart = AnimController.thisPart;
+        DataController.SaveEffects();
+        DataController.SaveDecisons();
+        DataController.SaveInventory();
+        DataController.SaveMap();
+        DataController.SaveNotes();
         DataController.SaveLastPart();
-
+        DataController.SaveCharacteristic();
+        DataController.SaveAllRatio();
         return true;
     }
 }

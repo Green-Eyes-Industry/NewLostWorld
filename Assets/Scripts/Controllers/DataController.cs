@@ -5,12 +5,15 @@ public class DataController : MonoBehaviour
 {
     public static Player playerData;
     public static GameSettings gameSettingsData;
+    public static NonPlayer[] npsSaveList;
 
     #region LOAD_METHODS
 
     /// <summary> Загрузить базовые данные </summary>
     public static void LoadData()
     {
+        npsSaveList = new NonPlayer[20];
+
         if (PlayerPrefs.HasKey("LastPart"))
         {
             // Глава на которой закончили
@@ -312,10 +315,27 @@ public class DataController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary> Сохранить отношение к игроку </summary>
+    /// <summary> Добавить НПС к измененным </summary>
     public static void SaveNonPlayerRatio(NonPlayer n)
     {
-        PlayerPrefs.SetInt(n.name, n.npToPlayerRatio);
+        int id = 0;
+
+        for (int i = 0; i < npsSaveList.Length; i++)
+        {
+            if (npsSaveList[i] == null) id = i;
+            if (npsSaveList[i] == n) return;
+        }
+
+        npsSaveList[id] = n;
+    }
+
+    /// <summary> Сохранить влияние игрока </summary>
+    public static void SaveAllRatio()
+    {
+        for (int i = 0; i < npsSaveList.Length; i++)
+        {
+            if (npsSaveList[i] != null) PlayerPrefs.SetInt(npsSaveList[i].name, npsSaveList[i].npToPlayerRatio);
+        }
     }
 
     #endregion

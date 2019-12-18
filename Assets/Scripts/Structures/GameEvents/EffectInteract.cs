@@ -21,11 +21,7 @@ public class EffectInteract : GameEvent
     {
         if (isAddOrRemove)
         {
-            if (!DataController.playerData.playerEffects.Contains(gameEffect))
-            {
-                DataController.playerData.playerEffects.Add(gameEffect);
-                DataController.SaveEffects();
-            }
+            if (!DataController.playerData.playerEffects.Contains(gameEffect)) DataController.playerData.playerEffects.Add(gameEffect);
             return true;
         }
         else
@@ -33,7 +29,6 @@ public class EffectInteract : GameEvent
             if (DataController.playerData.playerEffects.Contains(gameEffect))
             {
                 DataController.playerData.playerEffects.Remove(gameEffect);
-                DataController.SaveEffects();
                 return true;
             }
             else return false;

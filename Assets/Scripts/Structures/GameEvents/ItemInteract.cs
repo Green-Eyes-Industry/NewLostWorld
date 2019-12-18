@@ -21,11 +21,7 @@ public class ItemInteract : GameEvent
     {
         if (isAddOrLostItem)
         {
-            if (!DataController.playerData.playerInventory.Contains(gameItem))
-            {
-                DataController.playerData.playerInventory.Add(gameItem);
-                DataController.SaveInventory();
-            }
+            if (!DataController.playerData.playerInventory.Contains(gameItem)) DataController.playerData.playerInventory.Add(gameItem);
             return true;
         }
         else
@@ -33,7 +29,6 @@ public class ItemInteract : GameEvent
             if (DataController.playerData.playerInventory.Contains(gameItem))
             {
                 DataController.playerData.playerInventory.Remove(gameItem);
-                DataController.SaveInventory();
                 return true;
             }
             else return false;

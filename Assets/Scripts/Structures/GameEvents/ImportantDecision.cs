@@ -12,11 +12,7 @@ public class ImportantDecision : GameEvent
     /// <summary> Принять решение </summary>
     public override bool EventStart()
     {
-        if (DataController.playerData.playerDecisions.Contains(decision))
-        {
-            DataController.playerData.playerDecisions.Add(decision);
-            DataController.SaveDecisons();
-        }
+        if (DataController.playerData.playerDecisions.Contains(decision)) DataController.playerData.playerDecisions.Add(decision);
         return true;
     }
 }

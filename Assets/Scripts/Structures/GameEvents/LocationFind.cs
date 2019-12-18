@@ -12,11 +12,7 @@ public class LocationFind : GameEvent
     /// <summary> Найти локацию </summary>
     public override bool EventStart()
     {
-        if(!DataController.playerData.playerMap.Contains(_location))
-        {
-            DataController.playerData.playerMap.Add(_location);
-            DataController.SaveMap();
-        }
+        if(!DataController.playerData.playerMap.Contains(_location)) DataController.playerData.playerMap.Add(_location);
 
         return true;
     }

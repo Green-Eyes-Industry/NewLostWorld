@@ -17,7 +17,6 @@ public class PlayerInfl : GameEvent
     {
         DataController.playerData.playerHealth += _healthInfl;
         DataController.playerData.playerMind += _mindInfl;
-        DataController.SaveCharacteristic();
         return true;
     }
 }

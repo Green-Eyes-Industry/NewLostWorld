@@ -22,11 +22,7 @@ public class ItemInfl : GameEvent
         if (DataController.playerData.playerInventory.Contains(useItem))
         {
             useItem.UseThisItem();
-            if (isRemove)
-            {
-                DataController.playerData.playerInventory.Remove(useItem);
-                DataController.SaveInventory();
-            }
+            if (isRemove) DataController.playerData.playerInventory.Remove(useItem);
             return true;
         }
         else return false;

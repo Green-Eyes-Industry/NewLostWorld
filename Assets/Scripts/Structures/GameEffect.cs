@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary> Группа еффектов </summary>
-public class GameEffect : ScriptableObject
+public abstract class GameEffect : ScriptableObject
 {
     /// <summary> Значек еффекта </summary>
     public Sprite icoEffect;

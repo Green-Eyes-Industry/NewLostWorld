@@ -40,7 +40,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
   m_FloatCurves:
   - curve:
       serializedVersion: 2
@@ -67,7 +67,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.r
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   - curve:
@@ -95,7 +95,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   - curve:
@@ -123,7 +123,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_PPtrCurves: []
@@ -135,28 +135,28 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2118411844
+      path: 3796273683
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2118411844
+      path: 3796273683
       attribute: 2526845255
       script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
       typeID: 114
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2118411844
+      path: 3796273683
       attribute: 4215373228
       script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
       typeID: 114
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2118411844
+      path: 3796273683
       attribute: 2334886179
       script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
       typeID: 114
@@ -209,7 +209,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.r
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   - curve:
@@ -237,7 +237,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   - curve:
@@ -265,7 +265,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   - curve:
@@ -293,7 +293,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -321,7 +321,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -349,7 +349,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: GameMenu/BackPanel/DownButtons/InventRightSwitch
+    path: GameMenu/BackPanel/DownInventoryButtons/InventRightSwitch
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []

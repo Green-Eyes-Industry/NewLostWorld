@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary> Группа игровых глав </summary>
-public class GamePart : ScriptableObject
+public abstract class GamePart : ScriptableObject
 {
     public string mainText;
     public List<GameEvent> mainEvents;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GameItem : ScriptableObject
+public abstract class GameItem : ScriptableObject
 {
     /// <summary> Значек предмета </summary>
     public Sprite itemIco;

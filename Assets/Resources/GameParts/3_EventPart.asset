@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40ccc6eadd1d774086ea8f0935e4de2, type: 3}
+  m_Name: 3_EventPart
+  m_EditorClassIdentifier: 
+  mainText: 
+  mainEvents: []
+  movePart_1: {fileID: 11400000, guid: 89551714378a24a4e9422146a69c5eca, type: 2}
+  movePart_2: {fileID: 0}
+  movePart_3: {fileID: 11400000, guid: 4a745874e809e4a499fe37cb3536f1b8, type: 2}
+  windowSizeStady: 0
+  memberComment: 0
+  windowRect:
+    serializedVersion: 2
+    x: 285
+    y: 284
+    width: 120
+    height: 42
+  _memTitle: 3_EventPart
+  windowTitle: 3_EventPart
+  part: {fileID: 0}
+  workStady: 0
+  comment: 
+  isShowComment: 0
+  timeToEvent: 20
+  eventParts:
+  - {fileID: 11400000, guid: a9a1a109d33be7344bd539a92d02bf22, type: 2}
+  - {fileID: 11400000, guid: 0a208fef1b683a4468f2539258e01361, type: 2}
+  - {fileID: 11400000, guid: 15f962acd14eb1745962cc4df8a9bf39, type: 2}
+  - {fileID: 11400000, guid: 1f75816edc209bd4fa5840f7217da42e, type: 2}
+  - {fileID: 11400000, guid: 8ccc15d2e2899794b8f6a0a864d7b38f, type: 2}

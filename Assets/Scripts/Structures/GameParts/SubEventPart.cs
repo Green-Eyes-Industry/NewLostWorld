@@ -50,12 +50,12 @@ namespace GUIInspector
 
             GUILayout.BeginVertical("Box");
 
-            _subEventPart.mainText = EditorGUILayout.TextArea(_subEventPart.mainText, GUILayout.Height(100));
-
-            GUILayout.BeginHorizontal();
-
-            if(!_subEventPart.isFail && !_subEventPart.isFinal)
+            if (!_subEventPart.isFail && !_subEventPart.isFinal)
             {
+                _subEventPart.mainText = EditorGUILayout.TextArea(_subEventPart.mainText, GUILayout.Height(100));
+
+                GUILayout.BeginHorizontal();
+
                 if (_subEventPart.moveLeft != null)
                 {
                     GUI.backgroundColor = Color.red;
@@ -71,11 +71,16 @@ namespace GUIInspector
                     GUI.backgroundColor = Color.white;
                 }
                 else GUILayout.Label("Не подключено", "Button", GUILayout.Height(20));
+
+                GUILayout.EndHorizontal();
             }
-
-            GUILayout.EndHorizontal();
-
+            else
+            {
+                GUILayout.Label("Событие выхода из эвента");
+            }
+            
             GUILayout.EndVertical();
+
         }
     }
 }

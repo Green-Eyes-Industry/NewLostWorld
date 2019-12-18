@@ -64,7 +64,7 @@ namespace GUIInspector
 
             EditorGUILayout.Space();
 
-            _eventPart.timeToEvent = EditorGUILayout.IntSlider("Время на выполнение (сек): ", _eventPart.timeToEvent, 20, 360);
+            _eventPart.timeToEvent = EditorGUILayout.IntSlider("Время (сек): ", _eventPart.timeToEvent, 20, 360);
             EditorGUILayout.Space();
 
             GUILayout.BeginScrollView(_partsSlider, "Box");

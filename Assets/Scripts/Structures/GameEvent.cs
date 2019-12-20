@@ -3,22 +3,26 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEditor;
+using NLW.Data;
 #endif
 
-/// <summary> Игровое событие </summary>
-public abstract class GameEvent : ScriptableObject
+namespace NLW.Data
 {
-    /// <summary> Старт события </summary>
-    public virtual bool EventStart() { return true; }
+    /// <summary> Игровое событие </summary>
+    public abstract class GameEvent : ScriptableObject
+    {
+        /// <summary> Старт события </summary>
+        public virtual bool EventStart() { return true; }
 
-    /// <summary> Глава при провале </summary>
-    public virtual GamePart FailPart() { return null; }
+        /// <summary> Глава при провале </summary>
+        public virtual Parts.GamePart FailPart() { return null; }
 
-    #region UNITY_EDITOR
+        #region UNITY_EDITOR
 
-    public bool editorEventFoldout;
+        public bool editorEventFoldout;
 
-    #endregion
+        #endregion
+    }
 }
 
 #if UNITY_EDITOR
@@ -50,44 +54,38 @@ namespace GUIInspector
         /// <summary> Показать список событий </summary>
         public static void ShowPartEventList(List<GameEvent> listEvent)
         {
-            GUILayout.BeginScrollView(_eventSlider, "Box");
+            _eventSlider = GUILayout.BeginScrollView(_eventSlider, "Box");
 
             if (listEvent.Count > 0)
             {
-                try
+                for (int i = 0; i < listEvent.Count; i++)
                 {
-                    for (int i = 0; i < listEvent.Count; i++)
+                    GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
+
+                    GUILayout.BeginHorizontal("Box");
+
+                    listEvent[i] = (GameEvent)EditorGUILayout.ObjectField(listEvent[i], typeof(GameEvent), true);
+
+                    if (listEvent[i] != null)
                     {
-                        GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
-                        GUILayout.BeginHorizontal("Box");
-
-                        listEvent[i] = (GameEvent)EditorGUILayout.ObjectField(listEvent[i], typeof(GameEvent), true);
-
-                        if (listEvent[i] != null)
-                        {
-                            EditorGUILayout.Space();
-                            listEvent[i].editorEventFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(listEvent[i].editorEventFoldout, "Подробнее");
-                            EditorGUILayout.EndFoldoutHeaderGroup();
-                        }
-
-                        GUI.backgroundColor = Color.red;
-                        if (GUILayout.Button("Удалить", GUILayout.Width(70)))
-                        {
-                            AssetDatabase.DeleteAsset("Assets/Resources/GameEvents/" + listEvent[i].name + ".asset");
-                            listEvent.RemoveAt(i);
-                        }
-                        GUILayout.EndHorizontal();
-
-
-                        if (listEvent[i] != null)
-                        {
-                            if (listEvent[i].editorEventFoldout && listEvent[i] != null) ShowEventEdit(listEvent[i]);
-                        }
+                        EditorGUILayout.Space();
+                        listEvent[i].editorEventFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(listEvent[i].editorEventFoldout, "Подробнее");
+                        EditorGUILayout.EndFoldoutHeaderGroup();
                     }
-                }
-                catch (System.ArgumentOutOfRangeException)
-                {
-                    return;
+
+                    GUI.backgroundColor = Color.red;
+                    if (GUILayout.Button("Удалить", GUILayout.Width(70)))
+                    {
+                        AssetDatabase.DeleteAsset("Assets/Resources/GameEvents/" + listEvent[i].name + ".asset");
+                        listEvent.RemoveAt(i);
+                    }
+
+                    GUILayout.EndHorizontal();
+
+                    if (listEvent[i] != null)
+                    {
+                        if (listEvent[i].editorEventFoldout && listEvent[i] != null) ShowEventEdit(listEvent[i]);
+                    }
                 }
             }
             else GUILayout.Label("Нет событий");

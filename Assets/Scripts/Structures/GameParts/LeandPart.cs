@@ -2,10 +2,14 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Parts;
 #endif
 
-[CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Глава Текстовой вставки", order = 5)]
-public class LeandPart : GamePart { }
+namespace NLW.Parts
+{
+    [CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Глава Текстовой вставки", order = 5)]
+    public class LeandPart : GamePart { }
+}
 
 #if UNITY_EDITOR
 
@@ -34,9 +38,9 @@ namespace GUIInspector
 
             _leandPart.mainText = EditorGUILayout.TextArea(_leandPart.mainText, GUILayout.Height(100));
 
-            if (_leandPart.movePart_1 != null)
+            if (_leandPart.movePart[0] != null)
             {
-                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _leandPart.movePart_1 = null;
+                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _leandPart.movePart[0] = null;
             }
             else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
 

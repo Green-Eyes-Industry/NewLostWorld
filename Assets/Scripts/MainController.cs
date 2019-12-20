@@ -1,33 +1,55 @@
 ﻿using UnityEngine;
 
-/// <summary> Управление игровыми параметрами </summary>
-public class MainController : MonoBehaviour
+namespace NLW
 {
-    private AnimController _animController;
-
-    public Player mainPlayer;
-    public GameSettings mainGameSettings;
-
-    private void Start()
+    /// <summary> Управление игровыми параметрами </summary>
+    [RequireComponent(typeof(DataController))]
+    [RequireComponent(typeof(GameController))]
+    [RequireComponent(typeof(AnimController))]
+    [RequireComponent(typeof(UIController))]
+    public class MainController : MonoBehaviour
     {
-        ConnectControllers();
-        InitComponents();
-    }
+        public static MainController Instance;
 
-    /// <summary> Подключение контроллеров и заполнение данных </summary>
-    private void ConnectControllers()
-    {
-        _animController = GetComponent<AnimController>();
+        [HideInInspector] public Data.Player mainPlayer;
+        [HideInInspector] public Data.GameSettings mainSettings;
 
-        AnimController.moveContr = _animController;
-        DataController.gameSettingsData = mainGameSettings;
-        DataController.playerData = mainPlayer;
-    }
+        [HideInInspector] public DataController dataController;
+        [HideInInspector] public GameController gameController;
+        [HideInInspector] public AnimController animController;
+        [HideInInspector] public UIController uIController;
 
-    /// <summary> Подключение компонентов </summary>
-    private void InitComponents()
-    {
-        _animController.Init();
-        DataController.LoadData();
+        /// <summary> Инициализация контроллера </summary>
+        protected virtual void Init() { }
+
+        private void Start()
+        {
+            Instance = this;
+            mainPlayer = (Data.Player)Resources.Load("Players/MainPlayer", typeof(Data.Player));
+            mainSettings = (Data.GameSettings)Resources.Load("MainSettings", typeof(Data.GameSettings));
+
+            if (mainPlayer == null)
+            {
+                Debug.LogError("Отсутствует компонент : Player");
+                return;
+            }
+
+            if (mainSettings == null)
+            {
+                Debug.LogError("Отсутствует компонент : GameSettings");
+                return;
+            }
+
+            dataController = GetComponent<DataController>();
+            gameController = GetComponent<GameController>();
+            animController = GetComponent<AnimController>();
+            uIController = GetComponent<UIController>();
+
+            dataController.Init();
+            gameController.Init();
+            animController.Init();
+            uIController.Init();
+
+        }
     }
 }

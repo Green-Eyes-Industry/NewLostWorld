@@ -2,19 +2,25 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-public class Decision : ScriptableObject
+namespace NLW.Data
 {
+    public class Decision : ScriptableObject
+    {
+
 #if UNITY_EDITOR
 
-    /// <summary> Название решения </summary>
-    public string _nameDecision;
+        /// <summary> Название решения </summary>
+        public string _nameDecision;
 
-    /// <summary> Описание решения </summary>
-    public string _decisionDescription;
+        /// <summary> Описание решения </summary>
+        public string _decisionDescription;
 
-    #endif
+#endif
+
+    }
 }
 
 #if UNITY_EDITOR

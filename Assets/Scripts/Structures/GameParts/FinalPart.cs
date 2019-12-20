@@ -2,16 +2,20 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
-using System.Collections.Generic;
+using NLW.Parts;
+using NLW.Data;
 #endif
 
-public class FinalPart : GamePart
+namespace NLW.Parts
 {
-    /// <summary> Получаемое достижение, если нужно </summary>
-    public Achivemants newAchive;
+    public class FinalPart : GamePart
+    {
+        /// <summary> Получаемое достижение, если нужно </summary>
+        public Achivemants newAchive;
 
-    /// <summary> Текст кнопки возврата в меню </summary>
-    public string backButtonText;
+        /// <summary> Текст кнопки возврата в меню </summary>
+        public string backButtonText;
+    }
 }
 
 #if UNITY_EDITOR
@@ -28,7 +32,7 @@ namespace GUIInspector
 
         public override void OnInspectorGUI()
         {
-            GUILayout.Label("Текстовые поля");
+            GUILayout.Label("Текстовое поле");
 
             GUILayout.BeginVertical("Box");
 

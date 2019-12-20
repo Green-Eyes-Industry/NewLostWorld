@@ -2,30 +2,34 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-public class CheckDecision : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Решение </summary>
-    public Decision decision;
-
-    /// <summary> Глава при проверке </summary>
-    public GamePart _failPart;
-
-    /// <summary> Проверка на принятое ранее решение </summary>
-    /// <returns> Вернет False при провале проверки </returns>
-    public override bool EventStart()
+    public class CheckDecision : GameEvent
     {
-        for (int i = 0; i < DataController.playerData.playerDecisions.Count; i++)
+        /// <summary> Решение </summary>
+        public Decision decision;
+
+        /// <summary> Глава при проверке </summary>
+        public Parts.GamePart _failPart;
+
+        /// <summary> Проверка на принятое ранее решение </summary>
+        /// <returns> Вернет False при провале проверки </returns>
+        public override bool EventStart()
         {
-            if (DataController.playerData.playerDecisions[i].Equals(decision)) return true;
+            for (int i = 0; i < MainController.Instance.mainPlayer.playerDecisions.Count; i++)
+            {
+                if (MainController.Instance.mainPlayer.playerDecisions[i].Equals(decision)) return true;
+            }
+
+            return false;
         }
 
-        return false;
+        /// <summary> Вернуть главу провала </summary>
+        public override Parts.GamePart FailPart() { return _failPart; }
     }
-
-    /// <summary> Вернуть главу провала </summary>
-    public override GamePart FailPart() { return _failPart; }
 }
 
 #if UNITY_EDITOR
@@ -48,7 +52,7 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            checkDecision._failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", checkDecision._failPart, typeof(GamePart), true);
+            checkDecision._failPart = (NLW.Parts.GamePart)EditorGUILayout.ObjectField("Глава провала : ", checkDecision._failPart, typeof(NLW.Parts.GamePart), true);
 
             object[] allDecisions = Resources.LoadAll("Decisions/", typeof(Decision));
 

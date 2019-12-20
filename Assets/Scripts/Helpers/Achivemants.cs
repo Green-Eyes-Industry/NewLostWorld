@@ -2,18 +2,23 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-public class Achivemants : ScriptableObject
+namespace NLW.Data
 {
-    /// <summary> Значек достижения </summary>
-    public Sprite achiveIco;
+    public class Achivemants : ScriptableObject
+    {
+        /// <summary> Значек достижения </summary>
+        public Sprite achiveIco;
 
-    /// <summary> Название достижения </summary>
-    public string achiveName;
+        /// <summary> Название достижения </summary>
+        public string achiveName;
 
-    /// <summary> Описание достижения </summary>
-    public string achiveDescript;
+        /// <summary> Описание достижения </summary>
+        public string achiveDescript;
+    }
+
 }
 
 #if UNITY_EDITOR

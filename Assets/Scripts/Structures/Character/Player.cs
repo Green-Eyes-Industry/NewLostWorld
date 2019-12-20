@@ -3,31 +3,35 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-[CreateAssetMenu(fileName = "New player", menuName = "Игровые обьекты/Новый персонаж/Игрок", order = 0)]
-public class Player : Character
+namespace NLW.Data
 {
-    /// <summary> Здоровье игрока </summary>
-    public int playerHealth;
+    [CreateAssetMenu(fileName = "New player", menuName = "Игровые обьекты/Новый персонаж/Игрок", order = 0)]
+    public class Player : Character
+    {
+        /// <summary> Здоровье игрока </summary>
+        public int playerHealth;
 
-    /// <summary> Рассудок игрока </summary>
-    public int playerMind;
+        /// <summary> Рассудок игрока </summary>
+        public int playerMind;
 
-    /// <summary> Список эффектов на игроке </summary>
-    public List<GameEffect> playerEffects;
+        /// <summary> Список эффектов на игроке </summary>
+        public List<GameEffect> playerEffects;
 
-    /// <summary> Инвентарь игрока </summary>
-    public List<GameItem> playerInventory;
+        /// <summary> Инвентарь игрока </summary>
+        public List<GameItem> playerInventory;
 
-    /// <summary> Заметки игрока </summary>
-    public List<Note> playerNotes;
+        /// <summary> Заметки игрока </summary>
+        public List<Note> playerNotes;
 
-    /// <summary> Открытиые локации </summary>
-    public List<MapMark> playerMap;
+        /// <summary> Открытиые локации </summary>
+        public List<MapMark> playerMap;
 
-    /// <summary> Важные решения </summary>
-    public List<Decision> playerDecisions;
+        /// <summary> Важные решения </summary>
+        public List<Decision> playerDecisions;
+    }
 }
 
 #if UNITY_EDITOR

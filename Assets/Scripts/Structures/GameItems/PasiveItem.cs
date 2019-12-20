@@ -2,13 +2,17 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-[CreateAssetMenu(fileName = "New item", menuName = "Игровые обьекты/Новый предмет/Пасивный")]
-public class PasiveItem : GameItem
+namespace NLW.Data
 {
-    /// <summary> Накладываемый эффект пока предмет у персонажа </summary>
-    public GameEffect itemEffect;
+    [CreateAssetMenu(fileName = "New item", menuName = "Игровые обьекты/Новый предмет/Пасивный")]
+    public class PasiveItem : GameItem
+    {
+        /// <summary> Накладываемый эффект пока предмет у персонажа </summary>
+        public GameEffect itemEffect;
+    }
 }
 
 #if UNITY_EDITOR
@@ -23,10 +27,10 @@ namespace GUIInspector
 
         private void OnEnable() => _pasiveItem = (PasiveItem)target;
 
-        public override void OnInspectorGUI() => ShowPassiveItemEditor(_pasiveItem);
+        public override void OnInspectorGUI() => ShowItemEditor(_pasiveItem);
 
         /// <summary> Показать редактор пассивного предмета </summary>
-        public static void ShowPassiveItemEditor(PasiveItem pasiveItem)
+        public static void ShowItemEditor(PasiveItem pasiveItem)
         {
             GUILayout.Label("Пассивный предмет");
 

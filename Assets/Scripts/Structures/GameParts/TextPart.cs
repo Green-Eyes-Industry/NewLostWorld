@@ -2,12 +2,16 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Parts;
 #endif
 
-public class TextPart : GamePart
+namespace NLW.Parts
 {
-    /// <summary> Текст первой кнопки </summary>
-    public string buttonText_1;
+    public class TextPart : GamePart
+    {
+        /// <summary> Текст первой кнопки </summary>
+        public string buttonText;
+    }
 }
 
 #if UNITY_EDITOR
@@ -40,11 +44,11 @@ namespace GUIInspector
             EditorGUILayout.Space();
 
             GUILayout.BeginHorizontal();
-            _textPart.buttonText_1 = EditorGUILayout.TextArea(_textPart.buttonText_1, GUILayout.Height(40));
+            _textPart.buttonText = EditorGUILayout.TextArea(_textPart.buttonText, GUILayout.Height(40));
 
-            if (_textPart.movePart_1 != null)
+            if (_textPart.movePart[0] != null)
             {
-                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _textPart.movePart_1 = null;
+                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _textPart.movePart[0] = null;
             }
             else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
 
@@ -55,7 +59,7 @@ namespace GUIInspector
             GUILayout.Label("Параметры");
 
             if (_textPart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_textPart.mainEvents);
-            else _textPart.mainEvents = new System.Collections.Generic.List<GameEvent>();
+            else _textPart.mainEvents = new System.Collections.Generic.List<NLW.Data.GameEvent>();
         }
     }
 }

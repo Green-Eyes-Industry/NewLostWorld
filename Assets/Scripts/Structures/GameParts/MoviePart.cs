@@ -3,13 +3,17 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Parts;
 #endif
 
-[CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Глава слайдшоу", order = 6)]
-public class MoviePart : GamePart
+namespace NLW.Parts
 {
-    /// <summary> Список спрайтов в слайд-шоу </summary>
-    public List<Sprite> movieSprites;
+    [CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Глава слайдшоу", order = 6)]
+    public class MoviePart : GamePart
+    {
+        /// <summary> Список спрайтов в слайд-шоу </summary>
+        public List<Sprite> movieSprites;
+    }
 }
 
 #if UNITY_EDITOR

@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Глава загадки", order = 3)]
-public class PazzlePart : GamePart
+namespace NLW.Parts
 {
-    // Глава в разработке
+    [CreateAssetMenu(fileName = "New part", menuName = "Игровые обьекты/Новая глава/Глава загадки", order = 3)]
+    public class PazzlePart : GamePart
+    {
+        // Глава в разработке
+    }
 }

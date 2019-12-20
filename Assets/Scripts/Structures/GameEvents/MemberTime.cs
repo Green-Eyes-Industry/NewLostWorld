@@ -2,18 +2,24 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-public class MemberTime : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Заметка </summary>
-    public Note _note;
-
-    public override bool EventStart()
+    public class MemberTime : GameEvent
     {
-        if (!DataController.playerData.playerNotes.Contains(_note)) DataController.playerData.playerNotes.Add(_note);
+        /// <summary> Заметка </summary>
+        public Note _note;
 
-        return true;
+        public override bool EventStart()
+        {
+            Player mPlayer = MainController.Instance.mainPlayer;
+
+            if (!mPlayer.playerNotes.Contains(_note)) mPlayer.playerNotes.Add(_note);
+
+            return true;
+        }
     }
 }
 

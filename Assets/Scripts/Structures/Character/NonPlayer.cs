@@ -2,16 +2,20 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-[CreateAssetMenu(fileName = "New npc", menuName = "Игровые обьекты/Новый персонаж/НПС", order = 1)]
-public class NonPlayer : Character
+namespace NLW.Data
 {
-    /// <summary> Имя НПС </summary>
-    public string npName;
+    [CreateAssetMenu(fileName = "New npc", menuName = "Игровые обьекты/Новый персонаж/НПС", order = 1)]
+    public class NonPlayer : Character
+    {
+        /// <summary> Имя НПС </summary>
+        public string npName;
 
-    /// <summary> Отношение НПС к игроку </summary>
-    public int npToPlayerRatio;
+        /// <summary> Отношение НПС к игроку </summary>
+        public int npToPlayerRatio;
+    }
 }
 
 #if UNITY_EDITOR

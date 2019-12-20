@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using NLW;
+using NLW.Data;
+using NLW.Parts;
 
 namespace GUIInspector.NodeEditor
 {
@@ -28,6 +31,13 @@ namespace GUIInspector.NodeEditor
 
         public int[] workStadyNum = new int[] { 0, 1, 2 };
         public string[] workStadyNames = new string[] { "Пусто", "Разработка", "Готово" };
+
+        public int debugStady;
+        public int[] debugNum = new int[] { 0, 1 };
+        public string[] debugNumNames = new string[] { "Разработка", "Проверка"};
+
+        public bool isWatchOnPlay;
+
         public int tempConnect = 0;
 
         #endregion
@@ -112,12 +122,17 @@ namespace GUIInspector.NodeEditor
                 // Верхняя панель
 
                 EditorGUILayout.BeginHorizontal("TextArea");
+
                 if (EventEditor.eventGraph == null) EditorGUILayout.LabelField("Сценарий", GUILayout.Height(22));
                 else
                 {
                     EditorGUILayout.LabelField("Евент " + EventEditor.eventGraph.name, GUILayout.Height(22));
                     if (GUILayout.Button("Вернуться", GUILayout.Width(100), GUILayout.Height(18))) EventEditor.eventGraph = null;
                 }
+
+                debugStady = EditorGUILayout.IntPopup(debugStady, debugNumNames, debugNum, GUILayout.Width(100));
+
+                isWatchOnPlay = EditorGUILayout.Toggle(isWatchOnPlay, GUILayout.Width(15));
 
                 if (GUILayout.Button("Сценарий", GUILayout.Width(100))) Selection.activeObject = _storyData;
 
@@ -127,6 +142,7 @@ namespace GUIInspector.NodeEditor
                     if (GUILayout.Button("Данные", GUILayout.Width(100), GUILayout.Height(18))) Selection.activeObject = _mainSettings;
                 }
 
+                GUI.backgroundColor = Color.green;
                 if (GUILayout.Button("Сохранить", GUILayout.Width(100), GUILayout.Height(18))) SaveData();
 
                 EditorGUILayout.EndHorizontal();
@@ -155,9 +171,9 @@ namespace GUIInspector.NodeEditor
 
                 if (EditorApplication.isPlaying)
                 {
-                    if (AnimController.thisPart != null)
+                    if (MainController.Instance.animController.thisPart != null && isWatchOnPlay)
                     {
-                        if (AnimController.thisPart == part)
+                        if (MainController.Instance.animController.thisPart == part)
                         {
                             FocusPart(part);
                             GUI.backgroundColor = Color.blue;
@@ -166,18 +182,23 @@ namespace GUIInspector.NodeEditor
                 }
                 else
                 {
-                    switch (part.workStady)
+                    if (debugStady == 0)
                     {
-                        case 0: GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f); ; break;
-                        case 1: GUI.backgroundColor = Color.yellow; break;
-                        case 2: GUI.backgroundColor = Color.green; break;
+                        switch (part.workStady)
+                        {
+                            case 0: GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f); ; break;
+                            case 1: GUI.backgroundColor = Color.yellow; break;
+                            case 2: GUI.backgroundColor = Color.green; break;
+                        }
                     }
+                    else GUI.backgroundColor = DebugColor(part);
+
 
                     if (_sellectedToConnect != null)
                     {
                         if (_sellectedToConnect.Equals(part))
                         {
-                            CreateCurve(ConnectPosition(part, tempConnect),
+                            CreateCurve(ConnectPosition(part, tempConnect, false),
                                 new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
                             Repaint();
                         }
@@ -213,6 +234,133 @@ namespace GUIInspector.NodeEditor
             }
         }
 
+        /// <summary> Цвет отладки </summary>
+        private Color DebugColor(GamePart part)
+        {
+            int score = 0;
+            int check;
+
+            // Главы
+
+            if (part is TextPart textP)
+            {
+                if (textP.mainText.Length > 230 || textP.mainText.Length == 0) score += 10;
+                if (textP.buttonText.Length > 109 || textP.buttonText.Length == 0) score += 10;
+
+                if (textP.movePart[0] == null) score++;
+            }
+            else if (part is ChangePart changeP)
+            {
+                if (changeP.mainText.Length > 230 && changeP.mainText.Length == 0) score += 10;
+
+                if (changeP.buttonText[0].Length > 109 || changeP.buttonText[0].Length == 0) score += 10;
+                if (changeP.buttonText[1].Length > 109 || changeP.buttonText[0].Length == 0) score += 10;
+
+                if (changeP.movePart[0] == null) score++;
+                if (changeP.movePart[1] == null) score++;
+            }
+            else if (part is BattlePart battleP)
+            {
+                if (battleP.mainText.Length > 230) score += 10;
+
+                if (battleP.buttonText[0].Length > 109 || battleP.buttonText[0].Length == 0) score += 10;
+                if (battleP.buttonText[1].Length > 109 || battleP.buttonText[1].Length == 0) score += 10;
+                if (battleP.buttonText[2].Length > 109 || battleP.buttonText[2].Length == 0) score += 10;
+
+                if (battleP.movePart[0] == null) score++;
+                if (battleP.movePart[1] == null) score++;
+                if (battleP.movePart[2] == null) score++;
+            }
+            else if (part is EventPart eventP)
+            {
+                if (eventP.movePart[0] == null) score++;
+                if (eventP.movePart[2] == null) score++;
+            }
+            else if (part is FinalPart finalP)
+            {
+                if (finalP.newAchive == null) score++;
+            }
+
+            // События
+
+            if(part.mainEvents.Count > 0)
+            {
+                for (int i = 0; i < part.mainEvents.Count; i++)
+                {
+                    if (part.mainEvents[i] is CheckDecision ||
+                        part.mainEvents[i] is CheckPlayerInfl ||
+                        part.mainEvents[i] is EffectInteract ||
+                        part.mainEvents[i] is ItemInfl ||
+                        part.mainEvents[i] is ItemInteract)
+                    {
+                        if (part.mainEvents[i].FailPart() == null) score += 10;
+                    }
+                    else if (part.mainEvents[i] is RandomPart rnd)
+                    {
+                        if (part is TextPart)
+                        {
+                            if (rnd.part_random[0] == null) score += 10;
+                            else if (rnd.randomChance[0] == 0) score++;
+
+                        }
+                        else if (part is ChangePart)
+                        {
+                            check = 0;
+
+                            if (rnd.part_random[0] == null)
+                            {
+                                check++;
+                                score += 10;
+                            }
+                            else if (rnd.randomChance[0] == 0) score++;
+
+                            if (rnd.part_random[1] == null)
+                            {
+                                check++;
+                                score += 10;
+                            }
+                            else if (rnd.randomChance[1] == 0) score++;
+
+                            if (check > 0) score -= 10 * check;
+                        }
+                        else if (part is BattlePart)
+                        {
+                            check = 0;
+
+                            if (rnd.part_random[0] == null)
+                            {
+                                check++;
+                                score += 10;
+                            }
+                            if (rnd.randomChance[0] == 0) score++;
+
+                            if (rnd.part_random[1] == null)
+                            {
+                                check++;
+                                score += 10;
+                            }
+                            if (rnd.randomChance[1] == 1) score++;
+
+                            if (rnd.part_random[2] == null)
+                            {
+                                check++;
+                                score += 10;
+                            }
+                            if (rnd.randomChance[2] == 2) score++;
+
+                            if (check > 0) score -= 10 * check;
+                        }
+                    }
+                }
+            }
+
+            // Проверка
+
+            if (score == 0) return Color.green;
+            else if(score > 0 && score < 10) return Color.yellow;
+            else return Color.red;
+        }
+
         /// <summary> Сфокусироваться на главе </summary>
         private void FocusPart(GamePart part)
         {
@@ -229,7 +377,7 @@ namespace GUIInspector.NodeEditor
         {
             if (bn is TextPart)
             {
-                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 0, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(0, bn);
                     tempConnect = 0;
@@ -237,13 +385,13 @@ namespace GUIInspector.NodeEditor
             }
             else if (bn is ChangePart)
             {
-                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 0, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(0, bn);
                     tempConnect = 0;
                 }
 
-                if (GUI.Button(ConnectPosition(bn, 1), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 1, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(1, bn);
                     tempConnect = 1;
@@ -251,19 +399,19 @@ namespace GUIInspector.NodeEditor
             }
             else if (bn is BattlePart)
             {
-                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 0, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(0, bn);
                     tempConnect = 0;
                 }
 
-                if (GUI.Button(ConnectPosition(bn, 1), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 1, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(1, bn);
                     tempConnect = 1;
                 }
 
-                if (GUI.Button(ConnectPosition(bn, 2), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 2, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(2, bn);
                     tempConnect = 2;
@@ -271,7 +419,7 @@ namespace GUIInspector.NodeEditor
             }
             else if (bn is LeandPart)
             {
-                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 0, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(0, bn);
                     tempConnect = 0;
@@ -280,13 +428,13 @@ namespace GUIInspector.NodeEditor
 
             else if (bn is EventPart)
             {
-                if (GUI.Button(ConnectPosition(bn, 0), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 0, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(0, bn);
                     tempConnect = 0;
                 }
 
-                if (GUI.Button(ConnectPosition(bn, 2), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
+                if (GUI.Button(ConnectPosition(bn, 2, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
                 {
                     ConnectorClick(2, bn);
                     tempConnect = 2;
@@ -383,13 +531,7 @@ namespace GUIInspector.NodeEditor
                     {
                         if (_sellectedToConnect != null)
                         {
-                            switch (_sellectionId)
-                            {
-                                case 0: _sellectedToConnect.movePart_1 = _storyData.nodesData[i]; break;
-                                case 1: _sellectedToConnect.movePart_2 = _storyData.nodesData[i]; break;
-                                case 2: _sellectedToConnect.movePart_3 = _storyData.nodesData[i]; break;
-                            }
-
+                            _sellectedToConnect.movePart[_sellectionId] = _storyData.nodesData[i];
                             _sellectedToConnect = null;
                         }
                         else
@@ -459,22 +601,13 @@ namespace GUIInspector.NodeEditor
         {
             Color baseConnectColor = new Color(1, 1, 1, 0.75f);
 
-            if (partNode.movePart_1 != null)
+            for (int i = 0; i < partNode.movePart.Length; i++)
             {
-                if (storyData.nodesData.Contains(partNode.movePart_1) && partNode.movePart_1 != this)
-                    CreateCurve(ConnectPosition(partNode, 0), partNode.movePart_1.windowRect, baseConnectColor);
-            }
-
-            if (partNode.movePart_2 != null)
-            {
-                if (storyData.nodesData.Contains(partNode.movePart_2) && partNode.movePart_2 != this)
-                    CreateCurve(ConnectPosition(partNode, 1), partNode.movePart_2.windowRect, baseConnectColor);
-            }
-
-            if (partNode.movePart_3 != null)
-            {
-                if (storyData.nodesData.Contains(partNode.movePart_3) && partNode.movePart_3 != this)
-                    CreateCurve(ConnectPosition(partNode, 2), partNode.movePart_3.windowRect, baseConnectColor);
+                if (partNode.movePart[i] != null)
+                {
+                    if (storyData.nodesData.Contains(partNode.movePart[i]) && partNode.movePart[i] != this)
+                        CreateCurve(ConnectPosition(partNode, i, false), partNode.movePart[i].windowRect, baseConnectColor);
+                }
             }
 
             DrawEventCurve(partNode);
@@ -492,26 +625,26 @@ namespace GUIInspector.NodeEditor
                 {
                     if (partNode.mainEvents[i] is RandomPart randomEvent)
                     {
-                        if (randomEvent.part_1_random != null && randomEvent.part_1_random != this)
+                        if (randomEvent.part_random[0] != null && randomEvent.part_random[0] != this)
                         {
-                            CreateCurve(ConnectPosition(partNode, 0), randomEvent.part_1_random.windowRect, randomColor);
+                            CreateCurve(ConnectPosition(partNode, 0, false), randomEvent.part_random[0].windowRect, randomColor);
                         }
 
-                        if (randomEvent.part_2_random != null && randomEvent.part_2_random != this)
+                        if (randomEvent.part_random[1] != null && randomEvent.part_random[1] != this)
                         {
-                            CreateCurve(ConnectPosition(partNode, 1), randomEvent.part_2_random.windowRect, randomColor);
+                            CreateCurve(ConnectPosition(partNode, 1, false), randomEvent.part_random[1].windowRect, randomColor);
                         }
 
-                        if (randomEvent.part_3_random != null && randomEvent.part_3_random != this)
+                        if (randomEvent.part_random[2] != null && randomEvent.part_random[2] != this)
                         {
-                            CreateCurve(ConnectPosition(partNode, 2), randomEvent.part_3_random.windowRect, randomColor);
+                            CreateCurve(ConnectPosition(partNode, 2, false), randomEvent.part_random[2].windowRect, randomColor);
                         }
                     }
                     else if(partNode.mainEvents[i] is CheckDecision checkDecision)
                     {
                         if (checkDecision._failPart != null && checkDecision._failPart != this)
                         {
-                            CreateCurve(ConnectPosition(partNode, 0), checkDecision._failPart.windowRect, eventFailColor);
+                            CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(checkDecision._failPart, 0, true), eventFailColor);
                         }
                     }
                 }
@@ -531,24 +664,63 @@ namespace GUIInspector.NodeEditor
                 end.y + (end.height * .5f),
                 0);
 
-            // Vector3 startTan = startPos + Vector3.right * 40;
-            // Vector3 endTan = endPos + Vector3.left * 40;
-
-
             Vector3 startTan = startPos + Vector3.right * (Vector3.Distance(startPos, endPos) * 0.6f);
             Vector3 endTan = endPos + Vector3.left * (Vector3.Distance(startPos, endPos) * 0.6f);
 
             Handles.DrawBezier(startPos, endPos, startTan, endTan, colorCurve, null, 3f);
         }
 
-        /// <summary> Позиция подключения следующей главы </summary>
-        public Rect ConnectPosition(GamePart partNode, int id)
+        /// <summary> Связь </summary>
+        private void CreateEventCurve(Rect start, Rect end, Color colorCurve)
         {
-            Rect nodeConnectPosition = new Rect(
+            Vector3 startPos = new Vector3(
+                start.x + start.width,
+                start.y + (start.height * .5f),
+                0);
+
+            Vector3 endPos = new Vector3(
+                end.x,
+                end.y + (end.height * .5f),
+                0);
+
+            Vector3 startTan = startPos + Vector3.up * (Vector3.Distance(startPos, endPos) * 0.6f);
+            Vector3 endTan = endPos + Vector3.down * (Vector3.Distance(startPos, endPos) * 0.6f);
+
+            Handles.DrawBezier(startPos, endPos, startTan, endTan, colorCurve, null, 3f);
+        }
+
+        /// <summary> Позиция подключения следующей главы </summary>
+        public Rect ConnectPosition(GamePart partNode, int id, bool isEvent)
+        {
+            Rect nodeConnectPosition;
+
+            if (isEvent)
+            {
+                if(id == 0)
+                {
+                    nodeConnectPosition = new Rect(
+                    partNode.windowRect.x + partNode.windowRect.width / 2,
+                    partNode.windowRect.y,
+                    0,
+                    0);
+                }
+                else
+                {
+                    nodeConnectPosition = new Rect(
+                    partNode.windowRect.x + partNode.windowRect.width / 2,
+                    partNode.windowRect.y + partNode.windowRect.height,
+                    0,
+                    0);
+                }
+            }
+            else
+            {
+                nodeConnectPosition = new Rect(
                     partNode.windowRect.x + partNode.windowRect.width + 5,
                     (partNode.windowRect.y + 2) + (13 * id),
                     11,
                     11);
+            }
 
             return nodeConnectPosition;
         }
@@ -686,9 +858,11 @@ namespace GUIInspector.NodeEditor
                 }
             }
 
-            for (int i = 0; i < storyData.nodesData.Count; i++)
+            object[] obj = Resources.LoadAll("");
+            
+            for (int i = 0; i < obj.Length; i++)
             {
-                EditorUtility.SetDirty(storyData.nodesData[i]);
+                if(obj[i] is ScriptableObject sc) EditorUtility.SetDirty(sc);
             }
 
             EditorUtility.SetDirty(storyData);

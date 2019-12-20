@@ -907,7 +907,7 @@ GameObject:
   - component: {fileID: 109032135}
   m_Layer: 5
   m_Name: GameMenu
-  m_TagString: Untagged
+  m_TagString: GameCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6470,7 +6470,7 @@ RectTransform:
   m_Children:
   - {fileID: 397153380}
   m_Father: {fileID: 1547728532}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.229, y: 0.223}
   m_AnchorMax: {x: 0.472, y: 0.404}
@@ -7842,11 +7842,11 @@ GameObject:
   - component: {fileID: 638641262}
   - component: {fileID: 638641256}
   - component: {fileID: 638641257}
-  - component: {fileID: 638641259}
-  - component: {fileID: 638641261}
   - component: {fileID: 638641266}
-  - component: {fileID: 638641258}
+  - component: {fileID: 638641261}
   - component: {fileID: 638641260}
+  - component: {fileID: 638641259}
+  - component: {fileID: 638641258}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -7899,76 +7899,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 638641255}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa0c5c912d820ad4494272a63e6fdc26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstPart: {fileID: 11400000, guid: f4521f7b20841664d9dddf4f8a5dfe42, type: 2}
-  menuCanvas: {fileID: 2076524694}
-  gameCanvas: {fileID: 109032134}
---- !u!114 &638641259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638641255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44fd7593807def64a86416ee21453c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainPlayer: {fileID: 11400000, guid: fd9fd1ffb4c9ebc4dbd81e577de86d6a, type: 2}
-  mainGameSettings: {fileID: 11400000, guid: 87b0a1a1cbf14324090b4e5eb1cf3a87, type: 2}
---- !u!114 &638641260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638641255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88eacb27f23b0b14eb1960e17d336786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameWaitToSwitch: 0.2
-  eyeCenter: {fileID: 339409854}
-  achiveClose: {fileID: 21300000, guid: d5c12501febb0534694b0944a8ebe197, type: 3}
-  achiveOpen: {fileID: 21300000, guid: 1b09819bdc1e752468deef88b92ef339, type: 3}
-  achiveCase_1: {fileID: 155599882}
-  achiveCase_2: {fileID: 1973286530}
-  achiveCase_3: {fileID: 571637111}
-  achiveCase_4: {fileID: 397153381}
-  achiveCase_5: {fileID: 626626116}
-  achiveDescript_txt: {fileID: 820966569}
-  menuButton_1: {fileID: 2073387544}
-  menuButton_2: {fileID: 983895235}
-  menuButton_3: {fileID: 215654930}
-  menuButton_4: {fileID: 327909851}
-  gameMain_Txt: {fileID: 908110211}
-  gameButton_1_Txt: {fileID: 1021553530}
-  gameButton_2_Txt: {fileID: 1041855237}
-  gameButton_3_Txt: {fileID: 2097428055}
-  timerImage: {fileID: 1835550906}
-  gameMessageInventoryTxt: {fileID: 1241103908}
-  gameMessageCharacterTxt: {fileID: 180768437}
-  gameMessageMapTxt: {fileID: 100136119}
-  gameMessageNotesTxt: {fileID: 2036074031}
-  inventCase_1: {fileID: 1317822168}
-  inventCase_2: {fileID: 78422199}
-  inventCase_3: {fileID: 688242755}
-  inventCase_4: {fileID: 1931432598}
-  inventCase_5: {fileID: 1422102901}
-  inventCase_6: {fileID: 1046873481}
-  inventCase_7: {fileID: 491658412}
-  inventCase_8: {fileID: 790723263}
-  effectCase_1: {fileID: 727981201}
-  effectCase_2: {fileID: 803887527}
-  effectCase_3: {fileID: 354008733}
-  effectCase_4: {fileID: 1351102267}
-  effectCase_5: {fileID: 742372672}
-  effectCase_6: {fileID: 246835561}
---- !u!114 &638641261
+  mainSettings: {fileID: 0}
+  dataController: {fileID: 0}
+  gameController: {fileID: 0}
+  animController: {fileID: 0}
+  uIController: {fileID: 0}
+--- !u!114 &638641259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7980,6 +7920,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0c1cd8d7da02e44b13e7f8dc8f833f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainPlayer: {fileID: 0}
+  mainSettings: {fileID: 0}
+  dataController: {fileID: 0}
+  gameController: {fileID: 0}
+  animController: {fileID: 0}
+  uIController: {fileID: 0}
+--- !u!114 &638641260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638641255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1176252c47de5ad49a33d23556630a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPlayer: {fileID: 0}
+  mainSettings: {fileID: 0}
+  dataController: {fileID: 0}
+  gameController: {fileID: 0}
+  animController: {fileID: 0}
+  uIController: {fileID: 0}
+--- !u!114 &638641261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638641255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0c5c912d820ad4494272a63e6fdc26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPlayer: {fileID: 0}
+  mainSettings: {fileID: 0}
+  dataController: {fileID: 0}
+  gameController: {fileID: 0}
+  animController: {fileID: 0}
+  uIController: {fileID: 0}
+  thisPart: {fileID: 11400000, guid: 2c2c23475e6afb4479dec4870c6543ac, type: 2}
+  menuCanvas: {fileID: 2076524694}
+  gameCanvas: {fileID: 109032134}
 --- !u!114 &638641262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8063,9 +8048,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 638641255}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1176252c47de5ad49a33d23556630a9b, type: 3}
+  m_Script: {fileID: 11500000, guid: 88eacb27f23b0b14eb1960e17d336786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainPlayer: {fileID: 0}
+  mainSettings: {fileID: 0}
+  dataController: {fileID: 0}
+  gameController: {fileID: 0}
+  animController: {fileID: 0}
+  uIController: {fileID: 0}
+  _eyeCenter: {fileID: 339409854}
+  _achiveClose: {fileID: 21300000, guid: d5c12501febb0534694b0944a8ebe197, type: 3}
+  _achiveOpen: {fileID: 21300000, guid: 1b09819bdc1e752468deef88b92ef339, type: 3}
+  _achiveCase:
+  - {fileID: 155599882}
+  - {fileID: 1973286530}
+  - {fileID: 571637111}
+  - {fileID: 397153381}
+  - {fileID: 626626116}
+  _achiveDescript_txt: {fileID: 820966569}
+  _menuButton:
+  - {fileID: 2073387544}
+  - {fileID: 983895235}
+  - {fileID: 215654930}
+  - {fileID: 327909851}
+  _gameMain_Txt: {fileID: 908110211}
+  _gameButton:
+  - {fileID: 1021553530}
+  - {fileID: 1041855237}
+  - {fileID: 2097428055}
+  _timerImage: {fileID: 1835550906}
+  _gameMessageInventoryTxt: {fileID: 1241103908}
+  _gameMessageCharacterTxt: {fileID: 180768437}
+  _gameMessageMapTxt: {fileID: 100136119}
+  _gameMessageNotesTxt: {fileID: 2036074031}
+  _inventCase:
+  - {fileID: 1317822168}
+  - {fileID: 78422199}
+  - {fileID: 688242755}
+  - {fileID: 688242755}
+  - {fileID: 1931432598}
+  - {fileID: 1422102901}
+  - {fileID: 1046873481}
+  - {fileID: 491658412}
+  _effectCase:
+  - {fileID: 727981201}
+  - {fileID: 803887527}
+  - {fileID: 354008733}
+  - {fileID: 1351102267}
+  - {fileID: 742372672}
+  - {fileID: 246835561}
 --- !u!1 &688242753
 GameObject:
   m_ObjectHideFlags: 0
@@ -8172,7 +8204,7 @@ RectTransform:
   m_Children:
   - {fileID: 626626115}
   m_Father: {fileID: 1547728532}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.52500004, y: 0.223}
   m_AnchorMax: {x: 0.769, y: 0.404}
@@ -8384,7 +8416,7 @@ RectTransform:
   m_Children:
   - {fileID: 1973286529}
   m_Father: {fileID: 1547728532}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.52500004, y: 0.596}
   m_AnchorMax: {x: 0.769, y: 0.777}
@@ -18916,7 +18948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuType: 4
-  buttonId: 2
+  buttonId: 1
 --- !u!1 &882523810
 GameObject:
   m_ObjectHideFlags: 0
@@ -26405,7 +26437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuType: 4
-  buttonId: 1
+  buttonId: 0
 --- !u!1 &1217046289
 GameObject:
   m_ObjectHideFlags: 0
@@ -26722,7 +26754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuType: 4
-  buttonId: 3
+  buttonId: 2
 --- !u!1 &1268030936
 GameObject:
   m_ObjectHideFlags: 0
@@ -37916,11 +37948,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1564409091}
-  - {fileID: 710575187}
-  - {fileID: 4549312}
-  - {fileID: 304808481}
   - {fileID: 700746501}
+  - {fileID: 304808481}
+  - {fileID: 4549312}
+  - {fileID: 710575187}
+  - {fileID: 1564409091}
   - {fileID: 1078864693}
   - {fileID: 1887877954}
   - {fileID: 2077427289}
@@ -38089,7 +38121,7 @@ RectTransform:
   m_Children:
   - {fileID: 155599881}
   m_Father: {fileID: 1547728532}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.229, y: 0.596}
   m_AnchorMax: {x: 0.472, y: 0.777}
@@ -50115,7 +50147,7 @@ GameObject:
   - component: {fileID: 2076524698}
   m_Layer: 5
   m_Name: MainMenu
-  m_TagString: Untagged
+  m_TagString: MenuCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

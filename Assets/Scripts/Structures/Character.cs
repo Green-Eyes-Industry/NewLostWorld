@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
 
-/// <summary> Группа персонажи </summary>
-public abstract class Character : ScriptableObject { }
+namespace NLW.Data
+{
+    /// <summary> Группа персонажи </summary>
+    public abstract class Character : ScriptableObject { }
+}

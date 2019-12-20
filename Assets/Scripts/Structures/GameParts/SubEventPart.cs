@@ -2,35 +2,39 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Parts;
 #endif
 
-public class SubEventPart : ScriptableObject
+namespace NLW.Parts
 {
-    /// <summary> Базовый текст </summary>
-    public string mainText;
+    public class SubEventPart : ScriptableObject
+    {
+        /// <summary> Базовый текст </summary>
+        public string mainText;
 
-    /// <summary> Победа в событии </summary>
-    public bool isFinal;
+        /// <summary> Победа в событии </summary>
+        public bool isFinal;
 
-    /// <summary> Провал события </summary>
-    public bool isFail;
+        /// <summary> Провал события </summary>
+        public bool isFail;
 
-    /// <summary> Глава при переходе влево </summary>
-    public SubEventPart moveLeft;
+        /// <summary> Глава при переходе влево </summary>
+        public SubEventPart moveLeft;
 
-    /// <summary> Глава при переходе вправо </summary>
-    public SubEventPart moveRight;
+        /// <summary> Глава при переходе вправо </summary>
+        public SubEventPart moveRight;
 
 #if UNITY_EDITOR
 
-    public bool windowSizeStady = false;
-    public Rect windowRect;
-    public float openedHeight = 120f;
-    public string windowTitle;
-    public string comment;
+        public bool windowSizeStady = false;
+        public Rect windowRect;
+        public float openedHeight = 120f;
+        public string windowTitle;
+        public string comment;
 
 #endif
 
+    }
 }
 
 #if UNITY_EDITOR

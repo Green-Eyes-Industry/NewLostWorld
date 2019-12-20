@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 
-public abstract class GameItem : ScriptableObject
+namespace NLW.Data
 {
-    /// <summary> Значек предмета </summary>
-    public Sprite itemIco;
+    public abstract class GameItem : ScriptableObject
+    {
+        /// <summary> Значек предмета </summary>
+        public Sprite itemIco;
 
-    /// <summary> Название предмета </summary>
-    public string itemName;
+        /// <summary> Название предмета </summary>
+        public string itemName;
 
-    /// <summary> Описание предмета </summary>
-    public string itemDescript;
+        /// <summary> Описание предмета </summary>
+        public string itemDescript;
+    }
 }

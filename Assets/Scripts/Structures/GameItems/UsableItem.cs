@@ -2,30 +2,35 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-
-[CreateAssetMenu(fileName = "New item", menuName = "Игровые обьекты/Новый предмет/Активный")]
-public class UsableItem : GameItem
+namespace NLW.Data
 {
-    /// <summary> Влияние на здоровье </summary>
-    public int healthInf;
-
-    /// <summary> Влияние на сознание </summary>
-    public int mindInf;
-
-    /// <summary> Накладываемый эффект </summary>
-    public GameEffect itemEffect;
-
-    /// <summary> Использовать </summary>
-    public void UseThisItem()
+    [CreateAssetMenu(fileName = "New item", menuName = "Игровые обьекты/Новый предмет/Активный")]
+    public class UsableItem : GameItem
     {
-        DataController.playerData.playerHealth += healthInf;
-        DataController.playerData.playerMind += mindInf;
+        /// <summary> Влияние на здоровье </summary>
+        public int healthInf;
 
-        if (!DataController.playerData.playerEffects.Contains(itemEffect))
+        /// <summary> Влияние на сознание </summary>
+        public int mindInf;
+
+        /// <summary> Накладываемый эффект </summary>
+        public GameEffect itemEffect;
+
+        /// <summary> Использовать </summary>
+        public void UseThisItem()
         {
-            DataController.playerData.playerEffects.Add(itemEffect);
+            Player mPlayer = MainController.Instance.mainPlayer;
+
+            mPlayer.playerHealth += healthInf;
+            mPlayer.playerMind += mindInf;
+
+            if (!mPlayer.playerEffects.Contains(itemEffect))
+            {
+                mPlayer.playerEffects.Add(itemEffect);
+            }
         }
     }
 }
@@ -42,10 +47,10 @@ namespace GUIInspector
 
         private void OnEnable() => _usableItem = (UsableItem)target;
 
-        public override void OnInspectorGUI() => ShowUsableItemEditor(_usableItem);
+        public override void OnInspectorGUI() => ShowItemEditor(_usableItem);
 
         /// <summary> Показать редактор активного предмета </summary>
-        public static void ShowUsableItemEditor(UsableItem usableItem)
+        public static void ShowItemEditor(UsableItem usableItem)
         {
             GUILayout.Label("Активный предмет");
 

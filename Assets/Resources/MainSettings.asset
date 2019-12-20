@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c992ea2880fe8f41928304affb45370, type: 3}
-  m_Name: 0_MainPlayer
+  m_Script: {fileID: 11500000, guid: 9d562ba768f5e464ab58262676848bf5, type: 3}
+  m_Name: MainSettings
   m_EditorClassIdentifier: 
-  playerHealth: 100
-  playerMind: 100
-  playerEffects: []
-  playerInventory: []
-  playerNotes: []
-  playerMap: []
-  playerDecisions: []
+  lastPart: {fileID: 0}
+  isSoundCheck: 1
+  isVibrationCheck: 0
+  isEffectCheck: 0
+  eyeColor: {r: 0, g: 0, b: 0, a: 0}
+  gameAchivemants: []

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77596d61f2df5ea418d1a669dd47504e, type: 3}
-  m_Name: Story
+  m_Name: GameStory
   m_EditorClassIdentifier: 
-  storyDescript: "\u0411\u0430\u0437\u043E\u0432\u044B\u0439"
+  storyDescript: 
   nodesData:
-  - {fileID: 11400000, guid: f4521f7b20841664d9dddf4f8a5dfe42, type: 2}
-  - {fileID: 11400000, guid: 39392d01ee886a349bcae86625b74dbf, type: 2}
-  - {fileID: 11400000, guid: 0dd8d984d82649c46a279845178a057f, type: 2}
-  - {fileID: 11400000, guid: 89551714378a24a4e9422146a69c5eca, type: 2}
-  - {fileID: 11400000, guid: 4a745874e809e4a499fe37cb3536f1b8, type: 2}
+  - {fileID: 11400000, guid: 2c2c23475e6afb4479dec4870c6543ac, type: 2}
+  - {fileID: 11400000, guid: 9a537d69bb6de5e47838e17101cea290, type: 2}
+  - {fileID: 11400000, guid: 11b0472fb1bf762499887c7dfbc40e71, type: 2}
+  - {fileID: 11400000, guid: a5eb7670f59479540925822973918828, type: 2}
+  - {fileID: 11400000, guid: 7788085d3892b604e804aee4efce3977, type: 2}
   graphSkin: {fileID: 11400000, guid: 1132d6cb6b48c4e44861756b60e31b73, type: 2}
   baseNodeSmWidth: 40
   baseNodeSmHeight: 40

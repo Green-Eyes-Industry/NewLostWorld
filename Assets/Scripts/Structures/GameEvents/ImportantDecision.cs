@@ -2,18 +2,24 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-public class ImportantDecision : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Решение </summary>
-    public Decision decision;
-
-    /// <summary> Принять решение </summary>
-    public override bool EventStart()
+    public class ImportantDecision : GameEvent
     {
-        if (DataController.playerData.playerDecisions.Contains(decision)) DataController.playerData.playerDecisions.Add(decision);
-        return true;
+        /// <summary> Решение </summary>
+        public Decision decision;
+
+        /// <summary> Принять решение </summary>
+        public override bool EventStart()
+        {
+            Player mPlayer = MainController.Instance.mainPlayer;
+
+            if (!mPlayer.playerDecisions.Contains(decision)) mPlayer.playerDecisions.Add(decision);
+            return true;
+        }
     }
 }
 

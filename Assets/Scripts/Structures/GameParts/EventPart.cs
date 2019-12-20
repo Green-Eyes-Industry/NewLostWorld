@@ -3,23 +3,27 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Parts;
 #endif
 
-public class EventPart : GamePart
+namespace NLW.Parts
 {
-    /// <summary> Время на эвент </summary>
-    public int timeToEvent;
-
-    /// <summary> Список глав эвента </summary>
-    public List<SubEventPart> eventParts;
-
-    /// <summary> Проверка главы </summary>
-    /// <param name="currentPart"> Текущая глава </param>
-    /// <returns> True если вы добрались к последней главе </returns>
-    public bool CheckEvent(GamePart currentPart)
+    public class EventPart : GamePart
     {
-        if (currentPart == movePart_3) return true;
-        else return false;
+        /// <summary> Время на эвент </summary>
+        public int timeToEvent;
+
+        /// <summary> Список глав эвента </summary>
+        public List<SubEventPart> eventParts;
+
+        /// <summary> Проверка главы </summary>
+        /// <param name="currentPart"> Текущая глава </param>
+        /// <returns> True если вы добрались к последней главе </returns>
+        public bool CheckEvent(GamePart currentPart)
+        {
+            if (currentPart == movePart[2]) return true;
+            else return false;
+        }
     }
 }
 
@@ -41,22 +45,22 @@ namespace GUIInspector
             GUILayout.Label("Параметры");
 
             EditorGUILayout.BeginHorizontal("Box");
-            if (_eventPart.movePart_1 != null)
+            if (_eventPart.movePart[0] != null)
             {
-                EditorGUILayout.LabelField("Победа : " + _eventPart.movePart_1.name);
+                EditorGUILayout.LabelField("Победа : " + _eventPart.movePart[0].name);
                 GUI.backgroundColor = Color.red;
-                if (GUILayout.Button("Отключить", GUILayout.Width(80))) _eventPart.movePart_1 = null;
+                if (GUILayout.Button("Отключить", GUILayout.Width(80))) _eventPart.movePart[0] = null;
                 GUI.backgroundColor = Color.white;
             }
             else EditorGUILayout.LabelField("Победа : " + "Нет подключения");
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal("Box");
-            if (_eventPart.movePart_3 != null)
+            if (_eventPart.movePart[2] != null)
             {
-                EditorGUILayout.LabelField("Провал : " + _eventPart.movePart_3.name);
+                EditorGUILayout.LabelField("Провал : " + _eventPart.movePart[2].name);
                 GUI.backgroundColor = Color.red;
-                if (GUILayout.Button("Отключить", GUILayout.Width(80))) _eventPart.movePart_3 = null;
+                if (GUILayout.Button("Отключить", GUILayout.Width(80))) _eventPart.movePart[2] = null;
                 GUI.backgroundColor = Color.white;
             }
             else EditorGUILayout.LabelField("Провал : " + "Нет подключения");

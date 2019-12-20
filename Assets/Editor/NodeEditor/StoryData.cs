@@ -12,7 +12,7 @@ namespace GUIInspector.NodeEditor
         public string storyDescript;
 
         /// <summary> Главы сюжета </summary>
-        public List<GamePart> nodesData;
+        public List<NLW.Parts.GamePart> nodesData;
 
         /// <summary> Стиль отображения графа </summary>
         public GUISkin graphSkin;
@@ -65,7 +65,7 @@ namespace GUIInspector
                     EditorGUILayout.EndHorizontal();
                 }
             }
-            else _storyData.nodesData = new List<GamePart>();
+            else _storyData.nodesData = new List<NLW.Parts.GamePart>();
 
             EditorGUILayout.EndVertical();
         }

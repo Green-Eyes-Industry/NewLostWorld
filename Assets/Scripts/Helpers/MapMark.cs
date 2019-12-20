@@ -2,19 +2,23 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-[CreateAssetMenu(fileName = "new location", menuName = "Игровые обьекты/Метка на карте")]
-public class MapMark : ScriptableObject
+namespace NLW.Data
 {
-    /// <summary> Название локации </summary>
-    public string nameLocation;
+    [CreateAssetMenu(fileName = "new location", menuName = "Игровые обьекты/Метка на карте")]
+    public class MapMark : ScriptableObject
+    {
+        /// <summary> Название локации </summary>
+        public string nameLocation;
 
-    /// <summary> Лор и описание локации </summary>
-    public string loreLocation;
+        /// <summary> Лор и описание локации </summary>
+        public string loreLocation;
 
-    /// <summary> Глава для перемещения </summary>
-    public GamePart _partLocation;
+        /// <summary> Глава для перемещения </summary>
+        public Parts.GamePart _partLocation;
+    }
 }
 
 #if UNITY_EDITOR
@@ -42,7 +46,7 @@ namespace GUIInspector
             EditorGUILayout.LabelField("Лор локации");
             mapMark.loreLocation = EditorGUILayout.TextArea(mapMark.loreLocation, GUILayout.Height(40));
             EditorGUILayout.Space();
-            mapMark._partLocation = (GamePart)EditorGUILayout.ObjectField("Глава локации :", mapMark._partLocation, typeof(GamePart), true);
+            mapMark._partLocation = (NLW.Parts.GamePart)EditorGUILayout.ObjectField("Глава локации :", mapMark._partLocation, typeof(NLW.Parts.GamePart), true);
 
             GUILayout.EndVertical();
         }

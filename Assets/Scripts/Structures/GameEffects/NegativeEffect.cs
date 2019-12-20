@@ -2,10 +2,14 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-[CreateAssetMenu(fileName = "New negative effect", menuName = "Игровые обьекты/Новый игровой эффект/Отрицательный", order = 1)]
-public class NegativeEffect : GameEffect { }
+namespace NLW.Data
+{
+    [CreateAssetMenu(fileName = "New negative effect", menuName = "Игровые обьекты/Новый игровой эффект/Отрицательный", order = 1)]
+    public class NegativeEffect : GameEffect { }
+}
 
 #if UNITY_EDITOR
 

@@ -2,23 +2,21 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-public class CheckPoint : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Перезаписывает сохраненные данные </summary>
-    public override bool EventStart()
+    public class CheckPoint : GameEvent
     {
-        DataController.gameSettingsData.lastPart = AnimController.thisPart;
-        DataController.SaveEffects();
-        DataController.SaveDecisons();
-        DataController.SaveInventory();
-        DataController.SaveMap();
-        DataController.SaveNotes();
-        DataController.SaveLastPart();
-        DataController.SaveCharacteristic();
-        DataController.SaveAllRatio();
-        return true;
+        /// <summary> Перезаписывает сохраненные данные </summary>
+        public override bool EventStart()
+        {
+            DataController DController = MainController.Instance.dataController;
+            MainController.Instance.mainSettings.lastPart = MainController.Instance.animController.thisPart;
+            DController.CheckPointSave();
+            return true;
+        }
     }
 }
 

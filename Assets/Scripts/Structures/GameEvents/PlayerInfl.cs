@@ -2,22 +2,28 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-public class PlayerInfl : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Влияние на здоровье </summary>
-    public int _healthInfl;
-
-    /// <summary> Влияние на рассудок </summary>
-    public int _mindInfl;
-
-    /// <summary> Влияние </summary>
-    public override bool EventStart()
+    public class PlayerInfl : GameEvent
     {
-        DataController.playerData.playerHealth += _healthInfl;
-        DataController.playerData.playerMind += _mindInfl;
-        return true;
+        /// <summary> Влияние на здоровье </summary>
+        public int _healthInfl;
+
+        /// <summary> Влияние на рассудок </summary>
+        public int _mindInfl;
+
+        /// <summary> Влияние </summary>
+        public override bool EventStart()
+        {
+            Player mPlayer = MainController.Instance.mainPlayer;
+
+            mPlayer.playerHealth += _healthInfl;
+            mPlayer.playerMind += _mindInfl;
+            return true;
+        }
     }
 }
 

@@ -2,18 +2,16 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Parts;
 #endif
 
-public class BattlePart : GamePart
+namespace NLW.Parts
 {
-    /// <summary> Текст первой кнопки </summary>
-    public string buttonText_1;
-
-    /// <summary> Текст второй кнопки </summary>
-    public string buttonText_2;
-
-    /// <summary> Текст третей кнопки </summary>
-    public string buttonText_3;
+    public class BattlePart : GamePart
+    {
+        /// <summary> Текст первой кнопки </summary>
+        public string[] buttonText;
+    }
 }
 
 #if UNITY_EDITOR
@@ -45,47 +43,27 @@ namespace GUIInspector
             _battlePart.mainText = EditorGUILayout.TextArea(_battlePart.mainText, GUILayout.Height(100));
             EditorGUILayout.Space();
 
-            GUILayout.BeginHorizontal();
-            _battlePart.buttonText_1 = EditorGUILayout.TextArea(_battlePart.buttonText_1, GUILayout.Height(40));
-
-            if (_battlePart.movePart_1 != null)
+            for (int i = 0; i < _battlePart.buttonText.Length; i++)
             {
-                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _battlePart.movePart_1 = null;
+                GUILayout.BeginHorizontal();
+                _battlePart.buttonText[i] = EditorGUILayout.TextArea(_battlePart.buttonText[i], GUILayout.Height(40));
+
+                if (_battlePart.movePart[i] != null)
+                {
+                    if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _battlePart.movePart[i] = null;
+                }
+                else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
+
+                GUILayout.EndHorizontal();
+                EditorGUILayout.Space();
             }
-            else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
-
-            GUILayout.EndHorizontal();
-            EditorGUILayout.Space();
-
-            GUILayout.BeginHorizontal();
-            _battlePart.buttonText_2 = EditorGUILayout.TextArea(_battlePart.buttonText_2, GUILayout.Height(40));
-
-            if (_battlePart.movePart_2 != null)
-            {
-                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _battlePart.movePart_2 = null;
-            }
-            else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
-
-            GUILayout.EndHorizontal();
-            EditorGUILayout.Space();
-
-            GUILayout.BeginHorizontal();
-            _battlePart.buttonText_3 = EditorGUILayout.TextArea(_battlePart.buttonText_3, GUILayout.Height(40));
-
-            if (_battlePart.movePart_3 != null)
-            {
-                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _battlePart.movePart_3 = null;
-            }
-            else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
-
-            GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();
 
             GUILayout.Label("Параметры");
 
             if (_battlePart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_battlePart.mainEvents);
-            else _battlePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
+            else _battlePart.mainEvents = new System.Collections.Generic.List<NLW.Data.GameEvent>();
         }
     }
 }

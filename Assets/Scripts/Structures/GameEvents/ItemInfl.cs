@@ -2,35 +2,41 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Использование предмета")]
-public class ItemInfl : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Уничтожить в процессе </summary>
-    public bool isRemove;
-
-    /// <summary> Предмет </summary>
-    public UsableItem useItem;
-
-    /// <summary> Глава при провале </summary>
-    public GamePart _failPart;
-
-    /// <summary> Влияние </summary>
-    public override bool EventStart()
+    [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Использование предмета")]
+    public class ItemInfl : GameEvent
     {
-        if (DataController.playerData.playerInventory.Contains(useItem))
+        /// <summary> Уничтожить в процессе </summary>
+        public bool isRemove;
+
+        /// <summary> Предмет </summary>
+        public UsableItem useItem;
+
+        /// <summary> Глава при провале </summary>
+        public Parts.GamePart _failPart;
+
+        /// <summary> Влияние </summary>
+        public override bool EventStart()
         {
-            useItem.UseThisItem();
-            if (isRemove) DataController.playerData.playerInventory.Remove(useItem);
-            return true;
+            Player mPlayer = MainController.Instance.mainPlayer;
+
+            if (mPlayer.playerInventory.Contains(useItem))
+            {
+                useItem.UseThisItem();
+                if (isRemove) mPlayer.playerInventory.Remove(useItem);
+                return true;
+            }
+            else return false;
         }
-        else return false;
+
+
+        /// <summary> Вернуть главу провала </summary>
+        public override Parts.GamePart FailPart() { return _failPart; }
     }
-
-
-    /// <summary> Вернуть главу провала </summary>
-    public override GamePart FailPart() { return _failPart; }
 }
 
 #if UNITY_EDITOR

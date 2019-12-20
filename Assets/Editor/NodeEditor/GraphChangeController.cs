@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using UnityEngine;
 using UnityEditor;
+using NLW.Parts;
+using NLW.Data;
 
 namespace GUIInspector.NodeEditor
 {
@@ -24,9 +26,8 @@ namespace GUIInspector.NodeEditor
             ADD_MAZE_PART,
             ADD_EVENT_PART,
             ADD_FINAL_PART,
-            ADD_LABEL_PART,
-            ADD_SLIDESHOW_PART,
-            ADD_TRANSIT
+            ADD_LEAND_PART,
+            ADD_MOVIE_PART
         }
 
         /// <summary> Создать новую ноду </summary>
@@ -41,8 +42,8 @@ namespace GUIInspector.NodeEditor
             menu.AddItem(new GUIContent("Создать главу/Загадка"), false, graphCC.AddNodeToWindow, UserActions.ADD_MAZE_PART);
             menu.AddItem(new GUIContent("Создать главу/Эвент"), false, graphCC.AddNodeToWindow, UserActions.ADD_EVENT_PART);
             menu.AddItem(new GUIContent("Создать главу/Финальная"), false, graphCC.AddNodeToWindow, UserActions.ADD_FINAL_PART);
-            menu.AddItem(new GUIContent("Создать главу/Вставка"), false, graphCC.AddNodeToWindow, UserActions.ADD_LABEL_PART);
-            menu.AddItem(new GUIContent("Создать главу/Слайдшоу"), false, graphCC.AddNodeToWindow, UserActions.ADD_SLIDESHOW_PART);
+            menu.AddItem(new GUIContent("Создать главу/Вставка"), false, graphCC.AddNodeToWindow, UserActions.ADD_LEAND_PART);
+            menu.AddItem(new GUIContent("Создать главу/Слайдшоу"), false, graphCC.AddNodeToWindow, UserActions.ADD_MOVIE_PART);
             menu.ShowAsContext();
             e.Use();
         }
@@ -70,9 +71,8 @@ namespace GUIInspector.NodeEditor
                 case UserActions.ADD_MAZE_PART: nameNode = numNode + "_PazzlePart"; break;
                 case UserActions.ADD_EVENT_PART: nameNode = numNode + "_EventPart"; break;
                 case UserActions.ADD_FINAL_PART: nameNode = numNode + "_FinalPart"; break;
-                case UserActions.ADD_LABEL_PART: nameNode = numNode + "_LeandPart"; break;
-                case UserActions.ADD_SLIDESHOW_PART: nameNode = numNode + "_MoviePart"; break;
-                case UserActions.ADD_TRANSIT: nameNode = numNode + ""; break;
+                case UserActions.ADD_LEAND_PART: nameNode = numNode + "_LeandPart"; break;
+                case UserActions.ADD_MOVIE_PART: nameNode = numNode + "_MoviePart"; break;
             }
 
             pathToNode = "Assets/Resources/GameParts/" + nameNode + ".asset";
@@ -110,6 +110,8 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(TextPart)), pathToNode);
                     TextPart textPart = (TextPart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(TextPart));
 
+                    textPart.movePart = new GamePart[1];
+
                     textPart.windowSizeStady = sizeStady;
                     if (sizeStady)
                     {
@@ -125,6 +127,9 @@ namespace GUIInspector.NodeEditor
                 case UserActions.ADD_CHANGE_PART:
                     AssetDatabase.CreateAsset(CreateInstance(typeof(ChangePart)), pathToNode);
                     ChangePart changePart = (ChangePart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(ChangePart));
+
+                    changePart.movePart = new GamePart[2];
+                    changePart.buttonText = new string[2];
 
                     changePart.windowSizeStady = sizeStady;
                     if (sizeStady)
@@ -142,6 +147,9 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(BattlePart)), pathToNode);
                     BattlePart battlePart = (BattlePart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(BattlePart));
 
+                    battlePart.movePart = new GamePart[3];
+                    battlePart.buttonText = new string[3];
+
                     battlePart.windowSizeStady = sizeStady;
                     if (sizeStady)
                     {
@@ -158,6 +166,8 @@ namespace GUIInspector.NodeEditor
                     AssetDatabase.CreateAsset(CreateInstance(typeof(PazzlePart)), pathToNode);
                     PazzlePart pazzlePart = (PazzlePart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(PazzlePart));
 
+                    pazzlePart.movePart = new GamePart[3];
+
                     pazzlePart.windowSizeStady = sizeStady;
                     if (sizeStady)
                     {
@@ -173,6 +183,8 @@ namespace GUIInspector.NodeEditor
                 case UserActions.ADD_EVENT_PART:
                     AssetDatabase.CreateAsset(CreateInstance(typeof(EventPart)), pathToNode);
                     EventPart eventPart = (EventPart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(EventPart));
+
+                    eventPart.movePart = new GamePart[3];
 
                     eventPart.windowSizeStady = sizeStady;
                     if (sizeStady)
@@ -202,9 +214,11 @@ namespace GUIInspector.NodeEditor
                     BehaviorEditor.storyData.nodesData.Add(finalPart);
                     break;
 
-                case UserActions.ADD_LABEL_PART:
+                case UserActions.ADD_LEAND_PART:
                     AssetDatabase.CreateAsset(CreateInstance(typeof(LeandPart)), pathToNode);
                     LeandPart leandPart = (LeandPart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(LeandPart));
+
+                    leandPart.movePart = new GamePart[1];
 
                     leandPart.windowSizeStady = sizeStady;
                     if (sizeStady)
@@ -218,9 +232,11 @@ namespace GUIInspector.NodeEditor
                     BehaviorEditor.storyData.nodesData.Add(leandPart);
                     break;
 
-                case UserActions.ADD_SLIDESHOW_PART:
+                case UserActions.ADD_MOVIE_PART:
                     AssetDatabase.CreateAsset(CreateInstance(typeof(MoviePart)), pathToNode);
                     MoviePart moviePart = (MoviePart)AssetDatabase.LoadAssetAtPath(pathToNode, typeof(MoviePart));
+
+                    moviePart.movePart = new GamePart[1];
 
                     moviePart.windowSizeStady = sizeStady;
                     if (sizeStady)
@@ -233,8 +249,6 @@ namespace GUIInspector.NodeEditor
                     moviePart.windowRect = nodeRect;
                     BehaviorEditor.storyData.nodesData.Add(moviePart);
                     break;
-
-                case UserActions.ADD_TRANSIT: break;
             }
 
             

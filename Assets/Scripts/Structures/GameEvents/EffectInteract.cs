@@ -2,41 +2,47 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Взаимодействие с эффектом")]
-public class EffectInteract : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Эффект </summary>
-    public GameEffect gameEffect;
-
-    /// <summary> Получение или потеря </summary>
-    public bool isAddOrRemove;
-
-    /// <summary> Глава при провале </summary>
-    public GamePart _failPart;
-
-    /// <summary> Взаимодействие </summary>
-    public override bool EventStart()
+    [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Взаимодействие с эффектом")]
+    public class EffectInteract : GameEvent
     {
-        if (isAddOrRemove)
+        /// <summary> Эффект </summary>
+        public GameEffect gameEffect;
+
+        /// <summary> Получение или потеря </summary>
+        public bool isAddOrRemove;
+
+        /// <summary> Глава при провале </summary>
+        public Parts.GamePart _failPart;
+
+        /// <summary> Взаимодействие </summary>
+        public override bool EventStart()
         {
-            if (!DataController.playerData.playerEffects.Contains(gameEffect)) DataController.playerData.playerEffects.Add(gameEffect);
-            return true;
-        }
-        else
-        {
-            if (DataController.playerData.playerEffects.Contains(gameEffect))
+            Player mPlayer = MainController.Instance.mainPlayer;
+
+            if (isAddOrRemove)
             {
-                DataController.playerData.playerEffects.Remove(gameEffect);
+                if (!mPlayer.playerEffects.Contains(gameEffect)) mPlayer.playerEffects.Add(gameEffect);
                 return true;
             }
-            else return false;
+            else
+            {
+                if (mPlayer.playerEffects.Contains(gameEffect))
+                {
+                    mPlayer.playerEffects.Remove(gameEffect);
+                    return true;
+                }
+                else return false;
+            }
         }
-    }
 
-    /// <summary> Вернуть главу провала </summary>
-    public override GamePart FailPart() { return _failPart; }
+        /// <summary> Вернуть главу провала </summary>
+        public override Parts.GamePart FailPart() { return _failPart; }
+    }
 }
 
 #if UNITY_EDITOR

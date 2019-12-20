@@ -2,19 +2,25 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-public class LocationFind : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Найденная локация </summary>
-    public MapMark _location;
-
-    /// <summary> Найти локацию </summary>
-    public override bool EventStart()
+    public class LocationFind : GameEvent
     {
-        if(!DataController.playerData.playerMap.Contains(_location)) DataController.playerData.playerMap.Add(_location);
+        /// <summary> Найденная локация </summary>
+        public MapMark _location;
 
-        return true;
+        /// <summary> Найти локацию </summary>
+        public override bool EventStart()
+        {
+            Player mPlayer = MainController.Instance.mainPlayer;
+
+            if (!mPlayer.playerMap.Contains(_location)) mPlayer.playerMap.Add(_location);
+
+            return true;
+        }
     }
 }
 

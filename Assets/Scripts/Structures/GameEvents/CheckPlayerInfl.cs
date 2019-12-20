@@ -2,31 +2,35 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NLW.Data;
 #endif
 
-[CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Проверка влияния персонажа")]
-public class CheckPlayerInfl : GameEvent
+namespace NLW.Data
 {
-    /// <summary> Персонаж </summary>
-    public NonPlayer nonPlayer;
-
-    /// <summary> Влияние </summary>
-    public int value;
-
-    /// <summary> Глава при провале </summary>
-    public GamePart _failPart;
-
-    /// <summary> Проверка соответствия влияния </summary>
-    /// <returns> Вернет False при провале проверки </returns>
-    public override bool EventStart()
+    [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Проверка влияния персонажа")]
+    public class CheckPlayerInfl : GameEvent
     {
-        DataController.LoadNonPlayerRatio(nonPlayer);
-        if (nonPlayer.npToPlayerRatio >= value) return true;
-        else return false;
-    }
+        /// <summary> Персонаж </summary>
+        public NonPlayer nonPlayer;
 
-    /// <summary> Вернуть главу провала </summary>
-    public override GamePart FailPart() { return _failPart; }
+        /// <summary> Влияние </summary>
+        public int value;
+
+        /// <summary> Глава при провале </summary>
+        public Parts.GamePart _failPart;
+
+        /// <summary> Проверка соответствия влияния </summary>
+        /// <returns> Вернет False при провале проверки </returns>
+        public override bool EventStart()
+        {
+            MainController.Instance.dataController.LoadNonPlayerRatio(nonPlayer);
+            if (nonPlayer.npToPlayerRatio >= value) return true;
+            else return false;
+        }
+
+        /// <summary> Вернуть главу провала </summary>
+        public override Parts.GamePart FailPart() { return _failPart; }
+    }
 }
 
 #if UNITY_EDITOR

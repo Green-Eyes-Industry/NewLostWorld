@@ -254,7 +254,7 @@ namespace GUIInspector.NodeEditor
                 if (changeP.mainText.Length > 230 && changeP.mainText.Length == 0) score += 10;
 
                 if (changeP.buttonText[0].Length > 109 || changeP.buttonText[0].Length == 0) score += 10;
-                if (changeP.buttonText[1].Length > 109 || changeP.buttonText[0].Length == 0) score += 10;
+                if (changeP.buttonText[1].Length > 109 || changeP.buttonText[1].Length == 0) score += 10;
 
                 if (changeP.movePart[0] == null) score++;
                 if (changeP.movePart[1] == null) score++;

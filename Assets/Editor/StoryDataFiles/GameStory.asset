@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyDescript: 
   nodesData:
-  - {fileID: 11400000, guid: 2c2c23475e6afb4479dec4870c6543ac, type: 2}
-  - {fileID: 11400000, guid: 9a537d69bb6de5e47838e17101cea290, type: 2}
-  - {fileID: 11400000, guid: 11b0472fb1bf762499887c7dfbc40e71, type: 2}
-  - {fileID: 11400000, guid: a5eb7670f59479540925822973918828, type: 2}
-  - {fileID: 11400000, guid: 7788085d3892b604e804aee4efce3977, type: 2}
+  - {fileID: 11400000, guid: 3f18b2f7c60c2e54bbf8228c4b731dbf, type: 2}
+  - {fileID: 11400000, guid: ee5d884da20204e47a95b9a1b8dbcb5f, type: 2}
+  - {fileID: 11400000, guid: 4e34804dbdc80504c90b25c7e2c4f877, type: 2}
+  - {fileID: 11400000, guid: 77a09b136d8043244bc7963c0f4ff765, type: 2}
   graphSkin: {fileID: 11400000, guid: 1132d6cb6b48c4e44861756b60e31b73, type: 2}
   baseNodeSmWidth: 40
   baseNodeSmHeight: 40

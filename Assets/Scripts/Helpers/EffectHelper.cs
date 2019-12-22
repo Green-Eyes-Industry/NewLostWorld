@@ -11,9 +11,12 @@ namespace NLW.Helpers
         [System.Obsolete]
         private void OnMouseDown()
         {
-            particle.SetActive(true);
-            particle.GetComponent<ParticleSystem>().Play();
-            StartCoroutine(WaitForDisable());
+            if (MainController.Instance.mainSettings.isEffectCheck)
+            {
+                particle.SetActive(true);
+                particle.GetComponent<ParticleSystem>().Play();
+                StartCoroutine(WaitForDisable());
+            }
         }
 
         /// <summary> Задержка отключения эффекта </summary>

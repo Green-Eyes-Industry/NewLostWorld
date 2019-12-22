@@ -115,7 +115,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: GameMenu/BackPanel/TimerBack
+    path: GameMenu/BackPanel/BaseEffects/TimerBack
   m_FloatCurves:
   - curve:
       serializedVersion: 2
@@ -226,7 +226,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: GameMenu/BackPanel/TimerBack
+    path: GameMenu/BackPanel/BaseEffects/TimerBack
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -245,7 +245,7 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2774117404
+      path: 3845354487
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -273,7 +273,7 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2774117404
+      path: 3845354487
       attribute: 3
       script: {fileID: 0}
       typeID: 4
@@ -676,7 +676,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: GameMenu/BackPanel/TimerBack
+    path: GameMenu/BackPanel/BaseEffects/TimerBack
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -704,7 +704,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: GameMenu/BackPanel/TimerBack
+    path: GameMenu/BackPanel/BaseEffects/TimerBack
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -732,7 +732,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: GameMenu/BackPanel/TimerBack
+    path: GameMenu/BackPanel/BaseEffects/TimerBack
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -760,7 +760,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: GameMenu/BackPanel/TimerBack
+    path: GameMenu/BackPanel/BaseEffects/TimerBack
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []

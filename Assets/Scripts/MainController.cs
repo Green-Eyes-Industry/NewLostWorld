@@ -7,6 +7,7 @@ namespace NLW
     [RequireComponent(typeof(GameController))]
     [RequireComponent(typeof(AnimController))]
     [RequireComponent(typeof(UIController))]
+    [RequireComponent(typeof(SoundController))]
     public class MainController : MonoBehaviour
     {
         public static MainController Instance;
@@ -18,6 +19,7 @@ namespace NLW
         [HideInInspector] public GameController gameController;
         [HideInInspector] public AnimController animController;
         [HideInInspector] public UIController uIController;
+        [HideInInspector] public SoundController soundController;
 
         /// <summary> Инициализация контроллера </summary>
         protected virtual void Init() { }
@@ -44,12 +46,13 @@ namespace NLW
             gameController = GetComponent<GameController>();
             animController = GetComponent<AnimController>();
             uIController = GetComponent<UIController>();
+            soundController = GetComponent<SoundController>();
 
             dataController.Init();
             gameController.Init();
             animController.Init();
             uIController.Init();
-
+            soundController.Init();
         }
     }
 }

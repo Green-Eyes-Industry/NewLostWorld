@@ -10,12 +10,14 @@ namespace NLW
         #region VARIABLES
 
         /// <summary> Глава запускаемая по нажатию "Начало" </summary>
-        public GamePart thisPart;
+        [HideInInspector] public GamePart thisPart;
+        public GamePart startPart;
+
+        public GameObject menuCanvas;
+        public GameObject gameCanvas;
 
         private SubEventPart subPart;
         private Animator mainAnimator;
-        public GameObject menuCanvas;
-        public GameObject gameCanvas;
 
         private bool _isAchiveDetail; // Вы в меню описания достижения
 
@@ -42,7 +44,8 @@ namespace NLW
         /// <summary> Начало игры </summary>
         private void GameStart()
         {
-            if (thisPart == null) thisPart = Instance.mainSettings.lastPart;
+            if (thisPart == null && Instance.mainSettings.lastPart != null) thisPart = Instance.mainSettings.lastPart;
+            else if (thisPart == null) thisPart = startPart;
             NextPart(thisPart);
         }
 
@@ -93,7 +96,6 @@ namespace NLW
         /// <summary> Запуск главы выбора </summary>
         private void ShowPart(ChangePart part)
         {
-            // Код
             mainAnimator.SetInteger("GameStady", 1);
             uIController.GameMain(part.mainText);
             uIController.GameButton(0, part.buttonText[0]);
@@ -103,7 +105,6 @@ namespace NLW
         /// <summary> Запуск главы боя </summary>
         private void ShowPart(BattlePart part)
         {
-            // Код
             mainAnimator.SetInteger("GameStady", 2);
             uIController.GameMain(part.mainText);
             uIController.GameButton(0, part.buttonText[0]);
@@ -114,7 +115,14 @@ namespace NLW
         /// <summary> Запуск финальной главы </summary>
         private void ShowPart(FinalPart part)
         {
-            // TODO : Запуск финальной главы
+            mainAnimator.SetInteger("GameStady", 10);
+            uIController.GameMain(part.mainText);
+            uIController.GameButton(0, part.backButtonText);
+            uIController.GameButton(1,"Решения других игроков");
+            uIController.ShowFinalAchiveIco(part.newAchive);
+
+            if (!mainSettings.gameAchivemants.Contains(part.newAchive)) mainSettings.gameAchivemants.Add(part.newAchive);
+            dataController.SaveAchivesData();
         }
 
         /// <summary> Запуск временного евента </summary>
@@ -355,6 +363,26 @@ namespace NLW
         public void GamePartPress(int id, bool press)
         {
             mainAnimator.SetBool("GameButton_" + (id + 1), press);
+
+            if (thisPart is FinalPart && !press)
+            {
+                switch (id)
+                {
+                    case 0:
+                        mainAnimator.SetInteger("MenuStady", 0);
+                        mainAnimator.SetInteger("GameStady", 20);
+                        mainAnimator.SetBool("StartGameDescript", true);
+                        break;
+
+                    case 1:
+                        // TODO : Статистика решений других игроков
+                        break;
+                }
+                thisPart = startPart;
+                return;
+            }
+
+            
             if (thisPart.movePart[id] != null && !press) NextPart(thisPart.movePart[id]);
         }
 
@@ -574,8 +602,8 @@ namespace NLW
         /// <summary> Переход в игровое меню </summary>
         public void AnimMenuToGameSwitch()
         {
-            menuCanvas.SetActive(false);
-            gameCanvas.SetActive(true);
+            menuCanvas.SetActive(!menuCanvas.activeSelf);
+            gameCanvas.SetActive(!gameCanvas.activeSelf);
         }
 
         /// <summary> Задержка стартового меню </summary>

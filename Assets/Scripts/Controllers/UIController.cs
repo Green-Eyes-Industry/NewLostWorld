@@ -34,8 +34,8 @@ namespace NLW
 
         public Text _gameMain_Txt;
         public Text[] _gameButton;
-        public Image _timerImage;
-
+        public Image _timerImage, finalAchiveIco;
+        
         // Сообщения в игре
 
         public Text _gameMessageInventoryTxt;
@@ -202,7 +202,7 @@ namespace NLW
 
             for (int i = 0; i < _achiveCase.Length; i++)
             {
-                if (1 + i + page < achivesLendth)
+                if (i + page < achivesLendth)
                 {
                     _achiveCase[i].gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
                     _achiveCase[i].gameObject.SetActive(true);
@@ -218,6 +218,12 @@ namespace NLW
 
         /// <summary> Показать подробности о достижении </summary>
         public void ShowAchiveDescript(Data.Achivemants achive) => _achiveDescript_txt.text = achive.achiveDescript;
+
+        /// <summary> Отобразить значек получаемого достижения </summary>
+        public void ShowFinalAchiveIco(Data.Achivemants achive)
+        {
+            finalAchiveIco.sprite = achive.achiveIco;
+        }
 
         #endregion
 

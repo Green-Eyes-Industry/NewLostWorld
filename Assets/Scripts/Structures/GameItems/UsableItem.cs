@@ -22,7 +22,7 @@ namespace NLW.Data
         /// <summary> Использовать </summary>
         public void UseThisItem()
         {
-            Player mPlayer = MainController.Instance.dataController.mainPlayer;
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
 
             mPlayer.playerHealth += healthInf;
             mPlayer.playerMind += mindInf;
@@ -41,7 +41,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(UsableItem))]
-    public class UsableItemGUI_Inspector : Editor
+    public class UsableItemGInspector : Editor
     {
         private UsableItem _usableItem;
 
@@ -77,7 +77,7 @@ namespace GUIInspector
 
             usableItem.itemEffect = (GameEffect)EditorGUILayout.ObjectField("Накладываемый эффект :", usableItem.itemEffect, typeof(GameEffect), true);
 
-            if (usableItem.itemEffect != null) GlobalHelperGUI_Inspector.ShowEffectFromPart(usableItem.itemEffect);
+            if (usableItem.itemEffect != null) GlobalHelperGInspector.ShowEffectFromPart(usableItem.itemEffect);
 
             GUILayout.EndVertical();
         }

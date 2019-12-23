@@ -22,7 +22,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(MoviePart))]
-    public class MoviePartGUI_Inspector : Editor
+    public class MoviePartGInspector : Editor
     {
         private MoviePart _moviePart;
         private Vector2 _slidesSlider = Vector2.zero;

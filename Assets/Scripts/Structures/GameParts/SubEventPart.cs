@@ -42,7 +42,7 @@ namespace NLW.Parts
 namespace GUIInspector
 {
     [CustomEditor(typeof(SubEventPart))]
-    public class SubEventPartGUI_Inspector : Editor
+    public class SubEventPartGInspector : Editor
     {
         private SubEventPart _subEventPart;
 
@@ -78,10 +78,7 @@ namespace GUIInspector
 
                 GUILayout.EndHorizontal();
             }
-            else
-            {
-                GUILayout.Label("Событие выхода из эвента");
-            }
+            else GUILayout.Label("Событие выхода из эвента");
             
             GUILayout.EndVertical();
 

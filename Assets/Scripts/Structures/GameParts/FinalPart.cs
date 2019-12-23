@@ -23,7 +23,7 @@ namespace NLW.Parts
 namespace GUIInspector
 {
     [CustomEditor(typeof(FinalPart))]
-    public class FinalPartGUI_Inspector : Editor
+    public class FinalPartGInspector : Editor
     {
         private FinalPart _finalPart;
         public static int id = 0;
@@ -78,7 +78,7 @@ namespace GUIInspector
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
-            if (_finalPart.newAchive != null) AchivemantsGUI_Inspector.ShowAchiveGUI(_finalPart.newAchive);
+            if (_finalPart.newAchive != null) AchivemantsGInspector.ShowAchiveGUI(_finalPart.newAchive);
 
             EditorGUILayout.EndVertical();
         }

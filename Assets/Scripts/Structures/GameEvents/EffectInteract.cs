@@ -17,12 +17,12 @@ namespace NLW.Data
         public bool isAddOrRemove;
 
         /// <summary> Глава при провале </summary>
-        public Parts.GamePart _failPart;
+        public Parts.GamePart failPart;
 
         /// <summary> Взаимодействие </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.dataController.mainPlayer;
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
 
             if (isAddOrRemove)
             {
@@ -41,7 +41,7 @@ namespace NLW.Data
         }
 
         /// <summary> Вернуть главу провала </summary>
-        public override Parts.GamePart FailPart() { return _failPart; }
+        public override Parts.GamePart FailPart() { return failPart; }
     }
 }
 
@@ -50,7 +50,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(EffectInteract))]
-    public class EffectInteractGUI_Inspector : Editor
+    public class EffectInteractGInspector : Editor
     {
         private EffectInteract _effectInteract;
 
@@ -64,7 +64,7 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            // Код
+            // TODO : Код
 
             EditorGUILayout.EndVertical();
         }

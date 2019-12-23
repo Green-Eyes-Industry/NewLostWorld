@@ -13,10 +13,10 @@ namespace NLW.Data
 #if UNITY_EDITOR
 
         /// <summary> Название решения </summary>
-        public string _nameDecision;
+        public string nameDecision;
 
         /// <summary> Описание решения </summary>
-        public string _decisionDescription;
+        public string decisionDescription;
 
 #endif
 
@@ -28,7 +28,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(Decision))]
-    public class DecisionGUI_Inspector : Editor
+    public class DecisionGInspector : Editor
     {
         private Decision _decision;
 
@@ -42,9 +42,9 @@ namespace GUIInspector
             EditorGUILayout.LabelField("Важное решение");
 
             EditorGUILayout.BeginVertical("Box");
-            decision._nameDecision = EditorGUILayout.TextField("Название", decision._nameDecision);
+            decision.nameDecision = EditorGUILayout.TextField("Название", decision.nameDecision);
             EditorGUILayout.LabelField("Описание");
-            decision._decisionDescription = EditorGUILayout.TextArea(decision._decisionDescription, GUILayout.Height(100));
+            decision.decisionDescription = EditorGUILayout.TextArea(decision.decisionDescription, GUILayout.Height(100));
             EditorGUILayout.EndVertical();
         }
     }

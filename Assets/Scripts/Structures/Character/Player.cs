@@ -40,7 +40,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(Player))]
-    public class PlayerGUI_Inspector : Editor
+    public class PlayerGInspector : Editor
     {
         private Player _player;
 

@@ -26,7 +26,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(Note))]
-    public class NotesGUI_Inspector : Editor
+    public class NotesGInspector : Editor
     {
         private Note _notes;
 

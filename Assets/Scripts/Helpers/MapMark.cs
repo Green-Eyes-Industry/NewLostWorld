@@ -17,7 +17,7 @@ namespace NLW.Data
         public string loreLocation;
 
         /// <summary> Глава для перемещения </summary>
-        public Parts.GamePart _partLocation;
+        public Parts.GamePart partLocation;
     }
 }
 
@@ -27,7 +27,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(MapMark))]
-    public class MapMarkGUI_Inspector : Editor
+    public class MapMarkGInspector : Editor
     {
         private MapMark _mapMark;
 
@@ -46,7 +46,7 @@ namespace GUIInspector
             EditorGUILayout.LabelField("Лор локации");
             mapMark.loreLocation = EditorGUILayout.TextArea(mapMark.loreLocation, GUILayout.Height(40));
             EditorGUILayout.Space();
-            mapMark._partLocation = (NLW.Parts.GamePart)EditorGUILayout.ObjectField("Глава локации :", mapMark._partLocation, typeof(NLW.Parts.GamePart), true);
+            mapMark.partLocation = (NLW.Parts.GamePart)EditorGUILayout.ObjectField("Глава локации :", mapMark.partLocation, typeof(NLW.Parts.GamePart), true);
 
             GUILayout.EndVertical();
         }

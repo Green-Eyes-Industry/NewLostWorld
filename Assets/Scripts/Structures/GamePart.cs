@@ -17,7 +17,7 @@ namespace NLW.Parts
         public bool windowSizeStady = false;
         public bool memberComment;
         public Rect windowRect;
-        public string _memTitle;
+        public string memTitle;
         public string windowTitle;
         public GamePart part;
         public int workStady;

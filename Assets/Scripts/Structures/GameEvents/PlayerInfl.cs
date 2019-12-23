@@ -10,18 +10,18 @@ namespace NLW.Data
     public class PlayerInfl : GameEvent
     {
         /// <summary> Влияние на здоровье </summary>
-        public int _healthInfl;
+        public int healthInfl;
 
         /// <summary> Влияние на рассудок </summary>
-        public int _mindInfl;
+        public int mindInfl;
 
         /// <summary> Влияние </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.dataController.mainPlayer;
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
 
-            mPlayer.playerHealth += _healthInfl;
-            mPlayer.playerMind += _mindInfl;
+            mPlayer.playerHealth += healthInfl;
+            mPlayer.playerMind += mindInfl;
             return true;
         }
     }
@@ -32,7 +32,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(PlayerInfl))]
-    public class PlayerInflGUI_Inspector : Editor
+    public class PlayerInflGInspector : Editor
     {
         private PlayerInfl _playerInfl;
 
@@ -40,23 +40,23 @@ namespace GUIInspector
 
         public override void OnInspectorGUI() => ShowEventEditor(_playerInfl);
 
-        public static void ShowEventEditor(PlayerInfl _playerInfl)
+        public static void ShowEventEditor(PlayerInfl playerInfl)
         {
             GUILayout.Label("Влияние на характеристики игрока");
 
             EditorGUILayout.BeginVertical("Box");
 
-            if (_playerInfl._healthInfl == 0) GUI.backgroundColor = Color.white;
-            else if(_playerInfl._healthInfl > 0) GUI.backgroundColor = Color.green;
+            if (playerInfl.healthInfl == 0) GUI.backgroundColor = Color.white;
+            else if(playerInfl.healthInfl > 0) GUI.backgroundColor = Color.green;
             else GUI.backgroundColor = Color.red;
 
-            _playerInfl._healthInfl = EditorGUILayout.IntSlider("Здоровье", _playerInfl._healthInfl, -100, 100);
+            playerInfl.healthInfl = EditorGUILayout.IntSlider("Здоровье", playerInfl.healthInfl, -100, 100);
 
-            if (_playerInfl._mindInfl == 0) GUI.backgroundColor = Color.white;
-            else if (_playerInfl._mindInfl > 0) GUI.backgroundColor = Color.green;
+            if (playerInfl.mindInfl == 0) GUI.backgroundColor = Color.white;
+            else if (playerInfl.mindInfl > 0) GUI.backgroundColor = Color.green;
             else GUI.backgroundColor = Color.red;
 
-            _playerInfl._mindInfl = EditorGUILayout.IntSlider("Рассудок", _playerInfl._mindInfl, -100, 100);
+            playerInfl.mindInfl = EditorGUILayout.IntSlider("Рассудок", playerInfl.mindInfl, -100, 100);
 
             EditorGUILayout.EndVertical();
         }

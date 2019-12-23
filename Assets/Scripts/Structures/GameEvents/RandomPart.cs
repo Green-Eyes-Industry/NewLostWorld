@@ -11,7 +11,7 @@ namespace NLW.Data
     public class RandomPart : GameEvent
     {
         /// <summary> Случайная глава </summary>
-        public GamePart[] part_random = new GamePart[3];
+        public GamePart[] partRandom = new GamePart[3];
 
         /// <summary> Вероятность попадания в главу </summary>
         public int[] randomChance = new int[3];
@@ -21,8 +21,7 @@ namespace NLW.Data
         {
             int rand = Random.Range(0, 100);
 
-            if (rand > chance) return second;
-            else return first;
+            return rand > chance ? second : first;
         }
     }
 }
@@ -32,7 +31,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(RandomPart))]
-    public class RandomPartGUI_Inspector : Editor
+    public class RandomPartGInspector : Editor
     {
         private RandomPart _randomPart;
 
@@ -46,16 +45,16 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            for (int i = 0; i < randomPart.part_random.Length ; i++)
+            for (int i = 0; i < randomPart.partRandom.Length ; i++)
             {
                 EditorGUILayout.BeginHorizontal();
 
-                randomPart.part_random[i] = (GamePart)EditorGUILayout.ObjectField(randomPart.part_random[i], typeof(GamePart), true);
+                randomPart.partRandom[i] = (GamePart)EditorGUILayout.ObjectField(randomPart.partRandom[i], typeof(GamePart), true);
 
-                if (randomPart.part_random[i] != null)
+                if (randomPart.partRandom[i] != null)
                 {
                     GUI.backgroundColor = Color.red;
-                    if (GUILayout.Button("Отключить", GUILayout.Width(70))) randomPart.part_random[i] = null;
+                    if (GUILayout.Button("Отключить", GUILayout.Width(70))) randomPart.partRandom[i] = null;
                 }
                 else
                 {
@@ -67,7 +66,7 @@ namespace GUIInspector
                 GUI.backgroundColor = Color.white;
                 randomPart.randomChance[i] = EditorGUILayout.IntSlider(randomPart.randomChance[i], 0, 100);
 
-                if(i < randomPart.part_random.Length - 1) EditorGUILayout.Space();
+                if(i < randomPart.partRandom.Length - 1) EditorGUILayout.Space();
             }
 
             EditorGUILayout.EndVertical();

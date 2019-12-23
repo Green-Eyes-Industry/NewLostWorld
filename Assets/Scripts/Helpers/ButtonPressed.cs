@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace NLW.Helpers
 {
@@ -36,21 +37,22 @@ namespace NLW.Helpers
         {
             switch (menuType)
             {
-                case MenuType.MAIN: MainController.Instance.animController.MainMenuPress(buttonId, press); break;
-                case MenuType.ACHIVE_CASE: MainController.Instance.animController.AchiveCaseMenuPress(buttonId, press); break;
-                case MenuType.ACHIVE: MainController.Instance.animController.AchiveMenuPress(buttonId, press); break;
-                case MenuType.GAME_PREVIEW: MainController.Instance.animController.PreviewExit(false); break;
+                case MenuType.MAIN: MainController.instance.animController.MainMenuPress(buttonId, press); break;
+                case MenuType.ACHIVE_CASE: MainController.instance.animController.AchiveCaseMenuPress(buttonId, press); break;
+                case MenuType.ACHIVE: MainController.instance.animController.AchiveMenuPress(buttonId, press); break;
+                case MenuType.GAME_PREVIEW: MainController.instance.animController.PreviewExit(false); break;
 
-                case MenuType.GAME_PART: MainController.Instance.animController.GamePartPress(buttonId, press); break;
-                case MenuType.EVENT_PART: MainController.Instance.animController.EventPartPress(buttonId, press); break;
-                case MenuType.MAZE_PART: MainController.Instance.animController.MazePartPress(buttonId, press); break;
+                case MenuType.GAME_PART: MainController.instance.animController.GamePartPress(buttonId, press); break;
+                case MenuType.EVENT_PART: MainController.instance.animController.EventPartPress(buttonId, press); break;
+                case MenuType.MAZE_PART: MainController.instance.animController.MazePartPress(buttonId, press); break;
 
-                case MenuType.INVENTORY: MainController.Instance.animController.InventoryMenuPress(buttonId, press); break;
-                case MenuType.PLAYER: MainController.Instance.animController.PlayerMenuPress(buttonId, press); break;
-                case MenuType.MAP: MainController.Instance.animController.MapMenuPress(buttonId, press); break;
-                case MenuType.NOTES: MainController.Instance.animController.NotesMenuPress(buttonId, press); break;
+                case MenuType.INVENTORY: MainController.instance.animController.InventoryMenuPress(buttonId, press); break;
+                case MenuType.PLAYER: MainController.instance.animController.PlayerMenuPress(buttonId, press); break;
+                case MenuType.MAP: MainController.instance.animController.MapMenuPress(buttonId, press); break;
+                case MenuType.NOTES: MainController.instance.animController.NotesMenuPress(buttonId, press); break;
 
                 case MenuType.PAUSE: break;
+                default: throw new ArgumentOutOfRangeException();
             }
         }
     }

@@ -17,12 +17,12 @@ namespace NLW.Data
         public GameItem gameItem;
 
         /// <summary> Глава при провале </summary>
-        public Parts.GamePart _failPart;
+        public Parts.GamePart failPart;
 
         /// <summary> Старт события </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.dataController.mainPlayer;
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
 
             if (isAddOrLostItem)
             {
@@ -41,7 +41,7 @@ namespace NLW.Data
         }
 
         /// <summary> Вернуть главу провала </summary>
-        public override Parts.GamePart FailPart() { return _failPart; }
+        public override Parts.GamePart FailPart() { return failPart; }
     }
 }
 
@@ -50,7 +50,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(ItemInteract))]
-    public class ItemInteractGUI_Inspector : Editor
+    public class ItemInteractGInspector : Editor
     {
         private ItemInteract _itemInteract;
         public static int id = 0;
@@ -69,11 +69,9 @@ namespace GUIInspector
 
             string[] names = new string[allItems.Length];
 
-            GameItem nameConvert;
-
             for (int i = 0; i < names.Length; i++)
             {
-                nameConvert = (GameItem)allItems[i];
+                GameItem nameConvert = (GameItem)allItems[i];
 
                 if (nameConvert.itemName == "") names[i] = nameConvert.name;
                 else names[i] = nameConvert.itemName;
@@ -99,8 +97,8 @@ namespace GUIInspector
             GUI.backgroundColor = Color.white;
             if (itemInteract.gameItem != null)
             {
-                if(itemInteract.gameItem is PasiveItem pasiveItem) PasiveItemGUI_Inspector.ShowItemEditor(pasiveItem);
-                else if (itemInteract.gameItem is UsableItem usableItem) UsableItemGUI_Inspector.ShowItemEditor(usableItem);
+                if(itemInteract.gameItem is PasiveItem pasiveItem) PasiveItemGInspector.ShowItemEditor(pasiveItem);
+                else if (itemInteract.gameItem is UsableItem usableItem) UsableItemGInspector.ShowItemEditor(usableItem);
             }
 
             EditorGUILayout.EndVertical();

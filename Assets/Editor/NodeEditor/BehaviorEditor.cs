@@ -3,6 +3,7 @@ using UnityEditor;
 using NLW;
 using NLW.Data;
 using NLW.Parts;
+using UnityEngine.Serialization;
 
 namespace GUIInspector.NodeEditor
 {
@@ -10,18 +11,18 @@ namespace GUIInspector.NodeEditor
     {
         #region VARIABLES
 
-        public bool _drawWindow;
+        [FormerlySerializedAs("_drawWindow")] public bool drawWindow;
         private Vector2 _distDifference;
 
         private Color _gridColor = new Color(0.2f, 0.2f, 0.2f); // Цвет сетки
-        public static Vector2 _offset; // Отступ поля
+        public static Vector2 offset; // Отступ поля
         private Vector2 _drag; // Отступ нод
 
         private GameSettings _mainSettings; // Настройки поля
         public static BehaviorEditor trBehaviorEditor; // ссылка на себя
         public static StoryData storyData; // Данные сюжета
         private StoryData _storyData;
-        public static Vector3 _mousePosition; // Позиция мыши
+        public static Vector3 mousePosition; // Позиция мыши
         private bool _isClickOnWindow; // Нажал на окно или нет
         private GamePart _selectedNode; // Выбранная нода
         private Texture _emptyTexture;
@@ -68,7 +69,7 @@ namespace GUIInspector.NodeEditor
             }
             if (EventEditor.eventEditor == null) EventEditor.eventEditor = (EventEditor)CreateInstance(typeof(EventEditor));
 
-            _drawWindow = true;
+            drawWindow = true;
         }
 
         private void OnLostFocus()
@@ -78,7 +79,7 @@ namespace GUIInspector.NodeEditor
 
         private void OnGUI()
         {
-            if (_drawWindow) DrawGUI();
+            if (drawWindow) DrawGUI();
         }
 
         /// <summary> Отрисовка интерфейса </summary>
@@ -97,7 +98,7 @@ namespace GUIInspector.NodeEditor
                 DrawGrid(50, 0.4f, _gridColor);
 
                 Event e = Event.current;
-                _mousePosition = e.mousePosition;
+                mousePosition = e.mousePosition;
 
                 // Отображение
 
@@ -171,9 +172,9 @@ namespace GUIInspector.NodeEditor
 
                 if (EditorApplication.isPlaying)
                 {
-                    if (MainController.Instance.animController.thisPart != null && isWatchOnPlay)
+                    if (MainController.instance.animController.thisPart != null && isWatchOnPlay)
                     {
-                        if (MainController.Instance.animController.thisPart == part)
+                        if (MainController.instance.animController.thisPart == part)
                         {
                             FocusPart(part);
                             GUI.backgroundColor = Color.blue;
@@ -199,7 +200,7 @@ namespace GUIInspector.NodeEditor
                         if (_sellectedToConnect.Equals(part))
                         {
                             CreateCurve(ConnectPosition(part, tempConnect, false),
-                                new Rect(_mousePosition, new Vector2(0, 0)), Color.blue);
+                                new Rect(mousePosition, new Vector2(0, 0)), Color.blue);
                             Repaint();
                         }
                     }
@@ -242,43 +243,51 @@ namespace GUIInspector.NodeEditor
 
             // Главы
 
-            if (part is TextPart textP)
+            switch (part)
             {
-                if (textP.mainText.Length > 230 || textP.mainText.Length == 0) score += 10;
-                if (textP.buttonText.Length > 109 || textP.buttonText.Length == 0) score += 10;
+                case TextPart textP:
+                {
+                    if (textP.mainText.Length > 230 || textP.mainText.Length == 0) score += 10;
+                    if (textP.buttonText.Length > 109 || textP.buttonText.Length == 0) score += 10;
 
-                if (textP.movePart[0] == null) score++;
-            }
-            else if (part is ChangePart changeP)
-            {
-                if (changeP.mainText.Length > 230 && changeP.mainText.Length == 0) score += 10;
+                    if (textP.movePart[0] == null) score++;
+                    break;
+                }
+                case ChangePart changeP:
+                {
+                    if (changeP.mainText.Length > 230 && changeP.mainText.Length == 0) score += 10;
 
-                if (changeP.buttonText[0].Length > 109 || changeP.buttonText[0].Length == 0) score += 10;
-                if (changeP.buttonText[1].Length > 109 || changeP.buttonText[1].Length == 0) score += 10;
+                    if (changeP.buttonText[0].Length > 109 || changeP.buttonText[0].Length == 0) score += 10;
+                    if (changeP.buttonText[1].Length > 109 || changeP.buttonText[1].Length == 0) score += 10;
 
-                if (changeP.movePart[0] == null) score++;
-                if (changeP.movePart[1] == null) score++;
-            }
-            else if (part is BattlePart battleP)
-            {
-                if (battleP.mainText.Length > 230) score += 10;
+                    if (changeP.movePart[0] == null) score++;
+                    if (changeP.movePart[1] == null) score++;
+                    break;
+                }
+                case BattlePart battleP:
+                {
+                    if (battleP.mainText.Length > 230) score += 10;
 
-                if (battleP.buttonText[0].Length > 109 || battleP.buttonText[0].Length == 0) score += 10;
-                if (battleP.buttonText[1].Length > 109 || battleP.buttonText[1].Length == 0) score += 10;
-                if (battleP.buttonText[2].Length > 109 || battleP.buttonText[2].Length == 0) score += 10;
+                    if (battleP.buttonText[0].Length > 109 || battleP.buttonText[0].Length == 0) score += 10;
+                    if (battleP.buttonText[1].Length > 109 || battleP.buttonText[1].Length == 0) score += 10;
+                    if (battleP.buttonText[2].Length > 109 || battleP.buttonText[2].Length == 0) score += 10;
 
-                if (battleP.movePart[0] == null) score++;
-                if (battleP.movePart[1] == null) score++;
-                if (battleP.movePart[2] == null) score++;
-            }
-            else if (part is EventPart eventP)
-            {
-                if (eventP.movePart[0] == null) score++;
-                if (eventP.movePart[2] == null) score++;
-            }
-            else if (part is FinalPart finalP)
-            {
-                if (finalP.newAchive == null) score++;
+                    if (battleP.movePart[0] == null) score++;
+                    if (battleP.movePart[1] == null) score++;
+                    if (battleP.movePart[2] == null) score++;
+                    break;
+                }
+                case EventPart eventP:
+                {
+                    if (eventP.movePart[0] == null) score++;
+                    if (eventP.movePart[2] == null) score++;
+                    break;
+                }
+                case FinalPart finalP:
+                {
+                    if (finalP.newAchive == null) score++;
+                    break;
+                }
             }
 
             // События
@@ -299,7 +308,7 @@ namespace GUIInspector.NodeEditor
                     {
                         if (part is TextPart)
                         {
-                            if (rnd.part_random[0] == null) score += 10;
+                            if (rnd.partRandom[0] == null) score += 10;
                             else if (rnd.randomChance[0] == 0) score++;
 
                         }
@@ -307,14 +316,14 @@ namespace GUIInspector.NodeEditor
                         {
                             check = 0;
 
-                            if (rnd.part_random[0] == null)
+                            if (rnd.partRandom[0] == null)
                             {
                                 check++;
                                 score += 10;
                             }
                             else if (rnd.randomChance[0] == 0) score++;
 
-                            if (rnd.part_random[1] == null)
+                            if (rnd.partRandom[1] == null)
                             {
                                 check++;
                                 score += 10;
@@ -327,21 +336,21 @@ namespace GUIInspector.NodeEditor
                         {
                             check = 0;
 
-                            if (rnd.part_random[0] == null)
+                            if (rnd.partRandom[0] == null)
                             {
                                 check++;
                                 score += 10;
                             }
                             if (rnd.randomChance[0] == 0) score++;
 
-                            if (rnd.part_random[1] == null)
+                            if (rnd.partRandom[1] == null)
                             {
                                 check++;
                                 score += 10;
                             }
                             if (rnd.randomChance[1] == 1) score++;
 
-                            if (rnd.part_random[2] == null)
+                            if (rnd.partRandom[2] == null)
                             {
                                 check++;
                                 score += 10;
@@ -505,7 +514,7 @@ namespace GUIInspector.NodeEditor
             {
                 if (_storyData.nodesData[i] != null)
                 {
-                    if (_storyData.nodesData[i].windowRect.Contains(_mousePosition))
+                    if (_storyData.nodesData[i].windowRect.Contains(mousePosition))
                     {
                         _isClickOnWindow = true;
                         _selectedNode = _storyData.nodesData[i];
@@ -527,7 +536,7 @@ namespace GUIInspector.NodeEditor
             {
                 if (_storyData.nodesData[i] != null)
                 {
-                    if (_storyData.nodesData[i].windowRect.Contains(_mousePosition))
+                    if (_storyData.nodesData[i].windowRect.Contains(mousePosition))
                     {
                         if (_sellectedToConnect != null)
                         {
@@ -556,7 +565,7 @@ namespace GUIInspector.NodeEditor
                 for (int i = 0; i < _storyData.nodesData.Count; i++)
                 {
                     _storyData.nodesData[i].windowRect.position += _drag;
-                    _offset += _drag / _storyData.nodesData.Count;
+                    offset += _drag / _storyData.nodesData.Count;
                 }
             }
 
@@ -586,7 +595,7 @@ namespace GUIInspector.NodeEditor
                 _selectedNode = null;
                 GraphChangeController.selectedNode = null;
                 
-                _drawWindow = true;
+                drawWindow = true;
                 Repaint();
                 SaveData();
             }
@@ -625,26 +634,26 @@ namespace GUIInspector.NodeEditor
                 {
                     if (partNode.mainEvents[i] is RandomPart randomEvent)
                     {
-                        if (randomEvent.part_random[0] != null && randomEvent.part_random[0] != this)
+                        if (randomEvent.partRandom[0] != null && randomEvent.partRandom[0] != this)
                         {
-                            CreateCurve(ConnectPosition(partNode, 0, false), randomEvent.part_random[0].windowRect, randomColor);
+                            CreateCurve(ConnectPosition(partNode, 0, false), randomEvent.partRandom[0].windowRect, randomColor);
                         }
 
-                        if (randomEvent.part_random[1] != null && randomEvent.part_random[1] != this)
+                        if (randomEvent.partRandom[1] != null && randomEvent.partRandom[1] != this)
                         {
-                            CreateCurve(ConnectPosition(partNode, 1, false), randomEvent.part_random[1].windowRect, randomColor);
+                            CreateCurve(ConnectPosition(partNode, 1, false), randomEvent.partRandom[1].windowRect, randomColor);
                         }
 
-                        if (randomEvent.part_random[2] != null && randomEvent.part_random[2] != this)
+                        if (randomEvent.partRandom[2] != null && randomEvent.partRandom[2] != this)
                         {
-                            CreateCurve(ConnectPosition(partNode, 2, false), randomEvent.part_random[2].windowRect, randomColor);
+                            CreateCurve(ConnectPosition(partNode, 2, false), randomEvent.partRandom[2].windowRect, randomColor);
                         }
                     }
                     else if(partNode.mainEvents[i] is CheckDecision checkDecision)
                     {
-                        if (checkDecision._failPart != null && checkDecision._failPart != this)
+                        if (checkDecision.failPart != null && checkDecision.failPart != this)
                         {
-                            CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(checkDecision._failPart, 0, true), eventFailColor);
+                            CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(checkDecision.failPart, 0, true), eventFailColor);
                         }
                     }
                 }
@@ -808,7 +817,7 @@ namespace GUIInspector.NodeEditor
                         partNode.windowRect.x += Screen.width / 4f;
                         partNode.windowRect.y += Screen.height / 4f;
 
-                        partNode._memTitle = partNode.windowTitle;
+                        partNode.memTitle = partNode.windowTitle;
                         partNode.windowTitle = partNode.windowTitle.Substring(0, GetShortNameNode(partNode.windowTitle));
 
                         partNode.memberComment = partNode.isShowComment;
@@ -826,7 +835,7 @@ namespace GUIInspector.NodeEditor
                         partNode.windowRect.x -= Screen.width / 2f;
                         partNode.windowRect.y -= Screen.height / 2f;
 
-                        partNode.windowTitle = partNode._memTitle;
+                        partNode.windowTitle = partNode.memTitle;
 
                         partNode.isShowComment = partNode.memberComment;
                     }
@@ -877,8 +886,8 @@ namespace GUIInspector.NodeEditor
             Handles.BeginGUI();
             Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
             
-            _offset += _drag * 0.5f;
-            Vector3 newOffset = new Vector3(_offset.x % gridSpacing, _offset.y % gridSpacing, 0);
+            offset += _drag * 0.5f;
+            Vector3 newOffset = new Vector3(offset.x % gridSpacing, offset.y % gridSpacing, 0);
 
             for (int i = 0; i < widthDivs; i++)
             {

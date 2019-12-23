@@ -14,13 +14,13 @@ namespace GUIInspector.NodeEditor
         private SubEventPart _selectedNode;
         private SubEventPart _sellectedToConnect;
         private int _sellectionId;
-        Texture _emptyTexture;
+        private Texture _emptyTexture;
         public int tempConnect = 0;
 
         /// <summary> Данные графа Эвента </summary>
         public static EventPart eventGraph;
 
-        public enum InputEnum
+        private enum InputEnum
         {
             ADD_NEW_EVENT_SUB_PART,
             ADD_NEW_EVENT_FINAL,
@@ -44,7 +44,7 @@ namespace GUIInspector.NodeEditor
             if (_sellectedToConnect != null)
             {
                 CreateCurve(ConnectPosition(_sellectedToConnect, tempConnect),
-                        new Rect(BehaviorEditor._mousePosition, new Vector2(0, 0)), Color.blue);
+                        new Rect(BehaviorEditor.mousePosition, new Vector2(0, 0)), Color.blue);
                 BehaviorEditor.trBehaviorEditor.Repaint();
             }
 
@@ -215,8 +215,8 @@ namespace GUIInspector.NodeEditor
             }
 
             subPart.windowRect = new Rect(
-                BehaviorEditor._mousePosition.x,
-                BehaviorEditor._mousePosition.y,
+                BehaviorEditor.mousePosition.x,
+                BehaviorEditor.mousePosition.y,
                 BehaviorEditor.storyData.baseNodeLgWidth,
                 BehaviorEditor.storyData.baseNodeCommentHeight);
 
@@ -226,26 +226,26 @@ namespace GUIInspector.NodeEditor
         /// <summary> Левый клик мыши </summary>
         private void LeftMouseClick()
         {
-            for (int i = 0; i < eventGraph.eventParts.Count; i++)
+            foreach (SubEventPart sEPart in eventGraph.eventParts)
             {
-                if (eventGraph.eventParts[i] != null)
+                if (sEPart != null)
                 {
-                    if (eventGraph.eventParts[i].windowRect.Contains(BehaviorEditor._mousePosition))
+                    if (sEPart.windowRect.Contains(BehaviorEditor.mousePosition))
                     {
                         if (_sellectedToConnect != null)
                         {
                             switch (_sellectionId)
                             {
-                                case 0: _sellectedToConnect.moveLeft = eventGraph.eventParts[i]; break;
-                                case 1: _sellectedToConnect.moveRight = eventGraph.eventParts[i]; break;
+                                case 0: _sellectedToConnect.moveLeft = sEPart; break;
+                                case 1: _sellectedToConnect.moveRight = sEPart; break;
                             }
 
                             _sellectedToConnect = null;
                         }
                         else
                         {
-                            _selectedNode = eventGraph.eventParts[i];
-                            Selection.activeObject = eventGraph.eventParts[i];
+                            _selectedNode = sEPart;
+                            Selection.activeObject = sEPart;
                         }
                         break;
                     }
@@ -275,7 +275,7 @@ namespace GUIInspector.NodeEditor
             for (int i = 0; i < eventGraph.eventParts.Count; i++)
             {
                 eventGraph.eventParts[i].windowRect.position += _drag;
-                BehaviorEditor._offset += delta / eventGraph.eventParts.Count;
+                BehaviorEditor.offset += delta / eventGraph.eventParts.Count;
             }
 
             GUI.changed = true;
@@ -294,9 +294,9 @@ namespace GUIInspector.NodeEditor
                 }
             }
 
-            for (int i = 0; i < eventGraph.eventParts.Count; i++)
+            foreach (SubEventPart sEPart in eventGraph.eventParts)
             {
-                EditorUtility.SetDirty(eventGraph.eventParts[i]);
+                EditorUtility.SetDirty(sEPart);
             }
 
             EditorUtility.SetDirty(eventGraph);

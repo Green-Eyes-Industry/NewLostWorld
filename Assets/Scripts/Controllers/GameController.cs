@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using NLW.Data;
 
 namespace NLW
 {
     /// <summary> Игровые события и переключения </summary>
-    public class GameController : MainController
+    public class GameController : ParentController
     {
-        protected override void Init() { }
+        public override void Init() { }
 
         #region PARTS_EVENTS
 
@@ -18,7 +19,7 @@ namespace NLW
                 for (int i = 0; i < partEvents.Count; i++)
                 {
                     if (partEvents[i] is RandomPart) StartRandomEvent((RandomPart)partEvents[i]);
-                    else if (!partEvents[i].EventStart()) animController.NextPart(partEvents[i].FailPart());
+                    else if (!partEvents[i].EventStart()) MainController.instance.animController.NextPart(partEvents[i].FailPart());
                 }
             }
         }
@@ -26,9 +27,10 @@ namespace NLW
         /// <summary> Запустить эвент с рандомом </summary>
         private void StartRandomEvent(RandomPart e)
         {
-            for (int i = 0; i < e.part_random.Length; i++)
+            for (int i = 0; i < e.partRandom.Length; i++)
             {
-                if (e.part_random[i] != null) animController.thisPart.movePart[i] = e.Randomize(animController.thisPart, e.part_random[i], e.randomChance[i]);
+                if (e.partRandom[i] != null) MainController.instance.animController.thisPart.movePart[i] =
+                        e.Randomize(MainController.instance.animController.thisPart, e.partRandom[i], e.randomChance[i]);
             }
         }
 

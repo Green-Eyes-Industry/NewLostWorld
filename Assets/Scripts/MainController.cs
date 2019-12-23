@@ -8,28 +8,28 @@ namespace NLW
     [RequireComponent(typeof(AnimController))]
     [RequireComponent(typeof(UIController))]
     [RequireComponent(typeof(SoundController))]
-    public abstract class MainController : MonoBehaviour
+    [RequireComponent(typeof(EffectsController))]
+    public class MainController : MonoBehaviour
     {
-        public static MainController Instance;
+        public static MainController instance;
 
         [HideInInspector] public DataController dataController;
         [HideInInspector] public GameController gameController;
         [HideInInspector] public AnimController animController;
         [HideInInspector] public UIController uIController;
         [HideInInspector] public SoundController soundController;
-
-        /// <summary> Инициализация контроллера </summary>
-        protected abstract void Init();
+        [HideInInspector] public EffectsController effectsController;
 
         private void Awake()
         {
-            Instance = this;
+            instance = this;
 
             dataController = GetComponent<DataController>();
             gameController = GetComponent<GameController>();
             animController = GetComponent<AnimController>();
             uIController = GetComponent<UIController>();
             soundController = GetComponent<SoundController>();
+            effectsController = GetComponent<EffectsController>();
         }
 
         private void Start()
@@ -39,6 +39,7 @@ namespace NLW
             animController.Init();
             uIController.Init();
             soundController.Init();
+            effectsController.Init();
         }
     }
 }

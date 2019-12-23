@@ -5,8 +5,8 @@ using UnityEngine;
 namespace NLW
 {
     /// <summary> Контроллер эффектов </summary>
-    public class EffectsController : MainController
+    public class EffectsController : ParentController
     {
-        protected override void Init() { }
+        public override void Init() { }
     }
 }

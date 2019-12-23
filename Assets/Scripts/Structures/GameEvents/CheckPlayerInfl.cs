@@ -17,19 +17,18 @@ namespace NLW.Data
         public int value;
 
         /// <summary> Глава при провале </summary>
-        public Parts.GamePart _failPart;
+        public Parts.GamePart failPart;
 
         /// <summary> Проверка соответствия влияния </summary>
         /// <returns> Вернет False при провале проверки </returns>
         public override bool EventStart()
         {
-            MainController.Instance.dataController.LoadNonPlayerRatio(nonPlayer);
-            if (nonPlayer.npToPlayerRatio >= value) return true;
-            else return false;
+            MainController.instance.dataController.LoadNonPlayerRatio(nonPlayer);
+            return nonPlayer.npToPlayerRatio >= value;
         }
 
         /// <summary> Вернуть главу провала </summary>
-        public override Parts.GamePart FailPart() { return _failPart; }
+        public override Parts.GamePart FailPart() { return failPart; }
     }
 }
 
@@ -38,7 +37,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(CheckPlayerInfl))]
-    public class CheckPlayerInflGUI_Inspector : Editor
+    public class CheckPlayerInflGInspector : Editor
     {
         private CheckPlayerInfl _checkPlayerInfl;
 
@@ -52,7 +51,7 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            // Код
+            // TODO : Код
 
             EditorGUILayout.EndVertical();
         }

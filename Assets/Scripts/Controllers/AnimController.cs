@@ -5,7 +5,7 @@ using NLW.Parts;
 namespace NLW
 {
     /// <summary> Анимация и переходы </summary>
-    public class AnimController : MainController
+    public class AnimController : ParentController
     {
         #region VARIABLES
 
@@ -16,8 +16,8 @@ namespace NLW
         public GameObject menuCanvas;
         public GameObject gameCanvas;
 
-        private SubEventPart subPart;
-        private Animator mainAnimator;
+        private SubEventPart _subPart;
+        private Animator _mainAnimator;
 
         private bool _isAchiveDetail; // Вы в меню описания достижения
 
@@ -28,15 +28,15 @@ namespace NLW
 
         #endregion
 
-        protected override void Init()
+        public override void Init()
         {
-            mainAnimator = GetComponent<Animator>();
+            _mainAnimator = GetComponent<Animator>();
 
-            mainAnimator.SetBool("Settings_1_St", dataController.mainSettings.isSoundCheck);
-            mainAnimator.SetBool("Settings_2_St", dataController.mainSettings.isVibrationCheck);
-            mainAnimator.SetBool("Settings_3_St", dataController.mainSettings.isEffectCheck);
+            _mainAnimator.SetBool("Settings_1_St", MainController.instance.dataController.mainSettings.isSoundCheck);
+            _mainAnimator.SetBool("Settings_2_St", MainController.instance.dataController.mainSettings.isVibrationCheck);
+            _mainAnimator.SetBool("Settings_3_St", MainController.instance.dataController.mainSettings.isEffectCheck);
 
-            uIController.MenuOpenMain();
+            MainController.instance.uIController.MenuOpenMain();
 
             _isAchiveDetail = false;
         }
@@ -44,7 +44,8 @@ namespace NLW
         /// <summary> Начало игры </summary>
         private void GameStart()
         {
-            if (thisPart == null && dataController.mainSettings.lastPart != null) thisPart = dataController.mainSettings.lastPart;
+            if (thisPart == null && MainController.instance.dataController.mainSettings.lastPart != null)
+                thisPart = MainController.instance.dataController.mainSettings.lastPart;
             else if (thisPart == null) thisPart = startPart;
             NextPart(thisPart);
         }
@@ -54,32 +55,35 @@ namespace NLW
         /// <summary> Запуск следующей главы </summary>
         public void NextPart(GamePart nextPart)
         {
-            mainAnimator.SetTrigger("SwitchGameText");
+            _mainAnimator.SetTrigger("SwitchGameText");
 
-            if (nextPart is TextPart textPart)
+            switch (nextPart)
             {
-                ShowPart(textPart);
-                gameController.EventsStart(nextPart.mainEvents);
-            }
-            else if (nextPart is ChangePart changePart)
-            {
-                ShowPart(changePart);
-                gameController.EventsStart(nextPart.mainEvents);
-            }
-            else if (nextPart is BattlePart battlePart)
-            {
-                ShowPart(battlePart);
-                gameController.EventsStart(nextPart.mainEvents);
-            }
-            else if (nextPart is FinalPart finalPart) ShowPart(finalPart);
-            else if (nextPart is EventPart eventPart)
-            {
-                if (subPart == null)
-                {
-                    uIController.TimeEvent(true, eventPart.timeToEvent);
-                    subPart = eventPart.eventParts[0];
-                }
-                ShowPart(subPart);
+                case TextPart textPart:
+                    ShowPart(textPart);
+                    MainController.instance.gameController.EventsStart(nextPart.mainEvents);
+                    break;
+                case ChangePart changePart:
+                    ShowPart(changePart);
+                    MainController.instance.gameController.EventsStart(nextPart.mainEvents);
+                    break;
+                case BattlePart battlePart:
+                    ShowPart(battlePart);
+                    MainController.instance.gameController.EventsStart(nextPart.mainEvents);
+                    break;
+                case FinalPart finalPart:
+                    ShowPart(finalPart);
+                    break;
+                case EventPart eventPart:
+                    {
+                        if (_subPart == null)
+                        {
+                            MainController.instance.uIController.TimeEvent(true, eventPart.timeToEvent);
+                            _subPart = eventPart.eventParts[0];
+                        }
+                        ShowPart(_subPart);
+                        break;
+                    }
             }
 
             thisPart = nextPart;
@@ -88,48 +92,49 @@ namespace NLW
         /// <summary> Запуск текстовой главы </summary>
         private void ShowPart(TextPart part)
         {
-            mainAnimator.SetInteger("GameStady", 0);
-            uIController.GameMain(part.mainText);
-            uIController.GameButton(0,part.buttonText);
+            _mainAnimator.SetInteger("GameStady", 0);
+            MainController.instance.uIController.GameMain(part.mainText);
+            MainController.instance.uIController.GameButton(0,part.buttonText);
         }
 
         /// <summary> Запуск главы выбора </summary>
         private void ShowPart(ChangePart part)
         {
-            mainAnimator.SetInteger("GameStady", 1);
-            uIController.GameMain(part.mainText);
-            uIController.GameButton(0, part.buttonText[0]);
-            uIController.GameButton(1, part.buttonText[1]);
+            _mainAnimator.SetInteger("GameStady", 1);
+            MainController.instance.uIController.GameMain(part.mainText);
+            MainController.instance.uIController.GameButton(0, part.buttonText[0]);
+            MainController.instance.uIController.GameButton(1, part.buttonText[1]);
         }
 
         /// <summary> Запуск главы боя </summary>
         private void ShowPart(BattlePart part)
         {
-            mainAnimator.SetInteger("GameStady", 2);
-            uIController.GameMain(part.mainText);
-            uIController.GameButton(0, part.buttonText[0]);
-            uIController.GameButton(1, part.buttonText[1]);
-            uIController.GameButton(2, part.buttonText[2]);
+            _mainAnimator.SetInteger("GameStady", 2);
+            MainController.instance.uIController.GameMain(part.mainText);
+            MainController.instance.uIController.GameButton(0, part.buttonText[0]);
+            MainController.instance.uIController.GameButton(1, part.buttonText[1]);
+            MainController.instance.uIController.GameButton(2, part.buttonText[2]);
         }
 
         /// <summary> Запуск финальной главы </summary>
         private void ShowPart(FinalPart part)
         {
-            mainAnimator.SetInteger("GameStady", 10);
-            uIController.GameMain(part.mainText);
-            uIController.GameButton(0, part.backButtonText);
-            uIController.GameButton(1,"Решения других игроков");
-            uIController.ShowFinalAchiveIco(part.newAchive);
+            _mainAnimator.SetInteger("GameStady", 10);
+            MainController.instance.uIController.GameMain(part.mainText);
+            MainController.instance.uIController.GameButton(0, part.backButtonText);
+            MainController.instance.uIController.GameButton(1,"Решения других игроков");
+            MainController.instance.uIController.ShowFinalAchiveIco(part.newAchive);
 
-            if (!dataController.mainSettings.gameAchivemants.Contains(part.newAchive)) dataController.mainSettings.gameAchivemants.Add(part.newAchive);
-            dataController.SaveAchivesData();
+            if (!MainController.instance.dataController.mainSettings.gameAchivemants.Contains(part.newAchive))
+                MainController.instance.dataController.mainSettings.gameAchivemants.Add(part.newAchive);
+            MainController.instance.dataController.SaveAchivesData();
         }
 
         /// <summary> Запуск временного евента </summary>
         private void ShowPart(SubEventPart part)
         {
-            mainAnimator.SetInteger("GameStady", 3);
-            uIController.GameMain(part.mainText);
+            _mainAnimator.SetInteger("GameStady", 3);
+            MainController.instance.uIController.GameMain(part.mainText);
         }
 
         #endregion
@@ -142,78 +147,81 @@ namespace NLW
             switch (id)
             {
                 case 1:
-                    mainAnimator.SetBool("Menu_1_Button", press);
+                    _mainAnimator.SetBool("Menu_1_Button", press);
 
                     if (!press)
                     {
-                        switch (mainAnimator.GetInteger("MenuStady"))
+                        switch (_mainAnimator.GetInteger("MenuStady"))
                         {
                             case 0:
-                                mainAnimator.SetBool("StartGameDescript", true);
+                                _mainAnimator.SetBool("StartGameDescript", true);
                                 GameStart();
-                                mainAnimator.SetInteger("MenuStady", 9);
+                                _mainAnimator.SetInteger("MenuStady", 9);
 
                                 int partType;
 
-                                if (thisPart is TextPart) partType = 0;
-                                else if (thisPart is ChangePart) partType = 1;
-                                else if (thisPart is BattlePart) partType = 2;
-                                else if (thisPart is EventPart) partType = 3;
-                                else partType = 4;
+                                switch (thisPart)
+                                {
+                                    case TextPart _: partType = 0; break;
+                                    case ChangePart _: partType = 1; break;
+                                    case BattlePart _: partType = 2; break;
+                                    case EventPart _: partType = 3; break;
+                                    default: partType = 4; break;
+                                }
 
-                                mainAnimator.SetInteger("GameStady", partType);
+                                _mainAnimator.SetInteger("GameStady", partType);
                                 StartCoroutine(HideStartDescriptMenu());
 
                                 break;
 
                             case 1:
-                                mainAnimator.SetBool("Settings_1_St", !mainAnimator.GetBool("Settings_1_St"));
-                                dataController.mainSettings.isSoundCheck = mainAnimator.GetBool("Settings_1_St");
-                                dataController.SaveSettingsData();
+                                _mainAnimator.SetBool("Settings_1_St", !_mainAnimator.GetBool("Settings_1_St"));
+                                MainController.instance.dataController.mainSettings.isSoundCheck = _mainAnimator.GetBool("Settings_1_St");
+                                MainController.instance.dataController.SaveSettingsData();
                                 break;
                         }
                     }
                     break;
 
                 case 2:
-                    mainAnimator.SetBool("Menu_2_Button", press);
+                    _mainAnimator.SetBool("Menu_2_Button", press);
 
                     if (!press)
                     {
-                        switch (mainAnimator.GetInteger("MenuStady"))
+                        switch (_mainAnimator.GetInteger("MenuStady"))
                         {
                             case 0:
-                                uIController.MenuOpenSettings();
-                                mainAnimator.SetTrigger("SwitchTextToSettings");
-                                mainAnimator.SetInteger("MenuStady", 1);
+                                MainController.instance.uIController.MenuOpenSettings();
+                                _mainAnimator.SetTrigger("SwitchTextToSettings");
+                                _mainAnimator.SetInteger("MenuStady", 1);
                                 break;
 
                             case 1:
-                                mainAnimator.SetBool("Settings_2_St", !mainAnimator.GetBool("Settings_2_St"));
-                                dataController.mainSettings.isVibrationCheck = mainAnimator.GetBool("Settings_2_St");
-                                dataController.SaveSettingsData();
+                                _mainAnimator.SetBool("Settings_2_St", !_mainAnimator.GetBool("Settings_2_St"));
+                                MainController.instance.dataController.mainSettings.isVibrationCheck = _mainAnimator.GetBool("Settings_2_St");
+                                MainController.instance.dataController.SaveSettingsData();
                                 break;
                         }
                     }
                     break;
 
                 case 3:
-                    mainAnimator.SetBool("Menu_3_Button", press);
+                    _mainAnimator.SetBool("Menu_3_Button", press);
 
                     if (!press)
                     {
-                        switch (mainAnimator.GetInteger("MenuStady"))
+                        switch (_mainAnimator.GetInteger("MenuStady"))
                         {
                             case 0:
-                                uIController.MenuOpenAbout();
-                                mainAnimator.SetTrigger("SwitchTextToAbout");
-                                mainAnimator.SetInteger("MenuStady", 2);
+                                MainController.instance.uIController.MenuOpenAbout();
+                                _mainAnimator.SetTrigger("SwitchTextToAbout");
+                                _mainAnimator.SetInteger("MenuStady", 2);
                                 break;
 
                             case 1:
-                                mainAnimator.SetBool("Settings_3_St", !mainAnimator.GetBool("Settings_3_St"));
-                                dataController.mainSettings.isEffectCheck = mainAnimator.GetBool("Settings_3_St");
-                                dataController.SaveSettingsData();
+                                _mainAnimator.SetBool("Settings_3_St", !_mainAnimator.GetBool("Settings_3_St"));
+                                MainController.instance.dataController.mainSettings.isEffectCheck = _mainAnimator.GetBool("Settings_3_St");
+                                MainController.instance.dataController.SaveSettingsData();
                                 break;
                         }
                     }
@@ -224,42 +232,42 @@ namespace NLW
                     {
                         _achiveDisplayPage = 0;
 
-                        switch (mainAnimator.GetInteger("MenuStady"))
+                        switch (_mainAnimator.GetInteger("MenuStady"))
                         {
                             case 0:
                             case 1:
                             case 2:
-                                mainAnimator.SetBool("Menu_4_Button", true);
-                                uIController.ShowAchive(_achiveDisplayPage);
+                                _mainAnimator.SetBool("Menu_4_Button", true);
+                                MainController.instance.uIController.ShowAchive(_achiveDisplayPage);
                                 break;
 
-                            default: mainAnimator.SetBool("Achives_Back", true); break;
+                            default: _mainAnimator.SetBool("Achives_Back", true); break;
                         }
                     }
                     else
                     {
-                        switch (mainAnimator.GetInteger("MenuStady"))
+                        switch (_mainAnimator.GetInteger("MenuStady"))
                         {
                             case 0:
-                                mainAnimator.SetBool("Menu_4_Button", press);
-                                mainAnimator.SetInteger("MenuStady", 3);
+                                _mainAnimator.SetBool("Menu_4_Button", press);
+                                _mainAnimator.SetInteger("MenuStady", 3);
                                 break;
 
                             case 1:
                             case 2:
-                                uIController.MenuOpenMain();
-                                mainAnimator.SetBool("Menu_4_Button", press);
-                                mainAnimator.SetInteger("MenuStady", 0);
-                                mainAnimator.SetTrigger("ReturnToMenu");
+                                MainController.instance.uIController.MenuOpenMain();
+                                _mainAnimator.SetBool("Menu_4_Button", press);
+                                _mainAnimator.SetInteger("MenuStady", 0);
+                                _mainAnimator.SetTrigger("ReturnToMenu");
                                 break;
 
                             default:
-                                mainAnimator.SetBool("Achives_Back", press);
+                                _mainAnimator.SetBool("Achives_Back", press);
 
-                                if (!_isAchiveDetail) mainAnimator.SetInteger("MenuStady", 0);
+                                if (!_isAchiveDetail) _mainAnimator.SetInteger("MenuStady", 0);
                                 else
                                 {
-                                    mainAnimator.SetBool("AchiveDescript", false);
+                                    _mainAnimator.SetBool("AchiveDescript", false);
                                     _isAchiveDetail = false;
                                 }
 
@@ -273,22 +281,23 @@ namespace NLW
         /// <summary> Ячейки Достижений </summary>
         public void AchiveCaseMenuPress(int id, bool press)
         {
-            if ((_achiveDisplayPage * 5) + id <= dataController.mainSettings.gameAchivemants.Count)
+            if ((_achiveDisplayPage * 5) + id <= MainController.instance.dataController.mainSettings.gameAchivemants.Count)
             {
-                mainAnimator.SetBool("AchiveCase_" + id, press);
+                _mainAnimator.SetBool("AchiveCase_" + id, press);
 
                 if (!press)
                 {
                     if (!_isAchiveDetail)
                     {
-                        mainAnimator.SetBool("AchiveDescript", true);
+                        _mainAnimator.SetBool("AchiveDescript", true);
                         _isAchiveDetail = true;
 
-                        uIController.ShowAchiveDescript(dataController.mainSettings.gameAchivemants[(_achiveDisplayPage * 5) + (id - 1)]);
+                        MainController.instance.uIController.ShowAchiveDescript(
+                            MainController.instance.dataController.mainSettings.gameAchivemants[(_achiveDisplayPage * 5) + (id - 1)]);
                     }
                     else
                     {
-                        mainAnimator.SetBool("AchiveDescript", false);
+                        _mainAnimator.SetBool("AchiveDescript", false);
                         _isAchiveDetail = false;
                     }
                 }
@@ -306,17 +315,17 @@ namespace NLW
                         if (!_isAchiveDetail && _achiveDisplayPage > 0)
                         {
                             _achiveDisplayPage--;
-                            uIController.ShowAchive(_achiveDisplayPage);
-                            mainAnimator.SetBool("Achives_Left", true);
+                            MainController.instance.uIController.ShowAchive(_achiveDisplayPage);
+                            _mainAnimator.SetBool("Achives_Left", true);
                         }
                         break;
 
                     case 2:
-                        if (!_isAchiveDetail && dataController.mainSettings.gameAchivemants.Count > 5 * (_achiveDisplayPage + 1))
+                        if (!_isAchiveDetail && MainController.instance.dataController.mainSettings.gameAchivemants.Count > 5 * (_achiveDisplayPage + 1))
                         {
                             _achiveDisplayPage++;
-                            uIController.ShowAchive(_achiveDisplayPage);
-                            mainAnimator.SetBool("Achives_Right", true);
+                            MainController.instance.uIController.ShowAchive(_achiveDisplayPage);
+                            _mainAnimator.SetBool("Achives_Right", true);
                         }
                         break;
                 }
@@ -328,21 +337,21 @@ namespace NLW
                     case 1:
                         if (!_isAchiveDetail && _achiveDisplayPage > 0)
                         {
-                            mainAnimator.SetBool("Achives_Left", false);
-                            mainAnimator.SetTrigger("AchiveSlidePage");
+                            _mainAnimator.SetBool("Achives_Left", false);
+                            _mainAnimator.SetTrigger("AchiveSlidePage");
                         }
                         break;
 
                     case 2:
-                        if (!_isAchiveDetail && 5 * (_achiveDisplayPage + 1) < dataController.mainSettings.gameAchivemants.Count)
+                        if (!_isAchiveDetail && 5 * (_achiveDisplayPage + 1) < MainController.instance.dataController.mainSettings.gameAchivemants.Count)
                         {
-                            mainAnimator.SetBool("Achives_Right", false);
-                            mainAnimator.SetTrigger("AchiveSlidePage");
+                            _mainAnimator.SetBool("Achives_Right", false);
+                            _mainAnimator.SetTrigger("AchiveSlidePage");
                         }
                         break;
 
                     case 3:
-                        mainAnimator.SetBool("AchiveDescript", false);
+                        _mainAnimator.SetBool("AchiveDescript", false);
                         _isAchiveDetail = false;
                         break;
                 }
@@ -352,7 +361,7 @@ namespace NLW
         /// <summary> Выход из первоначальной вставки </summary>
         public void PreviewExit(bool press)
         {
-            if (!press) mainAnimator.SetBool("StartGameDescript", false);
+            if (!press) _mainAnimator.SetBool("StartGameDescript", false);
         }
 
         #endregion
@@ -362,16 +371,16 @@ namespace NLW
         /// <summary> Базовая игровая глава </summary>
         public void GamePartPress(int id, bool press)
         {
-            mainAnimator.SetBool("GameButton_" + (id + 1), press);
+            _mainAnimator.SetBool("GameButton_" + (id + 1), press);
 
             if (thisPart is FinalPart && !press)
             {
                 switch (id)
                 {
                     case 0:
-                        mainAnimator.SetInteger("MenuStady", 0);
-                        mainAnimator.SetInteger("GameStady", 20);
-                        mainAnimator.SetBool("StartGameDescript", true);
+                        _mainAnimator.SetInteger("MenuStady", 0);
+                        _mainAnimator.SetInteger("GameStady", 20);
+                        _mainAnimator.SetBool("StartGameDescript", true);
                         break;
 
                     case 1:
@@ -392,46 +401,46 @@ namespace NLW
             switch (id)
             {
                 case 1:
-                    mainAnimator.SetBool("GameButton_EvLeft", press);
+                    _mainAnimator.SetBool("GameButton_EvLeft", press);
                     if (!press)
                     {
                         // Влево
-                        if (subPart.moveLeft.isFail && thisPart.movePart[2] != null)
+                        if (_subPart.moveLeft.isFail && thisPart.movePart[2] != null)
                         {
-                            uIController.TimeEvent(false, 0f);
+                            MainController.instance.uIController.TimeEvent(false, 0f);
                             FinalEvent(false);
                         }
-                        else if (subPart.moveLeft.isFinal && thisPart.movePart[0] != null)
+                        else if (_subPart.moveLeft.isFinal && thisPart.movePart[0] != null)
                         {
-                            uIController.TimeEvent(false, 0f);
+                            MainController.instance.uIController.TimeEvent(false, 0f);
                             FinalEvent(true);
                         }
-                        else if (subPart.moveLeft != null)
+                        else if (_subPart.moveLeft != null)
                         {
-                            subPart = subPart.moveLeft;
+                            _subPart = _subPart.moveLeft;
                             NextPart(thisPart);
                         }
                     }
                     break;
 
                 case 2:
-                    mainAnimator.SetBool("GameButton_EvRight", press);
+                    _mainAnimator.SetBool("GameButton_EvRight", press);
                     if (!press)
                     {
                         // Вправо
-                        if (subPart.moveRight.isFail && thisPart.movePart[2] != null)
+                        if (_subPart.moveRight.isFail && thisPart.movePart[2] != null)
                         {
-                            uIController.TimeEvent(false, 0f);
+                            MainController.instance.uIController.TimeEvent(false, 0f);
                             FinalEvent(false);
                         }
-                        else if (subPart.moveRight.isFinal && thisPart.movePart[0] != null)
+                        else if (_subPart.moveRight.isFinal && thisPart.movePart[0] != null)
                         {
-                            uIController.TimeEvent(false, 0f);
+                            MainController.instance.uIController.TimeEvent(false, 0f);
                             FinalEvent(true);
                         }
-                        else if (subPart.moveRight != null)
+                        else if (_subPart.moveRight != null)
                         {
-                            subPart = subPart.moveRight;
+                            _subPart = _subPart.moveRight;
                             NextPart(thisPart);
                         }
                     }
@@ -442,8 +451,7 @@ namespace NLW
         /// <summary> Завершение эвента </summary>
         public void FinalEvent(bool isWin)
         {
-            if (isWin) NextPart(thisPart.movePart[0]);
-            else NextPart(thisPart.movePart[2]);
+            NextPart(isWin ? thisPart.movePart[0] : thisPart.movePart[2]);
         }
 
         /// <summary> Глава загадки </summary>
@@ -462,17 +470,17 @@ namespace NLW
             switch (id)
             {
                 case 0:
-                    mainAnimator.SetBool("Btb_Inventory", press);
+                    _mainAnimator.SetBool("Btb_Inventory", press);
                     if (!press)
                     {
-                        if (mainAnimator.GetInteger("GameStady") != 5)
+                        if (_mainAnimator.GetInteger("GameStady") != 5)
                         {
                             _pageInvent = 0;
-                            uIController.ShowInventory(_pageInvent);
-                            _lastPartType = mainAnimator.GetInteger("GameStady");
-                            mainAnimator.SetInteger("GameStady", 5);
+                            MainController.instance.uIController.ShowInventory(_pageInvent);
+                            _lastPartType = _mainAnimator.GetInteger("GameStady");
+                            _mainAnimator.SetInteger("GameStady", 5);
                         }
-                        else mainAnimator.SetInteger("GameStady", _lastPartType);
+                        else _mainAnimator.SetInteger("GameStady", _lastPartType);
                     }
                     break;
 
@@ -484,7 +492,7 @@ namespace NLW
                 case 6:
                 case 7:
                 case 8:
-                    mainAnimator.SetBool("GameInvent_Case_" + id, press);
+                    _mainAnimator.SetBool("GameInvent_Case_" + id, press);
                     if (!press)
                     {
                         // TODO : Логика "Выбор предмета в ячейке"
@@ -492,7 +500,7 @@ namespace NLW
                     break;
 
                 case 9:
-                    mainAnimator.SetBool("GameInvent_Bt_Info", press);
+                    _mainAnimator.SetBool("GameInvent_Bt_Info", press);
                     if (!press)
                     {
                         // TODO : Логика "Подробности о предмете"
@@ -500,7 +508,7 @@ namespace NLW
                     break;
 
                 case 10:
-                    mainAnimator.SetBool("GameInvent_Bt_Use", press);
+                    _mainAnimator.SetBool("GameInvent_Bt_Use", press);
                     if (!press)
                     {
                         // TODO : Логика "Использовать предмет"
@@ -508,7 +516,7 @@ namespace NLW
                     break;
 
                 case 11:
-                    mainAnimator.SetBool("GameInvent_Bt_Remove", press);
+                    _mainAnimator.SetBool("GameInvent_Bt_Remove", press);
                     if (!press)
                     {
                         // TODO : Логика "Выбросить предмет"
@@ -516,22 +524,22 @@ namespace NLW
                     break;
 
                 case 12:
-                    mainAnimator.SetBool("GameInvent_Bt_Left", press);
+                    _mainAnimator.SetBool("GameInvent_Bt_Left", press);
                     if (!press)
                     {
                         // TODO : Логика "Страница влево"
                         if (_pageInvent > 0) _pageInvent--;
-                        uIController.ShowInventory(_pageInvent);
+                        MainController.instance.uIController.ShowInventory(_pageInvent);
                     }
                     break;
 
                 case 13:
-                    mainAnimator.SetBool("GameInvent_Bt_Right", press);
+                    _mainAnimator.SetBool("GameInvent_Bt_Right", press);
                     if (!press)
                     {
                         // TODO : Логика "Страница вправо"
                         _pageInvent++;
-                        uIController.ShowInventory(_pageInvent);
+                        MainController.instance.uIController.ShowInventory(_pageInvent);
                     }
                     break;
             }
@@ -543,15 +551,15 @@ namespace NLW
             switch (id)
             {
                 case 0:
-                    mainAnimator.SetBool("Btb_Player", press);
+                    _mainAnimator.SetBool("Btb_Player", press);
                     if (!press)
                     {
-                        if (mainAnimator.GetInteger("GameStady") != 6)
+                        if (_mainAnimator.GetInteger("GameStady") != 6)
                         {
-                            _lastPartType = mainAnimator.GetInteger("GameStady");
-                            mainAnimator.SetInteger("GameStady", 6);
+                            _lastPartType = _mainAnimator.GetInteger("GameStady");
+                            _mainAnimator.SetInteger("GameStady", 6);
                         }
-                        else mainAnimator.SetInteger("GameStady", _lastPartType);
+                        else _mainAnimator.SetInteger("GameStady", _lastPartType);
                     }
                     break;
                 case 1:
@@ -571,7 +579,7 @@ namespace NLW
             switch (id)
             {
                 case 0:
-                    mainAnimator.SetBool("Btb_Map", press);
+                    _mainAnimator.SetBool("Btb_Map", press);
                     if (!press)
                     {
                         // TODO : Логика перехода в меню карты
@@ -586,7 +594,7 @@ namespace NLW
             switch (id)
             {
                 case 0:
-                    mainAnimator.SetBool("Btb_Notes", press);
+                    _mainAnimator.SetBool("Btb_Notes", press);
                     if (!press)
                     {
                         // TODO : Логика перехода в меню заметок
@@ -609,11 +617,11 @@ namespace NLW
         /// <summary> Задержка стартового меню </summary>
         private IEnumerator HideStartDescriptMenu()
         {
-            dataController.LoadGameData();
+            MainController.instance.dataController.LoadGameData();
 
             yield return new WaitForSeconds(10f);
 
-            mainAnimator.SetBool("StartGameDescript", false);
+            _mainAnimator.SetBool("StartGameDescript", false);
 
         }
 

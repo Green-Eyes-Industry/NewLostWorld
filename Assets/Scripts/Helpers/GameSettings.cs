@@ -37,7 +37,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(GameSettings))]
-    public class GameSettingsGUI_Inspector : Editor
+    public class GameSettingsGInspector : Editor
     {
         private GameSettings _gameSettings;
         private List<Achivemants> _achivemants;
@@ -119,8 +119,8 @@ namespace GUIInspector
         {
             Object[] obj = Resources.LoadAll("Achivemants", typeof(Achivemants));
 
-            List<string> _newAchiveList = new List<string>();
-            List<Achivemants> _newAchiveFileList = new List<Achivemants>();
+            List<string> newAchiveList = new List<string>();
+            List<Achivemants> newAchiveFileList = new List<Achivemants>();
 
             for (int i = 0; i < obj.Length; i++)
             {
@@ -131,13 +131,13 @@ namespace GUIInspector
             {
                 if (!_gameSettings.gameAchivemants.Contains(_achivemants[i]))
                 {
-                    _newAchiveList.Add(_achivemants[i].achiveName);
-                    _newAchiveFileList.Add(_achivemants[i]);
+                    newAchiveList.Add(_achivemants[i].achiveName);
+                    newAchiveFileList.Add(_achivemants[i]);
                 }
             }
 
-            _newAchiveNames = _newAchiveList.ToArray();
-            _newAchiveFiles = _newAchiveFileList.ToArray();
+            _newAchiveNames = newAchiveList.ToArray();
+            _newAchiveFiles = newAchiveFileList.ToArray();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace NLW.Data
         public override bool EventStart()
         {
             nonPlayer.npToPlayerRatio += value;
-            MainController.Instance.dataController.SaveNonPlayerRatio(nonPlayer);
+            MainController.instance.dataController.SaveNonPlayerRatio(nonPlayer);
             return false;
         }
     }
@@ -31,7 +31,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(NonPlayerInfl))]
-    public class NonPlayerInflGUI_Inspector : Editor
+    public class NonPlayerInflGInspector : Editor
     {
         private NonPlayerInfl _nonPlayerInfl;
 
@@ -45,7 +45,7 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            // Код
+            // TODO : Код
 
             EditorGUILayout.EndVertical();
         }

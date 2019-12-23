@@ -10,14 +10,14 @@ namespace NLW.Data
     public class LocationFind : GameEvent
     {
         /// <summary> Найденная локация </summary>
-        public MapMark _location;
+        public MapMark location;
 
         /// <summary> Найти локацию </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.dataController.mainPlayer;
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
 
-            if (!mPlayer.playerMap.Contains(_location)) mPlayer.playerMap.Add(_location);
+            if (!mPlayer.playerMap.Contains(location)) mPlayer.playerMap.Add(location);
 
             return true;
         }
@@ -29,7 +29,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(LocationFind))]
-    public class LocationFindGUI_Inspector : Editor
+    public class LocationFindGInspector : Editor
     {
         private LocationFind _locationFind;
         public static int id = 0;
@@ -48,11 +48,9 @@ namespace GUIInspector
 
             string[] names = new string[allLocations.Length];
 
-            MapMark nameConvert;
-
             for (int i = 0; i < names.Length; i++)
             {
-                nameConvert = (MapMark)allLocations[i];
+                MapMark nameConvert = (MapMark)allLocations[i];
 
                 if (nameConvert.nameLocation == "") names[i] = nameConvert.name;
                 else names[i] = nameConvert.nameLocation;
@@ -63,7 +61,7 @@ namespace GUIInspector
             if (allLocations.Length > 0)
             {
                 id = EditorGUILayout.Popup(id, names);
-                locationFind._location = (MapMark)allLocations[id];
+                locationFind.location = (MapMark)allLocations[id];
             }
             else GUILayout.Label("Нет локаций");
 
@@ -74,7 +72,7 @@ namespace GUIInspector
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
-            if (locationFind._location != null) MapMarkGUI_Inspector.ShowItemEditor(locationFind._location);
+            if (locationFind.location != null) MapMarkGInspector.ShowItemEditor(locationFind.location);
 
 
             EditorGUILayout.EndVertical();

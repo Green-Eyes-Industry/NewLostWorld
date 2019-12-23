@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace NLW
 {
     /// <summary> Контроль UI </summary>
-    public class UIController : MainController
+    public class UIController : ParentController
     {
         #region VARIABLES
 
@@ -24,7 +24,7 @@ namespace NLW
 
         public Image[] achiveCase;
 
-        public Text achiveDescript_txt;
+        public Text achiveDescriptText;
 
         // Кнопки главного меню
 
@@ -32,7 +32,7 @@ namespace NLW
 
         // Игровая глава
 
-        public Text gameMain_Txt;
+        public Text gameMainText;
         public Text[] gameButton;
         public Image timerImage;
         public Image finalAchiveIco;
@@ -58,7 +58,7 @@ namespace NLW
 
         #endregion
 
-        protected override void Init()
+        public override void Init()
         {
             _gameWaitToSwitch = 0.2f;
 
@@ -163,7 +163,7 @@ namespace NLW
         /// <summary> Отобразить инвентарь </summary>
         public void ShowInventory(int page)
         {
-            int itemCount = dataController.mainPlayer.playerInventory.Count;
+            int itemCount = MainController.instance.dataController.mainPlayer.playerInventory.Count;
 
             page *= inventCase.Length;
 
@@ -172,7 +172,7 @@ namespace NLW
                 if (i + page < itemCount)
                 {
                     inventCase[i].gameObject.SetActive(true);
-                    inventCase[i].sprite = dataController.mainPlayer.playerInventory[i + page].itemIco;
+                    inventCase[i].sprite = MainController.instance.dataController.mainPlayer.playerInventory[i + page].itemIco;
                 }
                 else inventCase[i].gameObject.SetActive(false);
             }
@@ -181,14 +181,14 @@ namespace NLW
         /// <summary> Отобразить еффекты на персонаже </summary>
         public void ShowEffects()
         {
-            int effectsCount = dataController.mainPlayer.playerEffects.Count;
+            int effectsCount = MainController.instance.dataController.mainPlayer.playerEffects.Count;
 
             for (int i = 0; i < effectCase.Length; i++)
             {
                 if (i < effectsCount)
                 {
                     effectCase[i].gameObject.SetActive(true);
-                    effectCase[i].sprite = dataController.mainPlayer.playerEffects[i].icoEffect;
+                    effectCase[i].sprite = MainController.instance.dataController.mainPlayer.playerEffects[i].icoEffect;
                 }
                 else effectCase[i].gameObject.SetActive(false);
             }
@@ -197,7 +197,7 @@ namespace NLW
         /// <summary> Отобразить достижения </summary>
         public void ShowAchive(int page)
         {
-            int achivesLendth = dataController.mainSettings.gameAchivemants.Count;
+            int achivesLendth = MainController.instance.dataController.mainSettings.gameAchivemants.Count;
 
             page *= achiveCase.Length;
 
@@ -207,7 +207,7 @@ namespace NLW
                 {
                     achiveCase[i].gameObject.transform.parent.GetComponent<Image>().sprite = achiveOpen;
                     achiveCase[i].gameObject.SetActive(true);
-                    achiveCase[i].sprite = dataController.mainSettings.gameAchivemants[i + page].achiveIco;
+                    achiveCase[i].sprite = MainController.instance.dataController.mainSettings.gameAchivemants[i + page].achiveIco;
                 }
                 else
                 {
@@ -218,7 +218,7 @@ namespace NLW
         }
 
         /// <summary> Показать подробности о достижении </summary>
-        public void ShowAchiveDescript(Data.Achivemants achive) => achiveDescript_txt.text = achive.achiveDescript;
+        public void ShowAchiveDescript(Data.Achivemants achive) => achiveDescriptText.text = achive.achiveDescript;
 
         /// <summary> Отобразить значек получаемого достижения </summary>
         public void ShowFinalAchiveIco(Data.Achivemants achive)
@@ -235,10 +235,7 @@ namespace NLW
         {
             yield return new WaitForSeconds(waitTime);
 
-            string mainText;
-
-            if (dataController.mainSettings.lastPart != null) mainText = "Продолжить";
-            else mainText = "Новая игра";
+            string mainText = MainController.instance.dataController.mainSettings.lastPart != null ? "Продолжить" : "Новая игра";
 
             menuButton[0].text = mainText;
             menuButton[1].text = "Настройки";
@@ -270,7 +267,7 @@ namespace NLW
         {
             yield return new WaitForSeconds(waitTime);
 
-            gameMain_Txt.text = newTxt;
+            gameMainText.text = newTxt;
         }
 
         /// <summary> Задержка при замене текста на кнопке </summary>

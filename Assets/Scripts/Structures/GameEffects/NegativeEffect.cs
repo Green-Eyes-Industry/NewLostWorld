@@ -16,7 +16,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(NegativeEffect))]
-    public class NegativeEffectGUI_Inspector : Editor
+    public class NegativeEffectGInspector : Editor
     {
         private NegativeEffect _negativeEffect;
 

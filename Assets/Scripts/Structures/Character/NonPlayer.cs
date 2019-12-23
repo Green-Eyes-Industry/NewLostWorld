@@ -24,7 +24,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(NonPlayer))]
-    public class NonPlayerGUI_Inspector : Editor
+    public class NonPlayerGInspector : Editor
     {
         private NonPlayer _nonPlayer;
 

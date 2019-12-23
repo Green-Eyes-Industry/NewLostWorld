@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using UnityEditor;
 using NLW.Data;
@@ -13,22 +13,22 @@ namespace NLW.Data
         public Decision decision;
 
         /// <summary> Глава при проверке </summary>
-        public Parts.GamePart _failPart;
+        public Parts.GamePart failPart;
 
         /// <summary> Проверка на принятое ранее решение </summary>
         /// <returns> Вернет False при провале проверки </returns>
         public override bool EventStart()
         {
-            for (int i = 0; i < MainController.Instance.dataController.mainPlayer.playerDecisions.Count; i++)
+            for (int i = 0; i < MainController.instance.dataController.mainPlayer.playerDecisions.Count; i++)
             {
-                if (MainController.Instance.dataController.mainPlayer.playerDecisions[i].Equals(decision)) return true;
+                if (MainController.instance.dataController.mainPlayer.playerDecisions[i].Equals(decision)) return true;
             }
 
             return false;
         }
 
         /// <summary> Вернуть главу провала </summary>
-        public override Parts.GamePart FailPart() { return _failPart; }
+        public override Parts.GamePart FailPart() { return failPart; }
     }
 }
 
@@ -37,7 +37,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(CheckDecision))]
-    public class CheckDecisionGUI_Inspector : Editor
+    public class CheckDecisionGInspector : Editor
     {
         private CheckDecision _checkDecision;
         public static int id = 0;
@@ -52,20 +52,18 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            checkDecision._failPart = (NLW.Parts.GamePart)EditorGUILayout.ObjectField("Глава провала : ", checkDecision._failPart, typeof(NLW.Parts.GamePart), true);
+            checkDecision.failPart = (NLW.Parts.GamePart)EditorGUILayout.ObjectField("Глава провала : ", checkDecision.failPart, typeof(NLW.Parts.GamePart), true);
 
             object[] allDecisions = Resources.LoadAll("Decisions/", typeof(Decision));
 
             string[] names = new string[allDecisions.Length];
 
-            Decision nameConvert;
-
             for (int i = 0; i < names.Length; i++)
             {
-                nameConvert = (Decision)allDecisions[i];
+                Decision nameConvert = (Decision)allDecisions[i];
 
-                if (nameConvert._nameDecision == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert._nameDecision;
+                if (nameConvert.nameDecision == "") names[i] = nameConvert.name;
+                else names[i] = nameConvert.nameDecision;
             }
 
             EditorGUILayout.BeginHorizontal();
@@ -84,7 +82,7 @@ namespace GUIInspector
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
-            if (checkDecision.decision != null) DecisionGUI_Inspector.ShowItemEditor(checkDecision.decision);
+            if (checkDecision.decision != null) DecisionGInspector.ShowItemEditor(checkDecision.decision);
 
             EditorGUILayout.EndVertical();
         }

@@ -6,7 +6,7 @@ using NLW.Parts;
 namespace NLW
 {
     /// <summary> Загрузка и сохранение данных </summary>
-    public class DataController : MainController
+    public class DataController : ParentController
     {
         public static NonPlayer[] npsSaveList;
         [HideInInspector] public Player mainPlayer;
@@ -14,39 +14,42 @@ namespace NLW
 
         #region RESOURCES_PATH
 
-        private readonly string _playerPath = "Players/MainPlayer";
-        private readonly string _settingsPath = "MainSettings";
+        private const string PlayerPath = "Players/MainPlayer";
+        private const string SettingsPath = "MainSettings";
 
-        private readonly string _partsPath = "GameParts/";
-        private readonly string _achivesPath = "Achivemants/";
-        private readonly string _inventoryPath = "GameItems/";
-        private readonly string _effectsPath = "PlayerEffects/";
-        private readonly string _locationsPath = "Locations/";
-        private readonly string _notesPath = "Notes/";
-        private readonly string _decisionsPath = "Decisions/";
+        private const string PartsPath = "GameParts/";
+        private const string AchivesPath = "Achivemants/";
+        private const string InventoryPath = "GameItems/";
+        private const string EffectsPath = "PlayerEffects/";
+        private const string LocationsPath = "Locations/";
+        private const string NotesPath = "Notes/";
+        private const string DecisionsPath = "Decisions/";
 
         #endregion
 
         #region SAVE_KEYS
 
-        private readonly string _achivesKey = "Achive_";
-        private readonly string _lastPartKey = "LastPart";
-        private readonly string _soundSettingsKey = "Sound";
-        private readonly string _vibrationSettingsKey = "Vibration";
-        private readonly string _effectsSettingsKey = "Effects";
+        private const string AchivesKey = "Achive_";
+        private const string LastPartKey = "LastPart";
+        private const string SoundSettingsKey = "Sound";
+        private const string VibrationSettingsKey = "Vibration";
+        private const string EffectsSettingsKey = "Effects";
 
-        private readonly string _playerHealthKey = "Health";
-        private readonly string _playerMindKey = "Mind";
+        private const string PlayerHealthKey = "Health";
+        private const string PlayerMindKey = "Mind";
 
-        private readonly string _playerInventoryKey = "Invent_";
-        private readonly string _playerEffectsKey = "Effect_";
-        private readonly string _playerLocationsKey = "Location_";
-        private readonly string _playerNotesKey = "Note_";
-        private readonly string _playerDecisionsKey = "Decision_";
+        private const string PlayerInventoryKey = "Invent_";
+        private const string PlayerEffectsKey = "Effect_";
+        private const string PlayerLocationsKey = "Location_";
+        private const string PlayerNotesKey = "Note_";
+        private const string PlayerDecisionsKey = "Decision_";
 
         #endregion
 
-        protected override void Init() => LoadData();
+        public override void Init()
+        {
+            LoadData();
+        }
 
         #region LOAD_METHODS
 
@@ -55,42 +58,36 @@ namespace NLW
         {
             npsSaveList = new NonPlayer[20];
 
-            mainPlayer = (Player)Resources.Load(_playerPath, typeof(Player));
-            mainSettings = (GameSettings)Resources.Load(_settingsPath, typeof(GameSettings));
+            mainPlayer = (Player)Resources.Load(PlayerPath, typeof(Player));
+            mainSettings = (GameSettings)Resources.Load(SettingsPath, typeof(GameSettings));
 
-            if (PlayerPrefs.HasKey(_lastPartKey))
+            if (PlayerPrefs.HasKey(LastPartKey))
             {
                 // Глава на которой закончили
-                if ((GamePart)Resources.Load(_partsPath + PlayerPrefs.GetString(_lastPartKey), typeof(GamePart)) != null)
+                if ((GamePart)Resources.Load(PartsPath + PlayerPrefs.GetString(LastPartKey), typeof(GamePart)) != null)
                 {
-                    mainSettings.lastPart = (GamePart)Resources.Load(_partsPath + PlayerPrefs.GetString(_lastPartKey), typeof(GamePart));
+                    mainSettings.lastPart = (GamePart)Resources.Load(PartsPath + PlayerPrefs.GetString(LastPartKey), typeof(GamePart));
                 }
             }
 
             // Загрузка настроек
 
-            if (PlayerPrefs.HasKey(_soundSettingsKey)) mainSettings.isSoundCheck = true;
-            else mainSettings.isSoundCheck = false;
-
-            if (PlayerPrefs.HasKey(_vibrationSettingsKey)) mainSettings.isVibrationCheck = true;
-            else mainSettings.isVibrationCheck = false;
-
-            if (PlayerPrefs.HasKey(_effectsSettingsKey)) mainSettings.isEffectCheck = true;
-            else mainSettings.isEffectCheck = false;
+            mainSettings.isSoundCheck = PlayerPrefs.HasKey(SoundSettingsKey);
+            mainSettings.isVibrationCheck = PlayerPrefs.HasKey(VibrationSettingsKey);
+            mainSettings.isEffectCheck = PlayerPrefs.HasKey(EffectsSettingsKey);
 
             // Достижения
-            if (PlayerPrefs.HasKey(_achivesKey + 0))
+            if (!PlayerPrefs.HasKey(AchivesKey + 0)) return;
+            
+            for (int i = 0; i < 100; i++)
             {
-                for (int i = 0; i < 100; i++)
+                if (PlayerPrefs.HasKey(AchivesKey + i))
                 {
-                    if (PlayerPrefs.HasKey(_achivesKey + i))
-                    {
-                        mainSettings.gameAchivemants.Add((Achivemants)Resources.Load(
-                            _achivesPath + PlayerPrefs.GetString(_achivesKey + i),
-                            typeof(Achivemants)));
-                    }
-                    else break;
+                    mainSettings.gameAchivemants.Add((Achivemants)Resources.Load(
+                        AchivesPath + PlayerPrefs.GetString(AchivesKey + i),
+                        typeof(Achivemants)));
                 }
+                else break;
             }
         }
 
@@ -98,18 +95,18 @@ namespace NLW
         public void LoadGameData()
         {
             // Характеристики игрока
-            if (PlayerPrefs.HasKey(_playerHealthKey)) mainPlayer.playerHealth = PlayerPrefs.GetInt(_playerHealthKey);
-            if (PlayerPrefs.HasKey(_playerMindKey)) mainPlayer.playerMind = PlayerPrefs.GetInt(_playerMindKey);
+            if (PlayerPrefs.HasKey(PlayerHealthKey)) mainPlayer.playerHealth = PlayerPrefs.GetInt(PlayerHealthKey);
+            if (PlayerPrefs.HasKey(PlayerMindKey)) mainPlayer.playerMind = PlayerPrefs.GetInt(PlayerMindKey);
 
             // Инвентарь
-            if (PlayerPrefs.HasKey(_playerInventoryKey + 0))
+            if (PlayerPrefs.HasKey(PlayerInventoryKey + 0))
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    if (PlayerPrefs.HasKey(_playerInventoryKey + i))
+                    if (PlayerPrefs.HasKey(PlayerInventoryKey + i))
                     {
                         mainPlayer.playerInventory.Add((GameItem)Resources.Load(
-                            _inventoryPath + PlayerPrefs.GetString(_playerInventoryKey + i),
+                            InventoryPath + PlayerPrefs.GetString(PlayerInventoryKey + i),
                             typeof(GameItem)));
                     }
                     else break;
@@ -117,14 +114,14 @@ namespace NLW
             }
 
             // Эффекты
-            if (PlayerPrefs.HasKey(_playerEffectsKey + 0))
+            if (PlayerPrefs.HasKey(PlayerEffectsKey + 0))
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    if (PlayerPrefs.HasKey(_playerEffectsKey + i))
+                    if (PlayerPrefs.HasKey(PlayerEffectsKey + i))
                     {
                         mainPlayer.playerEffects.Add((GameEffect)Resources.Load(
-                            _effectsPath + PlayerPrefs.GetString(_playerEffectsKey + i),
+                            EffectsPath + PlayerPrefs.GetString(PlayerEffectsKey + i),
                             typeof(GameEffect)));
                     }
                     else break;
@@ -132,14 +129,14 @@ namespace NLW
             }
 
             // Карта
-            if (PlayerPrefs.HasKey(_playerLocationsKey + 0))
+            if (PlayerPrefs.HasKey(PlayerLocationsKey + 0))
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    if (PlayerPrefs.HasKey(_playerLocationsKey + i))
+                    if (PlayerPrefs.HasKey(PlayerLocationsKey + i))
                     {
                         mainPlayer.playerMap.Add((MapMark)Resources.Load(
-                            _locationsPath + PlayerPrefs.GetString(_playerLocationsKey + i),
+                            LocationsPath + PlayerPrefs.GetString(PlayerLocationsKey + i),
                             typeof(MapMark)));
                     }
                     else break;
@@ -147,14 +144,14 @@ namespace NLW
             }
 
             // Заметки
-            if (PlayerPrefs.HasKey(_playerNotesKey + 0))
+            if (PlayerPrefs.HasKey(PlayerNotesKey + 0))
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    if (PlayerPrefs.HasKey(_playerNotesKey + i))
+                    if (PlayerPrefs.HasKey(PlayerNotesKey + i))
                     {
                         mainPlayer.playerNotes.Add((Note)Resources.Load(
-                            _notesPath + PlayerPrefs.GetString(_playerNotesKey + i),
+                            NotesPath + PlayerPrefs.GetString(PlayerNotesKey + i),
                             typeof(Note)));
                     }
                     else break;
@@ -162,14 +159,14 @@ namespace NLW
             }
 
             // Решения
-            if (PlayerPrefs.HasKey(_playerDecisionsKey + 0))
+            if (!PlayerPrefs.HasKey(PlayerDecisionsKey + 0)) return;
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    if (PlayerPrefs.HasKey(_playerDecisionsKey + i))
+                    if (PlayerPrefs.HasKey(PlayerDecisionsKey + i))
                     {
                         mainPlayer.playerDecisions.Add((Decision)Resources.Load(
-                            _decisionsPath + PlayerPrefs.GetString(_playerDecisionsKey + i),
+                            DecisionsPath + PlayerPrefs.GetString(PlayerDecisionsKey + i),
                             typeof(Decision)));
                     }
                     else break;
@@ -188,29 +185,29 @@ namespace NLW
         #region SAVE_METHODS
 
         /// <summary> Сохранить последнюю главу </summary>
-        public void SaveLastPart()
+        private void SaveLastPart()
         {
-            PlayerPrefs.SetString(_lastPartKey, animController.thisPart.name);
+            PlayerPrefs.SetString(LastPartKey, MainController.instance.animController.thisPart.name);
             PlayerPrefs.Save();
         }
 
         /// <summary> Сохранить характеристики персонажа </summary>
-        public void SaveCharacteristic()
+        private void SaveCharacteristic()
         {
-            PlayerPrefs.SetInt(_playerHealthKey, mainPlayer.playerHealth);
-            PlayerPrefs.SetInt(_playerMindKey, mainPlayer.playerMind);
+            PlayerPrefs.SetInt(PlayerHealthKey, mainPlayer.playerHealth);
+            PlayerPrefs.SetInt(PlayerMindKey, mainPlayer.playerMind);
             PlayerPrefs.Save();
         }
 
         /// <summary> Сохранить инвентарь персонажа </summary>
-        public void SaveInventory()
+        private void SaveInventory()
         {
             if (mainPlayer.playerInventory != null)
             {
                 // Сохранение
                 for (int i = 0; i < mainPlayer.playerInventory.Count; i++)
                 {
-                    PlayerPrefs.SetString(_playerInventoryKey + i, mainPlayer.playerInventory[i].name);
+                    PlayerPrefs.SetString(PlayerInventoryKey + i, mainPlayer.playerInventory[i].name);
                 }
 
                 // Очистка от лишнего
@@ -218,7 +215,7 @@ namespace NLW
                 {
                     for (int i = mainPlayer.playerInventory.Count - 1; i < 50; i++)
                     {
-                        if (PlayerPrefs.HasKey(_playerInventoryKey + i)) PlayerPrefs.DeleteKey(_playerInventoryKey + i);
+                        if (PlayerPrefs.HasKey(PlayerInventoryKey + i)) PlayerPrefs.DeleteKey(PlayerInventoryKey + i);
                         else break;
                     }
                 }
@@ -227,14 +224,14 @@ namespace NLW
         }
 
         /// <summary> Сохранить эффекты на персонаже </summary>
-        public void SaveEffects()
+        private void SaveEffects()
         {
             if (mainPlayer.playerEffects != null)
             {
                 // Сохранение
                 for (int i = 0; i < mainPlayer.playerEffects.Count; i++)
                 {
-                    PlayerPrefs.SetString(_playerEffectsKey + i, mainPlayer.playerEffects[i].name);
+                    PlayerPrefs.SetString(PlayerEffectsKey + i, mainPlayer.playerEffects[i].name);
                 }
 
                 // Очистка от лишнего
@@ -242,7 +239,7 @@ namespace NLW
                 {
                     for (int i = mainPlayer.playerEffects.Count - 1; i < 50; i++)
                     {
-                        if (PlayerPrefs.HasKey(_playerEffectsKey + i)) PlayerPrefs.DeleteKey(_playerEffectsKey + i);
+                        if (PlayerPrefs.HasKey(PlayerEffectsKey + i)) PlayerPrefs.DeleteKey(PlayerEffectsKey + i);
                         else break;
                     }
                 }
@@ -251,14 +248,14 @@ namespace NLW
         }
 
         /// <summary> Сохранить карту </summary>
-        public void SaveMap()
+        private void SaveMap()
         {
             if (mainPlayer.playerMap != null)
             {
                 // Сохранение
                 for (int i = 0; i < mainPlayer.playerMap.Count; i++)
                 {
-                    PlayerPrefs.SetString(_playerLocationsKey + i, mainPlayer.playerMap[i].name);
+                    PlayerPrefs.SetString(PlayerLocationsKey + i, mainPlayer.playerMap[i].name);
                 }
 
                 // Очистка от лишнего
@@ -266,7 +263,7 @@ namespace NLW
                 {
                     for (int i = mainPlayer.playerMap.Count - 1; i < 50; i++)
                     {
-                        if (PlayerPrefs.HasKey(_playerLocationsKey + i)) PlayerPrefs.DeleteKey(_playerLocationsKey + i);
+                        if (PlayerPrefs.HasKey(PlayerLocationsKey + i)) PlayerPrefs.DeleteKey(PlayerLocationsKey + i);
                         else break;
                     }
                 }
@@ -275,14 +272,14 @@ namespace NLW
         }
 
         /// <summary> Сохранить заметки </summary>
-        public void SaveNotes()
+        private void SaveNotes()
         {
             if (mainPlayer.playerDecisions != null)
             {
                 // Сохранение
                 for (int i = 0; i < mainPlayer.playerNotes.Count; i++)
                 {
-                    PlayerPrefs.SetString(_playerNotesKey + i, mainPlayer.playerNotes[i].name);
+                    PlayerPrefs.SetString(PlayerNotesKey + i, mainPlayer.playerNotes[i].name);
                 }
 
                 // Очистка от лишнего
@@ -290,7 +287,7 @@ namespace NLW
                 {
                     for (int i = mainPlayer.playerNotes.Count - 1; i < 50; i++)
                     {
-                        if (PlayerPrefs.HasKey(_playerNotesKey + i)) PlayerPrefs.DeleteKey(_playerNotesKey + i);
+                        if (PlayerPrefs.HasKey(PlayerNotesKey + i)) PlayerPrefs.DeleteKey(PlayerNotesKey + i);
                         else break;
                     }
                 }
@@ -299,14 +296,14 @@ namespace NLW
         }
 
         /// <summary> Сохранить решения </summary>
-        public void SaveDecisons()
+        private void SaveDecisons()
         {
             if (mainPlayer.playerNotes != null)
             {
                 // Сохранение
                 for (int i = 0; i < mainPlayer.playerDecisions.Count; i++)
                 {
-                    PlayerPrefs.SetString(_playerDecisionsKey + i, mainPlayer.playerDecisions[i].name);
+                    PlayerPrefs.SetString(PlayerDecisionsKey + i, mainPlayer.playerDecisions[i].name);
                 }
 
                 // Очистка от лишнего
@@ -314,7 +311,7 @@ namespace NLW
                 {
                     for (int i = mainPlayer.playerDecisions.Count - 1; i < 50; i++)
                     {
-                        if (PlayerPrefs.HasKey(_playerDecisionsKey + i)) PlayerPrefs.DeleteKey(_playerDecisionsKey + i);
+                        if (PlayerPrefs.HasKey(PlayerDecisionsKey + i)) PlayerPrefs.DeleteKey(PlayerDecisionsKey + i);
                         else break;
                     }
                 }
@@ -325,14 +322,14 @@ namespace NLW
         /// <summary> Сохранить данные настроек </summary>
         public void SaveSettingsData()
         {
-            if (mainSettings.isSoundCheck) PlayerPrefs.SetInt(_soundSettingsKey, 1);
-            else PlayerPrefs.DeleteKey(_soundSettingsKey);
+            if (mainSettings.isSoundCheck) PlayerPrefs.SetInt(SoundSettingsKey, 1);
+            else PlayerPrefs.DeleteKey(SoundSettingsKey);
 
-            if (mainSettings.isVibrationCheck) PlayerPrefs.SetInt(_vibrationSettingsKey, 1);
-            else PlayerPrefs.DeleteKey(_vibrationSettingsKey);
+            if (mainSettings.isVibrationCheck) PlayerPrefs.SetInt(VibrationSettingsKey, 1);
+            else PlayerPrefs.DeleteKey(VibrationSettingsKey);
 
-            if (mainSettings.isEffectCheck) PlayerPrefs.SetInt(_effectsSettingsKey, 1);
-            else PlayerPrefs.DeleteKey(_effectsSettingsKey);
+            if (mainSettings.isEffectCheck) PlayerPrefs.SetInt(EffectsSettingsKey, 1);
+            else PlayerPrefs.DeleteKey(EffectsSettingsKey);
 
             PlayerPrefs.Save();
         }
@@ -345,7 +342,7 @@ namespace NLW
                 // Сохранение
                 for (int i = 0; i < mainSettings.gameAchivemants.Count; i++)
                 {
-                    PlayerPrefs.SetString(_achivesKey + i, mainSettings.gameAchivemants[i].name);
+                    PlayerPrefs.SetString(AchivesKey + i, mainSettings.gameAchivemants[i].name);
                 }
 
                 // Очистка от лишнего
@@ -353,7 +350,7 @@ namespace NLW
                 {
                     for (int i = mainSettings.gameAchivemants.Count - 1; i < 50; i++)
                     {
-                        if (PlayerPrefs.HasKey(_achivesKey + i)) PlayerPrefs.DeleteKey(_achivesKey + i);
+                        if (PlayerPrefs.HasKey(AchivesKey + i)) PlayerPrefs.DeleteKey(AchivesKey + i);
                         else break;
                     }
                 }
@@ -377,7 +374,7 @@ namespace NLW
         }
 
         /// <summary> Сохранить влияние игрока </summary>
-        public void SaveAllRatio()
+        private void SaveAllRatio()
         {
             for (int i = 0; i < npsSaveList.Length; i++)
             {
@@ -385,7 +382,7 @@ namespace NLW
             }
         }
 
-        /// <summary> Сохранение на чек-поинте </summary>
+        /// <summary> Сохранение на контрольной точке </summary>
         public void CheckPointSave() => StartCoroutine(SaveWait());
 
         /// <summary> Задержка полного сохранения данных </summary>

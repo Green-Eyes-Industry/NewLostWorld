@@ -21,7 +21,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(PasiveItem))]
-    public class PasiveItemGUI_Inspector : Editor
+    public class PasiveItemGInspector : Editor
     {
         private PasiveItem _pasiveItem;
 

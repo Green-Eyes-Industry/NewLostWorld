@@ -15,7 +15,7 @@ namespace NLW.Data
         /// <summary> Принять решение </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.dataController.mainPlayer;
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
 
             if (!mPlayer.playerDecisions.Contains(decision)) mPlayer.playerDecisions.Add(decision);
             return true;
@@ -28,7 +28,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(ImportantDecision))]
-    public class ImportantDecisionGUI_Inspector : Editor
+    public class ImportantDecisionGInspector : Editor
     {
         private ImportantDecision _importantDecision;
         public static int id = 0;
@@ -47,14 +47,12 @@ namespace GUIInspector
 
             string[] names = new string[allDecisions.Length];
 
-            Decision nameConvert;
-
             for (int i = 0; i < names.Length; i++)
             {
-                nameConvert = (Decision)allDecisions[i];
+                Decision nameConvert = (Decision)allDecisions[i];
 
-                if (nameConvert._nameDecision == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert._nameDecision;
+                if (nameConvert.nameDecision == "") names[i] = nameConvert.name;
+                else names[i] = nameConvert.nameDecision;
             }
 
             EditorGUILayout.BeginHorizontal();
@@ -73,7 +71,7 @@ namespace GUIInspector
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
-            if (importantDecision.decision != null) DecisionGUI_Inspector.ShowItemEditor(importantDecision.decision);
+            if (importantDecision.decision != null) DecisionGInspector.ShowItemEditor(importantDecision.decision);
 
             EditorGUILayout.EndVertical();
         }

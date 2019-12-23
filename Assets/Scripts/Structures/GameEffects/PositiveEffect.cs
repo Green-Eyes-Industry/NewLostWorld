@@ -17,7 +17,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(PositiveEffect))]
-    public class PositiveEffectGUI_Inspector : Editor
+    public class PositiveEffectGInspector : Editor
     {
         private PositiveEffect _positiveEffect;
 

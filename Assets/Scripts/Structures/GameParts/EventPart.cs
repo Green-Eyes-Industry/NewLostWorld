@@ -21,8 +21,7 @@ namespace NLW.Parts
         /// <returns> True если вы добрались к последней главе </returns>
         public bool CheckEvent(GamePart currentPart)
         {
-            if (currentPart == movePart[2]) return true;
-            else return false;
+            return currentPart == movePart[2];
         }
     }
 }
@@ -33,7 +32,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(EventPart))]
-    public class EventPartGUI_Inspector : Editor
+    public class EventPartGInspector : Editor
     {
         private EventPart _eventPart;
         private Vector2 _partsSlider = Vector2.zero;

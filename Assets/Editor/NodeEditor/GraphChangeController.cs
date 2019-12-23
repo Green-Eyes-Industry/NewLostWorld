@@ -90,16 +90,16 @@ namespace GUIInspector.NodeEditor
             if (sizeStady)
             {
                 nodeRect = new Rect(
-                    BehaviorEditor._mousePosition.x,
-                    BehaviorEditor._mousePosition.y,
+                    BehaviorEditor.mousePosition.x,
+                    BehaviorEditor.mousePosition.y,
                     BehaviorEditor.storyData.baseNodeSmWidth,
                     BehaviorEditor.storyData.baseNodeSmHeight);
             }
             else
             {
                 nodeRect = new Rect(
-                    BehaviorEditor._mousePosition.x,
-                    BehaviorEditor._mousePosition.y,
+                    BehaviorEditor.mousePosition.x,
+                    BehaviorEditor.mousePosition.y,
                     BehaviorEditor.storyData.baseNodeLgWidth,
                     BehaviorEditor.storyData.baseNodeLgHeight);
             }
@@ -116,7 +116,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         textPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        textPart._memTitle = nameNode;
+                        textPart.memTitle = nameNode;
                     }
                     else textPart.windowTitle = nameNode;
 
@@ -135,7 +135,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         changePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        changePart._memTitle = nameNode;
+                        changePart.memTitle = nameNode;
                     }
                     else changePart.windowTitle = nameNode;
 
@@ -154,7 +154,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         battlePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        battlePart._memTitle = nameNode;
+                        battlePart.memTitle = nameNode;
                     }
                     else battlePart.windowTitle = nameNode;
 
@@ -172,7 +172,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         pazzlePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        pazzlePart._memTitle = nameNode;
+                        pazzlePart.memTitle = nameNode;
                     }
                     else pazzlePart.windowTitle = nameNode;
 
@@ -190,7 +190,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         eventPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        eventPart._memTitle = nameNode;
+                        eventPart.memTitle = nameNode;
                     }
                     else eventPart.windowTitle = nameNode;
 
@@ -206,7 +206,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         finalPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        finalPart._memTitle = nameNode;
+                        finalPart.memTitle = nameNode;
                     }
                     else finalPart.windowTitle = nameNode;
 
@@ -224,7 +224,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         leandPart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        leandPart._memTitle = nameNode;
+                        leandPart.memTitle = nameNode;
                     }
                     else leandPart.windowTitle = nameNode;
 
@@ -242,7 +242,7 @@ namespace GUIInspector.NodeEditor
                     if (sizeStady)
                     {
                         moviePart.windowTitle = nameNode.Substring(0, GetShortNameNode(nameNode));
-                        moviePart._memTitle = nameNode;
+                        moviePart.memTitle = nameNode;
                     }
                     else moviePart.windowTitle = nameNode;
 

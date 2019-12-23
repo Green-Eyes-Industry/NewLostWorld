@@ -10,13 +10,13 @@ namespace NLW.Data
     public class MemberTime : GameEvent
     {
         /// <summary> Заметка </summary>
-        public Note _note;
+        public Note note;
 
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.dataController.mainPlayer;
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
 
-            if (!mPlayer.playerNotes.Contains(_note)) mPlayer.playerNotes.Add(_note);
+            if (!mPlayer.playerNotes.Contains(note)) mPlayer.playerNotes.Add(note);
 
             return true;
         }
@@ -28,7 +28,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(MemberTime))]
-    public class MemberTimeGUI_Inspector : Editor
+    public class MemberTimeGInspector : Editor
     {
         private MemberTime _memberTime;
         public static int id = 0;
@@ -62,7 +62,7 @@ namespace GUIInspector
             if (allNotes.Length > 0)
             {
                 id = EditorGUILayout.Popup(id, names);
-                memberTime._note = (Note)allNotes[id];
+                memberTime.note = (Note)allNotes[id];
             }
             else GUILayout.Label("Нет заметок");
 
@@ -77,7 +77,7 @@ namespace GUIInspector
 
             GUI.backgroundColor = Color.white;
 
-            if (memberTime._note != null) NotesGUI_Inspector.ShowItemEditor(memberTime._note);
+            if (memberTime.note != null) NotesGInspector.ShowItemEditor(memberTime.note);
 
             EditorGUILayout.EndVertical();
         }

@@ -20,18 +20,18 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(BattlePart))]
-    public class BattlePartGUI_Inspector : Editor
+    public class BattlePartGInspector : Editor
     {
         private BattlePart _battlePart;
 
-        private Texture dellConnect;
-        private Texture noneConnect;
+        private Texture _dellConnect;
+        private Texture _noneConnect;
 
         private void OnEnable()
         {
             _battlePart = (BattlePart)target;
-            dellConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/DellConnectButton.png", typeof(Texture));
-            noneConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/NullConnectButton.png", typeof(Texture));
+            _dellConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/DellConnectButton.png", typeof(Texture));
+            _noneConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/NullConnectButton.png", typeof(Texture));
         }
 
         public override void OnInspectorGUI()
@@ -50,9 +50,9 @@ namespace GUIInspector
 
                 if (_battlePart.movePart[i] != null)
                 {
-                    if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _battlePart.movePart[i] = null;
+                    if (GUILayout.Button(_dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _battlePart.movePart[i] = null;
                 }
-                else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
+                else GUILayout.Label(_noneConnect, GUILayout.Width(40), GUILayout.Height(40));
 
                 GUILayout.EndHorizontal();
                 EditorGUILayout.Space();
@@ -62,7 +62,7 @@ namespace GUIInspector
 
             GUILayout.Label("Параметры");
 
-            if (_battlePart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_battlePart.mainEvents);
+            if (_battlePart.mainEvents != null) GlobalHelperGInspector.ShowPartEventList(_battlePart.mainEvents);
             else _battlePart.mainEvents = new System.Collections.Generic.List<NLW.Data.GameEvent>();
         }
     }

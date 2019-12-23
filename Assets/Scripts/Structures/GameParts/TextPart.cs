@@ -20,18 +20,18 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(TextPart))]
-    public class TextPartGUI_Inspector : Editor
+    public class TextPartGInspector : Editor
     {
         private TextPart _textPart;
 
-        private Texture dellConnect;
-        private Texture noneConnect;
+        private Texture _dellConnect;
+        private Texture _noneConnect;
 
         private void OnEnable()
         {
             _textPart = (TextPart)target;
-            dellConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/DellConnectButton.png", typeof(Texture));
-            noneConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/NullConnectButton.png", typeof(Texture));
+            _dellConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/DellConnectButton.png", typeof(Texture));
+            _noneConnect = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/NodeEditor/Images/GUIInspector/NullConnectButton.png", typeof(Texture));
         }
 
         public override void OnInspectorGUI()
@@ -48,9 +48,9 @@ namespace GUIInspector
 
             if (_textPart.movePart[0] != null)
             {
-                if (GUILayout.Button(dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _textPart.movePart[0] = null;
+                if (GUILayout.Button(_dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _textPart.movePart[0] = null;
             }
-            else GUILayout.Label(noneConnect, GUILayout.Width(40), GUILayout.Height(40));
+            else GUILayout.Label(_noneConnect, GUILayout.Width(40), GUILayout.Height(40));
 
             GUILayout.EndHorizontal();
 
@@ -58,7 +58,7 @@ namespace GUIInspector
 
             GUILayout.Label("Параметры");
 
-            if (_textPart.mainEvents != null) GlobalHelperGUI_Inspector.ShowPartEventList(_textPart.mainEvents);
+            if (_textPart.mainEvents != null) GlobalHelperGInspector.ShowPartEventList(_textPart.mainEvents);
             else _textPart.mainEvents = new System.Collections.Generic.List<NLW.Data.GameEvent>();
         }
     }

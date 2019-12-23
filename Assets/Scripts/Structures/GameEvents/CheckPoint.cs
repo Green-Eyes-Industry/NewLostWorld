@@ -12,9 +12,9 @@ namespace NLW.Data
         /// <summary> Перезаписывает сохраненные данные </summary>
         public override bool EventStart()
         {
-            DataController DController = MainController.Instance.dataController;
-            MainController.Instance.dataController.mainSettings.lastPart = MainController.Instance.animController.thisPart;
-            DController.CheckPointSave();
+            DataController dController = MainController.instance.dataController;
+            MainController.instance.dataController.mainSettings.lastPart = MainController.instance.animController.thisPart;
+            dController.CheckPointSave();
             return true;
         }
     }
@@ -25,7 +25,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(CheckPoint))]
-    public class CheckPointGUI_Inspector : Editor
+    public class CheckPointGInspector : Editor
     {
         private CheckPoint _checkPoint;
 

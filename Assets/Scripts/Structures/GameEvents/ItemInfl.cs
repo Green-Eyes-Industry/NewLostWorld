@@ -17,12 +17,12 @@ namespace NLW.Data
         public UsableItem useItem;
 
         /// <summary> Глава при провале </summary>
-        public Parts.GamePart _failPart;
+        public Parts.GamePart failPart;
 
         /// <summary> Влияние </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.dataController.mainPlayer;
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
 
             if (mPlayer.playerInventory.Contains(useItem))
             {
@@ -35,7 +35,7 @@ namespace NLW.Data
 
 
         /// <summary> Вернуть главу провала </summary>
-        public override Parts.GamePart FailPart() { return _failPart; }
+        public override Parts.GamePart FailPart() { return failPart; }
     }
 }
 
@@ -44,7 +44,7 @@ namespace NLW.Data
 namespace GUIInspector
 {
     [CustomEditor(typeof(ItemInfl))]
-    public class ItemInflGUI_Inspector : Editor
+    public class ItemInflGInspector : Editor
     {
         private ItemInfl _itemInfl;
 
@@ -58,7 +58,7 @@ namespace GUIInspector
 
             EditorGUILayout.BeginVertical("Box");
 
-            // Код
+            // TODO : Код
 
             EditorGUILayout.EndVertical();
         }

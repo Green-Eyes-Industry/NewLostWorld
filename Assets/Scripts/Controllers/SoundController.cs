@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace NLW
 {
-    public class SoundController : MainController
+    public class SoundController : ParentController
 {
-        protected override void Init()
+        public override void Init()
         {
             
         }

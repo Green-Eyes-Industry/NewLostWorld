@@ -27,7 +27,7 @@ namespace GUIInspector
 {
 
     [CustomEditor(typeof(Achivemants))]
-    public class AchivemantsGUI_Inspector : Editor
+    public class AchivemantsGInspector : Editor
     {
         private Achivemants _achivemants;
 

@@ -29,26 +29,29 @@ namespace NLW.Data
 
 namespace GUIInspector
 {
-    public class GlobalHelperGUI_Inspector : Editor
+    public class GlobalHelperGInspector : Editor
     {
         private static Vector2 _eventSlider = Vector2.zero;
 
         /// <summary> Включает дополнительный редактор главы </summary>
-        public static void ShowEventEdit(GameEvent gameEvent)
+        private static void ShowEventEdit(GameEvent gameEvent)
         {
             GUI.backgroundColor = Color.white;
-            if (gameEvent is CheckDecision) CheckDecisionGUI_Inspector.ShowEventEditor((CheckDecision)gameEvent);
-            else if (gameEvent is CheckPlayerInfl) CheckPlayerInflGUI_Inspector.ShowEventEditor((CheckPlayerInfl)gameEvent);
-            else if (gameEvent is CheckPoint) CheckPointGUI_Inspector.ShowEventEditor((CheckPoint)gameEvent);
-            else if (gameEvent is EffectInteract) EffectInteractGUI_Inspector.ShowEventEditor((EffectInteract)gameEvent);
-            else if (gameEvent is ImportantDecision) ImportantDecisionGUI_Inspector.ShowEventEditor((ImportantDecision)gameEvent);
-            else if (gameEvent is ItemInfl) ItemInflGUI_Inspector.ShowEventEditor((ItemInfl)gameEvent);
-            else if (gameEvent is ItemInteract) ItemInteractGUI_Inspector.ShowEventEditor((ItemInteract)gameEvent);
-            else if (gameEvent is LocationFind) LocationFindGUI_Inspector.ShowEventEditor((LocationFind)gameEvent);
-            else if (gameEvent is MemberTime) MemberTimeGUI_Inspector.ShowEventEditor((MemberTime)gameEvent);
-            else if (gameEvent is NonPlayerInfl) NonPlayerInflGUI_Inspector.ShowEventEditor((NonPlayerInfl)gameEvent);
-            else if (gameEvent is PlayerInfl) PlayerInflGUI_Inspector.ShowEventEditor((PlayerInfl)gameEvent);
-            else if(gameEvent is RandomPart) RandomPartGUI_Inspector.ShowEventEditor((RandomPart)gameEvent);
+            switch (gameEvent)
+            {
+                case CheckDecision cDecision: CheckDecisionGInspector.ShowEventEditor(cDecision); break;
+                case CheckPlayerInfl cPlayer: CheckPlayerInflGInspector.ShowEventEditor(cPlayer); break;
+                case CheckPoint cPoint: CheckPointGInspector.ShowEventEditor(cPoint); break;
+                case EffectInteract effectInter: EffectInteractGInspector.ShowEventEditor(effectInter); break;
+                case ImportantDecision importantDec: ImportantDecisionGInspector.ShowEventEditor(importantDec); break;
+                case ItemInfl itemInfl: ItemInflGInspector.ShowEventEditor(itemInfl); break;
+                case ItemInteract itemInter: ItemInteractGInspector.ShowEventEditor(itemInter); break;
+                case LocationFind locationF: LocationFindGInspector.ShowEventEditor(locationF); break;
+                case MemberTime memberT: MemberTimeGInspector.ShowEventEditor(memberT); break;
+                case NonPlayerInfl nonPlInfl: NonPlayerInflGInspector.ShowEventEditor(nonPlInfl); break;
+                case PlayerInfl plInfl: PlayerInflGInspector.ShowEventEditor(plInfl); break;
+                case RandomPart randomP: RandomPartGInspector.ShowEventEditor(randomP); break;
+            }
         }
 
         /// <summary> Показать список событий </summary>
@@ -82,10 +85,8 @@ namespace GUIInspector
 
                     GUILayout.EndHorizontal();
 
-                    if (listEvent[i] != null)
-                    {
-                        if (listEvent[i].editorEventFoldout && listEvent[i] != null) ShowEventEdit(listEvent[i]);
-                    }
+                    if (listEvent[i] == null) continue;
+                    if (listEvent[i].editorEventFoldout && listEvent[i] != null) ShowEventEdit(listEvent[i]);
                 }
             }
             else GUILayout.Label("Нет событий");
@@ -96,8 +97,11 @@ namespace GUIInspector
         /// <summary> Показать эффект </summary>
         public static void ShowEffectFromPart(GameEffect gameEffect)
         {
-            if (gameEffect is PositiveEffect) PositiveEffectGUI_Inspector.ShowPositiveEffectGUI((PositiveEffect)gameEffect);
-            else if (gameEffect is NegativeEffect) NegativeEffectGUI_Inspector.ShowNegativeEffectGUI((NegativeEffect)gameEffect);
+            switch (gameEffect)
+            {
+                case PositiveEffect pEffect: PositiveEffectGInspector.ShowPositiveEffectGUI(pEffect); break;
+                case NegativeEffect nEffect: NegativeEffectGInspector.ShowNegativeEffectGUI(nEffect); break;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace NLW.Data
 
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.mainPlayer;
+            Player mPlayer = MainController.Instance.dataController.mainPlayer;
 
             if (!mPlayer.playerNotes.Contains(_note)) mPlayer.playerNotes.Add(_note);
 

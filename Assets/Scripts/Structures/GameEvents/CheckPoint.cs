@@ -13,7 +13,7 @@ namespace NLW.Data
         public override bool EventStart()
         {
             DataController DController = MainController.Instance.dataController;
-            MainController.Instance.mainSettings.lastPart = MainController.Instance.animController.thisPart;
+            MainController.Instance.dataController.mainSettings.lastPart = MainController.Instance.animController.thisPart;
             DController.CheckPointSave();
             return true;
         }

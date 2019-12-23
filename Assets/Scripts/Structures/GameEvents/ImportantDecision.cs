@@ -15,7 +15,7 @@ namespace NLW.Data
         /// <summary> Принять решение </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.mainPlayer;
+            Player mPlayer = MainController.Instance.dataController.mainPlayer;
 
             if (!mPlayer.playerDecisions.Contains(decision)) mPlayer.playerDecisions.Add(decision);
             return true;

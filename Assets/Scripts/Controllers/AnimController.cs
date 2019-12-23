@@ -32,11 +32,11 @@ namespace NLW
         {
             mainAnimator = GetComponent<Animator>();
 
-            mainAnimator.SetBool("Settings_1_St", Instance.mainSettings.isSoundCheck);
-            mainAnimator.SetBool("Settings_2_St", Instance.mainSettings.isVibrationCheck);
-            mainAnimator.SetBool("Settings_3_St", Instance.mainSettings.isEffectCheck);
+            mainAnimator.SetBool("Settings_1_St", dataController.mainSettings.isSoundCheck);
+            mainAnimator.SetBool("Settings_2_St", dataController.mainSettings.isVibrationCheck);
+            mainAnimator.SetBool("Settings_3_St", dataController.mainSettings.isEffectCheck);
 
-            Instance.uIController.MenuOpenMain();
+            uIController.MenuOpenMain();
 
             _isAchiveDetail = false;
         }
@@ -44,7 +44,7 @@ namespace NLW
         /// <summary> Начало игры </summary>
         private void GameStart()
         {
-            if (thisPart == null && Instance.mainSettings.lastPart != null) thisPart = Instance.mainSettings.lastPart;
+            if (thisPart == null && dataController.mainSettings.lastPart != null) thisPart = dataController.mainSettings.lastPart;
             else if (thisPart == null) thisPart = startPart;
             NextPart(thisPart);
         }
@@ -121,7 +121,7 @@ namespace NLW
             uIController.GameButton(1,"Решения других игроков");
             uIController.ShowFinalAchiveIco(part.newAchive);
 
-            if (!mainSettings.gameAchivemants.Contains(part.newAchive)) mainSettings.gameAchivemants.Add(part.newAchive);
+            if (!dataController.mainSettings.gameAchivemants.Contains(part.newAchive)) dataController.mainSettings.gameAchivemants.Add(part.newAchive);
             dataController.SaveAchivesData();
         }
 
@@ -168,7 +168,7 @@ namespace NLW
 
                             case 1:
                                 mainAnimator.SetBool("Settings_1_St", !mainAnimator.GetBool("Settings_1_St"));
-                                mainSettings.isSoundCheck = mainAnimator.GetBool("Settings_1_St");
+                                dataController.mainSettings.isSoundCheck = mainAnimator.GetBool("Settings_1_St");
                                 dataController.SaveSettingsData();
                                 break;
                         }
@@ -190,7 +190,7 @@ namespace NLW
 
                             case 1:
                                 mainAnimator.SetBool("Settings_2_St", !mainAnimator.GetBool("Settings_2_St"));
-                                mainSettings.isVibrationCheck = mainAnimator.GetBool("Settings_2_St");
+                                dataController.mainSettings.isVibrationCheck = mainAnimator.GetBool("Settings_2_St");
                                 dataController.SaveSettingsData();
                                 break;
                         }
@@ -212,7 +212,7 @@ namespace NLW
 
                             case 1:
                                 mainAnimator.SetBool("Settings_3_St", !mainAnimator.GetBool("Settings_3_St"));
-                                mainSettings.isEffectCheck = mainAnimator.GetBool("Settings_3_St");
+                                dataController.mainSettings.isEffectCheck = mainAnimator.GetBool("Settings_3_St");
                                 dataController.SaveSettingsData();
                                 break;
                         }
@@ -273,7 +273,7 @@ namespace NLW
         /// <summary> Ячейки Достижений </summary>
         public void AchiveCaseMenuPress(int id, bool press)
         {
-            if ((_achiveDisplayPage * 5) + id <= mainSettings.gameAchivemants.Count)
+            if ((_achiveDisplayPage * 5) + id <= dataController.mainSettings.gameAchivemants.Count)
             {
                 mainAnimator.SetBool("AchiveCase_" + id, press);
 
@@ -284,7 +284,7 @@ namespace NLW
                         mainAnimator.SetBool("AchiveDescript", true);
                         _isAchiveDetail = true;
 
-                        uIController.ShowAchiveDescript(mainSettings.gameAchivemants[(_achiveDisplayPage * 5) + (id - 1)]);
+                        uIController.ShowAchiveDescript(dataController.mainSettings.gameAchivemants[(_achiveDisplayPage * 5) + (id - 1)]);
                     }
                     else
                     {
@@ -312,7 +312,7 @@ namespace NLW
                         break;
 
                     case 2:
-                        if (!_isAchiveDetail && mainSettings.gameAchivemants.Count > 5 * (_achiveDisplayPage + 1))
+                        if (!_isAchiveDetail && dataController.mainSettings.gameAchivemants.Count > 5 * (_achiveDisplayPage + 1))
                         {
                             _achiveDisplayPage++;
                             uIController.ShowAchive(_achiveDisplayPage);
@@ -334,7 +334,7 @@ namespace NLW
                         break;
 
                     case 2:
-                        if (!_isAchiveDetail && 5 * (_achiveDisplayPage + 1) < mainSettings.gameAchivemants.Count)
+                        if (!_isAchiveDetail && 5 * (_achiveDisplayPage + 1) < dataController.mainSettings.gameAchivemants.Count)
                         {
                             mainAnimator.SetBool("Achives_Right", false);
                             mainAnimator.SetTrigger("AchiveSlidePage");
@@ -454,7 +454,7 @@ namespace NLW
 
         #endregion
 
-        #region GAME_HELP
+        #region GAME_HELP_MENU
 
         /// <summary> Меню инвентаря </summary>
         public void InventoryMenuPress(int id, bool press)
@@ -597,7 +597,7 @@ namespace NLW
 
         #endregion
 
-        #region ANIMATIONS_HELPERS
+        #region HELPERS
 
         /// <summary> Переход в игровое меню </summary>
         public void AnimMenuToGameSwitch()

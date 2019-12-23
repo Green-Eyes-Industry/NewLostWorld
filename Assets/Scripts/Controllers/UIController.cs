@@ -15,41 +15,42 @@ namespace NLW
         // Базовые
 
         private float _gameWaitToSwitch;
-        public RectTransform _eyeCenter;
+        public RectTransform eyeCenter;
 
         // Достижения
 
-        public Sprite _achiveClose;
-        public Sprite _achiveOpen;
+        public Sprite achiveClose;
+        public Sprite achiveOpen;
 
-        public Image[] _achiveCase;
+        public Image[] achiveCase;
 
-        public Text _achiveDescript_txt;
+        public Text achiveDescript_txt;
 
         // Кнопки главного меню
 
-        public Text[] _menuButton; 
+        public Text[] menuButton; 
 
         // Игровая глава
 
-        public Text _gameMain_Txt;
-        public Text[] _gameButton;
-        public Image _timerImage, finalAchiveIco;
+        public Text gameMain_Txt;
+        public Text[] gameButton;
+        public Image timerImage;
+        public Image finalAchiveIco;
         
         // Сообщения в игре
 
-        public Text _gameMessageInventoryTxt;
-        public Text _gameMessageCharacterTxt;
-        public Text _gameMessageMapTxt;
-        public Text _gameMessageNotesTxt;
+        public Text gameMessageInventoryTxt;
+        public Text gameMessageCharacterTxt;
+        public Text gameMessageMapTxt;
+        public Text gameMessageNotesTxt;
 
         // Инвентарь
 
-        public Image[] _inventCase;
+        public Image[] inventCase;
 
         // Эффекты в меню персонажа
 
-        public Image[] _effectCase;
+        public Image[] effectCase;
 
         private Gyroscope _mainGyro;
         private bool _isGyroEnable;
@@ -86,7 +87,7 @@ namespace NLW
         /// <summary> Таймер в главе евента </summary>
         private void TimerEventVision()
         {
-            if (_timerImage.fillAmount > 0) _timerImage.fillAmount -= _timeForEvent * Time.deltaTime;
+            if (timerImage.fillAmount > 0) timerImage.fillAmount -= _timeForEvent * Time.deltaTime;
             else
             {
                 TimeEvent(false, 0f);
@@ -105,7 +106,7 @@ namespace NLW
             }
             else
             {
-                _eyeCenter.anchoredPosition = new Vector2(0, 40);
+                eyeCenter.anchoredPosition = new Vector2(0, 40);
                 _isGyroEnable = false;
             }
         }
@@ -120,7 +121,7 @@ namespace NLW
 
                 _eyeFixPosition.x = (_mainGyro.gravity.x * 50) * -1;
 
-                _eyeCenter.anchoredPosition = _eyeFixPosition;
+                eyeCenter.anchoredPosition = _eyeFixPosition;
             }
         }
 
@@ -144,16 +145,16 @@ namespace NLW
         public void GameButton(int id, string newTxt) => StartCoroutine(WaitToGameButton_Switch(id,_gameWaitToSwitch, newTxt));
 
         /// <summary> Текст сообщения инвентаря </summary>
-        public void GameMessageInventory(string newTxt) => _gameMessageInventoryTxt.text = newTxt;
+        public void GameMessageInventory(string newTxt) => gameMessageInventoryTxt.text = newTxt;
 
         /// <summary> Текст сообщения персонажа </summary>
-        public void GameMessageCharacter(string newTxt) => _gameMessageCharacterTxt.text = newTxt;
+        public void GameMessageCharacter(string newTxt) => gameMessageCharacterTxt.text = newTxt;
 
         /// <summary> Текст сообщения карты </summary>
-        public void GameMessageMap(string newTxt) => _gameMessageMapTxt.text = newTxt;
+        public void GameMessageMap(string newTxt) => gameMessageMapTxt.text = newTxt;
 
         /// <summary> Текст сообщения заметок </summary>
-        public void GameMessageNotes(string newTxt) => _gameMessageNotesTxt.text = newTxt;
+        public void GameMessageNotes(string newTxt) => gameMessageNotesTxt.text = newTxt;
 
         #endregion
 
@@ -162,62 +163,62 @@ namespace NLW
         /// <summary> Отобразить инвентарь </summary>
         public void ShowInventory(int page)
         {
-            int itemCount = mainPlayer.playerInventory.Count;
+            int itemCount = dataController.mainPlayer.playerInventory.Count;
 
-            page *= _inventCase.Length;
+            page *= inventCase.Length;
 
-            for (int i = 0; i < _inventCase.Length; i++)
+            for (int i = 0; i < inventCase.Length; i++)
             {
                 if (i + page < itemCount)
                 {
-                    _inventCase[i].gameObject.SetActive(true);
-                    _inventCase[i].sprite = mainPlayer.playerInventory[i + page].itemIco;
+                    inventCase[i].gameObject.SetActive(true);
+                    inventCase[i].sprite = dataController.mainPlayer.playerInventory[i + page].itemIco;
                 }
-                else _inventCase[i].gameObject.SetActive(false);
+                else inventCase[i].gameObject.SetActive(false);
             }
         }
 
         /// <summary> Отобразить еффекты на персонаже </summary>
         public void ShowEffects()
         {
-            int effectsCount = mainPlayer.playerEffects.Count;
+            int effectsCount = dataController.mainPlayer.playerEffects.Count;
 
-            for (int i = 0; i < _effectCase.Length; i++)
+            for (int i = 0; i < effectCase.Length; i++)
             {
                 if (i < effectsCount)
                 {
-                    _effectCase[i].gameObject.SetActive(true);
-                    _effectCase[i].sprite = mainPlayer.playerEffects[i].icoEffect;
+                    effectCase[i].gameObject.SetActive(true);
+                    effectCase[i].sprite = dataController.mainPlayer.playerEffects[i].icoEffect;
                 }
-                else _effectCase[i].gameObject.SetActive(false);
+                else effectCase[i].gameObject.SetActive(false);
             }
         }
 
         /// <summary> Отобразить достижения </summary>
         public void ShowAchive(int page)
         {
-            int achivesLendth = mainSettings.gameAchivemants.Count;
+            int achivesLendth = dataController.mainSettings.gameAchivemants.Count;
 
-            page *= _achiveCase.Length;
+            page *= achiveCase.Length;
 
-            for (int i = 0; i < _achiveCase.Length; i++)
+            for (int i = 0; i < achiveCase.Length; i++)
             {
                 if (i + page < achivesLendth)
                 {
-                    _achiveCase[i].gameObject.transform.parent.GetComponent<Image>().sprite = _achiveOpen;
-                    _achiveCase[i].gameObject.SetActive(true);
-                    _achiveCase[i].sprite = mainSettings.gameAchivemants[i + page].achiveIco;
+                    achiveCase[i].gameObject.transform.parent.GetComponent<Image>().sprite = achiveOpen;
+                    achiveCase[i].gameObject.SetActive(true);
+                    achiveCase[i].sprite = dataController.mainSettings.gameAchivemants[i + page].achiveIco;
                 }
                 else
                 {
-                    _achiveCase[i].gameObject.transform.parent.GetComponent<Image>().sprite = _achiveClose;
-                    _achiveCase[i].gameObject.SetActive(false);
+                    achiveCase[i].gameObject.transform.parent.GetComponent<Image>().sprite = achiveClose;
+                    achiveCase[i].gameObject.SetActive(false);
                 }
             }
         }
 
         /// <summary> Показать подробности о достижении </summary>
-        public void ShowAchiveDescript(Data.Achivemants achive) => _achiveDescript_txt.text = achive.achiveDescript;
+        public void ShowAchiveDescript(Data.Achivemants achive) => achiveDescript_txt.text = achive.achiveDescript;
 
         /// <summary> Отобразить значек получаемого достижения </summary>
         public void ShowFinalAchiveIco(Data.Achivemants achive)
@@ -227,7 +228,7 @@ namespace NLW
 
         #endregion
 
-        #region WAIT_SWITCH
+        #region CUROTINES
 
         /// <summary> Задержка при переходе  главное меню </summary>
         private IEnumerator WaitToMenuSwitch(float waitTime)
@@ -236,13 +237,13 @@ namespace NLW
 
             string mainText;
 
-            if (mainSettings.lastPart != null) mainText = "Продолжить";
+            if (dataController.mainSettings.lastPart != null) mainText = "Продолжить";
             else mainText = "Новая игра";
 
-            _menuButton[0].text = mainText;
-            _menuButton[1].text = "Настройки";
-            _menuButton[2].text = "Об Авторах";
-            _menuButton[3].text = "Достижения";
+            menuButton[0].text = mainText;
+            menuButton[1].text = "Настройки";
+            menuButton[2].text = "Об Авторах";
+            menuButton[3].text = "Достижения";
         }
 
         /// <summary> Задержка при переходе в настройки </summary>
@@ -250,10 +251,10 @@ namespace NLW
         {
             yield return new WaitForSeconds(waitTime);
 
-            _menuButton[0].text = "Звук";
-            _menuButton[1].text = "Вибрация";
-            _menuButton[2].text = "Эффекты";
-            _menuButton[3].text = "Назад";
+            menuButton[0].text = "Звук";
+            menuButton[1].text = "Вибрация";
+            menuButton[2].text = "Эффекты";
+            menuButton[3].text = "Назад";
         }
 
         /// <summary> Задержка при переходе в меню автора </summary>
@@ -261,7 +262,7 @@ namespace NLW
         {
             yield return new WaitForSeconds(waitTime);
 
-            _menuButton[3].text = "Назад";
+            menuButton[3].text = "Назад";
         }
 
         /// <summary> Задержка замена основного текста в игре </summary>
@@ -269,7 +270,7 @@ namespace NLW
         {
             yield return new WaitForSeconds(waitTime);
 
-            _gameMain_Txt.text = newTxt;
+            gameMain_Txt.text = newTxt;
         }
 
         /// <summary> Задержка при замене текста на кнопке </summary>
@@ -277,7 +278,7 @@ namespace NLW
         {
             yield return new WaitForSeconds(waitTime);
 
-            _gameButton[id].text = newTxt;
+            gameButton[id].text = newTxt;
         }
 
         #endregion

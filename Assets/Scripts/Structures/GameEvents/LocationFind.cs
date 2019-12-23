@@ -15,7 +15,7 @@ namespace NLW.Data
         /// <summary> Найти локацию </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.mainPlayer;
+            Player mPlayer = MainController.Instance.dataController.mainPlayer;
 
             if (!mPlayer.playerMap.Contains(_location)) mPlayer.playerMap.Add(_location);
 

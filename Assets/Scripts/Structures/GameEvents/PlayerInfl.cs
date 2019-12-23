@@ -18,7 +18,7 @@ namespace NLW.Data
         /// <summary> Влияние </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.mainPlayer;
+            Player mPlayer = MainController.Instance.dataController.mainPlayer;
 
             mPlayer.playerHealth += _healthInfl;
             mPlayer.playerMind += _mindInfl;

@@ -8,12 +8,9 @@ namespace NLW
     [RequireComponent(typeof(AnimController))]
     [RequireComponent(typeof(UIController))]
     [RequireComponent(typeof(SoundController))]
-    public class MainController : MonoBehaviour
+    public abstract class MainController : MonoBehaviour
     {
         public static MainController Instance;
-
-        [HideInInspector] public Data.Player mainPlayer;
-        [HideInInspector] public Data.GameSettings mainSettings;
 
         [HideInInspector] public DataController dataController;
         [HideInInspector] public GameController gameController;
@@ -22,32 +19,21 @@ namespace NLW
         [HideInInspector] public SoundController soundController;
 
         /// <summary> Инициализация контроллера </summary>
-        protected virtual void Init() { }
+        protected abstract void Init();
 
-        private void Start()
+        private void Awake()
         {
             Instance = this;
-            mainPlayer = (Data.Player)Resources.Load("Players/MainPlayer", typeof(Data.Player));
-            mainSettings = (Data.GameSettings)Resources.Load("MainSettings", typeof(Data.GameSettings));
-
-            if (mainPlayer == null)
-            {
-                Debug.LogError("Отсутствует компонент : Player");
-                return;
-            }
-
-            if (mainSettings == null)
-            {
-                Debug.LogError("Отсутствует компонент : GameSettings");
-                return;
-            }
 
             dataController = GetComponent<DataController>();
             gameController = GetComponent<GameController>();
             animController = GetComponent<AnimController>();
             uIController = GetComponent<UIController>();
             soundController = GetComponent<SoundController>();
+        }
 
+        private void Start()
+        {
             dataController.Init();
             gameController.Init();
             animController.Init();

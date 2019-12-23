@@ -6,9 +6,9 @@ namespace NLW
     /// <summary> Игровые события и переключения </summary>
     public class GameController : MainController
     {
-        #region PARTS_EVENTS
-
         protected override void Init() { }
+
+        #region PARTS_EVENTS
 
         /// <summary> Запуск событий главы </summary>
         public void EventsStart(List<GameEvent> partEvents)

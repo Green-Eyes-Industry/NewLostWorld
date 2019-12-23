@@ -22,7 +22,7 @@ namespace NLW.Data
         /// <summary> Использовать </summary>
         public void UseThisItem()
         {
-            Player mPlayer = MainController.Instance.mainPlayer;
+            Player mPlayer = MainController.Instance.dataController.mainPlayer;
 
             mPlayer.playerHealth += healthInf;
             mPlayer.playerMind += mindInf;

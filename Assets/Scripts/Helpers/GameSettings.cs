@@ -8,7 +8,7 @@ using NLW.Data;
 
 namespace NLW.Data
 {
-    [CreateAssetMenu(fileName = "New game settings", menuName = "Игровые обьекты/Игровые параметры")]
+    [CreateAssetMenu(fileName = "New game settings", menuName = "GameSettings")]
     public class GameSettings : ScriptableObject
     {
         /// <summary> Последняя глава </summary>

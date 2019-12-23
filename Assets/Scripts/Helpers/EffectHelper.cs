@@ -11,7 +11,7 @@ namespace NLW.Helpers
         [System.Obsolete]
         private void OnMouseDown()
         {
-            if (MainController.Instance.mainSettings.isEffectCheck)
+            if (MainController.Instance.dataController.mainSettings.isEffectCheck)
             {
                 particle.SetActive(true);
                 particle.GetComponent<ParticleSystem>().Play();

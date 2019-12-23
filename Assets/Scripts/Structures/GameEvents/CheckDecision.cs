@@ -19,9 +19,9 @@ namespace NLW.Data
         /// <returns> Вернет False при провале проверки </returns>
         public override bool EventStart()
         {
-            for (int i = 0; i < MainController.Instance.mainPlayer.playerDecisions.Count; i++)
+            for (int i = 0; i < MainController.Instance.dataController.mainPlayer.playerDecisions.Count; i++)
             {
-                if (MainController.Instance.mainPlayer.playerDecisions[i].Equals(decision)) return true;
+                if (MainController.Instance.dataController.mainPlayer.playerDecisions[i].Equals(decision)) return true;
             }
 
             return false;

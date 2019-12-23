@@ -22,7 +22,7 @@ namespace NLW.Data
         /// <summary> Взаимодействие </summary>
         public override bool EventStart()
         {
-            Player mPlayer = MainController.Instance.mainPlayer;
+            Player mPlayer = MainController.Instance.dataController.mainPlayer;
 
             if (isAddOrRemove)
             {

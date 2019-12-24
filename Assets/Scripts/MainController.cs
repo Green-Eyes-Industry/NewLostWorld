@@ -41,5 +41,10 @@ namespace NLW
             soundController.Init();
             effectsController.Init();
         }
+
+        private void Update()
+        {
+            uIController.IUpdate();
+        }
     }
 }

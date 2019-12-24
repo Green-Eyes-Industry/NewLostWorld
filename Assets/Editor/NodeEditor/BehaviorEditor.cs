@@ -11,7 +11,7 @@ namespace GUIInspector.NodeEditor
     {
         #region VARIABLES
 
-        [FormerlySerializedAs("_drawWindow")] public bool drawWindow;
+        public bool drawWindow;
         private Vector2 _distDifference;
 
         private Color _gridColor = new Color(0.2f, 0.2f, 0.2f); // Цвет сетки

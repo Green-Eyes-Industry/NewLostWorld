@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
+using NLW.Data;
 
 #if UNITY_EDITOR
 using UnityEditor;
 using NLW.Parts;
-using NLW.Data;
 #endif
 
 namespace NLW.Parts

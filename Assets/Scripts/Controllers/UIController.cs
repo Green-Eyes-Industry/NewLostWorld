@@ -67,8 +67,7 @@ namespace NLW
             TimeEvent(false, 0f);
             ConnectGyroscope();
         }
-
-        private void Update()
+        public void IUpdate()
         {
             if (_isEventStarted) TimerEventVision();
             EyeWatching();

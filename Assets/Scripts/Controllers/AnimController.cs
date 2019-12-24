@@ -286,7 +286,7 @@ namespace NLW
         {
             if ((_achiveDisplayPage * 5) + id <= MainController.instance.dataController.mainSettings.gameAchivemants.Count)
             {
-                _mainAnimator.SetBool(aParam.buttonAchiveCases + id, press);
+                if (!_isAchiveDetail) _mainAnimator.SetBool(aParam.buttonAchiveCases + id, press);
 
                 if (!press)
                 {
@@ -585,7 +585,12 @@ namespace NLW
                     _mainAnimator.SetBool(aParam.buttonMap, press);
                     if (!press)
                     {
-                        // TODO : Логика перехода в меню карты
+                        if (_mainAnimator.GetInteger(aParam.gStady) != 7)
+                        {
+                            _lastPartType = _mainAnimator.GetInteger(aParam.gStady);
+                            _mainAnimator.SetInteger(aParam.gStady, 7);
+                        }
+                        else _mainAnimator.SetInteger(aParam.gStady, _lastPartType);
                     }
                     break;
             }
@@ -600,7 +605,12 @@ namespace NLW
                     _mainAnimator.SetBool(aParam.buttonNote, press);
                     if (!press)
                     {
-                        // TODO : Логика перехода в меню заметок
+                        if (_mainAnimator.GetInteger(aParam.gStady) != 8)
+                        {
+                            _lastPartType = _mainAnimator.GetInteger(aParam.gStady);
+                            _mainAnimator.SetInteger(aParam.gStady, 8);
+                        }
+                        else _mainAnimator.SetInteger(aParam.gStady, _lastPartType);
                     }
                     break;
             }

@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: GameStory
   m_EditorClassIdentifier: 
   storyDescript: 
-  nodesData:
-  - {fileID: 11400000, guid: 3f18b2f7c60c2e54bbf8228c4b731dbf, type: 2}
-  - {fileID: 11400000, guid: ee5d884da20204e47a95b9a1b8dbcb5f, type: 2}
-  - {fileID: 11400000, guid: 4e34804dbdc80504c90b25c7e2c4f877, type: 2}
-  - {fileID: 11400000, guid: 77a09b136d8043244bc7963c0f4ff765, type: 2}
+  nodesData: []
   graphSkin: {fileID: 11400000, guid: 1132d6cb6b48c4e44861756b60e31b73, type: 2}
   baseNodeSmWidth: 40
   baseNodeSmHeight: 40

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
+using Helpers;
+using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using NLW.Data;
+namespace Structures.Character
+{
 #endif
 
-namespace NLW.Data
-{
     [CreateAssetMenu(fileName = "New player", menuName = "Игровые обьекты/Новый персонаж/Игрок", order = 0)]
     public class Player : Character
     {
@@ -32,12 +31,8 @@ namespace NLW.Data
         /// <summary> Важные решения </summary>
         public List<Decision> playerDecisions;
     }
-}
 
 #if UNITY_EDITOR
-
-namespace GUIInspector
-{
 
     [CustomEditor(typeof(Player))]
     public class PlayerGInspector : Editor
@@ -94,7 +89,7 @@ namespace GUIInspector
             GUILayout.EndVertical();
         }
 
-        /// <summary> Отображение списка действующих еффектов </summary>
+        /// <summary> Отображение списка действующих эффектов </summary>
         private void PlayerEffects()
         {
             _playerEffectsScroll = EditorGUILayout.BeginScrollView(_playerEffectsScroll);
@@ -209,6 +204,6 @@ namespace GUIInspector
             EditorGUILayout.EndScrollView();
         }
     }
-}
 
 #endif
+}

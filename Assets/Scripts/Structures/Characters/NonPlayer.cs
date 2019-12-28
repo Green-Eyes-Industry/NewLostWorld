@@ -1,12 +1,10 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using NLW.Data;
+namespace Structures.Character
+{
 #endif
 
-namespace NLW.Data
-{
     [CreateAssetMenu(fileName = "New npc", menuName = "Игровые обьекты/Новый персонаж/НПС", order = 1)]
     public class NonPlayer : Character
     {
@@ -16,12 +14,8 @@ namespace NLW.Data
         /// <summary> Отношение НПС к игроку </summary>
         public int npToPlayerRatio;
     }
-}
 
 #if UNITY_EDITOR
-
-namespace GUIInspector
-{
 
     [CustomEditor(typeof(NonPlayer))]
     public class NonPlayerGInspector : Editor
@@ -33,7 +27,7 @@ namespace GUIInspector
         public override void OnInspectorGUI() => ShowNonPlayerGUI(_nonPlayer);
 
         /// <summary> Показать мено редактора не игрового персонажа </summary>
-        public static void ShowNonPlayerGUI(NonPlayer nonPlayer)
+        private static void ShowNonPlayerGUI(NonPlayer nonPlayer)
         {
             EditorGUILayout.LabelField("Не игровой персонаж");
 
@@ -45,6 +39,6 @@ namespace GUIInspector
             EditorGUILayout.EndVertical();
         }
     }
-}
 
 #endif
+}

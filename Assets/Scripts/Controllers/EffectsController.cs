@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace NLW
+﻿namespace Controllers
 {
     /// <summary> Контроллер эффектов </summary>
     public class EffectsController : ParentController

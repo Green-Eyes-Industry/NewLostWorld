@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using NLW.Data;
+using Data;
+using Data.GameEvents;
 
-namespace NLW
+namespace Controllers
 {
     /// <summary> Игровые события и переключения </summary>
     public class GameController : ParentController

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Data.GameParts;
 using UnityEditor;
-using NLW.Parts;
+using UnityEngine;
 
-namespace GUIInspector.NodeEditor
+namespace Editor.NodeEditor
 {
     public class EventEditor : EditorWindow
     {
@@ -36,7 +36,7 @@ namespace GUIInspector.NodeEditor
             eventEditor.DrawEventWindows();
         }
 
-        /// <summary> Отрисовка окон в редакторе Евентов </summary>
+        /// <summary> Отрисовка окон в редакторе эвентов </summary>
         private void DrawEventWindows()
         {
             if (eventGraph.eventParts == null) eventGraph.eventParts = new List<SubEventPart>();
@@ -191,7 +191,7 @@ namespace GUIInspector.NodeEditor
             e.Use();
         }
 
-        /// <summary> Добавить под-евент </summary>
+        /// <summary> Добавить под-эвент </summary>
         private void AddNewEventSubPart(object o)
         {
             InputEnum a = (InputEnum)o;
@@ -281,7 +281,7 @@ namespace GUIInspector.NodeEditor
             GUI.changed = true;
         }
 
-        /// <summary> Сохранение данных Евента </summary>
+        /// <summary> Сохранение данных эвента </summary>
         private void SaveData()
         {
             for (int i = 0; i < eventGraph.eventParts.Count; i++)

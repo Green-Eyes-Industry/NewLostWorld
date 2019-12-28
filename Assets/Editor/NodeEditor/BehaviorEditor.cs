@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using Data;
+using Data.GameEvents;
+using Data.GameParts;
+using Helpers;
 using UnityEditor;
-using NLW;
-using NLW.Data;
-using NLW.Parts;
-using UnityEngine.Serialization;
+using UnityEngine;
 
-namespace GUIInspector.NodeEditor
+namespace Editor.NodeEditor
 {
     public class BehaviorEditor : EditorWindow
     {
@@ -79,11 +79,11 @@ namespace GUIInspector.NodeEditor
 
         private void OnGUI()
         {
-            if (drawWindow) DrawGUI();
+            if (drawWindow) DrawGui();
         }
 
         /// <summary> Отрисовка интерфейса </summary>
-        private void DrawGUI()
+        private void DrawGui()
         {
             if (_storyData != null)
             {
@@ -127,7 +127,7 @@ namespace GUIInspector.NodeEditor
                 if (EventEditor.eventGraph == null) EditorGUILayout.LabelField("Сценарий", GUILayout.Height(22));
                 else
                 {
-                    EditorGUILayout.LabelField("Евент " + EventEditor.eventGraph.name, GUILayout.Height(22));
+                    EditorGUILayout.LabelField("Эвент " + EventEditor.eventGraph.name, GUILayout.Height(22));
                     if (GUILayout.Button("Вернуться", GUILayout.Width(100), GUILayout.Height(18))) EventEditor.eventGraph = null;
                 }
 
@@ -606,7 +606,7 @@ namespace GUIInspector.NodeEditor
         #region NODE_DRAW
 
         /// <summary> Отрисовка связей </summary>
-        public void DrawCurve(GamePart partNode)
+        private void DrawCurve(GamePart partNode)
         {
             Color baseConnectColor = new Color(1, 1, 1, 0.75f);
 
@@ -699,7 +699,7 @@ namespace GUIInspector.NodeEditor
         }
 
         /// <summary> Позиция подключения следующей главы </summary>
-        public Rect ConnectPosition(GamePart partNode, int id, bool isEvent)
+        private Rect ConnectPosition(GamePart partNode, int id, bool isEvent)
         {
             Rect nodeConnectPosition;
 
@@ -734,8 +734,8 @@ namespace GUIInspector.NodeEditor
             return nodeConnectPosition;
         }
 
-        /// <summary> Отрисовка евентов </summary>
-        public void DrawEvents(GamePart partNode)
+        /// <summary> Отрисовка эвентов </summary>
+        private void DrawEvents(GamePart partNode)
         {
             int sizeEvent;
 
@@ -798,7 +798,7 @@ namespace GUIInspector.NodeEditor
         }
 
         /// <summary> Масштаб окна </summary>
-        public void SetWindowStady(bool stady)
+        private void SetWindowStady(bool stady)
         {
             foreach (GamePart partNode in _storyData.nodesData)
             {

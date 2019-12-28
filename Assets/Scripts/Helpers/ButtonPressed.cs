@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace NLW.Helpers
+namespace Helpers
 {
     /// <summary> Контроль над кнопкой </summary>
     public class ButtonPressed : MonoBehaviour

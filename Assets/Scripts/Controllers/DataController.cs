@@ -1,14 +1,15 @@
-﻿using UnityEngine;
-using System.Collections;
-using NLW.Data;
-using NLW.Parts;
+﻿using System.Collections;
+using Data;
+using Data.Characters;
+using Helpers;
+using UnityEngine;
 
-namespace NLW
+namespace Controllers
 {
     /// <summary> Загрузка и сохранение данных </summary>
     public class DataController : ParentController
     {
-        public static NonPlayer[] npsSaveList;
+        private static NonPlayer[] _npsSaveList;
         [HideInInspector] public Player mainPlayer;
         [HideInInspector] public GameSettings mainSettings;
 
@@ -56,7 +57,7 @@ namespace NLW
         /// <summary> Загрузить базовые данные </summary>
         private void LoadData()
         {
-            npsSaveList = new NonPlayer[20];
+            _npsSaveList = new NonPlayer[20];
 
             mainPlayer = (Player)Resources.Load(PlayerPath, typeof(Player));
             mainSettings = (GameSettings)Resources.Load(SettingsPath, typeof(GameSettings));
@@ -364,21 +365,21 @@ namespace NLW
         {
             int id = 0;
 
-            for (int i = 0; i < npsSaveList.Length; i++)
+            for (int i = 0; i < _npsSaveList.Length; i++)
             {
-                if (npsSaveList[i] == null) id = i;
-                if (npsSaveList[i] == n) return;
+                if (_npsSaveList[i] == null) id = i;
+                if (_npsSaveList[i] == n) return;
             }
 
-            npsSaveList[id] = n;
+            _npsSaveList[id] = n;
         }
 
         /// <summary> Сохранить влияние игрока </summary>
         private void SaveAllRatio()
         {
-            for (int i = 0; i < npsSaveList.Length; i++)
+            for (int i = 0; i < _npsSaveList.Length; i++)
             {
-                if (npsSaveList[i] != null) PlayerPrefs.SetInt(npsSaveList[i].name, npsSaveList[i].npToPlayerRatio);
+                if (_npsSaveList[i] != null) PlayerPrefs.SetInt(_npsSaveList[i].name, _npsSaveList[i].npToPlayerRatio);
             }
         }
 

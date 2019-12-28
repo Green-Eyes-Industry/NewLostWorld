@@ -1,50 +1,48 @@
-﻿using UnityEngine;
+﻿using Controllers;
+using UnityEngine;
 
-namespace NLW
+/// <summary> Управление игровыми параметрами </summary>
+[RequireComponent(typeof(DataController))]
+[RequireComponent(typeof(GameController))]
+[RequireComponent(typeof(AnimController))]
+[RequireComponent(typeof(UIController))]
+[RequireComponent(typeof(SoundController))]
+[RequireComponent(typeof(EffectsController))]
+public class MainController : MonoBehaviour
 {
-    /// <summary> Управление игровыми параметрами </summary>
-    [RequireComponent(typeof(DataController))]
-    [RequireComponent(typeof(GameController))]
-    [RequireComponent(typeof(AnimController))]
-    [RequireComponent(typeof(UIController))]
-    [RequireComponent(typeof(SoundController))]
-    [RequireComponent(typeof(EffectsController))]
-    public class MainController : MonoBehaviour
+    public static MainController instance;
+
+    [HideInInspector] public DataController dataController;
+    [HideInInspector] public GameController gameController;
+    [HideInInspector] public AnimController animController;
+    [HideInInspector] public UIController uIController;
+    [HideInInspector] public SoundController soundController;
+    [HideInInspector] public EffectsController effectsController;
+
+    private void Awake()
     {
-        public static MainController instance;
+        instance = this;
 
-        [HideInInspector] public DataController dataController;
-        [HideInInspector] public GameController gameController;
-        [HideInInspector] public AnimController animController;
-        [HideInInspector] public UIController uIController;
-        [HideInInspector] public SoundController soundController;
-        [HideInInspector] public EffectsController effectsController;
+        dataController = GetComponent<DataController>();
+        gameController = GetComponent<GameController>();
+        animController = GetComponent<AnimController>();
+        uIController = GetComponent<UIController>();
+        soundController = GetComponent<SoundController>();
+        effectsController = GetComponent<EffectsController>();
+    }
 
-        private void Awake()
-        {
-            instance = this;
+    private void Start()
+    {
+        dataController.Init();
+        gameController.Init();
+        animController.Init();
+        uIController.Init();
+        soundController.Init();
+        effectsController.Init();
+    }
 
-            dataController = GetComponent<DataController>();
-            gameController = GetComponent<GameController>();
-            animController = GetComponent<AnimController>();
-            uIController = GetComponent<UIController>();
-            soundController = GetComponent<SoundController>();
-            effectsController = GetComponent<EffectsController>();
-        }
-
-        private void Start()
-        {
-            dataController.Init();
-            gameController.Init();
-            animController.Init();
-            uIController.Init();
-            soundController.Init();
-            effectsController.Init();
-        }
-
-        private void Update()
-        {
-            uIController.IUpdate();
-        }
+    private void Update()
+    {
+        uIController.IUpdate();
     }
 }

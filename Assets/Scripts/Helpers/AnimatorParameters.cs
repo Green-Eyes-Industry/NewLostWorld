@@ -1,4 +1,4 @@
-﻿namespace NLW
+﻿namespace Helpers
 {
     /// <summary> Имена параметров в аниматоре </summary>
     public struct AnimatorParameters
@@ -64,6 +64,7 @@
         public string messangeNote;
 
         public string gameInventDescript;
+        public string inventCaseSelected;
 
         #endregion
 
@@ -128,6 +129,7 @@
             messangeNote = "Messange_Note";
 
             gameInventDescript = "GameInvent_DescriptMenu";
+            inventCaseSelected = "InventSelectedCase";
         }
     }
 }

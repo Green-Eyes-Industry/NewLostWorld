@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-
-#if UNITY_EDITOR
+﻿using Data;
 using UnityEditor;
-using NLW.Data;
-#endif
+using UnityEngine;
 
-namespace NLW.Data
+namespace Helpers
 {
     [CreateAssetMenu(fileName = "new note", menuName = "Игровые обьекты/Заметка")]
     public class Note : ScriptableObject
@@ -17,14 +14,11 @@ namespace NLW.Data
         public string noteDescription;
 
         /// <summary> Глава воспоминания </summary>
-        public Parts.GamePart partNote;
+        public GamePart partNote;
     }
-}
 
 #if UNITY_EDITOR
 
-namespace GUIInspector
-{
     [CustomEditor(typeof(Note))]
     public class NotesGInspector : Editor
     {
@@ -45,11 +39,11 @@ namespace GUIInspector
             EditorGUILayout.LabelField("Текст заметки");
             note.noteDescription = EditorGUILayout.TextArea(note.noteDescription, GUILayout.Height(40));
             EditorGUILayout.Space();
-            note.partNote = (NLW.Parts.GamePart)EditorGUILayout.ObjectField("Глава воспоминания :", note.partNote, typeof(NLW.Parts.GamePart), true);
+            note.partNote = (GamePart)EditorGUILayout.ObjectField("Глава воспоминания :", note.partNote, typeof(GamePart), true);
 
             GUILayout.EndVertical();
         }
     }
-}
 
 #endif
+}

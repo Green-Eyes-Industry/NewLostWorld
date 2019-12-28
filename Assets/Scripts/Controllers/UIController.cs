@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using Helpers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NLW
+namespace Controllers
 {
     /// <summary> Контроль UI </summary>
     public class UIController : ParentController
@@ -75,7 +76,7 @@ namespace NLW
 
         #region VISUAL_EFFECTS
 
-        /// <summary> Старт евента </summary>
+        /// <summary> Старт эвента </summary>
         public void TimeEvent(bool isStart, float timeSec)
         {
             _isEventStarted = isStart;
@@ -83,7 +84,7 @@ namespace NLW
             else _timeForEvent = 0f;
         }
 
-        /// <summary> Таймер в главе евента </summary>
+        /// <summary> Таймер в главе эвента </summary>
         private void TimerEventVision()
         {
             if (timerImage.fillAmount > 0) timerImage.fillAmount -= _timeForEvent * Time.deltaTime;
@@ -177,7 +178,7 @@ namespace NLW
             }
         }
 
-        /// <summary> Отобразить еффекты на персонаже </summary>
+        /// <summary> Отобразить эффекты на персонаже </summary>
         public void ShowEffects()
         {
             int effectsCount = MainController.instance.dataController.mainPlayer.playerEffects.Count;
@@ -217,10 +218,10 @@ namespace NLW
         }
 
         /// <summary> Показать подробности о достижении </summary>
-        public void ShowAchiveDescript(Data.Achivemants achive) => achiveDescriptText.text = achive.achiveDescript;
+        public void ShowAchiveDescript(Achivemants achive) => achiveDescriptText.text = achive.achiveDescript;
 
         /// <summary> Отобразить значек получаемого достижения </summary>
-        public void ShowFinalAchiveIco(Data.Achivemants achive)
+        public void ShowFinalAchiveIco(Achivemants achive)
         {
             finalAchiveIco.sprite = achive.achiveIco;
         }

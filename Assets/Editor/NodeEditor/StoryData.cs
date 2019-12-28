@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Data;
 using UnityEditor;
-using GUIInspector.NodeEditor;
+using UnityEngine;
 
-namespace GUIInspector.NodeEditor
+namespace Editor.NodeEditor
 {
     [CreateAssetMenu(fileName = "New story data", menuName = "Сюжет")]
     public class StoryData : ScriptableObject
@@ -12,7 +12,7 @@ namespace GUIInspector.NodeEditor
         public string storyDescript;
 
         /// <summary> Главы сюжета </summary>
-        public List<NLW.Parts.GamePart> nodesData;
+        public List<GamePart> nodesData;
 
         /// <summary> Стиль отображения графа </summary>
         public GUISkin graphSkin;
@@ -29,12 +29,9 @@ namespace GUIInspector.NodeEditor
 
         #endregion
     }
-}
 
-namespace GUIInspector
-{
     [CustomEditor(typeof(StoryData))]
-    public class StoryDataGUI_Inspector : Editor
+    public class StoryDataGInspector : UnityEditor.Editor
     {
         private StoryData _storyData;
 
@@ -65,7 +62,7 @@ namespace GUIInspector
                     EditorGUILayout.EndHorizontal();
                 }
             }
-            else _storyData.nodesData = new List<NLW.Parts.GamePart>();
+            else _storyData.nodesData = new List<GamePart>();
 
             EditorGUILayout.EndVertical();
         }

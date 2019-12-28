@@ -1,11 +1,7 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using NLW.Data;
-#endif
-
-namespace NLW.Data
+namespace Helpers
 {
     public class Achivemants : ScriptableObject
     {
@@ -19,12 +15,7 @@ namespace NLW.Data
         public string achiveDescript;
     }
 
-}
-
 #if UNITY_EDITOR
-
-namespace GUIInspector
-{
 
     [CustomEditor(typeof(Achivemants))]
     public class AchivemantsGInspector : Editor
@@ -55,6 +46,6 @@ namespace GUIInspector
             GUILayout.EndHorizontal();
         }
     }
-}
 
 #endif
+}

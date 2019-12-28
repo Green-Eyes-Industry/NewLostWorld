@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace NLW
+namespace Controllers
 {
-    /// <summary> Методы обзие для контроллеров </summary>
+    /// <summary> Методы общие для контроллеров </summary>
     public abstract class ParentController : MonoBehaviour
     {
         public abstract void Init();

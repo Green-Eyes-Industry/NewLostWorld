@@ -1,16 +1,17 @@
 ﻿using System.IO;
-using UnityEngine;
+using Data;
+using Data.GameEvents;
+using Data.GameParts;
 using UnityEditor;
-using NLW.Parts;
-using NLW.Data;
+using UnityEngine;
 
-namespace GUIInspector.NodeEditor
+namespace Editor.NodeEditor
 {
-    public class GraphChangeController : Editor
+    public class GraphChangeController : UnityEditor.Editor
     {
         #region DATA
 
-        public static GraphChangeController graphCC;
+        private static GraphChangeController _graphCc;
 
         public static GamePart selectedNode;
 
@@ -18,7 +19,7 @@ namespace GUIInspector.NodeEditor
 
         #region ADD_PART
 
-        public enum UserActions
+        private enum UserActions
         {
             ADD_TEXT_PART,
             ADD_CHANGE_PART,
@@ -33,17 +34,17 @@ namespace GUIInspector.NodeEditor
         /// <summary> Создать новую ноду </summary>
         public static void AddNewNode(Event e)
         {
-            if (graphCC == null) graphCC = (GraphChangeController)CreateInstance(typeof(GraphChangeController));
+            if (_graphCc == null) _graphCc = (GraphChangeController)CreateInstance(typeof(GraphChangeController));
 
             GenericMenu menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Создать главу/Текстовая"), false, graphCC.AddNodeToWindow, UserActions.ADD_TEXT_PART);
-            menu.AddItem(new GUIContent("Создать главу/Выбора"), false, graphCC.AddNodeToWindow, UserActions.ADD_CHANGE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Боя"), false, graphCC.AddNodeToWindow, UserActions.ADD_BATTLE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Загадка"), false, graphCC.AddNodeToWindow, UserActions.ADD_MAZE_PART);
-            menu.AddItem(new GUIContent("Создать главу/Эвент"), false, graphCC.AddNodeToWindow, UserActions.ADD_EVENT_PART);
-            menu.AddItem(new GUIContent("Создать главу/Финальная"), false, graphCC.AddNodeToWindow, UserActions.ADD_FINAL_PART);
-            menu.AddItem(new GUIContent("Создать главу/Вставка"), false, graphCC.AddNodeToWindow, UserActions.ADD_LEAND_PART);
-            menu.AddItem(new GUIContent("Создать главу/Слайдшоу"), false, graphCC.AddNodeToWindow, UserActions.ADD_MOVIE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Текстовая"), false, _graphCc.AddNodeToWindow, UserActions.ADD_TEXT_PART);
+            menu.AddItem(new GUIContent("Создать главу/Выбора"), false, _graphCc.AddNodeToWindow, UserActions.ADD_CHANGE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Боя"), false, _graphCc.AddNodeToWindow, UserActions.ADD_BATTLE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Загадка"), false, _graphCc.AddNodeToWindow, UserActions.ADD_MAZE_PART);
+            menu.AddItem(new GUIContent("Создать главу/Эвент"), false, _graphCc.AddNodeToWindow, UserActions.ADD_EVENT_PART);
+            menu.AddItem(new GUIContent("Создать главу/Финальная"), false, _graphCc.AddNodeToWindow, UserActions.ADD_FINAL_PART);
+            menu.AddItem(new GUIContent("Создать главу/Вставка"), false, _graphCc.AddNodeToWindow, UserActions.ADD_LEAND_PART);
+            menu.AddItem(new GUIContent("Создать главу/Слайдшоу"), false, _graphCc.AddNodeToWindow, UserActions.ADD_MOVIE_PART);
             menu.ShowAsContext();
             e.Use();
         }
@@ -285,7 +286,7 @@ namespace GUIInspector.NodeEditor
 
         #region ADD_EVENT
 
-        public enum AddEventActions
+        private enum AddEventActions
         {
             CHECK_DECISION,
             CHECK_PLAYER_INFL,
@@ -301,7 +302,7 @@ namespace GUIInspector.NodeEditor
             RANDOM_PART
         }
 
-        public enum HelpNodeActions
+        private enum HelpNodeActions
         {
             EDIT_EVENT_PART
         }
@@ -309,28 +310,28 @@ namespace GUIInspector.NodeEditor
         /// <summary> Добавить событие к главе </summary>
         public static void AddEventToPart(Event e)
         {
-            if (graphCC == null) graphCC = (GraphChangeController)CreateInstance(typeof(GraphChangeController));
+            if (_graphCc == null) _graphCc = (GraphChangeController)CreateInstance(typeof(GraphChangeController));
 
             GenericMenu menu = new GenericMenu();
             
             if (selectedNode is EventPart)
             {
-                menu.AddItem(new GUIContent("Открыть редактор евента"), false, graphCC.AddPartToEvent, HelpNodeActions.EDIT_EVENT_PART);
+                menu.AddItem(new GUIContent("Открыть редактор евента"), false, _graphCc.AddPartToEvent, HelpNodeActions.EDIT_EVENT_PART);
             }
             else
             {
-                menu.AddItem(new GUIContent("Добавить событие/Контрольная точка"), false, graphCC.AddEventMethod, AddEventActions.CHECK_POINT);
-                menu.AddItem(new GUIContent("Добавить событие/Важное решение"), false, graphCC.AddEventMethod, AddEventActions.IMPORTANT_DECISION);
-                menu.AddItem(new GUIContent("Добавить событие/Проверка решения"), false, graphCC.AddEventMethod, AddEventActions.CHECK_DECISION);
-                menu.AddItem(new GUIContent("Добавить событие/Влияние на игрока"), false, graphCC.AddEventMethod, AddEventActions.PLAYER_INFL);
-                menu.AddItem(new GUIContent("Добавить событие/Влияние на НПС"), false, graphCC.AddEventMethod, AddEventActions.NON_PLAYER_INFL);
-                menu.AddItem(new GUIContent("Добавить событие/Проверка влияния персонажа"), false, graphCC.AddEventMethod, AddEventActions.CHECK_PLAYER_INFL);
-                menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с эффектом"), false, graphCC.AddEventMethod, AddEventActions.EFFECT_INTERACT);
-                menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с предметом"), false, graphCC.AddEventMethod, AddEventActions.ITEM_INTERACT);
-                menu.AddItem(new GUIContent("Добавить событие/Использование предмета"), false, graphCC.AddEventMethod, AddEventActions.ITEM_INFL);
-                menu.AddItem(new GUIContent("Добавить событие/Найдена локация"), false, graphCC.AddEventMethod, AddEventActions.LOCATION_FIND);
-                menu.AddItem(new GUIContent("Добавить событие/Воспоминание"), false, graphCC.AddEventMethod, AddEventActions.MEMBER_TIME);
-                menu.AddItem(new GUIContent("Добавить событие/Случайный переход"), false, graphCC.AddEventMethod, AddEventActions.RANDOM_PART);
+                menu.AddItem(new GUIContent("Добавить событие/Контрольная точка"), false, _graphCc.AddEventMethod, AddEventActions.CHECK_POINT);
+                menu.AddItem(new GUIContent("Добавить событие/Важное решение"), false, _graphCc.AddEventMethod, AddEventActions.IMPORTANT_DECISION);
+                menu.AddItem(new GUIContent("Добавить событие/Проверка решения"), false, _graphCc.AddEventMethod, AddEventActions.CHECK_DECISION);
+                menu.AddItem(new GUIContent("Добавить событие/Влияние на игрока"), false, _graphCc.AddEventMethod, AddEventActions.PLAYER_INFL);
+                menu.AddItem(new GUIContent("Добавить событие/Влияние на НПС"), false, _graphCc.AddEventMethod, AddEventActions.NON_PLAYER_INFL);
+                menu.AddItem(new GUIContent("Добавить событие/Проверка влияния персонажа"), false, _graphCc.AddEventMethod, AddEventActions.CHECK_PLAYER_INFL);
+                menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с эффектом"), false, _graphCc.AddEventMethod, AddEventActions.EFFECT_INTERACT);
+                menu.AddItem(new GUIContent("Добавить событие/Взаимодействие с предметом"), false, _graphCc.AddEventMethod, AddEventActions.ITEM_INTERACT);
+                menu.AddItem(new GUIContent("Добавить событие/Использование предмета"), false, _graphCc.AddEventMethod, AddEventActions.ITEM_INFL);
+                menu.AddItem(new GUIContent("Добавить событие/Найдена локация"), false, _graphCc.AddEventMethod, AddEventActions.LOCATION_FIND);
+                menu.AddItem(new GUIContent("Добавить событие/Воспоминание"), false, _graphCc.AddEventMethod, AddEventActions.MEMBER_TIME);
+                menu.AddItem(new GUIContent("Добавить событие/Случайный переход"), false, _graphCc.AddEventMethod, AddEventActions.RANDOM_PART);
             }
             
             menu.ShowAsContext();

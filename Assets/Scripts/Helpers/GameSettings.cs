@@ -1,18 +1,15 @@
 ﻿using System.Collections.Generic;
+using Data;
+using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using NLW.Data;
-#endif
-
-namespace NLW.Data
+namespace Helpers
 {
     [CreateAssetMenu(fileName = "New game settings", menuName = "GameSettings")]
     public class GameSettings : ScriptableObject
     {
         /// <summary> Последняя глава </summary>
-        public Parts.GamePart lastPart;
+        public GamePart lastPart;
 
         /// <summary> Настройка звука </summary>
         public bool isSoundCheck;
@@ -20,7 +17,7 @@ namespace NLW.Data
         /// <summary> Настройка вибрации </summary>
         public bool isVibrationCheck;
 
-        /// <summary> Настройка еффектов </summary>
+        /// <summary> Настройка эффектов </summary>
         public bool isEffectCheck;
 
         /// <summary> Цвет глаза </summary>
@@ -29,12 +26,8 @@ namespace NLW.Data
         /// <summary> Полученные достижения </summary>
         public List<Achivemants> gameAchivemants;
     }
-}
 
 #if UNITY_EDITOR
-
-namespace GUIInspector
-{
 
     [CustomEditor(typeof(GameSettings))]
     public class GameSettingsGInspector : Editor
@@ -71,7 +64,7 @@ namespace GUIInspector
             EditorGUILayout.Space();
 
             if (_gameSettings.lastPart == null) GUI.backgroundColor = Color.red;
-            _gameSettings.lastPart = (NLW.Parts.GamePart)EditorGUILayout.ObjectField(_gameSettings.lastPart, typeof(NLW.Parts.GamePart), true);
+            _gameSettings.lastPart = (GamePart)EditorGUILayout.ObjectField(_gameSettings.lastPart, typeof(GamePart), true);
             GUI.backgroundColor = Color.white;
 
             GUILayout.EndHorizontal();
@@ -140,6 +133,6 @@ namespace GUIInspector
             _newAchiveFiles = newAchiveFileList.ToArray();
         }
     }
-}
 
 #endif
+}

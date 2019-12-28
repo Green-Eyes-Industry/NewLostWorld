@@ -1,11 +1,7 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using NLW.Data;
-#endif
-
-namespace NLW.Data
+namespace Helpers
 {
     public class Decision : ScriptableObject
     {
@@ -21,12 +17,9 @@ namespace NLW.Data
 #endif
 
     }
-}
 
 #if UNITY_EDITOR
 
-namespace GUIInspector
-{
     [CustomEditor(typeof(Decision))]
     public class DecisionGInspector : Editor
     {
@@ -48,6 +41,6 @@ namespace GUIInspector
             EditorGUILayout.EndVertical();
         }
     }
-}
 
 #endif
+}

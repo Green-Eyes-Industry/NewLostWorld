@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace NLW.Helpers
+namespace Helpers
 {
     /// <summary> Запуск визуального эффекта </summary>
     public class EffectHelper : MonoBehaviour

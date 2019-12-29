@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d562ba768f5e464ab58262676848bf5, type: 3}
   m_Name: MainSettings
   m_EditorClassIdentifier: 
-  lastPart: {fileID: 11400000, guid: 3f18b2f7c60c2e54bbf8228c4b731dbf, type: 2}
-  isSoundCheck: 1
+  lastPart: {fileID: 0}
+  isSoundCheck: 0
   isVibrationCheck: 1
-  isEffectCheck: 0
+  isEffectCheck: 1
   eyeColor: {r: 0, g: 0, b: 0, a: 0}
   gameAchivemants:
   - {fileID: 11400000, guid: 2fe5b1c01ad0d39488c53cea2ed236b1, type: 2}

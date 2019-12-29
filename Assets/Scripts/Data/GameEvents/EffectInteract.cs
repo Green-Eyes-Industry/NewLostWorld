@@ -23,13 +23,18 @@ namespace Data.GameEvents
 
             if (isAddOrRemove)
             {
-                if (!mPlayer.playerEffects.Contains(gameEffect)) mPlayer.playerEffects.Add(gameEffect);
+                if (!mPlayer.playerEffects.Contains(gameEffect))
+                {
+                    MainController.instance.effectsController.AddEffectMessage(gameEffect);
+                    mPlayer.playerEffects.Add(gameEffect);
+                }
                 return true;
             }
             else
             {
                 if (mPlayer.playerEffects.Contains(gameEffect))
                 {
+                    MainController.instance.effectsController.LostEffectMessage(gameEffect);
                     mPlayer.playerEffects.Remove(gameEffect);
                     return true;
                 }

@@ -15,7 +15,11 @@ namespace Data.GameEvents
         {
             Player mPlayer = MainController.instance.dataController.mainPlayer;
 
-            if (!mPlayer.playerMap.Contains(location)) mPlayer.playerMap.Add(location);
+            if (!mPlayer.playerMap.Contains(location))
+            {
+                MainController.instance.effectsController.AddMapMarkMessage(location);
+                mPlayer.playerMap.Add(location);
+            }
 
             return true;
         }

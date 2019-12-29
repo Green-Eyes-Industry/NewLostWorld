@@ -14,7 +14,11 @@ namespace Data.GameEvents
         {
             Player mPlayer = MainController.instance.dataController.mainPlayer;
 
-            if (!mPlayer.playerNotes.Contains(note)) mPlayer.playerNotes.Add(note);
+            if (!mPlayer.playerNotes.Contains(note))
+            {
+                MainController.instance.effectsController.AddNoteMessage(note);
+                mPlayer.playerNotes.Add(note);
+            }
 
             return true;
         }

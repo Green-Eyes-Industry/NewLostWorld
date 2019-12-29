@@ -5,6 +5,9 @@ namespace Data
     /// <summary> Группа эффектов </summary>
     public abstract class GameEffect : ScriptableObject
     {
+        /// <summary> Название еффекта </summary>
+        public string nameEffect;
+
         /// <summary> Значек эффекта </summary>
         public Sprite icoEffect;
 

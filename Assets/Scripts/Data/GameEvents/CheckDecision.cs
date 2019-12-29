@@ -16,9 +16,9 @@ namespace Data.GameEvents
         /// <returns> Вернет False при провале проверки </returns>
         public override bool EventStart()
         {
-            foreach (var t in MainController.instance.dataController.mainPlayer.playerDecisions)
+            foreach (Decision dec in MainController.instance.dataController.mainPlayer.playerDecisions)
             {
-                if (t.Equals(decision)) return true;
+                if (dec.Equals(decision)) return true;
             }
 
             return false;

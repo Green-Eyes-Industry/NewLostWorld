@@ -26,11 +26,11 @@ namespace Data.GameEffects
 
             EditorGUILayout.BeginVertical();
 
+            negativeEffect.nameEffect = EditorGUILayout.TextField("Название :", negativeEffect.nameEffect);
             negativeEffect.durationEffect = EditorGUILayout.IntSlider("Длительность :", negativeEffect.durationEffect, 0, 50);
             EditorGUILayout.LabelField("Влияние");
             negativeEffect.healthInfluenceEffect = EditorGUILayout.IntSlider("На здоровье :", negativeEffect.healthInfluenceEffect, 0, 10);
             negativeEffect.mindInfluenceEffect = EditorGUILayout.IntSlider("На рассудок :", negativeEffect.mindInfluenceEffect, 0, 10);
-
 
             EditorGUILayout.EndVertical();
 

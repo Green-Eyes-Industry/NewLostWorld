@@ -58,6 +58,12 @@ namespace Data
             {
                 for (int i = 0; i < listEvent.Count; i++)
                 {
+                    if (listEvent[i] == null)
+                    {
+                        listEvent.RemoveAt(i);
+                        return;
+                    }
+
                     GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
 
                     GUILayout.BeginHorizontal("Box");

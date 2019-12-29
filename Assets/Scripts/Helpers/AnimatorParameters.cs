@@ -43,6 +43,9 @@
 
         public string buttonGameInventCases;
 
+        public string buttonInventoryIYes;
+        public string buttonInventoryINo;
+
         // Эффекты
 
         public string stadySettings_1;
@@ -65,6 +68,8 @@
 
         public string gameInventDescript;
         public string inventCaseSelected;
+
+        public string gameInventPage;
 
         #endregion
 
@@ -108,6 +113,9 @@
 
             buttonGameInventCases = "GameInvent_Case_";
 
+            buttonInventoryIYes = "InventoryIYes";
+            buttonInventoryINo = "InventoryINo";
+
             // Эффекты
 
             stadySettings_1 = "Settings_1_St";
@@ -130,6 +138,8 @@
 
             gameInventDescript = "GameInvent_DescriptMenu";
             inventCaseSelected = "InventSelectedCase";
+
+            gameInventPage = "GameInvent_Page";
         }
     }
 }

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 220329a67e3a9ab48991cf9cd8c5c581, type: 3}
+  m_Name: 5_TextPart
+  m_EditorClassIdentifier: 
+  mainText: "\u041F\u043E\u0442\u0435\u0440\u044F"
+  mainEvents:
+  - {fileID: 11400000, guid: b90dd29db4ac24c43997998c923bad28, type: 2}
+  movePart:
+  - {fileID: 0}
+  windowSizeStady: 0
+  memberComment: 0
+  windowRect:
+    serializedVersion: 2
+    x: 583
+    y: 134
+    width: 120
+    height: 42
+  memTitle: 5_TextPart
+  windowTitle: 5_TextPart
+  part: {fileID: 0}
+  workStady: 0
+  comment: 
+  isShowComment: 0
+  buttonText: 

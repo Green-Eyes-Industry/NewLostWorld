@@ -48,6 +48,9 @@ namespace Controllers
         // Инвентарь
 
         public Image[] inventCase;
+        public Text inventDescriptMenu;
+        public Text inventNoButtonText;
+        public GameObject inventYesButton;
 
         // Эффекты в меню персонажа
 
@@ -156,6 +159,9 @@ namespace Controllers
         /// <summary> Текст сообщения заметок </summary>
         public void GameMessageNotes(string newTxt) => gameMessageNotesTxt.text = newTxt;
 
+        /// <summary> Текст подробностей о предмете в инвентаре </summary>
+        public void InventDescriptMenu(string newTxt) => inventDescriptMenu.text = newTxt;
+
         #endregion
 
         #region UI_CONTROL
@@ -226,6 +232,15 @@ namespace Controllers
             finalAchiveIco.sprite = achive.achiveIco;
         }
 
+        /// <summary> Переключение кнопок в меню подробностей инвентаря </summary>
+        public void DeactivateInventButton(bool isAct)
+        {
+            if (isAct) inventNoButtonText.text = "Нет";
+            else inventNoButtonText.text = "Назад";
+
+            inventYesButton.SetActive(isAct);
+        }
+
         #endregion
 
         #region CUROTINES
@@ -239,7 +254,7 @@ namespace Controllers
 
             menuButton[0].text = mainText;
             menuButton[1].text = "Настройки";
-            menuButton[2].text = "Об Авторах";
+            menuButton[2].text = "Об авторах";
             menuButton[3].text = "Достижения";
         }
 

@@ -24,13 +24,18 @@ namespace Data.GameEvents
 
             if (isAddOrLostItem)
             {
-                if (!mPlayer.playerInventory.Contains(gameItem)) mPlayer.playerInventory.Add(gameItem);
+                if (!mPlayer.playerInventory.Contains(gameItem))
+                {
+                    MainController.instance.effectsController.AddItemMessage(gameItem);
+                    mPlayer.playerInventory.Add(gameItem);
+                }
                 return true;
             }
             else
             {
                 if (mPlayer.playerInventory.Contains(gameItem))
                 {
+                    MainController.instance.effectsController.LostItemMessage(gameItem);
                     mPlayer.playerInventory.Remove(gameItem);
                     return true;
                 }
@@ -78,14 +83,15 @@ namespace Data.GameEvents
             {
                 _id = EditorGUILayout.Popup(_id, names);
                 itemInteract.gameItem = (GameItem)allItems[_id];
+                itemInteract.isAddOrLostItem = EditorGUILayout.Toggle(itemInteract.isAddOrLostItem, GUILayout.Width(20));
             }
-            else GUILayout.Label("Нет локаций");
+            else GUILayout.Label("Нет предметов");
 
             GUI.backgroundColor = Color.green;
             if (GUILayout.Button("Active", GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(UsableItem)),
-                "Assets/Resources/Locations/" + allItems.Length + "_UsableItem.asset");
+                "Assets/Resources/GameItems/" + allItems.Length + "_UsableItem.asset");
             if (GUILayout.Button("Pasive", GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(PasiveItem)),
-                "Assets/Resources/Locations/" + allItems.Length + "_PasiveItem.asset");
+                "Assets/Resources/GameItems/" + allItems.Length + "_PasiveItem.asset");
 
             EditorGUILayout.EndHorizontal();
 

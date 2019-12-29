@@ -28,6 +28,23 @@ namespace Controllers
         private int _achiveSelectId; // Глава для вывода описания
         private int _achiveDisplayPage; // Отображаемая страница достижений
         private int _pageInvent; // Страница инвентаря
+        private GameItem _selectedItem;
+
+        public enum MessangeType
+        {
+            ITEM_MS,
+            EFFECT_MS,
+            NOTE_MS,
+            MAP_MS
+        }
+
+        private enum ItemInteractType
+        {
+            INFO_ITEM,
+            USE_ITEM,
+            REMOVE_ITEM
+        }
+        private ItemInteractType _selectedMenuInvent;
 
         #endregion
 
@@ -102,7 +119,7 @@ namespace Controllers
         {
             _mainAnimator.SetInteger(_aParam.gStady, 0);
             MainController.instance.uIController.GameMain(part.mainText);
-            MainController.instance.uIController.GameButton(0,part.buttonText);
+            MainController.instance.uIController.GameButton(0, part.buttonText);
         }
 
         /// <summary> Запуск главы выбора </summary>
@@ -130,7 +147,7 @@ namespace Controllers
             _mainAnimator.SetInteger(_aParam.gStady, 10);
             MainController.instance.uIController.GameMain(part.mainText);
             MainController.instance.uIController.GameButton(0, part.backButtonText);
-            MainController.instance.uIController.GameButton(1,"Решения других игроков");
+            MainController.instance.uIController.GameButton(1, "Решения других игроков");
             MainController.instance.uIController.ShowFinalAchiveIco(part.newAchive);
 
             if (!MainController.instance.dataController.mainSettings.gameAchivemants.Contains(part.newAchive))
@@ -399,7 +416,7 @@ namespace Controllers
                 return;
             }
 
-            
+
             if (thisPart.movePart[id] != null && !press) NextPart(thisPart.movePart[id]);
         }
 
@@ -478,78 +495,145 @@ namespace Controllers
             switch (id)
             {
                 case 0:
+
+                    // Открытие меню инвентаря
                     _mainAnimator.SetBool(_aParam.buttonInventory, press);
                     if (!press)
                     {
                         if (_mainAnimator.GetInteger(_aParam.gStady) != 5)
                         {
                             _pageInvent = 0;
+                            if (MainController.instance.dataController.mainPlayer.playerInventory.Count > 0)
+                            {
+                                _selectedItem = MainController.instance.dataController.mainPlayer.playerInventory[0];
+                                MainController.instance.uIController.GameMessageInventory(_selectedItem.itemName);
+                            }
+                            else MainController.instance.uIController.GameMessageInventory("Пусто");
                             MainController.instance.uIController.ShowInventory(_pageInvent);
                             _lastPartType = _mainAnimator.GetInteger(_aParam.gStady);
                             _mainAnimator.SetInteger(_aParam.gStady, 5);
                         }
-                        else _mainAnimator.SetInteger(_aParam.gStady, _lastPartType);
+                        else
+                        {
+                            _mainAnimator.SetInteger(_aParam.gStady, _lastPartType);
+                            _mainAnimator.SetBool(_aParam.gameInventDescript, false);
+                        }
                     }
                     break;
 
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
+                case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8:
+
+                    // Выбор предмета
+
+                    if (_mainAnimator.GetBool(_aParam.gameInventDescript)) return; // отключение ложной смены предмета
+
                     _mainAnimator.SetBool(_aParam.buttonGameInventCases + id, press);
                     if (!press)
                     {
-                        // TODO : Логика "Выбор предмета в ячейке"
+                        if (MainController.instance.dataController.mainPlayer.playerInventory.Count > id + (_pageInvent * 8) - 1)
+                        {
+                            _selectedItem = MainController.instance.dataController.mainPlayer.playerInventory[id + (_pageInvent * 8) - 1];
+                            MainController.instance.uIController.GameMessageInventory(_selectedItem.itemName);
+                        }
+                        else
+                        {
+                            MainController.instance.uIController.GameMessageInventory("Пусто");
+                            _selectedItem = null;
+                        }
                         _mainAnimator.SetInteger(_aParam.inventCaseSelected, id);
                     }
                     break;
 
                 case 9:
-                    _mainAnimator.SetBool(_aParam.buttonGameInventInfo, press);
-                    if (!press)
+
+                    // Подробности
+                    if (_selectedItem != null)
                     {
-                        // TODO : Логика "Подробности о предмете"
+                        _mainAnimator.SetBool(_aParam.buttonGameInventInfo, press);
+                        if (!press) ItemInteract(ItemInteractType.INFO_ITEM);
                     }
                     break;
 
                 case 10:
-                    _mainAnimator.SetBool(_aParam.buttonGameInventUse, press);
-                    if (!press)
+
+                    // Исспользовать
+                    if (_selectedItem != null)
                     {
-                        // TODO : Логика "Использовать предмет"
+                        _mainAnimator.SetBool(_aParam.buttonGameInventUse, press);
+                        if (!press) ItemInteract(ItemInteractType.USE_ITEM);
                     }
                     break;
 
                 case 11:
-                    _mainAnimator.SetBool(_aParam.buttonGameInventRemove, press);
-                    if (!press)
+
+                    // Выбросить
+                    if (_selectedItem != null)
                     {
-                        // TODO : Логика "Выбросить предмет"
+                        _mainAnimator.SetBool(_aParam.buttonGameInventRemove, press);
+                        if (!press) ItemInteract(ItemInteractType.REMOVE_ITEM);
                     }
                     break;
 
                 case 12:
-                    _mainAnimator.SetBool(_aParam.buttonGameInventLeft, press);
-                    if (!press)
+
+                    // Страница влево
+                    if(_pageInvent > 0)
                     {
-                        // TODO : Логика "Страница влево"
-                        if (_pageInvent > 0) _pageInvent--;
-                        MainController.instance.uIController.ShowInventory(_pageInvent);
+                        _mainAnimator.SetBool(_aParam.buttonGameInventLeft, press);
+
+                        if (!press)
+                        {
+                            _pageInvent--;
+                            _mainAnimator.SetInteger(_aParam.gameInventPage, _pageInvent + 1);
+                            MainController.instance.uIController.ShowInventory(_pageInvent);
+                        }
                     }
                     break;
 
                 case 13:
-                    _mainAnimator.SetBool(_aParam.buttonGameInventRight, press);
+
+                    // Страница вправо
+                    if (_pageInvent < 2)
+                    {
+                        _mainAnimator.SetBool(_aParam.buttonGameInventRight, press);
+
+                        if (!press)
+                        {
+                            _pageInvent++;
+                            _mainAnimator.SetInteger(_aParam.gameInventPage, _pageInvent + 1);
+                            MainController.instance.uIController.ShowInventory(_pageInvent);
+                        }
+                    }
+                    break;
+
+                case 14:
+
+                    // Да в вопросе о взаимодействии
+                    _mainAnimator.SetBool(_aParam.buttonInventoryIYes, press);
                     if (!press)
                     {
-                        // TODO : Логика "Страница вправо"
-                        _pageInvent++;
+                        _mainAnimator.SetBool(_aParam.gameInventDescript, false);
+
+                        switch (_selectedMenuInvent)
+                        {
+                            case ItemInteractType.USE_ITEM:
+
+                                Data.GameItems.UsableItem uItem = (Data.GameItems.UsableItem)_selectedItem;
+                                uItem.UseThisItem();
+                                break;
+                        }
+
+                        MainController.instance.dataController.mainPlayer.playerInventory.Remove(_selectedItem);
+                        MainController.instance.uIController.GameMessageInventory("Пусто");
+                        _selectedItem = null;
                         MainController.instance.uIController.ShowInventory(_pageInvent);
                     }
+                    break;
+                case 15:
+
+                    // Нет в вопросе о взаимодействии
+                    _mainAnimator.SetBool(_aParam.buttonInventoryINo, press);
+                    if (!press) _mainAnimator.SetBool(_aParam.gameInventDescript, false);
                     break;
             }
         }
@@ -624,6 +708,21 @@ namespace Controllers
 
         #endregion
 
+        #region EFFECTS_ANIMATION
+
+        /// <summary> Анимация сообщения </summary>
+        public void GameMessangeEffect(MessangeType mt)
+        {
+            switch (mt)
+            {
+                case MessangeType.ITEM_MS: _mainAnimator.SetTrigger(_aParam.messangeInventory); break;
+                case MessangeType.EFFECT_MS: _mainAnimator.SetTrigger(_aParam.messangePlayer); break;
+                case MessangeType.NOTE_MS: _mainAnimator.SetTrigger(_aParam.messangeNote); break;
+                case MessangeType.MAP_MS: _mainAnimator.SetTrigger(_aParam.messangeMap); break;
+            }
+        }
+        #endregion
+
         #region HELPERS
 
         /// <summary> Переход в игровое меню </summary>
@@ -642,6 +741,47 @@ namespace Controllers
 
             _mainAnimator.SetBool(_aParam.startGameDeskript, false);
 
+        }
+
+        /// <summary> Сообщение о взаимодействии с предметом </summary>
+        private void ItemInteract(ItemInteractType interT)
+        {
+            switch (interT)
+            {
+                case ItemInteractType.INFO_ITEM:
+                    MainController.instance.uIController.InventDescriptMenu(_selectedItem.itemDescript);
+                    MainController.instance.uIController.DeactivateInventButton(false);
+                    break;
+
+                case ItemInteractType.USE_ITEM:
+                    if (_selectedItem is Data.GameItems.UsableItem)
+                    {
+                        MainController.instance.uIController.InventDescriptMenu(
+                            "Вы хотите исспользовать\n\n" +
+                            _selectedItem.itemName);
+                        MainController.instance.uIController.DeactivateInventButton(true);
+                    }
+                    else
+                    {
+                        MainController.instance.uIController.InventDescriptMenu(
+                            "Предмет\n\n" +
+                            _selectedItem.itemName +
+                            "\n\nк сожалению невозможно исспользовать");
+                        MainController.instance.uIController.DeactivateInventButton(false);
+                    }
+                    break;
+
+                case ItemInteractType.REMOVE_ITEM:
+                    MainController.instance.uIController.InventDescriptMenu(
+                        "Действительно выбросить\n\n" +
+                        _selectedItem.itemName +
+                        "\n\nОн может вам еще пригодится");
+                    MainController.instance.uIController.DeactivateInventButton(true);
+                    break;
+            }
+
+            _selectedMenuInvent = interT;
+            _mainAnimator.SetBool(_aParam.gameInventDescript, true);
         }
 
         #endregion

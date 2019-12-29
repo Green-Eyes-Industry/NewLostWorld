@@ -344,7 +344,7 @@ namespace Editor.NodeEditor
             AddEventActions a = (AddEventActions)o;
 
             string path = "Assets/Resources/GameEvents/";
-            string nameEvent = selectedNode.mainEvents.Count.ToString();
+            string nameEvent = selectedNode.mainEvents.Count.ToString() + "_" + selectedNode.name;
 
             switch (a)
             {

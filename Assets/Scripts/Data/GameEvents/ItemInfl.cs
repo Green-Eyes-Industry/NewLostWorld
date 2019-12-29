@@ -25,7 +25,11 @@ namespace Data.GameEvents
             if (mPlayer.playerInventory.Contains(useItem))
             {
                 useItem.UseThisItem();
-                if (isRemove) mPlayer.playerInventory.Remove(useItem);
+                if (isRemove)
+                {
+                    MainController.instance.effectsController.LostItemMessage(useItem);
+                    mPlayer.playerInventory.Remove(useItem);
+                }
                 return true;
             }
             else return false;

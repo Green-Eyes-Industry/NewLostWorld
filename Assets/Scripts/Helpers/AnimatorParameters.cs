@@ -18,6 +18,7 @@
         public string buttonMenu_4;
 
         public string buttonAchiveCases;
+        public string buttonAchiveCloseCases;
 
         public string buttonAchiveLeft;
         public string buttonAchiveRight;
@@ -38,6 +39,11 @@
         public string buttonGameInventInfo;
         public string buttonGameInventUse;
         public string buttonGameInventRemove;
+
+        public string buttonGameInventNullInfo;
+        public string buttonGameInventNullUse;
+        public string buttonGameInventNullRemove;
+
         public string buttonGameInventLeft;
         public string buttonGameInventRight;
 
@@ -88,6 +94,7 @@
             buttonMenu_4 = "Menu_4_Button";
 
             buttonAchiveCases = "AchiveCase_";
+            buttonAchiveCloseCases = "AchiveCaseClose_";
 
             buttonAchiveLeft = "Achives_Left";
             buttonAchiveRight = "Achives_Right";
@@ -108,6 +115,11 @@
             buttonGameInventInfo = "GameInvent_Bt_Info";
             buttonGameInventUse = "GameInvent_Bt_Use";
             buttonGameInventRemove = "GameInvent_Bt_Remove";
+
+            buttonGameInventNullInfo = "GameInventNull_Bt_Info";
+            buttonGameInventNullUse = "GameInventNull_Bt_Use";
+            buttonGameInventNullRemove = "GameInventNull_Bt_Remove";
+
             buttonGameInventLeft = "GameInvent_Bt_Left";
             buttonGameInventRight = "GameInvent_Bt_Right";
 

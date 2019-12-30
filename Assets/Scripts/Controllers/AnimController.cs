@@ -327,6 +327,7 @@ namespace Controllers
                     }
                 }
             }
+            else if (!_isAchiveDetail) _mainAnimator.SetBool(_aParam.buttonAchiveCloseCases + id, press);
         }
 
         /// <summary> Дополнительные кнопки меню достижению </summary>
@@ -554,6 +555,7 @@ namespace Controllers
                         _mainAnimator.SetBool(_aParam.buttonGameInventInfo, press);
                         if (!press) ItemInteract(ItemInteractType.INFO_ITEM);
                     }
+                    else _mainAnimator.SetBool(_aParam.buttonGameInventNullInfo, press);
                     break;
 
                 case 10:
@@ -564,6 +566,7 @@ namespace Controllers
                         _mainAnimator.SetBool(_aParam.buttonGameInventUse, press);
                         if (!press) ItemInteract(ItemInteractType.USE_ITEM);
                     }
+                    else _mainAnimator.SetBool(_aParam.buttonGameInventNullUse, press);
                     break;
 
                 case 11:
@@ -574,6 +577,7 @@ namespace Controllers
                         _mainAnimator.SetBool(_aParam.buttonGameInventRemove, press);
                         if (!press) ItemInteract(ItemInteractType.REMOVE_ITEM);
                     }
+                    else _mainAnimator.SetBool(_aParam.buttonGameInventNullRemove, press);
                     break;
 
                 case 12:

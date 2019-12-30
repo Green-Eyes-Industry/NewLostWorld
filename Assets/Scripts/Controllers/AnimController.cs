@@ -22,13 +22,13 @@ namespace Controllers
         private SubEventPart _subPart;
         private Animator _mainAnimator;
 
-        private bool _isAchiveDetail; // Вы в меню описания достижения
+        private bool _isAchiveDetail;   // Вы в меню описания достижения
 
-        private int _lastPartType; // Тип последней главы
-        private int _achiveSelectId; // Глава для вывода описания
+        private int _lastPartType;      // Тип последней главы
+        private int _achiveSelectId;    // Глава для вывода описания
         private int _achiveDisplayPage; // Отображаемая страница достижений
-        private int _pageInvent; // Страница инвентаря
-        private GameItem _selectedItem;
+        private int _pageInvent;        // Страница инвентаря
+        private GameItem _selectedItem; // Выбранный предмет в инвентаре
 
         public enum MessangeType
         {
@@ -44,7 +44,7 @@ namespace Controllers
             USE_ITEM,
             REMOVE_ITEM
         }
-        private ItemInteractType _selectedMenuInvent;
+        private ItemInteractType _selectedMenuInvent; // Текущее окно взаимодействия с предметом
 
         #endregion
 
@@ -511,6 +511,8 @@ namespace Controllers
                             else MainController.instance.uIController.GameMessageInventory("Пусто");
                             MainController.instance.uIController.ShowInventory(_pageInvent);
                             _lastPartType = _mainAnimator.GetInteger(_aParam.gStady);
+
+                            _mainAnimator.SetInteger(_aParam.gameInventPage, 1);
                             _mainAnimator.SetInteger(_aParam.gStady, 5);
                         }
                         else

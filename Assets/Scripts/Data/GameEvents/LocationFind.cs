@@ -23,6 +23,10 @@ namespace Data.GameEvents
 
             return true;
         }
+
+#if UNITY_EDITOR
+        public int id;
+#endif
     }
 
 #if UNITY_EDITOR
@@ -31,7 +35,6 @@ namespace Data.GameEvents
     public class LocationFindGInspector : Editor
     {
         private LocationFind _locationFind;
-        private static int _id = 0;
 
         private void OnEnable() => _locationFind = (LocationFind)target;
 
@@ -59,8 +62,8 @@ namespace Data.GameEvents
 
             if (allLocations.Length > 0)
             {
-                _id = EditorGUILayout.Popup(_id, names);
-                locationFind.location = (MapMark)allLocations[_id];
+                locationFind.id = EditorGUILayout.Popup(locationFind.id, names);
+                locationFind.location = (MapMark)allLocations[locationFind.id];
             }
             else GUILayout.Label("Нет локаций");
 

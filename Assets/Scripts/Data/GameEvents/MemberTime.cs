@@ -22,6 +22,10 @@ namespace Data.GameEvents
 
             return true;
         }
+
+#if UNITY_EDITOR
+        public int id;
+#endif
     }
 
 #if UNITY_EDITOR
@@ -30,7 +34,6 @@ namespace Data.GameEvents
     public class MemberTimeGInspector : Editor
     {
         private MemberTime _memberTime;
-        private static int _id = 0;
 
         private void OnEnable() => _memberTime = (MemberTime)target;
 
@@ -58,8 +61,8 @@ namespace Data.GameEvents
             
             if (allNotes.Length > 0)
             {
-                _id = EditorGUILayout.Popup(_id, names);
-                memberTime.note = (Note)allNotes[_id];
+                memberTime.id = EditorGUILayout.Popup(memberTime.id, names);
+                memberTime.note = (Note)allNotes[memberTime.id];
             }
             else GUILayout.Label("Нет заметок");
 

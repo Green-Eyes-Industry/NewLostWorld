@@ -26,6 +26,10 @@ namespace Data.GameEvents
 
         /// <summary> Вернуть главу провала </summary>
         public override GamePart FailPart() { return failPart; }
+
+#if UNITY_EDITOR
+        public int id;
+#endif
     }
 
 #if UNITY_EDITOR
@@ -34,7 +38,6 @@ namespace Data.GameEvents
     public class CheckDecisionGInspector : Editor
     {
         private CheckDecision _checkDecision;
-        private static int _id = 0;
 
         private void OnEnable() => _checkDecision = (CheckDecision)target;
 
@@ -64,8 +67,8 @@ namespace Data.GameEvents
 
             if(allDecisions.Length > 0)
             {
-                _id = EditorGUILayout.Popup(_id, names);
-                checkDecision.decision = (Decision)allDecisions[_id];
+                checkDecision.id = EditorGUILayout.Popup(checkDecision.id, names);
+                checkDecision.decision = (Decision)allDecisions[checkDecision.id];
             }
             else GUILayout.Label("Нет решений");
 

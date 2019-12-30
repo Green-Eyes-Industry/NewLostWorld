@@ -45,6 +45,10 @@ namespace Data.GameEvents
 
         /// <summary> Вернуть главу провала </summary>
         public override GamePart FailPart() { return failPart; }
+
+#if UNITY_EDITOR
+        public int id;
+#endif
     }
 
 #if UNITY_EDITOR
@@ -53,7 +57,6 @@ namespace Data.GameEvents
     public class ItemInteractGInspector : Editor
     {
         private ItemInteract _itemInteract;
-        private static int _id = 0;
 
         private void OnEnable() => _itemInteract = (ItemInteract)target;
 
@@ -81,8 +84,8 @@ namespace Data.GameEvents
 
             if (allItems.Length > 0)
             {
-                _id = EditorGUILayout.Popup(_id, names);
-                itemInteract.gameItem = (GameItem)allItems[_id];
+                itemInteract.id = EditorGUILayout.Popup(itemInteract.id, names);
+                itemInteract.gameItem = (GameItem)allItems[itemInteract.id];
                 itemInteract.isAddOrLostItem = EditorGUILayout.Toggle(itemInteract.isAddOrLostItem, GUILayout.Width(20));
             }
             else GUILayout.Label("Нет предметов");
@@ -96,6 +99,9 @@ namespace Data.GameEvents
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
+            if (!itemInteract.isAddOrLostItem)
+                itemInteract.failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", itemInteract.failPart, typeof(GamePart), true);
+
             if (itemInteract.gameItem != null)
             {
                 if(itemInteract.gameItem is PasiveItem pasiveItem) PasiveItemGInspector.ShowItemEditor(pasiveItem);

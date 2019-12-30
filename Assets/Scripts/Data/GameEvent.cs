@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Data.GameEffects;
 using Data.GameEvents;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
 namespace Data
 {

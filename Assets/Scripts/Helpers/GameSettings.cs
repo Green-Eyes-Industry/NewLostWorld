@@ -73,19 +73,27 @@ namespace Helpers
             GUILayout.Label("Достижения [Получено " + _gameSettings.gameAchivemants.Count + " достижений]");
             EditorGUILayout.Space();
 
-
-            for (int i = 0; i < _gameSettings.gameAchivemants.Count; i++)
+            if (_gameSettings.gameAchivemants.Count > 0)
             {
-                EditorGUILayout.BeginHorizontal("Box");
-                EditorGUILayout.LabelField(_gameSettings.gameAchivemants[i].achiveName);
-                if (GUILayout.Button("Удалить"))
+                for (int i = 0; i < _gameSettings.gameAchivemants.Count; i++)
                 {
-                    _gameSettings.gameAchivemants.RemoveAt(i);
-                    ReloadAchives();
+                    if(_gameSettings.gameAchivemants[i] == null)
+                    {
+                        _gameSettings.gameAchivemants.RemoveAt(i);
+                        return;
+                    }
+
+                    EditorGUILayout.BeginHorizontal("Box");
+                    EditorGUILayout.LabelField(_gameSettings.gameAchivemants[i].achiveName);
+                    if (GUILayout.Button("Удалить"))
+                    {
+                        _gameSettings.gameAchivemants.RemoveAt(i);
+                        ReloadAchives();
+                    }
+                    EditorGUILayout.EndHorizontal();
                 }
-                EditorGUILayout.EndHorizontal();
             }
-            
+
             EditorGUILayout.Space();
 
             EditorGUILayout.BeginHorizontal();

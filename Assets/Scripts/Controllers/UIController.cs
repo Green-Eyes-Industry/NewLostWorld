@@ -71,6 +71,7 @@ namespace Controllers
             TimeEvent(false, 0f);
             ConnectGyroscope();
         }
+
         public void IUpdate()
         {
             if (_isEventStarted) TimerEventVision();

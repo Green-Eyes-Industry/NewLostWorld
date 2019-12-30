@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Data.GameEvents
 {
-    [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Использование предмета")]
     public class ItemInfl : GameEvent
     {
         /// <summary> Уничтожить в процессе </summary>
@@ -35,9 +34,13 @@ namespace Data.GameEvents
             else return false;
         }
 
-
         /// <summary> Вернуть главу провала </summary>
         public override GamePart FailPart() { return failPart; }
+
+#if UNITY_EDITOR
+        public int id;
+#endif
+
     }
 
 #if UNITY_EDITOR
@@ -57,7 +60,39 @@ namespace Data.GameEvents
 
             EditorGUILayout.BeginVertical("Box");
 
-            // TODO : Код
+            Object[] allItems = Resources.LoadAll("GameItems/", typeof(UsableItem));
+
+            string[] names = new string[allItems.Length];
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                UsableItem nameConvert = (UsableItem)allItems[i];
+
+                if (nameConvert.itemName == "") names[i] = nameConvert.name;
+                else names[i] = nameConvert.itemName;
+            }
+
+            EditorGUILayout.BeginHorizontal(GUILayout.Height(20));
+
+            if (allItems.Length > 0)
+            {
+                itemInfl.id = EditorGUILayout.Popup(itemInfl.id, names);
+                itemInfl.useItem = (UsableItem)allItems[itemInfl.id];
+                itemInfl.isRemove = EditorGUILayout.Toggle(itemInfl.isRemove, GUILayout.Width(20));
+            }
+            else GUILayout.Label("Нет предметов");
+
+            GUI.backgroundColor = Color.green;
+            if (GUILayout.Button("Создать", GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(UsableItem)),
+                "Assets/Resources/GameItems/" + allItems.Length + "_UsableItem.asset");
+
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = Color.white;
+
+            itemInfl.failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", itemInfl.failPart, typeof(GamePart), true);
+
+            if (itemInfl.useItem != null) UsableItemGInspector.ShowItemEditor(itemInfl.useItem);
 
             EditorGUILayout.EndVertical();
         }

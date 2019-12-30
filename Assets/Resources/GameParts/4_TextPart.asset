@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 220329a67e3a9ab48991cf9cd8c5c581, type: 3}
   m_Name: 4_TextPart
   m_EditorClassIdentifier: 
-  mainText: 
+  mainText: "\u0412\u044B \u043D\u0435 \u0437\u0430\u0431\u0438\u0440\u0430\u043B\u0438
+    \u043F\u0440\u0435\u0434\u043C\u0435\u0442"
   mainEvents: []
   movePart:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 734413d311ff74c4285e8b382aa537ef, type: 2}
   windowSizeStady: 0
   memberComment: 0
   windowRect:
     serializedVersion: 2
-    x: 369
-    y: 285
+    x: 194
+    y: 274
     width: 120
     height: 42
   memTitle: 4_TextPart
@@ -30,4 +31,4 @@ MonoBehaviour:
   workStady: 0
   comment: 
   isShowComment: 0
-  buttonText: 
+  buttonText: "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C"

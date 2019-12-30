@@ -18,6 +18,10 @@ namespace Data.GameEvents
             if (!mPlayer.playerDecisions.Contains(decision)) mPlayer.playerDecisions.Add(decision);
             return true;
         }
+
+#if UNITY_EDITOR
+        public int id;
+#endif
     }
 
 #if UNITY_EDITOR
@@ -26,7 +30,6 @@ namespace Data.GameEvents
     public class ImportantDecisionGInspector : Editor
     {
         private ImportantDecision _importantDecision;
-        private static int _id = 0;
 
         private void OnEnable() => _importantDecision = (ImportantDecision)target;
 
@@ -54,8 +57,8 @@ namespace Data.GameEvents
 
             if (allDecisions.Length > 0)
             {
-                _id = EditorGUILayout.Popup(_id, names);
-                importantDecision.decision = (Decision)allDecisions[_id];
+                importantDecision.id = EditorGUILayout.Popup(importantDecision.id, names);
+                importantDecision.decision = (Decision)allDecisions[importantDecision.id];
             }
             else GUILayout.Label("Нет решений");
 

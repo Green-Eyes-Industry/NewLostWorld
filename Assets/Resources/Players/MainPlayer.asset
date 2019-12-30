@@ -15,7 +15,8 @@ MonoBehaviour:
   playerHealth: 100
   playerMind: 100
   playerEffects: []
-  playerInventory: []
+  playerInventory:
+  - {fileID: 11400000, guid: deb751a5b39a93240bee1b6b731d7fb1, type: 2}
   playerNotes: []
   playerMap: []
   playerDecisions: []

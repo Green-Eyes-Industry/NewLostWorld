@@ -46,11 +46,10 @@ namespace Editor.NodeEditor
         #region INIT
 
         [MenuItem("Story/Node Editor")]
-        [System.Obsolete]
         public static void ShowEditor()
         {
             BehaviorEditor editor = GetWindow<BehaviorEditor>();
-            editor.title = "Node Editor";
+            editor.titleContent.text = "Node Editor";
             editor._gridColor = new Color(0.2f, 0.2f, 0.2f);
             trBehaviorEditor = editor;
 
@@ -630,31 +629,51 @@ namespace Editor.NodeEditor
                 Color randomColor = Color.cyan;
                 Color eventFailColor = Color.red;
 
-                for (int i = 0; i < partNode.mainEvents.Count; i++)
+                foreach (GameEvent ePart in partNode.mainEvents)
                 {
-                    if (partNode.mainEvents[i] is RandomPart randomEvent)
+                    switch (ePart)
                     {
-                        if (randomEvent.partRandom[0] != null && randomEvent.partRandom[0] != this)
-                        {
-                            CreateCurve(ConnectPosition(partNode, 0, false), randomEvent.partRandom[0].windowRect, randomColor);
-                        }
+                        case RandomPart randomPart:
 
-                        if (randomEvent.partRandom[1] != null && randomEvent.partRandom[1] != this)
-                        {
-                            CreateCurve(ConnectPosition(partNode, 1, false), randomEvent.partRandom[1].windowRect, randomColor);
-                        }
+                            if (randomPart.partRandom[0] != null && randomPart.partRandom[0] != this)
+                            {
+                                CreateCurve(ConnectPosition(partNode, 0, false), randomPart.partRandom[0].windowRect, randomColor);
+                            }
 
-                        if (randomEvent.partRandom[2] != null && randomEvent.partRandom[2] != this)
-                        {
-                            CreateCurve(ConnectPosition(partNode, 2, false), randomEvent.partRandom[2].windowRect, randomColor);
-                        }
-                    }
-                    else if(partNode.mainEvents[i] is CheckDecision checkDecision)
-                    {
-                        if (checkDecision.failPart != null && checkDecision.failPart != this)
-                        {
-                            CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(checkDecision.failPart, 0, true), eventFailColor);
-                        }
+                            if (randomPart.partRandom[1] != null && randomPart.partRandom[1] != this)
+                            {
+                                CreateCurve(ConnectPosition(partNode, 1, false), randomPart.partRandom[1].windowRect, randomColor);
+                            }
+
+                            if (randomPart.partRandom[2] != null && randomPart.partRandom[2] != this)
+                            {
+                                CreateCurve(ConnectPosition(partNode, 2, false), randomPart.partRandom[2].windowRect, randomColor);
+                            }
+                            break;
+
+                        case CheckDecision checkDecision:
+
+                            if (checkDecision.failPart != null && checkDecision.failPart != this)
+                            {
+                                CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(checkDecision.failPart, 0, true), eventFailColor);
+                            }
+                            break;
+
+                        case ItemInfl itemInfl:
+
+                            if (itemInfl.failPart != null && itemInfl.failPart != this)
+                            {
+                                CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(itemInfl.failPart, 0, true), eventFailColor);
+                            }
+                            break;
+
+                        case ItemInteract itemInteract:
+
+                            if (itemInteract.failPart != null && itemInteract.failPart != this)
+                            {
+                                CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(itemInteract.failPart, 0, true), eventFailColor);
+                            }
+                            break;
                     }
                 }
             }

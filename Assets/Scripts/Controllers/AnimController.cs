@@ -82,6 +82,8 @@ namespace Controllers
         {
             _mainAnimator.SetTrigger(_aParam.switchGameText);
 
+            thisPart = nextPart;
+
             switch (nextPart)
             {
                 case TextPart textPart:
@@ -110,8 +112,6 @@ namespace Controllers
                         break;
                     }
             }
-
-            thisPart = nextPart;
         }
 
         /// <summary> Запуск текстовой главы </summary>
@@ -152,7 +152,7 @@ namespace Controllers
 
             if (!MainController.instance.dataController.mainSettings.gameAchivemants.Contains(part.newAchive))
                 MainController.instance.dataController.mainSettings.gameAchivemants.Add(part.newAchive);
-            MainController.instance.dataController.SaveAchivesData();
+            MainController.instance.dataController.SaveGlobalSettings();
         }
 
         /// <summary> Запуск временного евента </summary>
@@ -180,21 +180,7 @@ namespace Controllers
                         {
                             case 0:
                                 _mainAnimator.SetBool(_aParam.startGameDeskript, true);
-                                GameStart();
                                 _mainAnimator.SetInteger(_aParam.mStady, 9);
-
-                                int partType;
-
-                                switch (thisPart)
-                                {
-                                    case TextPart _: partType = 0; break;
-                                    case ChangePart _: partType = 1; break;
-                                    case BattlePart _: partType = 2; break;
-                                    case EventPart _: partType = 3; break;
-                                    default: partType = 4; break;
-                                }
-
-                                _mainAnimator.SetInteger(_aParam.gStady, partType);
                                 StartCoroutine(HideStartDescriptMenu());
 
                                 break;
@@ -202,7 +188,6 @@ namespace Controllers
                             case 1:
                                 _mainAnimator.SetBool(_aParam.stadySettings_1, !_mainAnimator.GetBool(_aParam.stadySettings_1));
                                 MainController.instance.dataController.mainSettings.isSoundCheck = _mainAnimator.GetBool(_aParam.stadySettings_1);
-                                MainController.instance.dataController.SaveSettingsData();
                                 break;
                         }
                     }
@@ -224,7 +209,6 @@ namespace Controllers
                             case 1:
                                 _mainAnimator.SetBool(_aParam.stadySettings_2, !_mainAnimator.GetBool(_aParam.stadySettings_2));
                                 MainController.instance.dataController.mainSettings.isVibrationCheck = _mainAnimator.GetBool(_aParam.stadySettings_2);
-                                MainController.instance.dataController.SaveSettingsData();
                                 break;
                         }
                     }
@@ -246,7 +230,6 @@ namespace Controllers
                             case 1:
                                 _mainAnimator.SetBool(_aParam.stadySettings_3, !_mainAnimator.GetBool(_aParam.stadySettings_3));
                                 MainController.instance.dataController.mainSettings.isEffectCheck = _mainAnimator.GetBool(_aParam.stadySettings_3);
-                                MainController.instance.dataController.SaveSettingsData();
                                 break;
                         }
                     }
@@ -284,6 +267,7 @@ namespace Controllers
                                 _mainAnimator.SetBool(_aParam.buttonMenu_4, press);
                                 _mainAnimator.SetInteger(_aParam.mStady, 0);
                                 _mainAnimator.SetTrigger(_aParam.returnToMenu);
+                                MainController.instance.dataController.SaveGlobalSettings();
                                 break;
 
                             default:
@@ -416,7 +400,6 @@ namespace Controllers
                 thisPart = startPart;
                 return;
             }
-
 
             if (thisPart.movePart[id] != null && !press) NextPart(thisPart.movePart[id]);
         }
@@ -741,7 +724,22 @@ namespace Controllers
         /// <summary> Задержка стартового меню </summary>
         private IEnumerator HideStartDescriptMenu()
         {
-            MainController.instance.dataController.LoadGameData();
+            MainController.instance.dataController.LoadGameSettings();
+
+            GameStart();
+
+            int partType;
+
+            switch (thisPart)
+            {
+                case TextPart _: partType = 0; break;
+                case ChangePart _: partType = 1; break;
+                case BattlePart _: partType = 2; break;
+                case EventPart _: partType = 3; break;
+                default: partType = 4; break;
+            }
+
+            _mainAnimator.SetInteger(_aParam.gStady, partType);
 
             yield return new WaitForSeconds(10f);
 

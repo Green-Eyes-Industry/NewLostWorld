@@ -19,7 +19,6 @@ namespace Data.GameEvents
         /// <returns> Fail part </returns>
         public override bool EventStart()
         {
-            MainController.instance.dataController.LoadNonPlayerRatio(nonPlayer);
             return nonPlayer.npToPlayerRatio >= value;
         }
 

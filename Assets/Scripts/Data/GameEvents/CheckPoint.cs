@@ -1,5 +1,4 @@
-﻿using Controllers;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace Data.GameEvents
@@ -9,9 +8,9 @@ namespace Data.GameEvents
         /// <summary> Перезаписывает сохраненные данные </summary>
         public override bool EventStart()
         {
-            DataController dController = MainController.instance.dataController;
             MainController.instance.dataController.mainSettings.lastPart = MainController.instance.animController.thisPart;
-            dController.CheckPointSave();
+            MainController.instance.dataController.SaveGameSettings();
+            MainController.instance.dataController.SaveGlobalSettings();
             return true;
         }
     }

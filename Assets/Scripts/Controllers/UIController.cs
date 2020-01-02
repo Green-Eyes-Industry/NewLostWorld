@@ -170,6 +170,15 @@ namespace Controllers
         /// <summary> Отобразить инвентарь </summary>
         public void ShowInventory(int page)
         {
+            for (int i = 0; i < MainController.instance.dataController.mainPlayer.playerInventory.Count; i++)
+            {
+                if (MainController.instance.dataController.mainPlayer.playerInventory == null)
+                {
+                    MainController.instance.dataController.mainPlayer.playerInventory.RemoveAt(i);
+                    if (i > 0) i--;
+                }
+            }
+
             int itemCount = MainController.instance.dataController.mainPlayer.playerInventory.Count;
 
             page *= inventCase.Length;
@@ -204,6 +213,15 @@ namespace Controllers
         /// <summary> Отобразить достижения </summary>
         public void ShowAchive(int page)
         {
+            for (int i = 0; i < MainController.instance.dataController.mainSettings.gameAchivemants.Count; i++)
+            {
+                if (MainController.instance.dataController.mainSettings.gameAchivemants == null)
+                {
+                    MainController.instance.dataController.mainSettings.gameAchivemants.RemoveAt(i);
+                    if (i > 0) i--;
+                }
+            }
+
             int achivesLendth = MainController.instance.dataController.mainSettings.gameAchivemants.Count;
 
             page *= achiveCase.Length;

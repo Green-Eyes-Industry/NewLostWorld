@@ -28,6 +28,9 @@ namespace Data.Characters
 
         /// <summary> Важные решения </summary>
         public List<Decision> playerDecisions;
+
+        /// <summary> Встреченные персонажи </summary>
+        public List<NonPlayer> playerMeet;
     }
 
 #if UNITY_EDITOR
@@ -45,16 +48,12 @@ namespace Data.Characters
             "Эффекты",
             "Карта",
             "Заметки",
-            "Решения"
+            "Решения",
+            "Встречи"
         };
 
         /// <summary> Прокрутки </summary>
-        private Vector2
-            _playerEffectsScroll,
-            _playerInventoryScroll,
-            _playerNotesScroll,
-            _playerMapScroll,
-            _playerDecisionScroll;
+        private Vector2 _scroll;
 
         private void OnEnable() => _player = (Player)target;
 
@@ -77,127 +76,40 @@ namespace Data.Characters
 
             switch (_menuNum)
             {
-                case 0: PlayerInventory(); break;
-                case 1: PlayerEffects(); break;
-                case 2: PlayerMap(); break;
-                case 3: PlayerNotes(); break;
-                case 4: PlayerDecisions(); break;
+                case 0: ShowListItems(_player.playerInventory); break;
+                case 1: ShowListItems(_player.playerEffects); break;
+                case 2: ShowListItems(_player.playerMap); break;
+                case 3: ShowListItems(_player.playerNotes); break;
+                case 4: ShowListItems(_player.playerDecisions); break;
+                case 5: ShowListItems(_player.playerMeet); break;
             }
 
             GUILayout.EndVertical();
         }
 
-        /// <summary> Отображение списка действующих эффектов </summary>
-        private void PlayerEffects()
+        /// <summary> Отобразить список </summary>
+        private void ShowListItems<T>(List<T> items)
         {
-            _playerEffectsScroll = EditorGUILayout.BeginScrollView(_playerEffectsScroll);
+            _scroll = EditorGUILayout.BeginScrollView(_scroll);
 
-            if (_player.playerEffects.Count > 0)
+            if (items.Count > 0)
             {
-                for (int i = 0; i < _player.playerEffects.Count; i++)
+                for (int i = 0; i < items.Count; i++)
                 {
-                    GUILayout.BeginHorizontal();
+                    if (items[i] == null)
+                    {
+                        items.RemoveAt(i);
+                        break;
+                    }
 
-                    _player.playerEffects[i] = (GameEffect)EditorGUILayout.ObjectField(_player.playerEffects[i], typeof(GameEffect), true);
-                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerEffects.RemoveAt(i);
+                    GUILayout.BeginHorizontal("Box");
+
+                    EditorGUILayout.LabelField(items[i].ToString());
+                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) items.RemoveAt(i);
 
                     GUILayout.EndHorizontal();
                 }
             }
-
-            if (GUILayout.Button("Добавить эффект", GUILayout.Height(20))) _player.playerEffects.Add(null);
-
-            EditorGUILayout.EndScrollView();
-        }
-
-        /// <summary> Отображение списка предметов </summary>
-        private void PlayerInventory()
-        {
-            _playerInventoryScroll = EditorGUILayout.BeginScrollView(_playerInventoryScroll);
-
-            if (_player.playerInventory.Count > 0)
-            {
-                for (int i = 0; i < _player.playerInventory.Count; i++)
-                {
-                    GUILayout.BeginHorizontal();
-
-                    _player.playerInventory[i] = (GameItem)EditorGUILayout.ObjectField(_player.playerInventory[i], typeof(GameItem), true);
-                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerInventory.RemoveAt(i);
-
-                    GUILayout.EndHorizontal();
-                }
-            }
-
-            if (GUILayout.Button("Добавить предмет", GUILayout.Height(20))) _player.playerInventory.Add(null);
-
-            EditorGUILayout.EndScrollView();
-        }
-
-        /// <summary> Отображение списка доступных заметок </summary>
-        private void PlayerNotes()
-        {
-            _playerNotesScroll = EditorGUILayout.BeginScrollView(_playerNotesScroll);
-
-            if (_player.playerNotes.Count > 0)
-            {
-                for (int i = 0; i < _player.playerNotes.Count; i++)
-                {
-                    GUILayout.BeginHorizontal();
-
-                    _player.playerNotes[i] = (Note)EditorGUILayout.ObjectField(_player.playerNotes[i], typeof(Note), true);
-                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerNotes.RemoveAt(i);
-
-                    GUILayout.EndHorizontal();
-                }
-            }
-
-            if (GUILayout.Button("Добавить заметку", GUILayout.Height(20))) _player.playerNotes.Add(null);
-
-            EditorGUILayout.EndScrollView();
-        }
-
-        /// <summary> Отображение списка доступных локаций на карте </summary>
-        private void PlayerMap()
-        {
-            _playerMapScroll = EditorGUILayout.BeginScrollView(_playerMapScroll);
-
-            if (_player.playerMap.Count > 0)
-            {
-                for (int i = 0; i < _player.playerMap.Count; i++)
-                {
-                    GUILayout.BeginHorizontal();
-
-                    _player.playerMap[i] = (MapMark)EditorGUILayout.ObjectField(_player.playerMap[i], typeof(MapMark), true);
-                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerMap.RemoveAt(i);
-
-                    GUILayout.EndHorizontal();
-                }
-            }
-
-            if (GUILayout.Button("Добавить локацию", GUILayout.Height(20))) _player.playerMap.Add(null);
-
-            EditorGUILayout.EndScrollView();
-        }
-
-        /// <summary> Отображение списка принятых решений </summary>
-        private void PlayerDecisions()
-        {
-            _playerDecisionScroll = EditorGUILayout.BeginScrollView(_playerDecisionScroll);
-
-            if (_player.playerDecisions.Count > 0)
-            {
-                for (int i = 0; i < _player.playerDecisions.Count; i++)
-                {
-                    GUILayout.BeginHorizontal();
-
-                    _player.playerDecisions[i] = (Decision)EditorGUILayout.ObjectField(_player.playerDecisions[i], typeof(Decision), true);
-                    if (GUILayout.Button("Удалить", GUILayout.Width(70))) _player.playerDecisions.RemoveAt(i);
-
-                    GUILayout.EndHorizontal();
-                }
-            }
-
-            if (GUILayout.Button("Добавить решение", GUILayout.Height(20))) _player.playerDecisions.Add(null);
 
             EditorGUILayout.EndScrollView();
         }

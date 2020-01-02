@@ -1,6 +1,7 @@
 ﻿using Data.Characters;
 using UnityEditor;
 using UnityEngine;
+using Data.GameEffects;
 
 namespace Data.GameEvents
 {
@@ -44,6 +45,10 @@ namespace Data.GameEvents
 
         /// <summary> Вернуть главу провала </summary>
         public override GamePart FailPart() { return failPart; }
+
+#if UNITY_EDITOR
+        public int id;
+#endif
     }
 
 #if UNITY_EDITOR
@@ -63,7 +68,45 @@ namespace Data.GameEvents
 
             EditorGUILayout.BeginVertical("Box");
 
-            // TODO : Получение или потеря эффекта
+            Object[] allItems = Resources.LoadAll("PlayerEffects/", typeof(GameEffect));
+
+            string[] names = new string[allItems.Length];
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                GameEffect nameConvert = (GameEffect)allItems[i];
+
+                if (nameConvert.nameEffect == "") names[i] = nameConvert.name;
+                else names[i] = nameConvert.nameEffect;
+            }
+
+            EditorGUILayout.BeginHorizontal(GUILayout.Height(20));
+
+            if (allItems.Length > 0)
+            {
+                effectInteract.id = EditorGUILayout.Popup(effectInteract.id, names);
+                effectInteract.gameEffect = (GameEffect)allItems[effectInteract.id];
+                effectInteract.isAddOrRemove = EditorGUILayout.Toggle(effectInteract.isAddOrRemove, GUILayout.Width(20));
+            }
+            else GUILayout.Label("Нет предметов");
+
+            GUI.backgroundColor = Color.green;
+            if (GUILayout.Button("Positive", GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(PositiveEffect)),
+                "Assets/Resources/PlayerEffects/" + allItems.Length + "_PositiveEffect.asset");
+            if (GUILayout.Button("Negative", GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(NegativeEffect)),
+                "Assets/Resources/PlayerEffects/" + allItems.Length + "_NegativeEffect.asset");
+
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = Color.white;
+            if (!effectInteract.isAddOrRemove)
+                effectInteract.failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", effectInteract.failPart, typeof(GamePart), true);
+
+            if (effectInteract.gameEffect != null)
+            {
+                if (effectInteract.gameEffect is PositiveEffect positiveEffect) PositiveEffectGInspector.ShowPositiveEffectGUI(positiveEffect);
+                else if (effectInteract.gameEffect is NegativeEffect negativeEffect) NegativeEffectGInspector.ShowNegativeEffectGUI(negativeEffect);
+            }
 
             EditorGUILayout.EndVertical();
         }

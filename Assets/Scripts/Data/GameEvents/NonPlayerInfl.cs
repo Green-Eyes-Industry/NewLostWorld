@@ -17,7 +17,11 @@ namespace Data.GameEvents
         public override bool EventStart()
         {
             nonPlayer.npToPlayerRatio += value;
-            MainController.instance.dataController.SaveNonPlayerRatio(nonPlayer);
+
+            if (!MainController.instance.dataController.mainPlayer.playerMeet.Contains(nonPlayer))
+            {
+                MainController.instance.dataController.mainPlayer.playerMeet.Add(nonPlayer);
+            }
             return false;
         }
     }

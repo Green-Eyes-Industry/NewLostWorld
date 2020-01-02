@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Xml.Linq;
 using Data;
 using Data.Characters;
 using Helpers;
@@ -9,406 +11,393 @@ namespace Controllers
     /// <summary> Загрузка и сохранение данных </summary>
     public class DataController : ParentController
     {
-        private static NonPlayer[] _npsSaveList;
-        [HideInInspector] public Player mainPlayer;
-        [HideInInspector] public GameSettings mainSettings;
+        #region VARIABLES
 
-        #region RESOURCES_PATH
+        [HideInInspector] public static NonPlayer[] npsSaveList;
+        [HideInInspector] public static GameEffect[] effectsSaveList;
 
-        private const string PlayerPath = "Players/MainPlayer";
-        private const string SettingsPath = "MainSettings";
+        public Player mainPlayer;
+        public GameSettings mainSettings;
 
-        private const string PartsPath = "GameParts/";
-        private const string AchivesPath = "Achivemants/";
-        private const string InventoryPath = "GameItems/";
-        private const string EffectsPath = "PlayerEffects/";
-        private const string LocationsPath = "Locations/";
-        private const string NotesPath = "Notes/";
-        private const string DecisionsPath = "Decisions/";
+        private const string _trueVal = "true";
+        private const string _root = "data";
+
+        private string _savePathFolder;
+        private string _globalFileName;
+        private string _gameFileName;
 
         #endregion
 
-        #region SAVE_KEYS
+        #region GLOBAL_KEYS
 
-        private const string AchivesKey = "Achive_";
-        private const string LastPartKey = "LastPart";
-        private const string SoundSettingsKey = "Sound";
-        private const string VibrationSettingsKey = "Vibration";
-        private const string EffectsSettingsKey = "Effects";
+        private string _pathGameParts;
+        private string _pathAchivemants;
 
-        private const string PlayerHealthKey = "Health";
-        private const string PlayerMindKey = "Mind";
+        private string _eyeColor;
+        private string _eyeColorR;
+        private string _eyeColorG;
+        private string _eyeColorB;
 
-        private const string PlayerInventoryKey = "Invent_";
-        private const string PlayerEffectsKey = "Effect_";
-        private const string PlayerLocationsKey = "Location_";
-        private const string PlayerNotesKey = "Note_";
-        private const string PlayerDecisionsKey = "Decision_";
+        private string _lastPart;
+
+        private string _settings;
+        private string _settingsSound;
+        private string _settingsVibration;
+        private string _settingsEffects;
+
+        private string _previewText;
+
+        private string _achives;
+        private string _achivesData;
 
         #endregion
+
+        #region GAME_KEYS
+
+        private string _pathItems;
+        private string _pathEffects;
+        private string _pathDecisions;
+        private string _pathNotes;
+        private string _pathLocations;
+        private string _pathNonPlayers;
+
+        private string _playerData;
+        private string _playerDataHealth;
+        private string _playerDataMind;
+
+        private string _inventory;
+        private string _inventoryData;
+
+        private string _effects;
+        private string _effectsData;
+        private string _effectsDataDuration;
+
+        private string _decision;
+        private string _decisionData;
+
+        private string _notes;
+        private string _notesData;
+
+        private string _locations;
+        private string _locationsData;
+
+        private string _meet;
+        private string _meetData;
+        private string _meetDataRation;
+
+        #endregion
+
+        /// <summary> Присвоить имена базовым ключам </summary>
+        private void KeyGlobalNames(bool isClear)
+        {
+            if (isClear)
+            {
+                _globalFileName = null;
+                _pathGameParts = null;
+                _pathAchivemants = null;
+                _eyeColor = null;
+                _eyeColorR = null;
+                _eyeColorG = null;
+                _eyeColorB = null;
+                _lastPart = null;
+                _settings = null;
+                _settingsSound = null;
+                _settingsVibration = null;
+                _settingsEffects = null;
+                _previewText = null;
+                _achives = null;
+                _achivesData = null;
+                return;
+            }
+
+            _globalFileName = "/GlobalSettings.xml";
+
+            _pathGameParts = "GameParts/";
+            _pathAchivemants = "Achivemants/";
+
+            _eyeColor = "eye_color";
+            _eyeColorR = "r";
+            _eyeColorG = "g";
+            _eyeColorB = "b";
+
+            _lastPart = "last_part";
+
+            _settings = "settings";
+            _settingsSound = "sound";
+            _settingsVibration = "vibration";
+            _settingsEffects = "effects";
+
+            _previewText = "preview_text";
+
+            _achives = "achives";
+            _achivesData = "ach";
+        }
+
+        /// <summary> Присвоить имена игровым ключам </summary>
+        private void KeyGameNames(bool isClear)
+        {
+            if (isClear)
+            {
+                _gameFileName = null;
+                _pathItems = null;
+                _pathDecisions = null;
+                _pathNotes = null;
+                _pathLocations = null;
+                _pathNonPlayers = null;
+                _playerData = null;
+                _playerDataHealth = null;
+                _playerDataMind = null;
+                _inventory = null;
+                _inventoryData = null;
+                _effects = null;
+                _effectsData = null;
+                _effectsDataDuration = null;
+                _decision = null;
+                _decisionData = null;
+                _notes = null;
+                _notesData = null;
+                _locations = null;
+                _locationsData = null;
+                _meet = null;
+                _meetData = null;
+                _meetDataRation = null;
+            }
+
+            _gameFileName = "/GameSettings.xml";
+
+            _pathItems = "GameItems/";
+            _pathEffects = "PlayerEffects/";
+            _pathDecisions = "Decisions/";
+            _pathNotes = "Notes/";
+            _pathLocations = "Locations/";
+            _pathNonPlayers = "Players/NonPlayers/";
+
+            _playerData = "player_data";
+            _playerDataHealth = "health";
+            _playerDataMind = "mind";
+
+            _inventory = "inventory";
+            _inventoryData = "item";
+
+            _effects = "effects";
+            _effectsData = "effect";
+            _effectsDataDuration = "duration";
+
+            _decision = "decision";
+            _decisionData = "dec";
+
+            _notes = "notes";
+            _notesData = "note";
+
+            _locations = "locations";
+            _locationsData = "location";
+
+            _meet = "meet";
+            _meetData = "meetData";
+            _meetDataRation = "ratio";
+        }
 
         public override void Init()
         {
-            LoadData();
+            _savePathFolder = Application.persistentDataPath;
+            LoadGlobalSettings();
         }
 
-        #region LOAD_METHODS
+        #region SAVE
 
-        /// <summary> Загрузить базовые данные </summary>
-        private void LoadData()
+        public void SaveGlobalSettings()
         {
-            _npsSaveList = new NonPlayer[20];
+            // Присвоение значений
 
-            mainPlayer = (Player)Resources.Load(PlayerPath, typeof(Player));
-            mainSettings = (GameSettings)Resources.Load(SettingsPath, typeof(GameSettings));
+            KeyGlobalNames(false); // Загрузка ключей
 
-            if (PlayerPrefs.HasKey(LastPartKey))
-            {
-                // Глава на которой закончили
-                if ((GamePart)Resources.Load(PartsPath + PlayerPrefs.GetString(LastPartKey), typeof(GamePart)) != null)
-                {
-                    mainSettings.lastPart = (GamePart)Resources.Load(PartsPath + PlayerPrefs.GetString(LastPartKey), typeof(GamePart));
-                }
-            }
+            XElement el_eyeColor = new XElement(_eyeColor,
+                new XAttribute(_eyeColorR, mainSettings.eyeColor.r),
+                new XAttribute(_eyeColorG, mainSettings.eyeColor.g),
+                new XAttribute(_eyeColorB, mainSettings.eyeColor.b));
 
-            // Загрузка настроек
+            XElement el_lastPart = new XElement(_lastPart,
+                mainSettings.lastPart.name);
 
-            mainSettings.isSoundCheck = PlayerPrefs.HasKey(SoundSettingsKey);
-            mainSettings.isVibrationCheck = PlayerPrefs.HasKey(VibrationSettingsKey);
-            mainSettings.isEffectCheck = PlayerPrefs.HasKey(EffectsSettingsKey);
+            XElement settings = new XElement(_settings,
+                new XAttribute(_settingsSound, mainSettings.isSoundCheck),
+                new XAttribute(_settingsVibration, mainSettings.isVibrationCheck),
+                new XAttribute(_settingsEffects, mainSettings.isEffectCheck));
 
-            // Достижения
-            if (!PlayerPrefs.HasKey(AchivesKey + 0)) return;
-            
-            for (int i = 0; i < 100; i++)
-            {
-                if (PlayerPrefs.HasKey(AchivesKey + i))
-                {
-                    mainSettings.gameAchivemants.Add((Achivemants)Resources.Load(
-                        AchivesPath + PlayerPrefs.GetString(AchivesKey + i),
-                        typeof(Achivemants)));
-                }
-                else break;
-            }
+            XElement previewText = new XElement(_previewText, mainSettings.previewText);
+
+            XElement achives = new XElement(_achives);
+
+            foreach (Achivemants achive in mainSettings.gameAchivemants) achives.Add(new XElement(_achivesData, achive.name));
+
+            // Сохранение значений
+
+            XElement global_data = new XElement(_root);
+
+            global_data.Add(el_eyeColor);
+            global_data.Add(el_lastPart);
+            global_data.Add(settings);
+            global_data.Add(previewText);
+            global_data.Add(achives);
+
+            XDocument save_global_data = new XDocument(global_data);
+            File.WriteAllText(_savePathFolder + _globalFileName, save_global_data.ToString());
+
+            KeyGlobalNames(true); // Отгрузка ключей
         }
 
-        /// <summary> Загрузка данных для игры </summary>
-        public void LoadGameData()
+        /// <summary> Сохранить игровые настройки </summary>
+        public void SaveGameSettings()
         {
-            // Характеристики игрока
-            if (PlayerPrefs.HasKey(PlayerHealthKey)) mainPlayer.playerHealth = PlayerPrefs.GetInt(PlayerHealthKey);
-            if (PlayerPrefs.HasKey(PlayerMindKey)) mainPlayer.playerMind = PlayerPrefs.GetInt(PlayerMindKey);
+            KeyGameNames(false); // Загрузка значений
 
-            // Инвентарь
-            if (PlayerPrefs.HasKey(PlayerInventoryKey + 0))
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    if (PlayerPrefs.HasKey(PlayerInventoryKey + i))
-                    {
-                        mainPlayer.playerInventory.Add((GameItem)Resources.Load(
-                            InventoryPath + PlayerPrefs.GetString(PlayerInventoryKey + i),
-                            typeof(GameItem)));
-                    }
-                    else break;
-                }
-            }
+            XElement el_player = new XElement(_playerData,
+                new XAttribute(_playerDataHealth, mainPlayer.playerHealth),
+                new XAttribute(_playerDataMind, mainPlayer.playerMind));
 
-            // Эффекты
-            if (PlayerPrefs.HasKey(PlayerEffectsKey + 0))
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    if (PlayerPrefs.HasKey(PlayerEffectsKey + i))
-                    {
-                        mainPlayer.playerEffects.Add((GameEffect)Resources.Load(
-                            EffectsPath + PlayerPrefs.GetString(PlayerEffectsKey + i),
-                            typeof(GameEffect)));
-                    }
-                    else break;
-                }
-            }
+            XElement el_inventory = new XElement(_inventory);
+            XElement el_playerEffect = new XElement(_effects);
+            XElement el_playerDecisions = new XElement(_decision);
+            XElement el_playerNotes = new XElement(_notes);
+            XElement el_playerLocations = new XElement(_locations);
+            XElement el_meet = new XElement(_meet);
 
-            // Карта
-            if (PlayerPrefs.HasKey(PlayerLocationsKey + 0))
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    if (PlayerPrefs.HasKey(PlayerLocationsKey + i))
-                    {
-                        mainPlayer.playerMap.Add((MapMark)Resources.Load(
-                            LocationsPath + PlayerPrefs.GetString(PlayerLocationsKey + i),
-                            typeof(MapMark)));
-                    }
-                    else break;
-                }
-            }
+            foreach (GameItem item in mainPlayer.playerInventory) el_inventory.Add(new XElement(_inventoryData, item.name));
+            foreach (GameEffect effect in mainPlayer.playerEffects) el_playerEffect.Add(new XElement(_effectsData, effect.name,
+                new XAttribute(_effectsDataDuration, effect.durationEffect)));
+            foreach (Decision dec in mainPlayer.playerDecisions) el_playerDecisions.Add(new XElement(_decisionData, dec.name));
+            foreach (Note note in mainPlayer.playerNotes) el_playerNotes.Add(new XElement(_notesData, note.name));
+            foreach (MapMark mark in mainPlayer.playerMap) el_playerLocations.Add(new XElement(_locationsData, mark.name));
+            foreach (NonPlayer nPlayer in mainPlayer.playerMeet) el_meet.Add(new XElement(_meetData, nPlayer.name,
+                new XAttribute(_meetDataRation, nPlayer.npToPlayerRatio)));
 
-            // Заметки
-            if (PlayerPrefs.HasKey(PlayerNotesKey + 0))
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    if (PlayerPrefs.HasKey(PlayerNotesKey + i))
-                    {
-                        mainPlayer.playerNotes.Add((Note)Resources.Load(
-                            NotesPath + PlayerPrefs.GetString(PlayerNotesKey + i),
-                            typeof(Note)));
-                    }
-                    else break;
-                }
-            }
+            // Сохранение значений
 
-            // Решения
-            if (!PlayerPrefs.HasKey(PlayerDecisionsKey + 0)) return;
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    if (PlayerPrefs.HasKey(PlayerDecisionsKey + i))
-                    {
-                        mainPlayer.playerDecisions.Add((Decision)Resources.Load(
-                            DecisionsPath + PlayerPrefs.GetString(PlayerDecisionsKey + i),
-                            typeof(Decision)));
-                    }
-                    else break;
-                }
-            }
-        }
+            XElement global_data = new XElement(_root);
 
-        /// <summary> Загрузить отношение к игроку </summary>
-        public void LoadNonPlayerRatio(NonPlayer n)
-        {
-            if (PlayerPrefs.HasKey(n.name)) n.npToPlayerRatio = PlayerPrefs.GetInt(n.name);
+            global_data.Add(el_player);
+            global_data.Add(el_inventory);
+            global_data.Add(el_playerEffect);
+            global_data.Add(el_playerDecisions);
+            global_data.Add(el_playerNotes);
+            global_data.Add(el_playerLocations);
+            global_data.Add(el_meet);
+
+            XDocument save_global_data = new XDocument(global_data);
+            File.WriteAllText(_savePathFolder + _gameFileName, save_global_data.ToString());
+
+            KeyGameNames(true); // Отгрузка значений
         }
 
         #endregion
 
-        #region SAVE_METHODS
+        #region LOAD
 
-        /// <summary> Сохранить последнюю главу </summary>
-        private void SaveLastPart()
+        /// <summary> Загрузить глобальные настройки </summary>
+        private void LoadGlobalSettings()
         {
-            PlayerPrefs.SetString(LastPartKey, MainController.instance.animController.thisPart.name);
-            PlayerPrefs.Save();
-        }
+            KeyGlobalNames(false); // Загрузка ключей
 
-        /// <summary> Сохранить характеристики персонажа </summary>
-        private void SaveCharacteristic()
-        {
-            PlayerPrefs.SetInt(PlayerHealthKey, mainPlayer.playerHealth);
-            PlayerPrefs.SetInt(PlayerMindKey, mainPlayer.playerMind);
-            PlayerPrefs.Save();
-        }
-
-        /// <summary> Сохранить инвентарь персонажа </summary>
-        private void SaveInventory()
-        {
-            if (mainPlayer.playerInventory != null)
+            if (File.Exists(_savePathFolder + _globalFileName))
             {
-                // Сохранение
-                for (int i = 0; i < mainPlayer.playerInventory.Count; i++)
+                XElement global_data = XDocument.Parse(File.ReadAllText(_savePathFolder + _globalFileName)).Element(_root);
+
+                if (global_data == null) return;
+
+                mainSettings.eyeColor.r = float.Parse(global_data.Element(_eyeColor).Attribute(_eyeColorR).Value);
+                mainSettings.eyeColor.g = float.Parse(global_data.Element(_eyeColor).Attribute(_eyeColorG).Value);
+                mainSettings.eyeColor.b = float.Parse(global_data.Element(_eyeColor).Attribute(_eyeColorB).Value);
+
+                mainSettings.lastPart = Resources.Load<GamePart>(_pathGameParts + global_data.Element(_lastPart).Value);
+
+                mainSettings.isSoundCheck = (global_data.Element(_settings).Attribute(_settingsSound).Value.Equals(_trueVal)) ? true : false;
+                mainSettings.isVibrationCheck = (global_data.Element(_settings).Attribute(_settingsVibration).Value.Equals(_trueVal)) ? true : false;
+                mainSettings.isEffectCheck = (global_data.Element(_settings).Attribute(_settingsEffects).Value.Equals(_trueVal)) ? true : false;
+
+                mainSettings.previewText = global_data.Element(_previewText).Value;
+
+                mainSettings.gameAchivemants = new List<Achivemants>();
+
+                foreach (XElement element in global_data.Element(_achives).Elements(_achivesData))
                 {
-                    PlayerPrefs.SetString(PlayerInventoryKey + i, mainPlayer.playerInventory[i].name);
-                }
-
-                // Очистка от лишнего
-                if (mainPlayer.playerInventory.Count > 0)
-                {
-                    for (int i = mainPlayer.playerInventory.Count - 1; i < 50; i++)
-                    {
-                        if (PlayerPrefs.HasKey(PlayerInventoryKey + i)) PlayerPrefs.DeleteKey(PlayerInventoryKey + i);
-                        else break;
-                    }
-                }
-            }
-            PlayerPrefs.Save();
-        }
-
-        /// <summary> Сохранить эффекты на персонаже </summary>
-        private void SaveEffects()
-        {
-            if (mainPlayer.playerEffects != null)
-            {
-                // Сохранение
-                for (int i = 0; i < mainPlayer.playerEffects.Count; i++)
-                {
-                    PlayerPrefs.SetString(PlayerEffectsKey + i, mainPlayer.playerEffects[i].name);
-                }
-
-                // Очистка от лишнего
-                if (mainPlayer.playerEffects.Count > 0)
-                {
-                    for (int i = mainPlayer.playerEffects.Count - 1; i < 50; i++)
-                    {
-                        if (PlayerPrefs.HasKey(PlayerEffectsKey + i)) PlayerPrefs.DeleteKey(PlayerEffectsKey + i);
-                        else break;
-                    }
-                }
-            }
-            PlayerPrefs.Save();
-        }
-
-        /// <summary> Сохранить карту </summary>
-        private void SaveMap()
-        {
-            if (mainPlayer.playerMap != null)
-            {
-                // Сохранение
-                for (int i = 0; i < mainPlayer.playerMap.Count; i++)
-                {
-                    PlayerPrefs.SetString(PlayerLocationsKey + i, mainPlayer.playerMap[i].name);
-                }
-
-                // Очистка от лишнего
-                if (mainPlayer.playerMap.Count > 0)
-                {
-                    for (int i = mainPlayer.playerMap.Count - 1; i < 50; i++)
-                    {
-                        if (PlayerPrefs.HasKey(PlayerLocationsKey + i)) PlayerPrefs.DeleteKey(PlayerLocationsKey + i);
-                        else break;
-                    }
-                }
-            }
-            PlayerPrefs.Save();
-        }
-
-        /// <summary> Сохранить заметки </summary>
-        private void SaveNotes()
-        {
-            if (mainPlayer.playerDecisions != null)
-            {
-                // Сохранение
-                for (int i = 0; i < mainPlayer.playerNotes.Count; i++)
-                {
-                    PlayerPrefs.SetString(PlayerNotesKey + i, mainPlayer.playerNotes[i].name);
-                }
-
-                // Очистка от лишнего
-                if (mainPlayer.playerNotes.Count > 0)
-                {
-                    for (int i = mainPlayer.playerNotes.Count - 1; i < 50; i++)
-                    {
-                        if (PlayerPrefs.HasKey(PlayerNotesKey + i)) PlayerPrefs.DeleteKey(PlayerNotesKey + i);
-                        else break;
-                    }
-                }
-            }
-            PlayerPrefs.Save();
-        }
-
-        /// <summary> Сохранить решения </summary>
-        private void SaveDecisons()
-        {
-            if (mainPlayer.playerNotes != null)
-            {
-                // Сохранение
-                for (int i = 0; i < mainPlayer.playerDecisions.Count; i++)
-                {
-                    PlayerPrefs.SetString(PlayerDecisionsKey + i, mainPlayer.playerDecisions[i].name);
-                }
-
-                // Очистка от лишнего
-                if (mainPlayer.playerDecisions.Count > 0)
-                {
-                    for (int i = mainPlayer.playerDecisions.Count - 1; i < 50; i++)
-                    {
-                        if (PlayerPrefs.HasKey(PlayerDecisionsKey + i)) PlayerPrefs.DeleteKey(PlayerDecisionsKey + i);
-                        else break;
-                    }
-                }
-            }
-            PlayerPrefs.Save();
-        }
-
-        /// <summary> Сохранить данные настроек </summary>
-        public void SaveSettingsData()
-        {
-            if (mainSettings.isSoundCheck) PlayerPrefs.SetInt(SoundSettingsKey, 1);
-            else PlayerPrefs.DeleteKey(SoundSettingsKey);
-
-            if (mainSettings.isVibrationCheck) PlayerPrefs.SetInt(VibrationSettingsKey, 1);
-            else PlayerPrefs.DeleteKey(VibrationSettingsKey);
-
-            if (mainSettings.isEffectCheck) PlayerPrefs.SetInt(EffectsSettingsKey, 1);
-            else PlayerPrefs.DeleteKey(EffectsSettingsKey);
-
-            PlayerPrefs.Save();
-        }
-
-        /// <summary> Сохранить данные достижений </summary>
-        public void SaveAchivesData()
-        {
-            if (mainSettings.gameAchivemants != null)
-            {
-                // Сохранение
-                for (int i = 0; i < mainSettings.gameAchivemants.Count; i++)
-                {
-                    PlayerPrefs.SetString(AchivesKey + i, mainSettings.gameAchivemants[i].name);
-                }
-
-                // Очистка от лишнего
-                if (mainSettings.gameAchivemants.Count > 0)
-                {
-                    for (int i = mainSettings.gameAchivemants.Count - 1; i < 50; i++)
-                    {
-                        if (PlayerPrefs.HasKey(AchivesKey + i)) PlayerPrefs.DeleteKey(AchivesKey + i);
-                        else break;
-                    }
+                    mainSettings.gameAchivemants.Add(Resources.Load<Achivemants>(_pathAchivemants + element.Value));
                 }
             }
 
-            PlayerPrefs.Save();
+            KeyGlobalNames(true); // Отгрузка ключей
         }
 
-        /// <summary> Добавить НПС к измененным </summary>
-        public void SaveNonPlayerRatio(NonPlayer n)
+        public void LoadGameSettings()
         {
-            int id = 0;
+            KeyGameNames(false); // Загрузка ключей
 
-            for (int i = 0; i < _npsSaveList.Length; i++)
+            if (File.Exists(_savePathFolder + _gameFileName))
             {
-                if (_npsSaveList[i] == null) id = i;
-                if (_npsSaveList[i] == n) return;
+                XElement global_data = XDocument.Parse(File.ReadAllText(_savePathFolder + _gameFileName)).Element(_root);
+
+                if (global_data == null) return;
+
+                mainPlayer.playerHealth = int.Parse(global_data.Element(_playerData).Attribute(_playerDataHealth).Value);
+                mainPlayer.playerMind = int.Parse(global_data.Element(_playerData).Attribute(_playerDataMind).Value);
+
+                mainPlayer.playerInventory = new List<GameItem>();
+
+                foreach (XElement element in global_data.Element(_inventory).Elements(_inventoryData))
+                {
+                    mainPlayer.playerInventory.Add(Resources.Load<GameItem>(_pathItems + element.Value));
+                }
+
+                GameEffect nEffect;
+                mainPlayer.playerEffects = new List<GameEffect>();
+
+                foreach (XElement element in global_data.Element(_effects).Elements(_effectsData))
+                {
+                    nEffect = Resources.Load<GameEffect>(_pathEffects + element.Value);
+                    nEffect.durationEffect = int.Parse(element.Attribute(_effectsDataDuration).Value);
+
+                    mainPlayer.playerEffects.Add(nEffect);
+                }
+
+                nEffect = null;
+
+                mainPlayer.playerDecisions = new List<Decision>();
+
+                foreach (XElement element in global_data.Element(_decision).Elements(_decisionData))
+                {
+                    mainPlayer.playerDecisions.Add(Resources.Load<Decision>(_pathDecisions + element.Value));
+                }
+
+                mainPlayer.playerNotes = new List<Note>();
+
+                foreach (XElement element in global_data.Element(_notes).Elements(_notesData))
+                {
+                    mainPlayer.playerNotes.Add(Resources.Load<Note>(_pathNotes + element.Value));
+                }
+
+                mainPlayer.playerMap = new List<MapMark>();
+
+                foreach (XElement element in global_data.Element(_locations).Elements(_locationsData))
+                {
+                    mainPlayer.playerMap.Add(Resources.Load<MapMark>(_pathLocations + element.Value));
+                }
+
+                NonPlayer nPlayer;
+                mainPlayer.playerMeet = new List<NonPlayer>();
+
+                foreach (XElement element in global_data.Element(_meet).Elements(_meetData))
+                {
+                    nPlayer = Resources.Load<NonPlayer>(_pathNonPlayers + element.Value);
+                    nPlayer.npToPlayerRatio = int.Parse(element.Attribute(_meetDataRation).Value);
+
+                    mainPlayer.playerMeet.Add(nPlayer);
+                }
+
+                nPlayer = null;
             }
 
-            _npsSaveList[id] = n;
-        }
-
-        /// <summary> Сохранить влияние игрока </summary>
-        private void SaveAllRatio()
-        {
-            for (int i = 0; i < _npsSaveList.Length; i++)
-            {
-                if (_npsSaveList[i] != null) PlayerPrefs.SetInt(_npsSaveList[i].name, _npsSaveList[i].npToPlayerRatio);
-            }
-        }
-
-        /// <summary> Сохранение на контрольной точке </summary>
-        public void CheckPointSave() => StartCoroutine(SaveWait());
-
-        /// <summary> Задержка полного сохранения данных </summary>
-        private IEnumerator SaveWait()
-        {
-            SaveLastPart();
-            SaveCharacteristic();
-            yield return new WaitForSeconds(1f);
-            SaveInventory();
-            SaveMap();
-            yield return new WaitForSeconds(1f);
-            SaveNotes();
-            SaveEffects();
-            yield return new WaitForSeconds(1f);
-            SaveDecisons();
-            SaveAllRatio();
+            KeyGameNames(true); // Отгрузка ключей
         }
 
         #endregion
-
-        /// <summary> Удаление данных и выход </summary>
-        public void DellAllData(bool exit)
-        {
-            PlayerPrefs.DeleteAll();
-            if (exit) Application.Quit();
-        }
     }
 }

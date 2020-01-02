@@ -25,6 +25,9 @@ namespace Helpers
 
         /// <summary> Полученные достижения </summary>
         public List<Achivemants> gameAchivemants;
+
+        /// <summary> Текст приветствия </summary>
+        public string previewText;
     }
 
 #if UNITY_EDITOR
@@ -60,6 +63,9 @@ namespace Helpers
             _gameSettings.isSoundCheck = EditorGUILayout.Toggle("Звук : ", _gameSettings.isSoundCheck);
             _gameSettings.isVibrationCheck = EditorGUILayout.Toggle("Вибрация : ", _gameSettings.isVibrationCheck);
             _gameSettings.isEffectCheck = EditorGUILayout.Toggle("Эффекты : ", _gameSettings.isEffectCheck);
+
+            EditorGUILayout.LabelField("Текст приветствия");
+            _gameSettings.previewText = EditorGUILayout.TextArea(_gameSettings.previewText, GUILayout.Height(80));
 
             EditorGUILayout.Space();
 

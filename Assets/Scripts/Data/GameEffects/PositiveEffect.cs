@@ -27,10 +27,10 @@ namespace Data.GameEffects
             EditorGUILayout.BeginVertical();
 
             positiveEffect.nameEffect = EditorGUILayout.TextField("Название :", positiveEffect.nameEffect);
-            positiveEffect.durationEffect = EditorGUILayout.IntSlider("Длительность :", positiveEffect.durationEffect, 0, 50);
-            EditorGUILayout.LabelField("Влияние");
-            positiveEffect.healthInfluenceEffect = EditorGUILayout.IntSlider("На здоровье :", positiveEffect.healthInfluenceEffect, 0, 10);
-            positiveEffect.mindInfluenceEffect = EditorGUILayout.IntSlider("На рассудок :", positiveEffect.mindInfluenceEffect, 0, 10);
+            positiveEffect.durationEffect = EditorGUILayout.IntSlider("Длительность :", positiveEffect.durationEffect, 0, 100);
+            EditorGUILayout.LabelField("Увеличение");
+            positiveEffect.healthInfluenceEffect = EditorGUILayout.IntSlider("Здоровья :", positiveEffect.healthInfluenceEffect, 0, 20);
+            positiveEffect.mindInfluenceEffect = EditorGUILayout.IntSlider("Рассудка :", positiveEffect.mindInfluenceEffect, 0, 20);
 
             EditorGUILayout.EndVertical();
 

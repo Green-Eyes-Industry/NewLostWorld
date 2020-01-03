@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Helpers
 {
     /// <summary> Контроль над кнопкой </summary>
+    [RequireComponent(typeof(BoxCollider2D))]
     public class ButtonPressed : MonoBehaviour
     {
         public enum MenuType

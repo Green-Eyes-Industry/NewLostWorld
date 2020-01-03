@@ -200,6 +200,11 @@ namespace Controllers
         public override void Init()
         {
             _savePathFolder = Application.persistentDataPath;
+
+#if UNITY_EDITOR
+            _savePathFolder = Application.dataPath + "/Editor/Reserve";
+#endif
+
             LoadGlobalSettings();
         }
 
@@ -239,7 +244,7 @@ namespace Controllers
             global_data.Add(settings);
             global_data.Add(previewText);
             global_data.Add(achives);
-
+            
             XDocument save_global_data = new XDocument(global_data);
             File.WriteAllText(_savePathFolder + _globalFileName, save_global_data.ToString());
 

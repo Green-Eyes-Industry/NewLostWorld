@@ -36,6 +36,8 @@
         public string buttonMap;
         public string buttonNote;
 
+        // Инвентарь
+
         public string buttonGameInventInfo;
         public string buttonGameInventUse;
         public string buttonGameInventRemove;
@@ -51,6 +53,11 @@
 
         public string buttonInventoryIYes;
         public string buttonInventoryINo;
+
+        // Окно игрока
+
+        public string buttonPlayerCases;
+        public string buttonPlayerBack;
 
         // Эффекты
 
@@ -73,6 +80,8 @@
         public string messangeNote;
 
         public string gameInventDescript;
+        public string gamePlayerDescript;
+
         public string inventCaseSelected;
 
         public string gameInventPage;
@@ -128,6 +137,9 @@
             buttonInventoryIYes = "InventoryIYes";
             buttonInventoryINo = "InventoryINo";
 
+            buttonPlayerCases = "GamePlayer_Case_";
+            buttonPlayerBack = "GamePlayer_DescriptBack";
+
             // Эффекты
 
             stadySettings_1 = "Settings_1_St";
@@ -149,6 +161,8 @@
             messangeNote = "Messange_Note";
 
             gameInventDescript = "GameInvent_DescriptMenu";
+            gamePlayerDescript = "GamePlayer_Descript";
+
             inventCaseSelected = "InventSelectedCase";
 
             gameInventPage = "GameInvent_Page";

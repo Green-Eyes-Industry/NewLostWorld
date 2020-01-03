@@ -7,6 +7,7 @@ using UnityEngine;
 namespace Controllers
 {
     /// <summary> Анимация и переходы </summary>
+    [RequireComponent(typeof(Animator))]
     public class AnimController : ParentController
     {
         #region VARIABLES
@@ -54,12 +55,9 @@ namespace Controllers
             _aParam = new AnimatorParameters();
             _aParam.InitParam();
 
-            _mainAnimator.SetBool(_aParam.stadySettings_1,
-                MainController.instance.dataController.mainSettings.isSoundCheck);
-            _mainAnimator.SetBool(_aParam.stadySettings_2,
-                MainController.instance.dataController.mainSettings.isVibrationCheck);
-            _mainAnimator.SetBool(_aParam.stadySettings_3,
-                MainController.instance.dataController.mainSettings.isEffectCheck);
+            _mainAnimator.SetBool(_aParam.stadySettings_1, MainController.instance.dataController.mainSettings.isSoundCheck);
+            _mainAnimator.SetBool(_aParam.stadySettings_2, MainController.instance.dataController.mainSettings.isVibrationCheck);
+            _mainAnimator.SetBool(_aParam.stadySettings_3, MainController.instance.dataController.mainSettings.isEffectCheck);
 
             MainController.instance.uIController.MenuOpenMain();
 
@@ -638,20 +636,32 @@ namespace Controllers
                     {
                         if (_mainAnimator.GetInteger(_aParam.gStady) != 6)
                         {
+                            MainController.instance.uIController.ShowEffects();
                             _lastPartType = _mainAnimator.GetInteger(_aParam.gStady);
                             _mainAnimator.SetInteger(_aParam.gStady, 6);
                         }
-                        else _mainAnimator.SetInteger(_aParam.gStady, _lastPartType);
+                        else
+                        {
+                            _mainAnimator.SetInteger(_aParam.gStady, _lastPartType);
+                            _mainAnimator.SetBool(_aParam.gamePlayerDescript, false);
+                        }
                     }
                     break;
-                case 1:
+
+                case 7:
+                    _mainAnimator.SetBool(_aParam.buttonPlayerBack, press);
+                    if (!press) _mainAnimator.SetBool(_aParam.gamePlayerDescript, false);
                     break;
-                case 2:
+
+                default:
+                    _mainAnimator.SetBool(_aParam.buttonPlayerCases + id, press);
+                    if (!press && (id - 1) < MainController.instance.dataController.mainPlayer.playerEffects.Count)
+                    {
+                        MainController.instance.uIController.ShowEffectDescript(id - 1);
+                        _mainAnimator.SetBool(_aParam.gamePlayerDescript, true);
+                    }
                     break;
-                case 3:
-                    break;
-                case 4:
-                    break;
+
             }
         }
 

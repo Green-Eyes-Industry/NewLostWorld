@@ -55,6 +55,10 @@ namespace Controllers
         // Эффекты в меню персонажа
 
         public Image[] effectCase;
+        public Text effectDescriptText;
+        public Text menuPlayerInventoryHelpText;
+        public Image playerHealthFill;
+        public Image playerMindFill;
 
         private Gyroscope _mainGyro;
         private bool _isGyroEnable;
@@ -170,6 +174,8 @@ namespace Controllers
         /// <summary> Отобразить инвентарь </summary>
         public void ShowInventory(int page)
         {
+            menuPlayerInventoryHelpText.text = "Инвентарь";
+
             for (int i = 0; i < MainController.instance.dataController.mainPlayer.playerInventory.Count; i++)
             {
                 if (MainController.instance.dataController.mainPlayer.playerInventory == null)
@@ -199,6 +205,12 @@ namespace Controllers
         {
             int effectsCount = MainController.instance.dataController.mainPlayer.playerEffects.Count;
 
+            menuPlayerInventoryHelpText.text = "Персонаж";
+            GameMessageCharacter("Отображает ваше текущее состояние");
+
+            playerHealthFill.fillAmount = MainController.instance.dataController.mainPlayer.playerHealth / 100f;
+            playerMindFill.fillAmount = MainController.instance.dataController.mainPlayer.playerMind / 100f;
+
             for (int i = 0; i < effectCase.Length; i++)
             {
                 if (i < effectsCount)
@@ -208,6 +220,18 @@ namespace Controllers
                 }
                 else effectCase[i].gameObject.SetActive(false);
             }
+        }
+
+        /// <summary> Отобразить подробности об эффекте </summary>
+        public void ShowEffectDescript(int id)
+        {
+            Data.GameEffect effect = MainController.instance.dataController.mainPlayer.playerEffects[id];
+            string action = (effect is Data.GameEffects.NegativeEffect) ? "Отнимает " : "Дает ";
+
+            effectDescriptText.text = effect.nameEffect + "\n\n" +
+                ((effect.healthInfluenceEffect != 0) ? action + effect.healthInfluenceEffect + " здоровья\n" : "") +
+                ((effect.mindInfluenceEffect != 0) ? action + effect.mindInfluenceEffect + " рассудка" : "") +
+                "\n\n" + "Осталось " + effect.durationEffect + " дней";
         }
 
         /// <summary> Отобразить достижения </summary>

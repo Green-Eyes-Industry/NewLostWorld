@@ -46,7 +46,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(ItemInfl))]
-    public class ItemInflGInspector : Editor
+    public class ItemInflGUInspector : Editor
     {
         private ItemInfl _itemInfl;
 
@@ -92,7 +92,7 @@ namespace Data.GameEvents
 
             itemInfl.failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", itemInfl.failPart, typeof(GamePart), true);
 
-            if (itemInfl.useItem != null) UsableItemGInspector.ShowItemEditor(itemInfl.useItem);
+            if (itemInfl.useItem != null) UsableItemGUInspector.ShowItemEditor(itemInfl.useItem);
 
             EditorGUILayout.EndVertical();
         }

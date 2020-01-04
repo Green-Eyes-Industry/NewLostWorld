@@ -12,7 +12,7 @@ namespace Data.GameParts
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(TextPart))]
-    public class TextPartGInspector : Editor
+    public class TextPartGUInspector : Editor
     {
         private TextPart _textPart;
 
@@ -50,7 +50,7 @@ namespace Data.GameParts
 
             GUILayout.Label("Параметры");
 
-            if (_textPart.mainEvents != null) GlobalHelperGInspector.ShowPartEventList(_textPart.mainEvents);
+            if (_textPart.mainEvents != null) GlobalHelperGUInspector.ShowPartEventList(_textPart.mainEvents);
             else _textPart.mainEvents = new System.Collections.Generic.List<GameEvent>();
         }
     }

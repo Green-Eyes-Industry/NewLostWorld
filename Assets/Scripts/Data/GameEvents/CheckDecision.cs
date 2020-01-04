@@ -35,7 +35,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(CheckDecision))]
-    public class CheckDecisionGInspector : Editor
+    public class CheckDecisionGUInspector : Editor
     {
         private CheckDecision _checkDecision;
 
@@ -79,7 +79,7 @@ namespace Data.GameEvents
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
-            if (checkDecision.decision != null) DecisionGInspector.ShowItemEditor(checkDecision.decision);
+            if (checkDecision.decision != null) DecisionGUInspector.ShowItemEditor(checkDecision.decision);
 
             EditorGUILayout.EndVertical();
         }

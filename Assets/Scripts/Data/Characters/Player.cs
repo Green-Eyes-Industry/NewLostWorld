@@ -36,7 +36,7 @@ namespace Data.Characters
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(Player))]
-    public class PlayerGInspector : Editor
+    public class PlayerGUInspector : Editor
     {
         private Player _player;
 

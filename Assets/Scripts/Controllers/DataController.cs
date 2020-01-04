@@ -201,15 +201,12 @@ namespace Controllers
         {
             _savePathFolder = Application.persistentDataPath;
 
-#if UNITY_EDITOR
-            _savePathFolder = Application.dataPath + "/Editor/Reserve";
-#endif
-
             LoadGlobalSettings();
         }
 
         #region SAVE
 
+        /// <summary> Сохранить глобальные настройки </summary>
         public void SaveGlobalSettings()
         {
             // Присвоение значений
@@ -332,6 +329,7 @@ namespace Controllers
             KeyGlobalNames(true); // Отгрузка ключей
         }
 
+        /// <summary> Загрузить игровые настройки </summary>
         public void LoadGameSettings()
         {
             KeyGameNames(false); // Загрузка ключей

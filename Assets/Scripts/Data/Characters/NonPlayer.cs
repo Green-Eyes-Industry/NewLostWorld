@@ -16,7 +16,7 @@ namespace Data.Characters
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(NonPlayer))]
-    public class NonPlayerGInspector : Editor
+    public class NonPlayerGUInspector : Editor
     {
         private NonPlayer _nonPlayer;
 
@@ -25,14 +25,19 @@ namespace Data.Characters
         public override void OnInspectorGUI() => ShowNonPlayerGUI(_nonPlayer);
 
         /// <summary> Показать мено редактора не игрового персонажа </summary>
-        private static void ShowNonPlayerGUI(NonPlayer nonPlayer)
+        public static void ShowNonPlayerGUI(NonPlayer nonPlayer)
         {
             EditorGUILayout.LabelField("Не игровой персонаж");
 
             EditorGUILayout.BeginVertical("Box");
 
-            nonPlayer.npName = EditorGUILayout.TextField("Имя персонажа", nonPlayer.npName);
-            nonPlayer.npToPlayerRatio = EditorGUILayout.IntSlider(nonPlayer.npToPlayerRatio, -10, 10);
+            nonPlayer.npName = EditorGUILayout.TextField("Имя персонажа :", nonPlayer.npName);
+
+            if (nonPlayer.npToPlayerRatio < 0) GUI.backgroundColor = Color.red;
+            else if (nonPlayer.npToPlayerRatio > 0) GUI.backgroundColor = Color.green;
+            else GUI.backgroundColor = Color.white;
+
+            nonPlayer.npToPlayerRatio = EditorGUILayout.IntSlider("Отношение к вам :",nonPlayer.npToPlayerRatio, -10, 10);
 
             EditorGUILayout.EndVertical();
         }

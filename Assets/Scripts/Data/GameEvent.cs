@@ -24,7 +24,7 @@ namespace Data
 
 #if UNITY_EDITOR
 
-    public class GlobalHelperGInspector : Editor
+    public class GlobalHelperGUInspector : Editor
     {
         private static Vector2 _eventSlider = Vector2.zero;
 
@@ -34,18 +34,18 @@ namespace Data
             GUI.backgroundColor = Color.white;
             switch (gameEvent)
             {
-                case CheckDecision cDecision: CheckDecisionGInspector.ShowEventEditor(cDecision); break;
-                case CheckPlayerInfl cPlayer: CheckPlayerInflGInspector.ShowEventEditor(cPlayer); break;
-                case CheckPoint cPoint: CheckPointGInspector.ShowEventEditor(cPoint); break;
-                case EffectInteract effectInter: EffectInteractGInspector.ShowEventEditor(effectInter); break;
-                case ImportantDecision importantDec: ImportantDecisionGInspector.ShowEventEditor(importantDec); break;
-                case ItemInfl itemInfl: ItemInflGInspector.ShowEventEditor(itemInfl); break;
-                case ItemInteract itemInter: ItemInteractGInspector.ShowEventEditor(itemInter); break;
-                case LocationFind locationF: LocationFindGInspector.ShowEventEditor(locationF); break;
-                case MemberTime memberT: MemberTimeGInspector.ShowEventEditor(memberT); break;
-                case NonPlayerInfl nonPlInfl: NonPlayerInflGInspector.ShowEventEditor(nonPlInfl); break;
-                case PlayerInfl plInfl: PlayerInflGInspector.ShowEventEditor(plInfl); break;
-                case RandomPart randomP: RandomPartGInspector.ShowEventEditor(randomP); break;
+                case CheckDecision cDecision: CheckDecisionGUInspector.ShowEventEditor(cDecision); break;
+                case CheckPlayerInfl cPlayer: CheckPlayerInflGUInspector.ShowEventEditor(cPlayer); break;
+                case CheckPoint cPoint: CheckPointGUInspector.ShowEventEditor(cPoint); break;
+                case EffectInteract effectInter: EffectInteractGUInspector.ShowEventEditor(effectInter); break;
+                case ImportantDecision importantDec: ImportantDecisionGUInspector.ShowEventEditor(importantDec); break;
+                case ItemInfl itemInfl: ItemInflGUInspector.ShowEventEditor(itemInfl); break;
+                case ItemInteract itemInter: ItemInteractGUInspector.ShowEventEditor(itemInter); break;
+                case LocationFind locationF: LocationFindGUInspector.ShowEventEditor(locationF); break;
+                case MemberTime memberT: MemberTimeGUInspector.ShowEventEditor(memberT); break;
+                case NonPlayerInfl nonPlInfl: NonPlayerInflGUInspector.ShowEventEditor(nonPlInfl); break;
+                case PlayerInfl plInfl: PlayerInflGUInspector.ShowEventEditor(plInfl); break;
+                case RandomPart randomP: RandomPartGUInspector.ShowEventEditor(randomP); break;
             }
         }
 
@@ -100,8 +100,8 @@ namespace Data
         {
             switch (gameEffect)
             {
-                case PositiveEffect pEffect: PositiveEffectGInspector.ShowPositiveEffectGUI(pEffect); break;
-                case NegativeEffect nEffect: NegativeEffectGInspector.ShowNegativeEffectGUI(nEffect); break;
+                case PositiveEffect pEffect: PositiveEffectGUInspector.ShowPositiveEffectGUI(pEffect); break;
+                case NegativeEffect nEffect: NegativeEffectGUInspector.ShowNegativeEffectGUI(nEffect); break;
             }
         }
     }

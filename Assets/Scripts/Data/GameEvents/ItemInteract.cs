@@ -54,7 +54,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(ItemInteract))]
-    public class ItemInteractGInspector : Editor
+    public class ItemInteractGUInspector : Editor
     {
         private ItemInteract _itemInteract;
 
@@ -104,8 +104,8 @@ namespace Data.GameEvents
 
             if (itemInteract.gameItem != null)
             {
-                if(itemInteract.gameItem is PasiveItem pasiveItem) PasiveItemGInspector.ShowItemEditor(pasiveItem);
-                else if (itemInteract.gameItem is UsableItem usableItem) UsableItemGInspector.ShowItemEditor(usableItem);
+                if(itemInteract.gameItem is PasiveItem pasiveItem) PasiveItemGUInspector.ShowItemEditor(pasiveItem);
+                else if (itemInteract.gameItem is UsableItem usableItem) UsableItemGUInspector.ShowItemEditor(usableItem);
             }
 
             EditorGUILayout.EndVertical();

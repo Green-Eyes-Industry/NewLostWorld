@@ -34,7 +34,7 @@ namespace Data.GameItems
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(UsableItem))]
-    public class UsableItemGInspector : Editor
+    public class UsableItemGUInspector : Editor
     {
         private UsableItem _usableItem;
 
@@ -70,7 +70,7 @@ namespace Data.GameItems
 
             usableItem.itemEffect = (GameEffect)EditorGUILayout.ObjectField("Накладываемый эффект :", usableItem.itemEffect, typeof(GameEffect), true);
 
-            if (usableItem.itemEffect != null) GlobalHelperGInspector.ShowEffectFromPart(usableItem.itemEffect);
+            if (usableItem.itemEffect != null) GlobalHelperGUInspector.ShowEffectFromPart(usableItem.itemEffect);
 
             GUILayout.EndVertical();
         }

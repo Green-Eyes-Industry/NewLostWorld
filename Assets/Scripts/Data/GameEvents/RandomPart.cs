@@ -23,7 +23,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(RandomPart))]
-    public class RandomPartGInspector : Editor
+    public class RandomPartGUInspector : Editor
     {
         private RandomPart _randomPart;
 

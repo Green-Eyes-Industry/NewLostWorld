@@ -9,6 +9,7 @@ namespace Data.GameEvents
         public override bool EventStart()
         {
             MainController.instance.dataController.mainSettings.lastPart = MainController.instance.animController.thisPart;
+            MainController.instance.animController.SaveGameMessange();
             MainController.instance.dataController.SaveGameSettings();
             MainController.instance.dataController.SaveGlobalSettings();
             return true;
@@ -18,7 +19,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(CheckPoint))]
-    public class CheckPointGInspector : Editor
+    public class CheckPointGUInspector : Editor
     {
         private CheckPoint _checkPoint;
 

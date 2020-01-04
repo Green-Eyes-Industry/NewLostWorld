@@ -622,7 +622,7 @@ namespace Editor.NodeEditor
             DrawEventCurve(partNode);
         }
 
-        /// <summary> Отрисовка связей Random Event </summary>
+        /// <summary> Отрисовка связей Event </summary>
         private void DrawEventCurve(GamePart partNode)
         {
             if (partNode.mainEvents != null)
@@ -673,6 +673,14 @@ namespace Editor.NodeEditor
                             if (itemInteract.failPart != null && itemInteract.failPart != this)
                             {
                                 CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(itemInteract.failPart, 0, true), eventFailColor);
+                            }
+                            break;
+
+                        case CheckPlayerInfl checkPlayerInfl:
+
+                            if (checkPlayerInfl.failPart != null && checkPlayerInfl.failPart != this)
+                            {
+                                CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(checkPlayerInfl.failPart, 0, true), eventFailColor);
                             }
                             break;
                     }

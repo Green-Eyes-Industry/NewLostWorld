@@ -18,7 +18,7 @@ namespace Helpers
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(Achivemants))]
-    public class AchivemantsGInspector : Editor
+    public class AchivemantsGUInspector : Editor
     {
         private Achivemants _achivemants;
 

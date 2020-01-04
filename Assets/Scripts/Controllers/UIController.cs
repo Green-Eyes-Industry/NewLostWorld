@@ -17,6 +17,7 @@ namespace Controllers
 
         private float _gameWaitToSwitch;
         public RectTransform eyeCenter;
+        public Text gameStartText;
 
         // Достижения
 
@@ -55,10 +56,13 @@ namespace Controllers
         // Эффекты в меню персонажа
 
         public Image[] effectCase;
+        public Image[] effectAreaCase;
         public Text effectDescriptText;
         public Text menuPlayerInventoryHelpText;
         public Image playerHealthFill;
         public Image playerMindFill;
+        public Sprite effectAreaPositive;
+        public Sprite effectAreaNegative;
 
         private Gyroscope _mainGyro;
         private bool _isGyroEnable;
@@ -167,6 +171,9 @@ namespace Controllers
         /// <summary> Текст подробностей о предмете в инвентаре </summary>
         public void InventDescriptMenu(string newTxt) => inventDescriptMenu.text = newTxt;
 
+        /// <summary> Заменить текст вступления </summary>
+        public void GameStartTextChange(string newTxt) => gameStartText.text = newTxt;
+
         #endregion
 
         #region UI_CONTROL
@@ -217,8 +224,17 @@ namespace Controllers
                 {
                     effectCase[i].gameObject.SetActive(true);
                     effectCase[i].sprite = MainController.instance.dataController.mainPlayer.playerEffects[i].icoEffect;
+
+                    effectAreaCase[i].enabled = true;
+                    effectAreaCase[i].sprite = (MainController.instance.dataController.mainPlayer.playerEffects[i] is Data.GameEffects.PositiveEffect) ?
+                        effectAreaPositive : effectAreaNegative;
+
                 }
-                else effectCase[i].gameObject.SetActive(false);
+                else
+                {
+                    effectCase[i].gameObject.SetActive(false);
+                    effectAreaCase[i].enabled = false;
+                }
             }
         }
 
@@ -293,7 +309,8 @@ namespace Controllers
         {
             yield return new WaitForSeconds(waitTime);
 
-            string mainText = MainController.instance.dataController.mainSettings.lastPart != null ? "Продолжить" : "Новая игра";
+            string mainText = MainController.instance.dataController.mainSettings.lastPart !=
+                MainController.instance.animController.startPart ? "Продолжить" : "Новая игра";
 
             menuButton[0].text = mainText;
             menuButton[1].text = "Настройки";

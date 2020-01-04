@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 220329a67e3a9ab48991cf9cd8c5c581, type: 3}
   m_Name: 5_TextPart
   m_EditorClassIdentifier: 
-  mainText: "\u042D\u0444\u0444\u0435\u043A\u0442 \u0434\u043B\u0438\u0442\u0441\u044F
-    1 \u0433\u043B\u0430\u0432\u0443"
+  mainText: "\u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043F\u0440\u043E\u0448\u043B\u0430
+    \u0443\u0441\u043F\u0435\u0448\u043D\u043E"
   mainEvents: []
   movePart:
   - {fileID: 11400000, guid: 7c05e2271fb872a49885fe21a86cd041, type: 2}
@@ -21,8 +21,8 @@ MonoBehaviour:
   memberComment: 0
   windowRect:
     serializedVersion: 2
-    x: 415
-    y: 181
+    x: 323
+    y: 161
     width: 120
     height: 42
   memTitle: 5_TextPart

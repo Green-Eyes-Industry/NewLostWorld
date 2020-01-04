@@ -17,4 +17,4 @@ MonoBehaviour:
   itemDescript: "\u0411\u0430\u0437\u043E\u0432\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435"
   healthInf: 20
   mindInf: 0
-  itemEffect: {fileID: 0}
+  itemEffect: {fileID: 11400000, guid: 9efbf07d0b8d5f34ab73a91211813941, type: 2}

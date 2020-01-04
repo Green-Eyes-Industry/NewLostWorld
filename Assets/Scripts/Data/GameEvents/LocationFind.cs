@@ -32,7 +32,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(LocationFind))]
-    public class LocationFindGInspector : Editor
+    public class LocationFindGUInspector : Editor
     {
         private LocationFind _locationFind;
 
@@ -74,7 +74,7 @@ namespace Data.GameEvents
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
-            if (locationFind.location != null) MapMarkGInspector.ShowItemEditor(locationFind.location);
+            if (locationFind.location != null) MapMarkGUInspector.ShowItemEditor(locationFind.location);
 
 
             EditorGUILayout.EndVertical();

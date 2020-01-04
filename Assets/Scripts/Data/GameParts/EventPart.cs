@@ -24,7 +24,7 @@ namespace Data.GameParts
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(EventPart))]
-    public class EventPartGInspector : Editor
+    public class EventPartGUInspector : Editor
     {
         private EventPart _eventPart;
         private Vector2 _partsSlider = Vector2.zero;

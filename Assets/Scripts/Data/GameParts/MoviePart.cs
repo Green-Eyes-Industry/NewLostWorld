@@ -14,7 +14,7 @@ namespace Data.GameParts
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(MoviePart))]
-    public class MoviePartGInspector : Editor
+    public class MoviePartGUInspector : Editor
     {
         private MoviePart _moviePart;
         private Vector2 _slidesSlider = Vector2.zero;

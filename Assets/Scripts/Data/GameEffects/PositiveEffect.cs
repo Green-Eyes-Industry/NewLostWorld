@@ -9,7 +9,7 @@ namespace Data.GameEffects
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(PositiveEffect))]
-    public class PositiveEffectGInspector : Editor
+    public class PositiveEffectGUInspector : Editor
     {
         private PositiveEffect _positiveEffect;
 

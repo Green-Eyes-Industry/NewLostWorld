@@ -12,7 +12,7 @@ namespace Data.GameParts
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(ChangePart))]
-    public class ChangePartGInspector : Editor
+    public class ChangePartGUInspector : Editor
     {
         private ChangePart _changePart;
 
@@ -54,7 +54,7 @@ namespace Data.GameParts
 
             GUILayout.Label("Параметры");
 
-            if (_changePart.mainEvents != null) GlobalHelperGInspector.ShowPartEventList(_changePart.mainEvents);
+            if (_changePart.mainEvents != null) GlobalHelperGUInspector.ShowPartEventList(_changePart.mainEvents);
             else _changePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
         }
     }

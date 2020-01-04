@@ -20,7 +20,7 @@ namespace Helpers
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(MapMark))]
-    public class MapMarkGInspector : Editor
+    public class MapMarkGUInspector : Editor
     {
         private MapMark _mapMark;
 

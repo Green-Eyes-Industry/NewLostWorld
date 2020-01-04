@@ -31,7 +31,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(MemberTime))]
-    public class MemberTimeGInspector : Editor
+    public class MemberTimeGUInspector : Editor
     {
         private MemberTime _memberTime;
 
@@ -77,7 +77,7 @@ namespace Data.GameEvents
 
             GUI.backgroundColor = Color.white;
 
-            if (memberTime.note != null) NotesGInspector.ShowItemEditor(memberTime.note);
+            if (memberTime.note != null) NotesGUInspector.ShowItemEditor(memberTime.note);
 
             EditorGUILayout.EndVertical();
         }

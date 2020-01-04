@@ -21,7 +21,7 @@ namespace Helpers
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(Decision))]
-    public class DecisionGInspector : Editor
+    public class DecisionGUInspector : Editor
     {
         private Decision _decision;
 

@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041b19ca356c76c4fa2c69539ee67931, type: 3}
-  m_Name: 0_7_TextPart_CheckPoint
+  m_Script: {fileID: 11500000, guid: 6530b44d3a4da644bb0d27479b60dac5, type: 3}
+  m_Name: 0_NonPlayer
   m_EditorClassIdentifier: 
-  editorEventFoldout: 0
+  npName: "\u0414\u0430\u0440\u0438\u043A"
+  npToPlayerRatio: 0

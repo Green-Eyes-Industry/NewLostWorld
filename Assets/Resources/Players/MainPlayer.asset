@@ -19,4 +19,5 @@ MonoBehaviour:
   playerNotes: []
   playerMap: []
   playerDecisions: []
-  playerMeet: []
+  playerMeet:
+  - {fileID: 11400000, guid: c72bc80246ee9b9408a4692258e07360, type: 2}

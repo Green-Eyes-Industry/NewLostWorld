@@ -16,7 +16,7 @@ namespace Data.GameParts
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(FinalPart))]
-    public class FinalPartGInspector : Editor
+    public class FinalPartGUInspector : Editor
     {
         private FinalPart _finalPart;
         private static int id = 0;
@@ -71,7 +71,7 @@ namespace Data.GameParts
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
-            if (_finalPart.newAchive != null) AchivemantsGInspector.ShowAchiveGUI(_finalPart.newAchive);
+            if (_finalPart.newAchive != null) AchivemantsGUInspector.ShowAchiveGUI(_finalPart.newAchive);
 
             EditorGUILayout.EndVertical();
         }

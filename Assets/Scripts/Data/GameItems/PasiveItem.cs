@@ -13,7 +13,7 @@ namespace Data.GameItems
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(PasiveItem))]
-    public class PasiveItemGInspector : Editor
+    public class PasiveItemGUInspector : Editor
     {
         private PasiveItem _pasiveItem;
 

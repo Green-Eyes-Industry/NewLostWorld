@@ -54,7 +54,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(EffectInteract))]
-    public class EffectInteractGInspector : Editor
+    public class EffectInteractGUInspector : Editor
     {
         private EffectInteract _effectInteract;
 
@@ -104,8 +104,8 @@ namespace Data.GameEvents
 
             if (effectInteract.gameEffect != null)
             {
-                if (effectInteract.gameEffect is PositiveEffect positiveEffect) PositiveEffectGInspector.ShowPositiveEffectGUI(positiveEffect);
-                else if (effectInteract.gameEffect is NegativeEffect negativeEffect) NegativeEffectGInspector.ShowNegativeEffectGUI(negativeEffect);
+                if (effectInteract.gameEffect is PositiveEffect positiveEffect) PositiveEffectGUInspector.ShowPositiveEffectGUI(positiveEffect);
+                else if (effectInteract.gameEffect is NegativeEffect negativeEffect) NegativeEffectGUInspector.ShowNegativeEffectGUI(negativeEffect);
             }
 
             EditorGUILayout.EndVertical();

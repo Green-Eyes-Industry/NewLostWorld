@@ -12,7 +12,7 @@ namespace Data.GameParts
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(BattlePart))]
-    public class BattlePartGInspector : Editor
+    public class BattlePartGUInspector : Editor
     {
         private BattlePart _battlePart;
 
@@ -54,7 +54,7 @@ namespace Data.GameParts
 
             GUILayout.Label("Параметры");
 
-            if (_battlePart.mainEvents != null) GlobalHelperGInspector.ShowPartEventList(_battlePart.mainEvents);
+            if (_battlePart.mainEvents != null) GlobalHelperGUInspector.ShowPartEventList(_battlePart.mainEvents);
             else _battlePart.mainEvents = new System.Collections.Generic.List<GameEvent>();
         }
     }

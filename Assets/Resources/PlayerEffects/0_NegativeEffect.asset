@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameEffect: "\u041F\u043E\u0440\u0447\u0430"
   icoEffect: {fileID: 21300000, guid: 85b8be9810237c74d8be0f6d3d033222, type: 3}
-  durationEffect: 5
+  durationEffect: 10
   healthInfluenceEffect: 5
   mindInfluenceEffect: 10

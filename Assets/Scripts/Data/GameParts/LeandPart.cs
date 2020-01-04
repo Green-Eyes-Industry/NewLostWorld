@@ -9,7 +9,7 @@ namespace Data.GameParts
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(LeandPart))]
-    public class LeandPartGInspector : Editor
+    public class LeandPartGUInspector : Editor
     {
         private LeandPart _leandPart;
         private Texture _dellConnect;

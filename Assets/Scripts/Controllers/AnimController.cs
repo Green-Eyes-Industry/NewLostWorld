@@ -798,6 +798,9 @@ namespace Controllers
             _mainAnimator.SetBool(_aParam.gameInventDescript, true);
         }
 
+        /// <summary> Сообщение о сохранении игры </summary>
+        public void SaveGameMessange() => _mainAnimator.SetTrigger(_aParam.effectSave);
+
         #endregion
     }
 }

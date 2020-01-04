@@ -33,7 +33,7 @@ namespace Helpers
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(GameSettings))]
-    public class GameSettingsGInspector : Editor
+    public class GameSettingsGUInspector : Editor
     {
         private GameSettings _gameSettings;
         private List<Achivemants> _achivemants;

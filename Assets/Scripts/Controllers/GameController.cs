@@ -8,7 +8,11 @@ namespace Controllers
     /// <summary> Игровые события и переключения </summary>
     public class GameController : ParentController
     {
-        public override void Init() { }
+        public override void Init()
+        {
+            MainController.instance.uIController.GameStartTextChange(
+                MainController.instance.dataController.mainSettings.previewText);
+        }
 
         #region PARTS_EVENTS
 

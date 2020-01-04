@@ -20,7 +20,7 @@ namespace Helpers
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(Note))]
-    public class NotesGInspector : Editor
+    public class NotesGUInspector : Editor
     {
         private Note _notes;
 

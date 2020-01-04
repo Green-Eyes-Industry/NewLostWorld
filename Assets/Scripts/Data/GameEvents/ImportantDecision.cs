@@ -27,7 +27,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(ImportantDecision))]
-    public class ImportantDecisionGInspector : Editor
+    public class ImportantDecisionGUInspector : Editor
     {
         private ImportantDecision _importantDecision;
 
@@ -69,7 +69,7 @@ namespace Data.GameEvents
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
-            if (importantDecision.decision != null) DecisionGInspector.ShowItemEditor(importantDecision.decision);
+            if (importantDecision.decision != null) DecisionGUInspector.ShowItemEditor(importantDecision.decision);
 
             EditorGUILayout.EndVertical();
         }

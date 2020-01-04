@@ -26,7 +26,7 @@ namespace Data.GameEvents
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(PlayerInfl))]
-    public class PlayerInflGInspector : Editor
+    public class PlayerInflGUInspector : Editor
     {
         private PlayerInfl _playerInfl;
 

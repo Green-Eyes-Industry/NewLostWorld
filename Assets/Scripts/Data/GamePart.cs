@@ -14,6 +14,7 @@ namespace Data
 
 #if UNITY_EDITOR
 
+        // Отображение главы в редакторе сюжета
         public bool windowSizeStady = false;
         public bool memberComment;
         public Rect windowRect;

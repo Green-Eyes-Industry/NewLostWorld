@@ -35,7 +35,7 @@ namespace Data.GameParts
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(SubEventPart))]
-    public class SubEventPartGInspector : Editor
+    public class SubEventPartGUInspector : Editor
     {
         private SubEventPart _subEventPart;
 

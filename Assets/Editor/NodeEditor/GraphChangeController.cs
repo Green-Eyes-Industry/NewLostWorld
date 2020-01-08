@@ -289,6 +289,8 @@ namespace Editor.NodeEditor
         private enum AddEventActions
         {
             CHECK_DECISION,
+            CHECK_HEALTH,
+            CHECK_MIND,
             CHECK_PLAYER_INFL,
             CHECK_POINT,
             EFFECT_INTERACT,
@@ -321,6 +323,8 @@ namespace Editor.NodeEditor
             else
             {
                 menu.AddItem(new GUIContent("Добавить событие/Контрольная точка"), false, _graphCc.AddEventMethod, AddEventActions.CHECK_POINT);
+                menu.AddItem(new GUIContent("Добавить событие/Проверка здоровья"), false, _graphCc.AddEventMethod, AddEventActions.CHECK_HEALTH);
+                menu.AddItem(new GUIContent("Добавить событие/Проверка рассудка"), false, _graphCc.AddEventMethod, AddEventActions.CHECK_MIND);
                 menu.AddItem(new GUIContent("Добавить событие/Важное решение"), false, _graphCc.AddEventMethod, AddEventActions.IMPORTANT_DECISION);
                 menu.AddItem(new GUIContent("Добавить событие/Проверка решения"), false, _graphCc.AddEventMethod, AddEventActions.CHECK_DECISION);
                 menu.AddItem(new GUIContent("Добавить событие/Влияние на игрока"), false, _graphCc.AddEventMethod, AddEventActions.PLAYER_INFL);
@@ -348,9 +352,11 @@ namespace Editor.NodeEditor
 
             switch (a)
             {
+                case AddEventActions.CHECK_POINT: nameEvent += "_CheckPoint.asset"; break;
+                case AddEventActions.CHECK_HEALTH: nameEvent += "_CheckHealth.asset"; break;
+                case AddEventActions.CHECK_MIND: nameEvent += "_CheckMind.asset"; break;
                 case AddEventActions.CHECK_DECISION: nameEvent += "_CheckDecision.asset"; break;
                 case AddEventActions.CHECK_PLAYER_INFL: nameEvent += "_CheckPlayerInfl.asset"; break;
-                case AddEventActions.CHECK_POINT: nameEvent += "_CheckPoint.asset"; break;
                 case AddEventActions.EFFECT_INTERACT: nameEvent += "_EffectInteract.asset"; break;
                 case AddEventActions.IMPORTANT_DECISION: nameEvent += "_ImportantDecision.asset"; break;
                 case AddEventActions.ITEM_INFL: nameEvent += "_ItemInfl.asset"; break;
@@ -364,6 +370,16 @@ namespace Editor.NodeEditor
 
             switch (a)
             {
+                case AddEventActions.CHECK_HEALTH:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(PlayerHealthCheck)), path + nameEvent);
+                    selectedNode.mainEvents.Add((PlayerHealthCheck)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(PlayerHealthCheck)));
+                    break;
+
+                case AddEventActions.CHECK_MIND:
+                    AssetDatabase.CreateAsset(CreateInstance(typeof(PlayerMindCheck)), path + nameEvent);
+                    selectedNode.mainEvents.Add((PlayerMindCheck)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(PlayerMindCheck)));
+                    break;
+
                 case AddEventActions.CHECK_DECISION:
                     AssetDatabase.CreateAsset(CreateInstance(typeof(CheckDecision)), path + nameEvent);
                     selectedNode.mainEvents.Add((CheckDecision)AssetDatabase.LoadAssetAtPath(path + nameEvent, typeof(CheckDecision)));

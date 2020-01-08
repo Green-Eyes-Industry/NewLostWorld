@@ -683,6 +683,22 @@ namespace Editor.NodeEditor
                                 CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(checkPlayerInfl.failPart, 0, true), eventFailColor);
                             }
                             break;
+
+                        case PlayerHealthCheck plHealthCheck:
+
+                            if (plHealthCheck.failPart != null && plHealthCheck.failPart != this)
+                            {
+                                CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(plHealthCheck.failPart, 0, true), eventFailColor);
+                            }
+                            break;
+
+                        case PlayerMindCheck plMindCheck:
+
+                            if (plMindCheck.failPart != null && plMindCheck.failPart != this)
+                            {
+                                CreateEventCurve(ConnectPosition(partNode, 1, true), ConnectPosition(plMindCheck.failPart, 0, true), eventFailColor);
+                            }
+                            break;
                     }
                 }
             }
@@ -807,19 +823,25 @@ namespace Editor.NodeEditor
             Texture eventIco;
             string pathToIco;
 
-            if (crEvent is CheckDecision) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckDecision.png";
-            else if (crEvent is CheckPlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckPlayerInfl.png";
-            else if (crEvent is CheckPoint) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckPoint.png";
-            else if (crEvent is EffectInteract) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/EffectInteract.png";
-            else if (crEvent is ImportantDecision) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ImportantDecision.png";
-            else if (crEvent is ItemInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInfl.png";
-            else if (crEvent is ItemInteract) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInteract.png";
-            else if (crEvent is NonPlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/NonPlayerInfl.png";
-            else if (crEvent is PlayerInfl) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/PlayerInfl.png";
-            else if (crEvent is LocationFind) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/LocationFind.png";
-            else if (crEvent is MemberTime) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/MemberTime.png";
-            else if (crEvent is RandomPart) pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/RandomPart.png";
-            else return null;
+            switch (crEvent)
+            {
+                case CheckDecision ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckDecision.png"; break;
+                case PlayerHealthCheck ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/PlayerHealthCheck.png"; break;
+                case PlayerMindCheck ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/PlayerMindCheck.png"; break;
+                case CheckPlayerInfl ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckPlayerInfl.png"; break;
+                case CheckPoint ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/CheckPoint.png"; break;
+                case EffectInteract ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/EffectInteract.png"; break;
+                case ImportantDecision ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ImportantDecision.png"; break;
+                case ItemInfl ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInfl.png"; break;
+                case ItemInteract ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/ItemInteract.png"; break;
+                case NonPlayerInfl ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/NonPlayerInfl.png"; break;
+                case PlayerInfl ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/PlayerInfl.png"; break;
+                case LocationFind ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/LocationFind.png"; break;
+                case MemberTime ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/MemberTime.png"; break;
+                case RandomPart ev: pathToIco = "Assets/Editor/NodeEditor/Images/EventsIco/RandomPart.png"; break;
+
+                default: pathToIco = ""; break;
+            }
 
             eventIco = (Texture)AssetDatabase.LoadAssetAtPath(pathToIco, typeof(Texture));
             return eventIco;

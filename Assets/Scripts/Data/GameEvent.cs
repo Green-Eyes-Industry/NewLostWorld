@@ -34,6 +34,8 @@ namespace Data
             GUI.backgroundColor = Color.white;
             switch (gameEvent)
             {
+                case PlayerHealthCheck pHealthCheck: PlayerHealthCheckGUInspector.ShowEventEditor(pHealthCheck); break;
+                case PlayerMindCheck pMindCheck: PlayerMindCheckGUInspector.ShowEventEditor(pMindCheck); break;
                 case CheckDecision cDecision: CheckDecisionGUInspector.ShowEventEditor(cDecision); break;
                 case CheckPlayerInfl cPlayer: CheckPlayerInflGUInspector.ShowEventEditor(cPlayer); break;
                 case CheckPoint cPoint: CheckPointGUInspector.ShowEventEditor(cPoint); break;

@@ -10,14 +10,15 @@ namespace Data
     public abstract class GameEvent : ScriptableObject
     {
         /// <summary> Старт события </summary>
-        public virtual bool EventStart() { return true; }
+        public virtual bool EventStart() => true;
 
         /// <summary> Глава при провале </summary>
-        public virtual GamePart FailPart() { return null; }
+        public virtual GamePart FailPart() => null;
 
         #region UNITY_EDITOR
 
         public bool editorEventFoldout;
+        public abstract string GetPathToIco();
 
         #endregion
     }

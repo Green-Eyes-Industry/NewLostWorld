@@ -27,8 +27,11 @@ namespace Data.GameEvents
         /// <summary> Вернуть главу провала </summary>
         public override GamePart FailPart() { return failPart; }
 
+        
+
 #if UNITY_EDITOR
         public int id;
+        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/CheckDecision.png";
 #endif
     }
 

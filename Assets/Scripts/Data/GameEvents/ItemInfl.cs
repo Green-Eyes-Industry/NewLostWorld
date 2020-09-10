@@ -29,16 +29,18 @@ namespace Data.GameEvents
                     MainController.instance.effectsController.LostItemMessage(useItem);
                     mPlayer.playerInventory.Remove(useItem);
                 }
+
                 return true;
             }
             else return false;
         }
 
         /// <summary> Вернуть главу провала </summary>
-        public override GamePart FailPart() { return failPart; }
+        public override GamePart FailPart() => failPart;
 
 #if UNITY_EDITOR
         public int id;
+        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/ItemInfl.png";
 #endif
 
     }

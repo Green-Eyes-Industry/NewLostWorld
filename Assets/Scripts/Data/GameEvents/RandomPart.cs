@@ -18,6 +18,10 @@ namespace Data.GameEvents
 
             return rand > chance ? second : first;
         }
+
+#if UNITY_EDITOR
+        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/CheckDecision.png";
+#endif
     }
 
 #if UNITY_EDITOR

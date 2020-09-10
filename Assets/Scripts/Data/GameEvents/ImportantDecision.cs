@@ -19,8 +19,11 @@ namespace Data.GameEvents
             return true;
         }
 
+        
+
 #if UNITY_EDITOR
         public int id;
+        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/ImportantDecision.png";
 #endif
     }
 

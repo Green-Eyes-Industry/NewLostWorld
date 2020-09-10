@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77596d61f2df5ea418d1a669dd47504e, type: 3}
-  m_Name: StoryData
+  m_Name: New story data
   m_EditorClassIdentifier: 
   storyDescript: 
   nodesData: []

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d562ba768f5e464ab58262676848bf5, type: 3}
   m_Name: MainSettings
   m_EditorClassIdentifier: 
-  lastPart: {fileID: 11400000, guid: 6f7375f5f517fd848b91687708ecf87c, type: 2}
+  lastPart: {fileID: 11400000, guid: 05f7cd31e6f04f045a9b708d85324502, type: 2}
   isSoundCheck: 1
   isVibrationCheck: 1
   isEffectCheck: 1

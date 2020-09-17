@@ -16,13 +16,13 @@ namespace Data.GameEvents
 
         /// <summary> Проверка на соответствие здоровья </summary>
         /// <returns> Вернет False при провале проверки </returns>
-        public override bool EventStart() => (MainController.instance.dataController.mainPlayer.playerHealth >= minHealth && MainController.instance.dataController.mainPlayer.playerHealth <= maxHealth);
+        public override bool EventStart()
+        {
+            return (MainController.instance.dataController.mainPlayer.playerHealth >= minHealth &&
+                MainController.instance.dataController.mainPlayer.playerHealth <= maxHealth);
+        }
 
-        public override GamePart FailPart() => failPart;
-        
-#if UNITY_EDITOR
-        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/PlayerHealthCheck.png";
-#endif
+        public override GamePart FailPart() { return failPart; }
     }
 
 #if UNITY_EDITOR
@@ -32,7 +32,7 @@ namespace Data.GameEvents
     {
         private PlayerHealthCheck _playerHealthCheck;
 
-        private void OnEnable() => _playerHealthCheck = (PlayerHealthCheck) target;
+        private void OnEnable() => _playerHealthCheck = (PlayerHealthCheck)target;
 
         public override void OnInspectorGUI() => ShowEventEditor(_playerHealthCheck);
 
@@ -42,8 +42,7 @@ namespace Data.GameEvents
 
             EditorGUILayout.BeginVertical("Box");
 
-            playerHealthCheck.failPart = (GamePart) EditorGUILayout.ObjectField("Глава провала : ",
-                playerHealthCheck.failPart, typeof(GamePart), true);
+            playerHealthCheck.failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", playerHealthCheck.failPart, typeof(GamePart), true);
 
             EditorGUILayout.BeginHorizontal();
 
@@ -54,10 +53,8 @@ namespace Data.GameEvents
 
             EditorGUILayout.BeginHorizontal();
 
-            playerHealthCheck.minHealth =
-                EditorGUILayout.IntSlider(playerHealthCheck.minHealth, 0, 100, GUILayout.Width(200));
-            playerHealthCheck.maxHealth =
-                EditorGUILayout.IntSlider(playerHealthCheck.maxHealth, 0, 100, GUILayout.Width(200));
+            playerHealthCheck.minHealth = EditorGUILayout.IntSlider(playerHealthCheck.minHealth, 0, 100, GUILayout.Width(200));
+            playerHealthCheck.maxHealth = EditorGUILayout.IntSlider(playerHealthCheck.maxHealth, 0, 100, GUILayout.Width(200));
 
             EditorGUILayout.EndHorizontal();
 

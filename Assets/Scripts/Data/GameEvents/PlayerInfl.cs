@@ -21,10 +21,6 @@ namespace Data.GameEvents
             mPlayer.playerMind += mindInfl;
             return true;
         }
-
-#if UNITY_EDITOR
-        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/PlayerInfl.png";
-#endif
     }
 
 #if UNITY_EDITOR

@@ -21,14 +21,15 @@ namespace Data.GameEvents
             if (nonPlayer.npToPlayerRatio < -10) nonPlayer.npToPlayerRatio = -10;
             else if (nonPlayer.npToPlayerRatio > 10) nonPlayer.npToPlayerRatio = 10;
 
-            if (!MainController.instance.dataController.mainPlayer.playerMeet.Contains(nonPlayer)) MainController.instance.dataController.mainPlayer.playerMeet.Add(nonPlayer);
-
+            if (!MainController.instance.dataController.mainPlayer.playerMeet.Contains(nonPlayer))
+            {
+                MainController.instance.dataController.mainPlayer.playerMeet.Add(nonPlayer);
+            }
             return true;
         }
 
 #if UNITY_EDITOR
         public int id;
-        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/NonPlayerInfl.png";
 #endif
 
     }
@@ -40,7 +41,7 @@ namespace Data.GameEvents
     {
         private NonPlayerInfl _nonPlayerInfl;
 
-        private void OnEnable() => _nonPlayerInfl = (NonPlayerInfl) target;
+        private void OnEnable() => _nonPlayerInfl = (NonPlayerInfl)target;
 
         public override void OnInspectorGUI() => ShowEventEditor(_nonPlayerInfl);
 
@@ -56,7 +57,7 @@ namespace Data.GameEvents
 
             for (int i = 0; i < names.Length; i++)
             {
-                NonPlayer nameConvert = (NonPlayer) allItems[i];
+                NonPlayer nameConvert = (NonPlayer)allItems[i];
 
                 if (nameConvert.npName == "") names[i] = nameConvert.name;
                 else names[i] = nameConvert.npName;
@@ -67,14 +68,13 @@ namespace Data.GameEvents
             if (allItems.Length > 0)
             {
                 nonPlayerInfl.id = EditorGUILayout.Popup(nonPlayerInfl.id, names);
-                nonPlayerInfl.nonPlayer = (NonPlayer) allItems[nonPlayerInfl.id];
+                nonPlayerInfl.nonPlayer = (NonPlayer)allItems[nonPlayerInfl.id];
             }
             else GUILayout.Label("Нет НПС персонажей");
 
             GUI.backgroundColor = Color.green;
-            if (GUILayout.Button("Создать", GUILayout.Width(70)))
-                AssetDatabase.CreateAsset(CreateInstance(typeof(NonPlayer)),
-                    "Assets/Resources/Players/NonPlayers/" + allItems.Length + "_NonPlayer.asset");
+            if (GUILayout.Button("Создать", GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(NonPlayer)),
+                "Assets/Resources/Players/NonPlayers/" + allItems.Length + "_NonPlayer.asset");
 
             EditorGUILayout.EndHorizontal();
 

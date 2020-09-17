@@ -25,7 +25,6 @@ namespace Data.GameEvents
 
 #if UNITY_EDITOR
         public int id;
-        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/MemberTime.png";
 #endif
     }
 

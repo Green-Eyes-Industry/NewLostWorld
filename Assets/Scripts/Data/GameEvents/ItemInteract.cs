@@ -29,7 +29,6 @@ namespace Data.GameEvents
                     MainController.instance.effectsController.AddItemMessage(gameItem);
                     mPlayer.playerInventory.Add(gameItem);
                 }
-
                 return true;
             }
             else
@@ -45,11 +44,10 @@ namespace Data.GameEvents
         }
 
         /// <summary> Вернуть главу провала </summary>
-        public override GamePart FailPart() => failPart;
+        public override GamePart FailPart() { return failPart; }
 
 #if UNITY_EDITOR
         public int id;
-        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/ItemInteract.png";
 #endif
     }
 
@@ -60,7 +58,7 @@ namespace Data.GameEvents
     {
         private ItemInteract _itemInteract;
 
-        private void OnEnable() => _itemInteract = (ItemInteract) target;
+        private void OnEnable() => _itemInteract = (ItemInteract)target;
 
         public override void OnInspectorGUI() => ShowEventEditor(_itemInteract);
 
@@ -76,7 +74,7 @@ namespace Data.GameEvents
 
             for (int i = 0; i < names.Length; i++)
             {
-                GameItem nameConvert = (GameItem) allItems[i];
+                GameItem nameConvert = (GameItem)allItems[i];
 
                 if (nameConvert.itemName == "") names[i] = nameConvert.name;
                 else names[i] = nameConvert.itemName;
@@ -87,32 +85,27 @@ namespace Data.GameEvents
             if (allItems.Length > 0)
             {
                 itemInteract.id = EditorGUILayout.Popup(itemInteract.id, names);
-                itemInteract.gameItem = (GameItem) allItems[itemInteract.id];
-                itemInteract.isAddOrLostItem =
-                    EditorGUILayout.Toggle(itemInteract.isAddOrLostItem, GUILayout.Width(20));
+                itemInteract.gameItem = (GameItem)allItems[itemInteract.id];
+                itemInteract.isAddOrLostItem = EditorGUILayout.Toggle(itemInteract.isAddOrLostItem, GUILayout.Width(20));
             }
             else GUILayout.Label("Нет предметов");
 
             GUI.backgroundColor = Color.green;
-            if (GUILayout.Button("Active", GUILayout.Width(70)))
-                AssetDatabase.CreateAsset(CreateInstance(typeof(UsableItem)),
-                    "Assets/Resources/GameItems/" + allItems.Length + "_UsableItem.asset");
-            if (GUILayout.Button("Pasive", GUILayout.Width(70)))
-                AssetDatabase.CreateAsset(CreateInstance(typeof(PasiveItem)),
-                    "Assets/Resources/GameItems/" + allItems.Length + "_PasiveItem.asset");
+            if (GUILayout.Button("Active", GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(UsableItem)),
+                "Assets/Resources/GameItems/" + allItems.Length + "_UsableItem.asset");
+            if (GUILayout.Button("Pasive", GUILayout.Width(70))) AssetDatabase.CreateAsset(CreateInstance(typeof(PasiveItem)),
+                "Assets/Resources/GameItems/" + allItems.Length + "_PasiveItem.asset");
 
             EditorGUILayout.EndHorizontal();
 
             GUI.backgroundColor = Color.white;
             if (!itemInteract.isAddOrLostItem)
-                itemInteract.failPart = (GamePart) EditorGUILayout.ObjectField("Глава провала : ",
-                    itemInteract.failPart, typeof(GamePart), true);
+                itemInteract.failPart = (GamePart)EditorGUILayout.ObjectField("Глава провала : ", itemInteract.failPart, typeof(GamePart), true);
 
             if (itemInteract.gameItem != null)
             {
-                if (itemInteract.gameItem is PasiveItem pasiveItem) PasiveItemGUInspector.ShowItemEditor(pasiveItem);
-                else if (itemInteract.gameItem is UsableItem usableItem)
-                    UsableItemGUInspector.ShowItemEditor(usableItem);
+                if(itemInteract.gameItem is PasiveItem pasiveItem) PasiveItemGUInspector.ShowItemEditor(pasiveItem);
+                else if (itemInteract.gameItem is UsableItem usableItem) UsableItemGUInspector.ShowItemEditor(usableItem);
             }
 
             EditorGUILayout.EndVertical();

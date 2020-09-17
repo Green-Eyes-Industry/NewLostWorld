@@ -14,10 +14,6 @@ namespace Data.GameEvents
             MainController.instance.dataController.SaveGlobalSettings();
             return true;
         }
-        
-        #if UNITY_EDITOR
-        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/CheckPoint.png";
-        #endif
     }
 
 #if UNITY_EDITOR

@@ -45,12 +45,12 @@ namespace Editor.NodeEditor
             {
                 CreateCurve(ConnectPosition(_sellectedToConnect, tempConnect),
                         new Rect(BehaviorEditor.mousePosition, new Vector2(0, 0)), Color.blue);
-                BehaviorEditor.instance.Repaint();
+                BehaviorEditor.trBehaviorEditor.Repaint();
             }
 
             BeginWindows();
 
-            BehaviorEditor.instance.Repaint();
+            BehaviorEditor.trBehaviorEditor.Repaint();
 
             if (eventGraph.eventParts.Count > 0)
             {
@@ -263,7 +263,7 @@ namespace Editor.NodeEditor
                 _selectedNode = null;
                 GraphChangeController.selectedNode = null;
                 SaveData();
-                BehaviorEditor.instance.Repaint();
+                BehaviorEditor.trBehaviorEditor.Repaint();
             }
         }
 
@@ -275,7 +275,7 @@ namespace Editor.NodeEditor
             for (int i = 0; i < eventGraph.eventParts.Count; i++)
             {
                 eventGraph.eventParts[i].windowRect.position += _drag;
-                BehaviorEditor.globalOffset += delta / eventGraph.eventParts.Count;
+                BehaviorEditor.offset += delta / eventGraph.eventParts.Count;
             }
 
             GUI.changed = true;

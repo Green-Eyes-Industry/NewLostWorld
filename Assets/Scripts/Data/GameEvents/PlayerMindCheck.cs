@@ -18,13 +18,13 @@ namespace Data.GameEvents
 
         /// <summary> Проверка на соответствие здоровья </summary>
         /// <returns> Вернет False при провале проверки </returns>
-        public override bool EventStart() => (MainController.instance.dataController.mainPlayer.playerHealth >= minMind && MainController.instance.dataController.mainPlayer.playerHealth <= maxMind);
+        public override bool EventStart()
+        {
+            return (MainController.instance.dataController.mainPlayer.playerHealth >= minMind &&
+                MainController.instance.dataController.mainPlayer.playerHealth <= maxMind);
+        }
 
-        public override GamePart FailPart() => failPart;
-
-#if UNITY_EDITOR
-        public override string GetPathToIco() => "Assets/Editor/NodeEditor/Images/EventsIco/PlayerMindCheck.png";
-#endif
+        public override GamePart FailPart() { return failPart; }
     }
 
 #if UNITY_EDITOR

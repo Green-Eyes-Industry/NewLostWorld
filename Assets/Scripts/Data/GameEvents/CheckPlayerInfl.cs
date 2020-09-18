@@ -17,10 +17,7 @@ namespace Data.GameEvents
 
         /// <summary> Check inflation </summary>
         /// <returns> Fail part </returns>
-        public override bool EventStart()
-        {
-            return nonPlayer.npToPlayerRatio >= value;
-        }
+        public override bool EventStart() => nonPlayer.npToPlayerRatio >= value;
 
         /// <summary> Return false part </summary>
         public override GamePart FailPart() { return failPart; }
@@ -55,8 +52,7 @@ namespace Data.GameEvents
             {
                 NonPlayer nameConvert = (NonPlayer)allItems[i];
 
-                if (nameConvert.npName == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert.npName;
+                names[i] = (nameConvert.npName == "") ? nameConvert.name : nameConvert.npName;
             }
 
             EditorGUILayout.BeginHorizontal(GUILayout.Height(20));

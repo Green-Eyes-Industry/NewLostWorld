@@ -106,17 +106,11 @@ namespace Editor.NodeEditor
         {
             Color baseConnectColor = new Color(1, 1, 1, 0.75f);
 
-            if (part.moveLeft != null)
-            {
-                if (eventGraph.eventParts.Contains(part.moveLeft) && part.moveLeft != this)
-                    CreateCurve(ConnectPosition(part, 0), part.moveLeft.windowRect, baseConnectColor);
-            }
+            if (part.moveLeft != null && eventGraph.eventParts.Contains(part.moveLeft) && part.moveLeft != this)
+                CreateCurve(ConnectPosition(part, 0), part.moveLeft.windowRect, baseConnectColor);
 
-            if (part.moveRight != null)
-            {
-                if (eventGraph.eventParts.Contains(part.moveRight) && part.moveRight != this)
-                    CreateCurve(ConnectPosition(part, 2), part.moveRight.windowRect, baseConnectColor);
-            }
+            if (part.moveRight != null && eventGraph.eventParts.Contains(part.moveRight) && part.moveRight != this)
+                CreateCurve(ConnectPosition(part, 2), part.moveRight.windowRect, baseConnectColor);
         }
 
         /// <summary> Позиция старта </summary>
@@ -154,7 +148,7 @@ namespace Editor.NodeEditor
         private void DrawEventConnectors(SubEventPart part)
         {
             if (part.isFail) return;
-            else if (part.isFinal) return;
+            if (part.isFinal) return;
 
             if (GUI.Button(ConnectPosition(part, 0), _emptyTexture, BehaviorEditor.storyData.graphSkin.FindStyle("Button")))
             {

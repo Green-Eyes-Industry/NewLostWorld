@@ -27,10 +27,7 @@ namespace Data.GameEvents
 
         public override void OnInspectorGUI() => ShowEventEditor(_checkPoint);
 
-        public static void ShowEventEditor(CheckPoint checkPoint)
-        {
-            GUILayout.Label("Контрольная точка");
-        }
+        public static void ShowEventEditor(CheckPoint checkPoint) => GUILayout.Label("Контрольная точка");
     }
 
 #endif

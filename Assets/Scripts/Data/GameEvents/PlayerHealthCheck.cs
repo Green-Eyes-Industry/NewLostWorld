@@ -16,11 +16,8 @@ namespace Data.GameEvents
 
         /// <summary> Проверка на соответствие здоровья </summary>
         /// <returns> Вернет False при провале проверки </returns>
-        public override bool EventStart()
-        {
-            return (MainController.instance.dataController.mainPlayer.playerHealth >= minHealth &&
-                MainController.instance.dataController.mainPlayer.playerHealth <= maxHealth);
-        }
+        public override bool EventStart() =>
+            (MainController.instance.dataController.mainPlayer.playerHealth >= minHealth && MainController.instance.dataController.mainPlayer.playerHealth <= maxHealth);
 
         public override GamePart FailPart() { return failPart; }
     }

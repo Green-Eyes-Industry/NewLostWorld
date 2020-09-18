@@ -129,10 +129,7 @@ namespace Helpers
             List<string> newAchiveList = new List<string>();
             List<Achivemants> newAchiveFileList = new List<Achivemants>();
 
-            for (int i = 0; i < obj.Length; i++)
-            {
-                _achivemants.Add((Achivemants)obj[i]);
-            }
+            for (int i = 0; i < obj.Length; i++) _achivemants.Add((Achivemants)obj[i]);
 
             for (int i = 0; i < _achivemants.Count; i++)
             {

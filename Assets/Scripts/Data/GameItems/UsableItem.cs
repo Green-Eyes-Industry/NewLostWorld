@@ -24,10 +24,7 @@ namespace Data.GameItems
             mPlayer.playerHealth += healthInf;
             mPlayer.playerMind += mindInf;
 
-            if (!mPlayer.playerEffects.Contains(itemEffect))
-            {
-                mPlayer.playerEffects.Add(itemEffect);
-            }
+            if (!mPlayer.playerEffects.Contains(itemEffect)) mPlayer.playerEffects.Add(itemEffect);
         }
     }
 

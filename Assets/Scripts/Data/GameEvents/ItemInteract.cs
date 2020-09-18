@@ -1,4 +1,5 @@
-﻿using Data.Characters;
+﻿using Controllers;
+using Data.Characters;
 using Data.GameItems;
 using UnityEditor;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace Data.GameEvents
 {
     [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Взаимодействие с предметом")]
-    public class ItemInteract : GameEvent
+    public class ItemInteract : GameEvent, IMessage
     {
         /// <summary> Получение или потеря </summary>
         public bool isAddOrLostItem;
@@ -22,33 +23,30 @@ namespace Data.GameEvents
         {
             Player mPlayer = MainController.instance.dataController.mainPlayer;
 
-            if (isAddOrLostItem)
-            {
-                if (!mPlayer.playerInventory.Contains(gameItem))
-                {
-                    MainController.instance.effectsController.AddItemMessage(gameItem);
-                    mPlayer.playerInventory.Add(gameItem);
-                }
-                return true;
-            }
-            else
-            {
-                if (mPlayer.playerInventory.Contains(gameItem))
-                {
-                    MainController.instance.effectsController.LostItemMessage(gameItem);
-                    mPlayer.playerInventory.Remove(gameItem);
-                    return true;
-                }
-                else return false;
-            }
+            MainController.instance.effectsController.ShowMessage(this);
+            
+            if (isAddOrLostItem && !mPlayer.playerInventory.Contains(gameItem)) mPlayer.playerInventory.Add(gameItem);
+            else if (!mPlayer.playerInventory.Contains(gameItem)) return false;
+            else mPlayer.playerInventory.Remove(gameItem);
+            
+            return true;
         }
 
         /// <summary> Вернуть главу провала </summary>
         public override GamePart FailPart() { return failPart; }
 
+        public string GetText()
+        {
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
+            return ((isAddOrLostItem && !mPlayer.playerInventory.Contains(gameItem)) ? "Получен предмет\n" : "Потерян предмет\n") + gameItem.itemName;
+        }
+
+        public AnimController.MessangeType GetAnimationType() => AnimController.MessangeType.ITEM_MS;
+        
 #if UNITY_EDITOR
         public int id;
 #endif
+        
     }
 
 #if UNITY_EDITOR
@@ -76,8 +74,7 @@ namespace Data.GameEvents
             {
                 GameItem nameConvert = (GameItem)allItems[i];
 
-                if (nameConvert.itemName == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert.itemName;
+                names[i] = (nameConvert.itemName == "") ? nameConvert.name : nameConvert.itemName;
             }
 
             EditorGUILayout.BeginHorizontal(GUILayout.Height(20));

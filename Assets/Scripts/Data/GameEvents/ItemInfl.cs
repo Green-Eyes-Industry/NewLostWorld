@@ -1,11 +1,12 @@
-﻿using Data.Characters;
+﻿using Controllers;
+using Data.Characters;
 using Data.GameItems;
 using UnityEditor;
 using UnityEngine;
 
 namespace Data.GameEvents
 {
-    public class ItemInfl : GameEvent
+    public class ItemInfl : GameEvent, IMessage
     {
         /// <summary> Уничтожить в процессе </summary>
         public bool isRemove;
@@ -24,23 +25,25 @@ namespace Data.GameEvents
             if (mPlayer.playerInventory.Contains(useItem))
             {
                 useItem.UseThisItem();
-                if (isRemove)
-                {
-                    MainController.instance.effectsController.LostItemMessage(useItem);
-                    mPlayer.playerInventory.Remove(useItem);
-                }
-                return true;
+                if (!isRemove) return true;
+                
+                MainController.instance.effectsController.ShowMessage(this);
+                mPlayer.playerInventory.Remove(useItem);
             }
-            else return false;
+            
+            return false;
         }
 
         /// <summary> Вернуть главу провала </summary>
         public override GamePart FailPart() { return failPart; }
 
+        public string GetText() => "Использован предмет\n" + useItem.itemName;
+
+        public AnimController.MessangeType GetAnimationType() => AnimController.MessangeType.ITEM_MS;
+        
 #if UNITY_EDITOR
         public int id;
 #endif
-
     }
 
 #if UNITY_EDITOR
@@ -68,8 +71,7 @@ namespace Data.GameEvents
             {
                 UsableItem nameConvert = (UsableItem)allItems[i];
 
-                if (nameConvert.itemName == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert.itemName;
+                names[i] = (nameConvert.itemName == "") ? nameConvert.name : nameConvert.itemName;
             }
 
             EditorGUILayout.BeginHorizontal(GUILayout.Height(20));

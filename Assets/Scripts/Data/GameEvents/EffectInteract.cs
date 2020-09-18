@@ -1,4 +1,5 @@
-﻿using Data.Characters;
+﻿using Controllers;
+using Data.Characters;
 using UnityEditor;
 using UnityEngine;
 using Data.GameEffects;
@@ -6,7 +7,7 @@ using Data.GameEffects;
 namespace Data.GameEvents
 {
     [CreateAssetMenu(fileName = "New event", menuName = "Игровые обьекты/Новый эвент/Взаимодействие с эффектом")]
-    public class EffectInteract : GameEvent
+    public class EffectInteract : GameEvent, IMessage
     {
         /// <summary> Эффект </summary>
         public GameEffect gameEffect;
@@ -22,30 +23,26 @@ namespace Data.GameEvents
         {
             Player mPlayer = MainController.instance.dataController.mainPlayer;
 
-            if (isAddOrRemove)
-            {
-                if (!mPlayer.playerEffects.Contains(gameEffect))
-                {
-                    MainController.instance.effectsController.AddEffectMessage(gameEffect);
-                    mPlayer.playerEffects.Add(gameEffect);
-                }
-                return true;
-            }
-            else
-            {
-                if (mPlayer.playerEffects.Contains(gameEffect))
-                {
-                    MainController.instance.effectsController.LostEffectMessage(gameEffect);
-                    mPlayer.playerEffects.Remove(gameEffect);
-                    return true;
-                }
-                else return false;
-            }
+            MainController.instance.effectsController.ShowMessage(this);
+            
+            if (isAddOrRemove && !mPlayer.playerEffects.Contains(gameEffect)) mPlayer.playerEffects.Add(gameEffect);
+            else if (!mPlayer.playerEffects.Contains(gameEffect)) return false;
+            else mPlayer.playerEffects.Remove(gameEffect);
+            
+            return true;
         }
 
         /// <summary> Вернуть главу провала </summary>
         public override GamePart FailPart() { return failPart; }
 
+        public string GetText()
+        {
+            Player mPlayer = MainController.instance.dataController.mainPlayer;
+            return ((isAddOrRemove && !mPlayer.playerEffects.Contains(gameEffect)) ? "Получен еффект\n" : "Снят еффект\n") + gameEffect.nameEffect;
+        }
+
+        public AnimController.MessangeType GetAnimationType() => AnimController.MessangeType.EFFECT_MS;
+        
 #if UNITY_EDITOR
         public int id;
 #endif
@@ -75,9 +72,7 @@ namespace Data.GameEvents
             for (int i = 0; i < names.Length; i++)
             {
                 GameEffect nameConvert = (GameEffect)allItems[i];
-
-                if (nameConvert.nameEffect == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert.nameEffect;
+                names[i] = (nameConvert.nameEffect == "") ? nameConvert.name : nameConvert.nameEffect;
             }
 
             EditorGUILayout.BeginHorizontal(GUILayout.Height(20));

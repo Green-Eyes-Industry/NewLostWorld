@@ -15,10 +15,7 @@ namespace Data.GameParts
         /// <summary> Проверка главы </summary>
         /// <param name="currentPart"> Текущая глава </param>
         /// <returns> True если вы добрались к последней главе </returns>
-        public bool CheckEvent(GamePart currentPart)
-        {
-            return currentPart == movePart[2];
-        }
+        public bool CheckEvent(GamePart currentPart) => currentPart == movePart[2];
     }
 
 #if UNITY_EDITOR
@@ -78,9 +75,7 @@ namespace Data.GameParts
                         else GUI.backgroundColor = Color.white;
 
                         EditorGUILayout.BeginHorizontal("Button");
-                        if (_eventPart.eventParts[i].comment == null)
-                            EditorGUILayout.LabelField(_eventPart.eventParts[i].name);
-                        else EditorGUILayout.LabelField(_eventPart.eventParts[i].comment);
+                        EditorGUILayout.LabelField((_eventPart.eventParts[i].comment == null) ? _eventPart.eventParts[i].name : _eventPart.eventParts[i].comment);
                         EditorGUILayout.EndHorizontal();
 
                         GUILayout.EndHorizontal();

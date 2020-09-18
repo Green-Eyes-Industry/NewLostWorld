@@ -253,9 +253,7 @@ namespace Controllers
         {
             KeyGameNames(false); // Загрузка значений
 
-            XElement el_player = new XElement(_playerData,
-                new XAttribute(_playerDataHealth, mainPlayer.playerHealth),
-                new XAttribute(_playerDataMind, mainPlayer.playerMind));
+            XElement el_player = new XElement(_playerData, new XAttribute(_playerDataHealth, mainPlayer.playerHealth), new XAttribute(_playerDataMind, mainPlayer.playerMind));
 
             XElement el_inventory = new XElement(_inventory);
             XElement el_playerEffect = new XElement(_effects);
@@ -265,13 +263,11 @@ namespace Controllers
             XElement el_meet = new XElement(_meet);
 
             foreach (GameItem item in mainPlayer.playerInventory) el_inventory.Add(new XElement(_inventoryData, item.name));
-            foreach (GameEffect effect in mainPlayer.playerEffects) el_playerEffect.Add(new XElement(_effectsData, effect.name,
-                new XAttribute(_effectsDataDuration, effect.durationEffect)));
+            foreach (GameEffect effect in mainPlayer.playerEffects) el_playerEffect.Add(new XElement(_effectsData, effect.name, new XAttribute(_effectsDataDuration, effect.durationEffect)));
             foreach (Decision dec in mainPlayer.playerDecisions) el_playerDecisions.Add(new XElement(_decisionData, dec.name));
             foreach (Note note in mainPlayer.playerNotes) el_playerNotes.Add(new XElement(_notesData, note.name));
             foreach (MapMark mark in mainPlayer.playerMap) el_playerLocations.Add(new XElement(_locationsData, mark.name));
-            foreach (NonPlayer nPlayer in mainPlayer.playerMeet) el_meet.Add(new XElement(_meetData, nPlayer.name,
-                new XAttribute(_meetDataRation, nPlayer.npToPlayerRatio)));
+            foreach (NonPlayer nPlayer in mainPlayer.playerMeet) el_meet.Add(new XElement(_meetData, nPlayer.name, new XAttribute(_meetDataRation, nPlayer.npToPlayerRatio)));
 
             // Сохранение значений
 
@@ -321,9 +317,7 @@ namespace Controllers
                 mainSettings.gameAchivemants = new List<Achivemants>();
 
                 foreach (XElement element in global_data.Element(_achives).Elements(_achivesData))
-                {
                     mainSettings.gameAchivemants.Add(Resources.Load<Achivemants>(_pathAchivemants + element.Value));
-                }
             }
 
             KeyGlobalNames(true); // Отгрузка ключей
@@ -346,9 +340,7 @@ namespace Controllers
                 mainPlayer.playerInventory = new List<GameItem>();
 
                 foreach (XElement element in global_data.Element(_inventory).Elements(_inventoryData))
-                {
                     mainPlayer.playerInventory.Add(Resources.Load<GameItem>(_pathItems + element.Value));
-                }
 
                 GameEffect nEffect;
                 mainPlayer.playerEffects = new List<GameEffect>();
@@ -366,23 +358,17 @@ namespace Controllers
                 mainPlayer.playerDecisions = new List<Decision>();
 
                 foreach (XElement element in global_data.Element(_decision).Elements(_decisionData))
-                {
                     mainPlayer.playerDecisions.Add(Resources.Load<Decision>(_pathDecisions + element.Value));
-                }
 
                 mainPlayer.playerNotes = new List<Note>();
 
                 foreach (XElement element in global_data.Element(_notes).Elements(_notesData))
-                {
                     mainPlayer.playerNotes.Add(Resources.Load<Note>(_pathNotes + element.Value));
-                }
 
                 mainPlayer.playerMap = new List<MapMark>();
 
                 foreach (XElement element in global_data.Element(_locations).Elements(_locationsData))
-                {
                     mainPlayer.playerMap.Add(Resources.Load<MapMark>(_pathLocations + element.Value));
-                }
 
                 NonPlayer nPlayer;
                 mainPlayer.playerMeet = new List<NonPlayer>();

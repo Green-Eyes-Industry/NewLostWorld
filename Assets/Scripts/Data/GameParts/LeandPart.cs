@@ -30,10 +30,7 @@ namespace Data.GameParts
 
             _leandPart.mainText = EditorGUILayout.TextArea(_leandPart.mainText, GUILayout.Height(100));
 
-            if (_leandPart.movePart[0] != null)
-            {
-                if (GUILayout.Button(_dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _leandPart.movePart[0] = null;
-            }
+            if (_leandPart.movePart[0] != null && GUILayout.Button(_dellConnect, GUILayout.Width(40), GUILayout.Height(40))) _leandPart.movePart[0] = null;
             else GUILayout.Label(_noneConnect, GUILayout.Width(40), GUILayout.Height(40));
 
             GUILayout.EndHorizontal();

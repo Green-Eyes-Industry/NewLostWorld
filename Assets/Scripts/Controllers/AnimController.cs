@@ -67,8 +67,7 @@ namespace Controllers
         /// <summary> Начало игры </summary>
         private void GameStart()
         {
-            if (thisPart == null && MainController.instance.dataController.mainSettings.lastPart != null)
-                thisPart = MainController.instance.dataController.mainSettings.lastPart;
+            if (thisPart == null && MainController.instance.dataController.mainSettings.lastPart != null) thisPart = MainController.instance.dataController.mainSettings.lastPart;
             else if (thisPart == null) thisPart = startPart;
             NextPart(thisPart);
         }
@@ -148,8 +147,7 @@ namespace Controllers
             MainController.instance.uIController.GameButton(1, "Решения других игроков");
             MainController.instance.uIController.ShowFinalAchiveIco(part.newAchive);
 
-            if (!MainController.instance.dataController.mainSettings.gameAchivemants.Contains(part.newAchive))
-                MainController.instance.dataController.mainSettings.gameAchivemants.Add(part.newAchive);
+            if (!MainController.instance.dataController.mainSettings.gameAchivemants.Contains(part.newAchive)) MainController.instance.dataController.mainSettings.gameAchivemants.Add(part.newAchive);
             MainController.instance.dataController.SaveGlobalSettings();
         }
 

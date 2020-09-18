@@ -92,8 +92,7 @@ namespace Controllers
         public void TimeEvent(bool isStart, float timeSec)
         {
             _isEventStarted = isStart;
-            if (isStart) _timeForEvent = (1 / timeSec);
-            else _timeForEvent = 0f;
+            _timeForEvent = (isStart) ? (1 / timeSec) : 0f;
         }
 
         /// <summary> Таймер в главе эвента </summary>
@@ -126,15 +125,12 @@ namespace Controllers
         /// <summary> Слежение глаза в меню </summary>
         private void EyeWatching()
         {
-            if (_isGyroEnable)
-            {
-                if (_mainGyro.gravity.y > 0) _eyeFixPosition.y = (_mainGyro.gravity.y * 20) * -1;
-                else _eyeFixPosition.y = (_mainGyro.gravity.y * 90) * -1;
+            if (!_isGyroEnable) return;
+            
+            _eyeFixPosition.y = (_mainGyro.gravity.y > 0) ? (_mainGyro.gravity.y * 20) * -1 : (_mainGyro.gravity.y * 90) * -1;
+            _eyeFixPosition.x = (_mainGyro.gravity.x * 50) * -1;
 
-                _eyeFixPosition.x = (_mainGyro.gravity.x * 50) * -1;
-
-                eyeCenter.anchoredPosition = _eyeFixPosition;
-            }
+            eyeCenter.anchoredPosition = _eyeFixPosition;
         }
 
         #endregion
@@ -226,9 +222,7 @@ namespace Controllers
                     effectCase[i].sprite = MainController.instance.dataController.mainPlayer.playerEffects[i].icoEffect;
 
                     effectAreaCase[i].enabled = true;
-                    effectAreaCase[i].sprite = (MainController.instance.dataController.mainPlayer.playerEffects[i] is Data.GameEffects.PositiveEffect) ?
-                        effectAreaPositive : effectAreaNegative;
-
+                    effectAreaCase[i].sprite = (MainController.instance.dataController.mainPlayer.playerEffects[i] is Data.GameEffects.PositiveEffect) ? effectAreaPositive : effectAreaNegative;
                 }
                 else
                 {
@@ -286,17 +280,12 @@ namespace Controllers
         public void ShowAchiveDescript(Achivemants achive) => achiveDescriptText.text = achive.achiveDescript;
 
         /// <summary> Отобразить значек получаемого достижения </summary>
-        public void ShowFinalAchiveIco(Achivemants achive)
-        {
-            finalAchiveIco.sprite = achive.achiveIco;
-        }
+        public void ShowFinalAchiveIco(Achivemants achive) => finalAchiveIco.sprite = achive.achiveIco;
 
         /// <summary> Переключение кнопок в меню подробностей инвентаря </summary>
         public void DeactivateInventButton(bool isAct)
         {
-            if (isAct) inventNoButtonText.text = "Нет";
-            else inventNoButtonText.text = "Назад";
-
+            inventNoButtonText.text = (isAct) ? "Нет" : "Назад";
             inventYesButton.SetActive(isAct);
         }
 
@@ -309,8 +298,7 @@ namespace Controllers
         {
             yield return new WaitForSeconds(waitTime);
 
-            string mainText = MainController.instance.dataController.mainSettings.lastPart !=
-                MainController.instance.animController.startPart ? "Продолжить" : "Новая игра";
+            string mainText = MainController.instance.dataController.mainSettings.lastPart != MainController.instance.animController.startPart ? "Продолжить" : "Новая игра";
 
             menuButton[0].text = mainText;
             menuButton[1].text = "Настройки";

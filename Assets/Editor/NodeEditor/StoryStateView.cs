@@ -143,10 +143,7 @@ public class StoryStateView : EditorWindow
 
             EditorGUILayout.LabelField(dt.nameLocation);
 
-            if (dt.partLocation != null)
-            {
-                if (GUILayout.Button("Показать " + dt.partLocation.name)) Selection.activeObject = dt.partLocation;
-            }
+            if (dt.partLocation != null && GUILayout.Button("Показать " + dt.partLocation.name)) Selection.activeObject = dt.partLocation;
             else EditorGUILayout.LabelField("Глава перехода не добавлена");
 
             if (GUILayout.Button("Найти", GUILayout.Width(_buttonSize))) Selection.activeObject = dt;
@@ -171,10 +168,7 @@ public class StoryStateView : EditorWindow
 
             EditorGUILayout.LabelField(dt.noteName);
 
-            if (dt.partNote != null)
-            {
-                if (GUILayout.Button("Показать " + dt.partNote.name)) Selection.activeObject = dt.partNote;
-            }
+            if (dt.partNote != null && GUILayout.Button("Показать " + dt.partNote.name)) Selection.activeObject = dt.partNote;
             else EditorGUILayout.LabelField("Глава перехода не добавлена");
 
             if (GUILayout.Button("Найти", GUILayout.Width(_buttonSize))) Selection.activeObject = dt;

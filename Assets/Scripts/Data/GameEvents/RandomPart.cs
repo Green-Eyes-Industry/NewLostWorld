@@ -58,7 +58,7 @@ namespace Data.GameEvents
                 GUI.backgroundColor = Color.white;
                 randomPart.randomChance[i] = EditorGUILayout.IntSlider(randomPart.randomChance[i], 0, 100);
 
-                if(i < randomPart.partRandom.Length - 1) EditorGUILayout.Space();
+                if (i < randomPart.partRandom.Length - 1) EditorGUILayout.Space();
             }
 
             EditorGUILayout.EndVertical();

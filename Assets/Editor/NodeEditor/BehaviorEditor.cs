@@ -63,10 +63,7 @@ namespace Editor.NodeEditor
 
         private void OnFocus()
         {
-            if (EditorApplication.isPlaying)
-            {
-                EditorApplication.isPaused = true;
-            }
+            if (EditorApplication.isPlaying) EditorApplication.isPaused = true;
             if (EventEditor.eventEditor == null) EventEditor.eventEditor = (EventEditor)CreateInstance(typeof(EventEditor));
 
             drawWindow = true;
@@ -138,10 +135,7 @@ namespace Editor.NodeEditor
                 if (GUILayout.Button("Сценарий", GUILayout.Width(100))) Selection.activeObject = _storyData;
 
                 if (_mainSettings == null) _mainSettings = (GameSettings)Resources.Load("BaseParameters");
-                else
-                {
-                    if (GUILayout.Button("Данные", GUILayout.Width(100), GUILayout.Height(18))) Selection.activeObject = _mainSettings;
-                }
+                else if (GUILayout.Button("Данные", GUILayout.Width(100), GUILayout.Height(18))) Selection.activeObject = _mainSettings;
 
                 GUI.backgroundColor = Color.green;
                 if (GUILayout.Button("Сохранить", GUILayout.Width(100), GUILayout.Height(18))) SaveData();
@@ -170,16 +164,10 @@ namespace Editor.NodeEditor
             {
                 GUI.backgroundColor = new Color(0.75f, 0.75f, 0.75f);
 
-                if (EditorApplication.isPlaying)
+                if (EditorApplication.isPlaying && MainController.instance.animController.thisPart != null && isWatchOnPlay && MainController.instance.animController.thisPart == part)
                 {
-                    if (MainController.instance.animController.thisPart != null && isWatchOnPlay)
-                    {
-                        if (MainController.instance.animController.thisPart == part)
-                        {
-                            FocusPart(part);
-                            GUI.backgroundColor = Color.blue;
-                        }
-                    }
+                    FocusPart(part);
+                    GUI.backgroundColor = Color.blue;
                 }
                 else
                 {
@@ -194,15 +182,10 @@ namespace Editor.NodeEditor
                     }
                     else GUI.backgroundColor = DebugColor(part);
 
-
-                    if (_sellectedToConnect != null)
+                    if (_sellectedToConnect != null && _sellectedToConnect.Equals(part))
                     {
-                        if (_sellectedToConnect.Equals(part))
-                        {
-                            CreateCurve(ConnectPosition(part, tempConnect, false),
-                                new Rect(mousePosition, new Vector2(0, 0)), Color.blue);
-                            Repaint();
-                        }
+                        CreateCurve(ConnectPosition(part, tempConnect, false), new Rect(mousePosition, new Vector2(0, 0)), Color.blue);
+                        Repaint();
                     }
                 }
 
@@ -222,7 +205,6 @@ namespace Editor.NodeEditor
                 }
 
                 idWindow++;
-
             }
 
             EndWindows();
@@ -310,7 +292,6 @@ namespace Editor.NodeEditor
                         {
                             if (rnd.partRandom[0] == null) score += 10;
                             else if (rnd.randomChance[0] == 0) score++;
-
                         }
                         else if (part is ChangePart)
                         {
@@ -384,13 +365,10 @@ namespace Editor.NodeEditor
         /// <summary> Отрисовка подключений и логика их работы </summary>
         private void DrawConnectPoint(GamePart bn)
         {
-            if (bn is TextPart)
+            if (bn is TextPart && GUI.Button(ConnectPosition(bn, 0, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
             {
-                if (GUI.Button(ConnectPosition(bn, 0, false), _emptyTexture, _storyData.graphSkin.FindStyle("Button")))
-                {
-                    ConnectorClick(0, bn);
-                    tempConnect = 0;
-                }
+                ConnectorClick(0, bn);
+                tempConnect = 0;
             }
             else if (bn is ChangePart)
             {
@@ -512,16 +490,13 @@ namespace Editor.NodeEditor
 
             for (int i = 0; i < _storyData.nodesData.Count; i++)
             {
-                if (_storyData.nodesData[i] != null)
+                if (_storyData.nodesData[i] != null && _storyData.nodesData[i].windowRect.Contains(mousePosition))
                 {
-                    if (_storyData.nodesData[i].windowRect.Contains(mousePosition))
-                    {
-                        _isClickOnWindow = true;
-                        _selectedNode = _storyData.nodesData[i];
-                        GraphChangeController.selectedNode = _storyData.nodesData[i];
-                        Selection.activeObject = _storyData.nodesData[i];
-                        break;
-                    }
+                    _isClickOnWindow = true;
+                    _selectedNode = _storyData.nodesData[i];
+                    GraphChangeController.selectedNode = _storyData.nodesData[i];
+                    Selection.activeObject = _storyData.nodesData[i];
+                    break;
                 }
             }
 
@@ -534,24 +509,21 @@ namespace Editor.NodeEditor
         {
             for (int i = 0; i < _storyData.nodesData.Count; i++)
             {
-                if (_storyData.nodesData[i] != null)
+                if (_storyData.nodesData[i] == null) continue;
+                if (!_storyData.nodesData[i].windowRect.Contains(mousePosition)) continue;
+                
+                if (_sellectedToConnect != null)
                 {
-                    if (_storyData.nodesData[i].windowRect.Contains(mousePosition))
-                    {
-                        if (_sellectedToConnect != null)
-                        {
-                            _sellectedToConnect.movePart[_sellectionId] = _storyData.nodesData[i];
-                            _sellectedToConnect = null;
-                        }
-                        else
-                        {
-                            _selectedNode = _storyData.nodesData[i];
-                            GraphChangeController.selectedNode = _storyData.nodesData[i];
-                            Selection.activeObject = _storyData.nodesData[i];
-                        }
-                        break;
-                    }
+                    _sellectedToConnect.movePart[_sellectionId] = _storyData.nodesData[i];
+                    _sellectedToConnect = null;
                 }
+                else
+                {
+                    _selectedNode = _storyData.nodesData[i];
+                    GraphChangeController.selectedNode = _storyData.nodesData[i];
+                    Selection.activeObject = _storyData.nodesData[i];
+                }
+                break;
             }
         }
 
@@ -560,13 +532,12 @@ namespace Editor.NodeEditor
         {
             _drag = delta;
 
-            if (_storyData.nodesData != null)
+            if (_storyData.nodesData == null) return;
+            
+            for (int i = 0; i < _storyData.nodesData.Count; i++)
             {
-                for (int i = 0; i < _storyData.nodesData.Count; i++)
-                {
-                    _storyData.nodesData[i].windowRect.position += _drag;
-                    offset += _drag / _storyData.nodesData.Count;
-                }
+                _storyData.nodesData[i].windowRect.position += _drag;
+                offset += _drag / _storyData.nodesData.Count;
             }
 
             GUI.changed = true;
@@ -575,30 +546,23 @@ namespace Editor.NodeEditor
         /// <summary> Нажатие на Delete </summary>
         private void DeleteKeyDown()
         {
-            if (_selectedNode != null)
+            if (_selectedNode == null) return;
+            
+            if (_selectedNode is EventPart evPr && AssetDatabase.IsValidFolder("Assets/Resources/GameParts/" + evPr.name))
             {
-                if (_selectedNode is EventPart evPr)
-                {
-                    if (AssetDatabase.IsValidFolder("Assets/Resources/GameParts/" + evPr.name))
-                    {
-                        for (int i = 0; i < evPr.eventParts.Count; i++)
-                        {
-                            AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(evPr.eventParts[i]));
-                        }
+                for (int i = 0; i < evPr.eventParts.Count; i++) AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(evPr.eventParts[i]));
 
-                        AssetDatabase.DeleteAsset("Assets/Resources/GameParts/" + evPr.name);
-                    }
-                }
-
-                _storyData.nodesData.Remove(_selectedNode);
-                AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNode));
-                _selectedNode = null;
-                GraphChangeController.selectedNode = null;
-                
-                drawWindow = true;
-                Repaint();
-                SaveData();
+                AssetDatabase.DeleteAsset("Assets/Resources/GameParts/" + evPr.name);
             }
+
+            _storyData.nodesData.Remove(_selectedNode);
+            AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNode));
+            _selectedNode = null;
+            GraphChangeController.selectedNode = null;
+                
+            drawWindow = true;
+            Repaint();
+            SaveData();
         }
 
         #endregion
@@ -612,10 +576,9 @@ namespace Editor.NodeEditor
 
             for (int i = 0; i < partNode.movePart.Length; i++)
             {
-                if (partNode.movePart[i] != null)
+                if (partNode.movePart[i] != null && storyData.nodesData.Contains(partNode.movePart[i]) && partNode.movePart[i] != this)
                 {
-                    if (storyData.nodesData.Contains(partNode.movePart[i]) && partNode.movePart[i] != this)
-                        CreateCurve(ConnectPosition(partNode, i, false), partNode.movePart[i].windowRect, baseConnectColor);
+                    CreateCurve(ConnectPosition(partNode, i, false), partNode.movePart[i].windowRect, baseConnectColor);
                 }
             }
 
@@ -788,32 +751,29 @@ namespace Editor.NodeEditor
 
             GUIStyle st = new GUIStyle();
 
-            if (partNode.mainEvents != null)
+            if (partNode.mainEvents == null) return;
+            
+            for (int i = 0; i < partNode.mainEvents.Count; i++)
             {
-                for (int i = 0; i < partNode.mainEvents.Count; i++)
+                if (i < 6)
                 {
-                    if (i < 6)
-                    {
-                        GUI.Box(new Rect(
-                    partNode.windowRect.x + (sizeEvent * i),
-                    partNode.windowRect.y + partNode.windowRect.height,
-                    sizeEvent,
-                    sizeEvent),
-                    GetEventTextures(partNode.mainEvents[i]), st);
-                    }
-                    else
-                    {
-                        if (i < 11)
-                        {
-                            GUI.Box(new Rect(
-                        partNode.windowRect.x + (sizeEvent * (i - 6)),
-                        partNode.windowRect.y + partNode.windowRect.height + sizeEvent,
-                        sizeEvent,
-                        sizeEvent),
+                    GUI.Box(new Rect(
+                            partNode.windowRect.x + (sizeEvent * i),
+                            partNode.windowRect.y + partNode.windowRect.height,
+                            sizeEvent,
+                            sizeEvent),
                         GetEventTextures(partNode.mainEvents[i]), st);
-                        }
-                    }
                 }
+                else if (i < 11)
+                {
+                    GUI.Box(new Rect(
+                            partNode.windowRect.x + (sizeEvent * (i - 6)),
+                            partNode.windowRect.y + partNode.windowRect.height + sizeEvent,
+                            sizeEvent,
+                            sizeEvent),
+                        GetEventTextures(partNode.mainEvents[i]), st);
+                }
+                    
             }
         }
 

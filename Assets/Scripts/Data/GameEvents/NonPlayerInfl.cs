@@ -21,10 +21,7 @@ namespace Data.GameEvents
             if (nonPlayer.npToPlayerRatio < -10) nonPlayer.npToPlayerRatio = -10;
             else if (nonPlayer.npToPlayerRatio > 10) nonPlayer.npToPlayerRatio = 10;
 
-            if (!MainController.instance.dataController.mainPlayer.playerMeet.Contains(nonPlayer))
-            {
-                MainController.instance.dataController.mainPlayer.playerMeet.Add(nonPlayer);
-            }
+            if (!MainController.instance.dataController.mainPlayer.playerMeet.Contains(nonPlayer)) MainController.instance.dataController.mainPlayer.playerMeet.Add(nonPlayer);
             return true;
         }
 
@@ -59,8 +56,7 @@ namespace Data.GameEvents
             {
                 NonPlayer nameConvert = (NonPlayer)allItems[i];
 
-                if (nameConvert.npName == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert.npName;
+                names[i] = (nameConvert.npName == "") ? nameConvert.name : nameConvert.npName;
             }
 
             EditorGUILayout.BeginHorizontal(GUILayout.Height(20));

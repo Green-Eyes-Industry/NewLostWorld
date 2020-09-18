@@ -48,8 +48,7 @@ namespace Data.GameParts
             {
                 nameConvert = (Achivemants)allAchives[i];
 
-                if (nameConvert.achiveName == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert.achiveName;
+                names[i] = (nameConvert.achiveName == "") ? nameConvert.name : nameConvert.achiveName;
             }
 
             EditorGUILayout.BeginHorizontal(GUILayout.Height(20));
@@ -64,9 +63,7 @@ namespace Data.GameParts
             GUI.backgroundColor = Color.green;
 
             if (GUILayout.Button("Создать", GUILayout.Width(70)))
-            {
                 AssetDatabase.CreateAsset(CreateInstance(typeof(Achivemants)), "Assets/Resources/Achivemants/" + allAchives.Length + "_Achive.asset");
-            }
 
             EditorGUILayout.EndHorizontal();
 

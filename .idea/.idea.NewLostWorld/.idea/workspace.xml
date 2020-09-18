@@ -25,7 +25,48 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d2fbd1-1c82-48fb-863b-010cd2e72f0a" name="Default Changelist" comment="" />
+    <list default="true" id="f8d2fbd1-1c82-48fb-863b-010cd2e72f0a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMessage.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NewLostWorld/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NewLostWorld/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NewLostWorld/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NewLostWorld/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NewLostWorld/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NewLostWorld/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/NodeEditor/BehaviorEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/NodeEditor/BehaviorEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/NodeEditor/StoryData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/NodeEditor/StoryData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/AnimController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/AnimController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/DataController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/DataController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/EffectsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/EffectsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/GameController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/GameController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/SoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/SoundController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/UIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckDecision.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckDecision.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPlayerInfl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPlayerInfl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/EffectInteract.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/EffectInteract.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInfl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInfl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInteract.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInteract.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/MemberTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/MemberTime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/NonPlayerInfl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/NonPlayerInfl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerHealthCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerHealthCheck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerMindCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerMindCheck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/RandomPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/RandomPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameItems/UsableItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameItems/UsableItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/BattlePart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/BattlePart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/ChangePart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/ChangePart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/EventPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/EventPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/FinalPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/FinalPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/LeandPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/LeandPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/TextPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/TextPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Helpers/EffectHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Helpers/EffectHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Helpers/GameSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Helpers/GameSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/Packages-Update.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/Packages-Update.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,49 +76,114 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/UIController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/SoundController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/GameController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/ParentController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/50FE65A4-93A0-4952-84F1-E3562EFBE38D/02/cc5558dd/List`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Resources/MainSettings.asset" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Resources/GameParts/1_TextPart.asset" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/Character.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameItem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEffect.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GamePart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameItems/UsableItem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameItems/PasiveItem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/BattlePart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/TextPart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/MoviePart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/SubEventPart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/FinalPart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/EventPart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/ChangePart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/LeandPart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameParts/PazzlePart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/Characters/NonPlayer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/Characters/Player.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/AnimController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckDecision.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/MemberTime.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPoint.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInteract.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/IMessage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/EffectInteract.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerInfl.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/RandomPart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerMindCheck.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInfl.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/LocationFind.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerHealthCheck.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPlayerInfl.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/NonPlayerInfl.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ImportantDecision.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Resources/GameParts/1_TextPart.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///MainSettings.asset" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/AnimController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckDecision.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///1_TextPart.asset" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEffects/PositiveEffect.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEffects/NegativeEffect.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Helpers/MapMark.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Helpers/Note.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/NodeEditor/BehaviorEditor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPoint.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInteract.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Resources/MainSettings.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/EffectInteract.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/RandomPart.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInfl.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Helpers/AnimatorParameters.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Helpers/EffectHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Editor/NodeEditor/StoryData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Helpers/ButtonPressed.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Helpers/GameSettings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Helpers/Achivemants.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/EffectsController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Helpers/Decision.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/DataController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckDecision.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/RandomPart.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvent.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPlayerInfl.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPoint.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/EffectInteract.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ImportantDecision.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Observer/Observer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Observer/Messanger.cs" />
+        <option value="$PROJECT_DIR$/Assets/Editor/NodeEditor/BehaviorEditor.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMassage.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/GameController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/BattlePart.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/ChangePart.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/LeandPart.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/TextPart.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameItems/UsableItem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/RandomPart.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPoint.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckPlayerInfl.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/CheckDecision.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Helpers/EffectHelper.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MainController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Helpers/GameSettings.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/UIController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/SoundController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/DataController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/AnimController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/FinalPart.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameParts/EventPart.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerMindCheck.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerHealthCheck.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/NonPlayerInfl.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMessage.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameItem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInfl.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/ItemInteract.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/NonPlayerInfl.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/PlayerHealthCheck.cs" />
-        <option value="$PROJECT_DIR$/Assets/Editor/NodeEditor/BehaviorEditor.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/EffectInteract.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/EffectsController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/GameEvents/MemberTime.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1hJPzOE8MQAVMj1e3SKfwXRwkSo" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -118,7 +224,18 @@
       <workItem from="1599726499428" duration="2000" />
       <workItem from="1599726665845" duration="1441000" />
       <workItem from="1600368570713" duration="76000" />
+      <workItem from="1600368759397" duration="1997000" />
+      <workItem from="1600415324914" duration="5836000" />
+      <workItem from="1600428548472" duration="1794000" />
     </task>
+    <task id="LOCAL-00001" summary="Revert">
+      <created>1600368839282</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600368839282</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,11 +265,19 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Revert" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revert" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="794" y="221" key="RiderGenerateDialog" timestamp="1600429855696">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="221" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600429855696" />
     <state x="790" y="230" key="RollbackChangesDialog" timestamp="1600368617240">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -161,6 +286,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="476" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1599727871222" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600369000140">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600369000140" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1599727009185">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

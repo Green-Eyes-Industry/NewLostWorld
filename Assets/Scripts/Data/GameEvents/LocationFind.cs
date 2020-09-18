@@ -1,11 +1,12 @@
-﻿using Data.Characters;
+﻿using Controllers;
+using Data.Characters;
 using Helpers;
 using UnityEditor;
 using UnityEngine;
 
 namespace Data.GameEvents
 {
-    public class LocationFind : GameEvent
+    public class LocationFind : GameEvent, IMessage
     {
         /// <summary> Найденная локация </summary>
         public MapMark location;
@@ -17,13 +18,17 @@ namespace Data.GameEvents
 
             if (!mPlayer.playerMap.Contains(location))
             {
-                MainController.instance.effectsController.AddMapMarkMessage(location);
+                MainController.instance.effectsController.ShowMessage(this);
                 mPlayer.playerMap.Add(location);
             }
 
             return true;
         }
 
+        public string GetText() => "Найдена локация\n" + location.nameLocation;
+
+        public AnimController.MessangeType GetAnimationType() => AnimController.MessangeType.MAP_MS;
+        
 #if UNITY_EDITOR
         public int id;
 #endif

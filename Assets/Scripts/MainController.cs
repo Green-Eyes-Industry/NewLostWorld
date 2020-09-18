@@ -41,8 +41,5 @@ public class MainController : MonoBehaviour
         effectsController.Init();
     }
 
-    private void Update()
-    {
-        uIController.IUpdate();
-    }
+    private void Update() => uIController.IUpdate();
 }

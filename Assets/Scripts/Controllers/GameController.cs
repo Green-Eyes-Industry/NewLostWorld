@@ -10,8 +10,7 @@ namespace Controllers
     {
         public override void Init()
         {
-            MainController.instance.uIController.GameStartTextChange(
-                MainController.instance.dataController.mainSettings.previewText);
+            MainController.instance.uIController.GameStartTextChange(MainController.instance.dataController.mainSettings.previewText);
         }
 
         #region PARTS_EVENTS
@@ -85,7 +84,7 @@ namespace Controllers
             for (int i = 0; i < e.partRandom.Length; i++)
             {
                 if (e.partRandom[i] != null) MainController.instance.animController.thisPart.movePart[i] =
-                        e.Randomize(MainController.instance.animController.thisPart, e.partRandom[i], e.randomChance[i]);
+                    e.Randomize(MainController.instance.animController.thisPart, e.partRandom[i], e.randomChance[i]);
             }
         }
 

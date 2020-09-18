@@ -1,10 +1,7 @@
 ﻿namespace Controllers
 {
     public class SoundController : ParentController
-{
-        public override void Init()
-        {
-            
-        }
+    {
+        public override void Init() { }
     }
 }

@@ -11,12 +11,11 @@ namespace Helpers
         [System.Obsolete]
         private void OnMouseDown()
         {
-            if (MainController.instance.dataController.mainSettings.isEffectCheck)
-            {
-                particle.SetActive(true);
-                particle.GetComponent<ParticleSystem>().Play();
-                StartCoroutine(WaitForDisable());
-            }
+            if (!MainController.instance.dataController.mainSettings.isEffectCheck) return;
+            
+            particle.SetActive(true);
+            particle.GetComponent<ParticleSystem>().Play();
+            StartCoroutine(WaitForDisable());
         }
 
         /// <summary> Задержка отключения эффекта </summary>

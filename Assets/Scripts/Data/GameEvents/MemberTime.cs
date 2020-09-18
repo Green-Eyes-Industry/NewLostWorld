@@ -1,11 +1,12 @@
-﻿using Data.Characters;
+﻿using Controllers;
+using Data.Characters;
 using Helpers;
 using UnityEditor;
 using UnityEngine;
 
 namespace Data.GameEvents
 {
-    public class MemberTime : GameEvent
+    public class MemberTime : GameEvent, IMessage
     {
         /// <summary> Заметка </summary>
         public Note note;
@@ -16,13 +17,17 @@ namespace Data.GameEvents
 
             if (!mPlayer.playerNotes.Contains(note))
             {
-                MainController.instance.effectsController.AddNoteMessage(note);
+                MainController.instance.effectsController.ShowMessage(this);
                 mPlayer.playerNotes.Add(note);
             }
 
             return true;
         }
 
+        public string GetText() => "Новая заметка\n" + note.noteName;
+
+        public AnimController.MessangeType GetAnimationType() => AnimController.MessangeType.NOTE_MS;
+        
 #if UNITY_EDITOR
         public int id;
 #endif
@@ -53,8 +58,7 @@ namespace Data.GameEvents
             {
                 Note nameConvert = (Note)allNotes[i];
 
-                if(nameConvert.noteName == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert.noteName;
+                names[i] = (nameConvert.noteName == "") ? nameConvert.name : nameConvert.noteName;
             }
 
             EditorGUILayout.BeginHorizontal(GUILayout.Height(20));
@@ -69,9 +73,7 @@ namespace Data.GameEvents
             GUI.backgroundColor = Color.green;
 
             if (GUILayout.Button("Создать", GUILayout.Width(70)))
-            {
                 AssetDatabase.CreateAsset(CreateInstance(typeof(Note)), "Assets/Resources/Notes/" + allNotes.Length + "_Note.asset");
-            }
 
             EditorGUILayout.EndHorizontal();
 

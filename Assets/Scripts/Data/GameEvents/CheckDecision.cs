@@ -59,8 +59,7 @@ namespace Data.GameEvents
             {
                 Decision nameConvert = (Decision)allDecisions[i];
 
-                if (nameConvert.nameDecision == "") names[i] = nameConvert.name;
-                else names[i] = nameConvert.nameDecision;
+                names[i] = (nameConvert.nameDecision == "") ? nameConvert.name : nameConvert.nameDecision;
             }
 
             EditorGUILayout.BeginHorizontal();

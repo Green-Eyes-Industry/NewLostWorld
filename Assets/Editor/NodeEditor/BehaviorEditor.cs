@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Data;
+﻿using Data;
 using Data.GameEvents;
 using Data.GameParts;
 using Helpers;
@@ -551,7 +550,6 @@ namespace Editor.NodeEditor
             if (_selectedNode is EventPart evPr && AssetDatabase.IsValidFolder("Assets/Resources/GameParts/" + evPr.name))
             {
                 for (int i = 0; i < evPr.eventParts.Count; i++) AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(evPr.eventParts[i]));
-
                 AssetDatabase.DeleteAsset("Assets/Resources/GameParts/" + evPr.name);
             }
 
@@ -670,15 +668,8 @@ namespace Editor.NodeEditor
         /// <summary> Связь </summary>
         private void CreateCurve(Rect start, Rect end, Color colorCurve)
         {
-            Vector3 startPos = new Vector3(
-                start.x + start.width,
-                start.y + (start.height * .5f),
-                0);
-
-            Vector3 endPos = new Vector3(
-                end.x,
-                end.y + (end.height * .5f),
-                0);
+            Vector3 startPos = new Vector3(start.x + start.width,start.y + (start.height * .5f),0);
+            Vector3 endPos = new Vector3(end.x,end.y + (end.height * .5f),0);
 
             Vector3 startTan = startPos + Vector3.right * (Vector3.Distance(startPos, endPos) * 0.6f);
             Vector3 endTan = endPos + Vector3.left * (Vector3.Distance(startPos, endPos) * 0.6f);
@@ -689,15 +680,8 @@ namespace Editor.NodeEditor
         /// <summary> Связь </summary>
         private void CreateEventCurve(Rect start, Rect end, Color colorCurve)
         {
-            Vector3 startPos = new Vector3(
-                start.x + start.width,
-                start.y + (start.height * .5f),
-                0);
-
-            Vector3 endPos = new Vector3(
-                end.x,
-                end.y + (end.height * .5f),
-                0);
+            Vector3 startPos = new Vector3(start.x + start.width, start.y + (start.height * .5f), 0);
+            Vector3 endPos = new Vector3(end.x, end.y + (end.height * .5f), 0);
 
             Vector3 startTan = startPos + Vector3.up * (Vector3.Distance(startPos, endPos) * 0.6f);
             Vector3 endTan = endPos + Vector3.down * (Vector3.Distance(startPos, endPos) * 0.6f);
@@ -712,22 +696,11 @@ namespace Editor.NodeEditor
 
             if (isEvent)
             {
-                if(id == 0)
-                {
-                    nodeConnectPosition = new Rect(
+                nodeConnectPosition = new Rect(
                     partNode.windowRect.x + partNode.windowRect.width / 2,
-                    partNode.windowRect.y,
+                    (id == 0) ? partNode.windowRect.y : partNode.windowRect.y + partNode.windowRect.height,
                     0,
                     0);
-                }
-                else
-                {
-                    nodeConnectPosition = new Rect(
-                    partNode.windowRect.x + partNode.windowRect.width / 2,
-                    partNode.windowRect.y + partNode.windowRect.height,
-                    0,
-                    0);
-                }
             }
             else
             {
@@ -780,7 +753,6 @@ namespace Editor.NodeEditor
         /// <summary> Получить текстуру эвента </summary>
         private Texture GetEventTextures(GameEvent crEvent)
         {
-            Texture eventIco;
             string pathToIco;
 
             switch (crEvent)
@@ -802,9 +774,8 @@ namespace Editor.NodeEditor
 
                 default: pathToIco = ""; break;
             }
-
-            eventIco = (Texture)AssetDatabase.LoadAssetAtPath(pathToIco, typeof(Texture));
-            return eventIco;
+            
+            return (Texture)AssetDatabase.LoadAssetAtPath(pathToIco, typeof(Texture));;
         }
 
         /// <summary> Масштаб окна </summary>
@@ -856,11 +827,7 @@ namespace Editor.NodeEditor
         /// <summary> Насколько сокращать имя </summary>
         private int GetShortNameNode(string longName)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                if (longName[i] == '_') return i;
-            }
-
+            for (int i = 0; i < 4; i++) if (longName[i] == '_') return i;
             return 4;
         }
 
@@ -879,10 +846,7 @@ namespace Editor.NodeEditor
 
             object[] obj = Resources.LoadAll("");
             
-            for (int i = 0; i < obj.Length; i++)
-            {
-                if(obj[i] is ScriptableObject sc) EditorUtility.SetDirty(sc);
-            }
+            for (int i = 0; i < obj.Length; i++) if(obj[i] is ScriptableObject sc) EditorUtility.SetDirty(sc);
 
             EditorUtility.SetDirty(storyData);
         }

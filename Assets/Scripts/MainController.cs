@@ -2,12 +2,8 @@
 using UnityEngine;
 
 /// <summary> Управление игровыми параметрами </summary>
-[RequireComponent(typeof(DataController))]
-[RequireComponent(typeof(GameController))]
-[RequireComponent(typeof(AnimController))]
-[RequireComponent(typeof(UIController))]
-[RequireComponent(typeof(SoundController))]
-[RequireComponent(typeof(EffectsController))]
+[RequireComponent(typeof(DataController), typeof(GameController), typeof(AnimController))]
+[RequireComponent(typeof(SoundController), typeof(UIController), typeof(EffectsController))]
 public class MainController : MonoBehaviour
 {
     public static MainController instance;
